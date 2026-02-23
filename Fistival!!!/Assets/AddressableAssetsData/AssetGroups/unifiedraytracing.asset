@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: unifiedraytracing
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: unifiedraytracing
-  m_GUID: 5218d2dcdaafe844495d5393312b05f2
+  m_GUID: 364caf6e86411ae42bf9f3fded59a99a
   m_SerializeEntries:
   - m_GUID: 1ad53a96b58d3c3488dde4f14db1aaeb
     m_Address: Packages/com.unity.render-pipelines.core/Runtime/UnifiedRayTracing/Compute/RadeonRays/kernels/CopyPositions.compute
@@ -61,8 +61,8 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: 8ab416d9dca3df64c92a379c816f25ee, type: 2}
+  m_Settings: {fileID: 11400000, guid: 4f13c0acd88688e4983fb778f6c9271b, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 20c152cc249094d41abae9157964bbdd, type: 2}
-    - {fileID: 11400000, guid: 74403ee07dd39784c8370b55cdc3c699, type: 2}
+    - {fileID: 11400000, guid: 839603220079c5649bba951f82c00a51, type: 2}
+    - {fileID: 11400000, guid: cdffeb5f9032ab54a82a4c53702ce50d, type: 2}
