@@ -1,3 +1,4 @@
+using Manager.Core;
 using UnityEngine;
 using Utils;
 
@@ -10,6 +11,11 @@ namespace Manager
         public static Managers Instance { get { Init(); return _sInstance; } }
 
         #region core
+
+        private GameObjectPoolManager _goPoolMgr = new GameObjectPoolManager();
+
+        public GameObjectPoolManager GameObjectPoolManager { get { return Instance._goPoolMgr} }
+
         #endregion
 
         private static void Init()
