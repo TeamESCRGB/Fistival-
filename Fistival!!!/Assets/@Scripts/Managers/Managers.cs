@@ -13,8 +13,11 @@ namespace Manager
         #region core
 
         private GameObjectPoolManager _goPoolMgr = new GameObjectPoolManager();
+        private ResourceManager _resourceMgr = new ResourceManager();
 
-        public GameObjectPoolManager GameObjectPoolManager { get { return Instance._goPoolMgr} }
+        public GameObjectPoolManager GameObjectPoolManager { get { return Instance._goPoolMgr; } }
+        public ResourceManager ResourceManager { get { return Instance._resourceMgr; } }
+
 
         #endregion
 
