@@ -46,7 +46,7 @@ namespace Manager.Core
             AudioSource audioSource = _channels[(int)channel];
             AudioClip clip = LoadAudioClip(key);
 
-            if (clip is null)
+            if (clip == null)
             {
                 return;
             }
@@ -120,7 +120,7 @@ namespace Manager.Core
             }
 
             clip = Managers.Instance.ResourceManager.Load<AudioClip>(audioClipName);
-            if (clip is not null)
+            if (clip == null)
             {
                 _cachedSounds.Add(audioClipName, clip);
             }
