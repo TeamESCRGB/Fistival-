@@ -14,9 +14,13 @@ namespace Manager
 
         private GameObjectPoolManager _goPoolMgr = new GameObjectPoolManager();
         private ResourceManager _resourceMgr = new ResourceManager();
+        private GlobalSoundManager _gSoundMgr = new GlobalSoundManager();
+        private SceneManagerEx _sceneMgr = new SceneManagerEx();
 
         public GameObjectPoolManager GameObjectPoolManager { get { return Instance._goPoolMgr; } }
         public ResourceManager ResourceManager { get { return Instance._resourceMgr; } }
+        public GlobalSoundManager GlobalSoundManager { get { return Instance._gSoundMgr; } }
+        public SceneManagerEx SceneManagerEx {  get { return Instance._sceneMgr; } }
 
 
         #endregion
