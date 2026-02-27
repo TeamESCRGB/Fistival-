@@ -1,0 +1,127 @@
+using System;
+using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using Utils;
+using Defines;
+
+namespace UI
+{
+    public abstract class UIBase : MonoBehaviour
+    {
+        protected Dictionary<Type, UnityEngine.Object[]> _bindedObjects = new Dictionary<Type, UnityEngine.Object[]>();
+        protected bool _init = false;
+
+        public virtual bool Init()
+        {
+            if (_init)
+                return false;
+
+            _init = true;
+            return true;
+        }
+        private void Start()
+        {
+            Init();
+        }
+
+        protected void Bind<T>(Type type) where T : UnityEngine.Object
+        {
+            string[] names = Enum.GetNames(type);
+            UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];
+            _bindedObjects.Add(typeof(T), objects);
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                if (typeof(T) == typeof(GameObject))
+                {
+                    objects[i] = gameObject.GetChildGameObject(names[i], true);
+                }
+                else
+                {
+                    objects[i] = gameObject.GetChild<T>(names[i], true);
+                }
+
+                if (objects[i] == null)
+                {
+#if UNITY_EDITOR
+                    Debug.Log($"Failed to bind({names[i]})");
+#endif
+                }
+            }
+        }
+
+        protected void BindObject(Type type) { Bind<GameObject>(type); }
+        protected void BindImage(Type type) { Bind<Image>(type); }
+        protected void BindText(Type type) { Bind<TMP_Text>(type); }
+        protected void BindButton(Type type) { Bind<Button>(type); }
+        protected void BindToggle(Type type) { Bind<Toggle>(type); }
+
+
+        protected T Get<T>(int idx) where T : UnityEngine.Object
+        {
+            UnityEngine.Object[] objects = null;
+            if (_bindedObjects.TryGetValue(typeof(T), out objects) == false)
+            {
+                return null;
+            }
+            
+            return objects[idx] as T;
+        }
+
+        protected GameObject GetObject(int idx) { return Get<GameObject>(idx); }
+        protected TMP_Text GetText(int idx) { return Get<TMP_Text>(idx); }
+        protected Button GetButton(int idx) { return Get<Button>(idx); }
+        protected Image GetImage(int idx) { return Get<Image>(idx); }
+        protected Toggle GetToggle(int idx) { return Get<Toggle>(idx); }
+
+
+        public static void BindEvent(GameObject go, Action<PointerEventData> action = null, UIEventType type = UIEventType.CLICK)
+        {
+            UIEventHandler handler = go.GetOrAddComponent<UIEventHandler>();
+
+            switch (type)
+            {
+                case UIEventType.CLICK:
+                    handler.OnClickHandler -= action;
+                    handler.OnClickHandler += action;
+                    break;
+                case UIEventType.PRESSED:
+                    handler.OnPressedHandler -= action;
+                    handler.OnPressedHandler += action;
+                    break;
+                case UIEventType.POINTER_DOWN:
+                    handler.OnPointerDownHandler -= action;
+                    handler.OnPointerDownHandler += action;
+                    break;
+                case UIEventType.POINTER_UP:
+                    handler.OnPointerUpHandler -= action;
+                    handler.OnPointerUpHandler += action;
+                    break;
+                case UIEventType.DRAG:
+                    handler.OnDragHandler -= action;
+                    handler.OnDragHandler += action;
+                    break;
+                case UIEventType.BEGIN_DRAG:
+                    handler.OnBeginDragHandler -= action;
+                    handler.OnBeginDragHandler += action;
+                    break;
+                case UIEventType.END_DRAG:
+                    handler.OnEndDragHandler -= action;
+                    handler.OnEndDragHandler += action;
+                    break;
+                case UIEventType.POINTER_ENTER:
+                    handler.OnPointerEnteredHandler -= action;
+                    handler.OnPointerEnteredHandler += action;
+                    break;
+                case UIEventType.POINTER_EXIT:
+                    handler.OnPointerExitHandler -= action;
+                    handler.OnPointerExitHandler += action;
+                    break;
+            }
+        }
+    }
+}
