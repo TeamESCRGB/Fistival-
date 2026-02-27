@@ -28,12 +28,15 @@ namespace Manager.Core
                 return;
             }
 
+            Managers.Instance.ResetManagers();
             SceneManager.LoadScene(name);
         }
 
         private void RefreshNowSceneInstance(Scene scene, LoadSceneMode mode)
         {
             NowSceneInstance = GameObject.FindFirstObjectByType<SceneBase>();
+            Managers.Instance.UIManager.Init();
+            Managers.Instance.GlobalSoundManager.Init();
         }
 
 

@@ -40,14 +40,15 @@ namespace Manager
                 }
 
                 _sInstance = go.GetOrAddComponent<Managers>();
-
                 DontDestroyOnLoad(go);
             }
         }
 
         public void ResetManagers()
         {
-
+            _goPoolMgr.Clear();
+            _gSoundMgr.Clear();
+            _uiMgr.Clear();
         }
     }
 }
