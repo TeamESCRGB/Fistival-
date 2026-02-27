@@ -123,7 +123,7 @@ namespace Manager.Core
 
         public void ClosePopupUI()
         {
-            if (_uiPopupStack.Count <= 0)
+            if (_uiPopupStack.IsEmpty())//_uiPopupStack.Count <= 0
             {
                 return;
             }
@@ -134,7 +134,7 @@ namespace Manager.Core
             popup = null;
             _order--;
 
-            if(_uiPopupStack.Count <= 0)
+            if(_uiPopupStack.IsEmpty()) 
             {
                 IsPopupUIOn = false;
             }
@@ -142,7 +142,7 @@ namespace Manager.Core
 
         public void CloseAllPopupUI()
         {
-            while (_uiPopupStack.Count > 0)
+            while (_uiPopupStack.IsEmpty() == false)//_uiPopupStack.Count > 0
             {
                 ClosePopupUI();
             }
