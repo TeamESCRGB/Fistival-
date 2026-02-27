@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,14 +17,12 @@ namespace UI
         public virtual bool Init()
         {
             if (_init)
+            {
                 return false;
+            }
 
             _init = true;
             return true;
-        }
-        private void Start()
-        {
-            Init();
         }
 
         protected void Bind<T>(Type type) where T : UnityEngine.Object
