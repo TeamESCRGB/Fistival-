@@ -27,7 +27,7 @@ namespace Manager.Core
             }
         }
 
-        public void SetCanvas(GameObject go, bool sort = true, int sortOrder = 0)
+        public void SetCanvas(GameObject go, Vector2 referenceResolution, bool sort = true, int sortOrder = 0)
         {
             Canvas canvas = go.GetOrAddComponent<Canvas>();
             if (canvas != null)
@@ -40,7 +40,7 @@ namespace Manager.Core
             if (cs != null)
             {
                 cs.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                cs.referenceResolution = new Vector2(1080, 1920);
+                cs.referenceResolution = referenceResolution;//new Vector2(1920, 1080)
             }
 
             go.GetOrAddComponent<GraphicRaycaster>();
@@ -56,7 +56,7 @@ namespace Manager.Core
             }
         }
 
-        public T MakeWorldSpaceUI<T>(Transform parent = null, string name = null) where T : UIBase
+        public T MakeWorldSpaceUI<T>(Transform parent = null, string name = null, bool worldPositionStays = false) where T : UIBase
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -66,7 +66,7 @@ namespace Manager.Core
             GameObject go = Managers.Instance.ResourceManager.Instantiate(name);
             if (parent != null)
             {
-                go.transform.SetParent(parent);
+                go.transform.SetParent(parent,worldPositionStays);
             }
 
             Canvas canvas = go.GetOrAddComponent<Canvas>();
@@ -76,7 +76,7 @@ namespace Manager.Core
             return go.GetOrAddComponent<T>();
         }
 
-        public T MakeSubItem<T>(Transform parent = null, string name = null, bool pooling = true) where T : UIBase
+        public T MakeSubItem<T>(Transform parent = null, string name = null, bool pooling = true, bool worldPositionStays = false) where T : UIBase
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -84,11 +84,11 @@ namespace Manager.Core
             }
 
             GameObject go = Managers.Instance.ResourceManager.Instantiate(name, parent, pooling);
-            go.transform.SetParent(parent);
+            go.transform.SetParent(parent,worldPositionStays);
             return go.GetOrAddComponent<T>();
         }
 
-        public T ShowSceneUI<T>(string name = null) where T : UISceneBase
+        public T ShowSceneUI<T>(string name = null, bool worldPositionStays = false) where T : UISceneBase
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -99,12 +99,12 @@ namespace Manager.Core
             T sceneUI = go.GetOrAddComponent<T>();
             _uiScene = sceneUI;
 
-            go.transform.SetParent(_uiRoot.transform);
+            go.transform.SetParent(_uiRoot.transform,worldPositionStays);
 
             return sceneUI;
         }
 
-        public T ShowPopupUI<T>(string name = null) where T : UIPopupBase
+        public T ShowPopupUI<T>(string name = null, bool worldPositionStays = false) where T : UIPopupBase
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -115,7 +115,7 @@ namespace Manager.Core
             T popup = go.GetOrAddComponent<T>();
             _uiPopupStack.Push(popup);
 
-            go.transform.SetParent(_uiRoot.transform);
+            go.transform.SetParent(_uiRoot.transform,worldPositionStays);
             IsPopupUIOn = true;
 
             return popup;
