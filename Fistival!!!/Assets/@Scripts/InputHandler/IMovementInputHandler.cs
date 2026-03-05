@@ -4,9 +4,9 @@ namespace InputHandler
 {
     public interface IMovementInputHandler
     {
-        public void OnLeftMovementInputEvent(InputAction.CallbackContext callbackContext);
-        public void OnRightMovementInputEvent(InputAction.CallbackContext callbackContext);
-        public void OnJumpMovementInputEvent(InputAction.CallbackContext callbackContext);
-        public void OnDownMovementInputEvent(InputAction.CallbackContext callbackContext);
+        public void OnLeftMovementInputEvent(bool pressed);
+        public void OnRightMovementInputEvent(bool pressed);
+        public void OnJumpMovementInputEvent(bool pressed);
+        public void OnDownMovementInputEvent(bool pressed);
     }
 }
