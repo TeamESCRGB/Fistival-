@@ -1,0 +1,12 @@
+{
+  "objectDatas": [
+    {
+      "ObjectIndex": -666775,
+      "Damage": -666775,
+      "Weight": -666775,
+      "SpriteName": "BCK",
+      "AnimControllerName": "BCK",
+      "PhysicsMaterialName": "BCK"
+    }
+  ]
+}
