@@ -1,3 +1,4 @@
+using Assets._Scripts.Defines;
 using Data;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace Coordinator
     {
         protected PlayerInputCoordinator _inputCoordinator;
         protected CommonModeData _commonData;
+        public ModeTypes ModeType { get; protected set; }
 
         public virtual void Init(CommonModeData data)
         {
