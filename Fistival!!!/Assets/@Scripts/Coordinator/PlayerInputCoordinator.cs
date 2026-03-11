@@ -11,6 +11,7 @@ namespace Coordinator
         private IRMBInputHandler _rmbHandler;
         private IPointerMovementInputHandler _pointerHandler;
         private IMovementInputHandler _movementHandler;
+        private IDropInputHandler _dropHandler;
         private Vector2 _lastPos;
 
         public void SetLMBInputHandler(ILMBInputHandler handler)
@@ -28,6 +29,10 @@ namespace Coordinator
         public void SetMovementInputHandler(IMovementInputHandler handler)
         {
             _movementHandler=handler;
+        }
+        public void SetDropInputHandler(IDropInputHandler handler)
+        {
+            _dropHandler = handler;
         }
 
         public void OnDownMovementInputEvent(InputAction.CallbackContext callbackContext)
@@ -104,6 +109,15 @@ namespace Coordinator
                 return;
             }
             _rmbHandler?.OnRMBEvent(callbackContext.control.IsPressed(), _lastPos);
+        }
+
+        public void OnDropInput(InputAction.CallbackContext callbackContext)
+        {
+            if(callbackContext.started)
+            {
+                return;
+            }
+            _dropHandler?.OnDropEvent(callbackContext.control.IsPressed());
         }
     }
 }

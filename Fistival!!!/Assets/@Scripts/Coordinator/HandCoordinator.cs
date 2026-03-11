@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Coordinator
 {
-    public class HandCoordinator : MonoBehaviour, IRMBInputHandler
+    public class HandCoordinator : MonoBehaviour, IRMBInputHandler, IDropInputHandler
     {
         [SerializeField]
         private LayerMask _filter;
@@ -110,6 +110,14 @@ namespace Coordinator
                 _isCharging = false;
                 _mousePos = screenPos;
                 Throw();
+            }
+        }
+
+        public void OnDropEvent(bool pressed)
+        {
+            if(pressed)
+            {
+                Drop();
             }
         }
     }
