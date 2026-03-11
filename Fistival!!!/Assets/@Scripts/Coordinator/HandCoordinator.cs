@@ -1,3 +1,4 @@
+using Data;
 using InputHandler;
 using System;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace Coordinator
         private bool _isGrabbedClick = false;
 
         public event Action<int,int> OnChargeRateChanged;//now rate, max rate
+        public event Action<ObjectData> OnGrabbedObjectChanged;
 
         private void Update()
         {
@@ -54,6 +56,7 @@ namespace Coordinator
             _isGrabbedClick = false;
             _isCharging = false;
             OnChargeRateChanged = null;
+            OnGrabbedObjectChanged = null;
         }
 
         public void Drop()
@@ -64,6 +67,7 @@ namespace Coordinator
                 _grabbedObject = null;
                 _chargeCnt = 0;
                 OnChargeRateChanged?.Invoke(_chargeCnt,_chargeMax);
+                OnGrabbedObjectChanged?.Invoke(null);
             }        
         }
 
@@ -75,6 +79,7 @@ namespace Coordinator
                 _chargeCnt = 0;
                 _grabbedObject = null;
                 OnChargeRateChanged?.Invoke(_chargeCnt, _chargeMax);
+                OnGrabbedObjectChanged?.Invoke(null);
             }
         }
 
@@ -85,6 +90,7 @@ namespace Coordinator
             {
                 _grabbedObject = comp;
                 comp.PickUp(_anchor);
+                OnGrabbedObjectChanged?.Invoke(comp.GetSharedData());
             }
         }
 
