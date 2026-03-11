@@ -1,4 +1,4 @@
-using Assets._Scripts.Defines;
+using Defines;
 using Data;
 using UnityEngine;
 
