@@ -14,10 +14,12 @@ namespace Manager.Core
         //더 좋은 방법 찾기 전까지는 기존 방식으로 간다
 
         public Dictionary<int,ObjectData> ObjectDataDict { get; private set; }
+        public Dictionary<int,CommonModeData> CommonModeDataDict { get;private set; }
 
         public void Init()
         {
             ObjectDataDict = LoadJson<ObjectDataLoader, int, ObjectData>("ObjectData").MakeDict();
+            CommonModeDataDict = LoadJson<CommonModeDataLoader, int, CommonModeData>("CommonObjectData").MakeDict();
         }
 
         //솔직히, 이게 어떻게 가능한건지 아직 모르겠다

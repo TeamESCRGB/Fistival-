@@ -1,0 +1,10 @@
+{
+  "commonModeDatas": [
+    {
+      "CommonModeDataIdx": -666775,
+      "Damage": -666775,
+      "AttackCooldown": 666775.0,
+      "AnimControllerName" : "TestController"
+    }
+  ]
+}

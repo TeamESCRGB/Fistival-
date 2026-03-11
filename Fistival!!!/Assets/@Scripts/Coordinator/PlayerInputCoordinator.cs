@@ -35,6 +35,17 @@ namespace Coordinator
             _dropHandler = handler;
         }
 
+        public void Init()
+        {
+            _isDownTriggered = false;
+            _lmbHandler = null;
+            _rmbHandler = null;
+            _pointerHandler = null;
+            _movementHandler = null;
+            _dropHandler = null;
+            _lastPos = Vector2.zero;
+        }
+
         public void OnDownMovementInputEvent(InputAction.CallbackContext callbackContext)
         {
             if (callbackContext.started)
