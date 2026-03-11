@@ -19,7 +19,7 @@ namespace Manager.Core
         public void Init()
         {
             ObjectDataDict = LoadJson<ObjectDataLoader, int, ObjectData>("ObjectData").MakeDict();
-            CommonModeDataDict = LoadJson<CommonModeDataLoader, int, CommonModeData>("CommonObjectData").MakeDict();
+            CommonModeDataDict = LoadJson<CommonModeDataLoader, int, CommonModeData>("CommonModeData").MakeDict();
         }
 
         //솔직히, 이게 어떻게 가능한건지 아직 모르겠다
