@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Coordinator
 {
-    public class HandCoordinator : MonoBehaviour, IRMBInputHandler, IDropInputHandler
+    public class HandCoordinator : MonoBehaviour
     {
         [SerializeField]
         private LayerMask _objectFilter;
@@ -27,7 +27,7 @@ namespace Coordinator
 
         private bool _isCharging = false;
 
-        private Vector2 _mousePos;
+        public Vector2 MousePos { get; set; }
 
         private bool _isGrabbedClick = false;
 
@@ -109,7 +109,7 @@ namespace Coordinator
         {
             if(_grabbedObject != null)
             {
-                _grabbedObject.Throw((Camera.main.ScreenToWorldPoint(_mousePos) - _handAnchor.position).normalized,_parentRb2d.linearVelocity,_forceStep*_chargeCnt);
+                _grabbedObject.Throw((Camera.main.ScreenToWorldPoint(MousePos) - _handAnchor.position).normalized,_parentRb2d.linearVelocity,_forceStep*_chargeCnt);
                 _chargeCnt = 0;
                 _grabbedObject = null;
                 OnChargeRateChanged?.Invoke(_chargeCnt, _chargeMax);
@@ -128,36 +128,31 @@ namespace Coordinator
             }
         }
 
-        public void OnRMBEvent(bool pressed, Vector2 screenPos)
+        public void OnRMBPressed()
         {
-            if(pressed && _grabbedObject == null)
+            if (_grabbedObject == null)
             {
                 Pickup();
-                if(_grabbedObject != null)
+                if (_grabbedObject != null)
                 {
                     _isGrabbedClick = true;
                 }
             }
-            else if(pressed)
+            else
             {
                 _chargeTime = 0;
                 _chargeCnt = 1;
                 _isGrabbedClick = false;
                 _isCharging = true;
             }
-            else if(_isGrabbedClick == false)
-            {
-                _isCharging = false;
-                _mousePos = screenPos;
-                Throw();
-            }
         }
 
-        public void OnDropEvent(bool pressed)
+        public void OnRMBReleased()
         {
-            if(pressed)
+            if(_grabbedObject != null && _isGrabbedClick == false)
             {
-                Drop();
+                _isCharging = false;
+                Throw();
             }
         }
     }
