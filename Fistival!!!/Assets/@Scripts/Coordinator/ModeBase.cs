@@ -8,7 +8,7 @@ namespace Coordinator
     {
         protected PlayerInputCoordinator _inputCoordinator;
         protected CommonModeData _commonData;
-        protected bool IsUnlocked { get; set; } = false;
+        public bool IsUnlocked { get; set; } = false;
         public ModeTypes ModeType { get; protected set; }
 
         public virtual void Init(CommonModeData data)
