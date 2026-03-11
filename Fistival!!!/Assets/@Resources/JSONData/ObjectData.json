@@ -3,7 +3,8 @@
     {
       "ObjectIndex": -666775,
       "Damage": -666775,
-      "Durability" :  666775
+      "Durability": 666775,
+      "AbrasableLayerMask": 0,
       "Weight": -666775,
       "SpriteName": "BCK",
       "AnimControllerName": "BCK",
