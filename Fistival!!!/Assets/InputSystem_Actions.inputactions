@@ -68,6 +68,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DropInput",
+                    "type": "Button",
+                    "id": "0879bf4d-cbdd-4a99-a878-cc5f453a738e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -145,6 +154,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "DownTrigger_for_bug_fix",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8274fdb6-49f5-43d6-9cd7-632f3de0ecbd",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DropInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

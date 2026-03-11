@@ -40,6 +40,11 @@ namespace Coordinator
             _abrasableLayerMask = data.AbrasableLayerMask;
         }
 
+        public ObjectData GetSharedData()
+        {
+            return _data;
+        }
+
         public virtual bool Throw(in Vector2 dir,in Vector2 parentLinVelocity ,float force)
         {
             if(Drop(parentLinVelocity) == false)
