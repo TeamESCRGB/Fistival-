@@ -15,6 +15,7 @@ namespace Coordinator
         private Transform _checkBox;
         private Vector2 _vel;
         private Rigidbody2D _rb2d;
+        private Transform _parentTransform;
         private float _speed;
         private float _jumpPow;
 
@@ -27,6 +28,7 @@ namespace Coordinator
             _speed = speed;
             _jumpPow = jumpPow;
             _parentCol = _rb2d.gameObject.GetComponent<Collider2D>();
+            _parentTransform = _rb2d.transform;
         }
 
         private void FixedUpdate()
@@ -76,6 +78,7 @@ namespace Coordinator
             if (pressed)
             {
                 _vel.x = -_speed;
+                _parentTransform.eulerAngles = new Vector3(0, 180, 0);
             }
             else if(_vel.x == -_speed)
             {
@@ -88,6 +91,7 @@ namespace Coordinator
             if (pressed)
             {
                 _vel.x = _speed;
+                _parentTransform.eulerAngles = new Vector3(0, 0, 0);
             }
             else if(_vel.x == _speed)
             {

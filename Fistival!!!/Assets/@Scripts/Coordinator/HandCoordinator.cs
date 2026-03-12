@@ -8,6 +8,10 @@ namespace Coordinator
     public class HandCoordinator : MonoBehaviour
     {
         [SerializeField]
+        private Vector2 _reachBox;
+        [SerializeField]
+        private float _reachDistance;
+        [SerializeField]
         private LayerMask _objectFilter;
         [SerializeField]
         private Transform _handAnchor;
@@ -119,7 +123,7 @@ namespace Coordinator
 
         private void Pickup()
         {
-            var hit = Physics2D.BoxCast(_handAnchor.position, new Vector2(2, 2), 0, _handAnchor.right, 2, _objectFilter);
+            var hit = Physics2D.BoxCast(_handAnchor.position, _reachBox, 0, _handAnchor.right, _reachDistance, _objectFilter);
             if (hit.transform != null && hit.transform.gameObject.TryGetComponent<ObjectCoordinator>(out var comp))
             {
                 _grabbedObject = comp;
