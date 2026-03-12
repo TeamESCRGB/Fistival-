@@ -1,11 +1,13 @@
 {
   "objectDatas": [
     {
-      "ObjectIndex": -666775,
-      "Damage": -666775,
-      "Durability": 666775,
+      "ObjectIndex": 0,
+      "Damage": 1,
+      "Durability": 2,
       "AbrasableLayerMask": 0,
-      "Weight": -666775,
+      "Weight": 1,
+      "PlatformSpeedThreshold": 1,
+      "PlatformLayerMask": 1024,
       "SpriteName": "BCK",
       "AnimControllerName": "BCK",
       "PhysicsMaterialName": "BCK"
