@@ -13,7 +13,9 @@ namespace Coordinator
         private Collider2D _col2d;
         private int _durability = 1;
         private int _abrasableLayerMask = 1;
-
+        private float _platformSpeedThreshold=1;
+        private bool _isThrown = false;
+        
         private void Awake()
         {
             _rb2d = gameObject.GetOrAddComponent<Rigidbody2D>();
@@ -30,6 +32,7 @@ namespace Coordinator
                 return;
             }
             _data = data;
+            _platformSpeedThreshold = data.PlatformSpeedThreshold;
             transform.SetParent(null, false);
             _rb2d.bodyType = RigidbodyType2D.Dynamic;
             _col2d.enabled = true;
@@ -38,6 +41,25 @@ namespace Coordinator
             _rb2d.angularVelocity = 0;
             _durability = data.Durability;
             _abrasableLayerMask = data.AbrasableLayerMask;
+            _isThrown = false;
+        }
+
+        private void FixedUpdate()
+        {
+            if(_isThrown == false)
+            {
+                return;
+            }
+
+            if(_rb2d.linearVelocity.magnitude < _platformSpeedThreshold)
+            {
+                _isThrown = false;
+                _rb2d.excludeLayers &= ~_data.PlatformLayerMask;
+            }
+            else
+            {
+                _rb2d.excludeLayers |= _data.PlatformLayerMask;
+            }
         }
 
         public ObjectData GetSharedData()
@@ -51,6 +73,7 @@ namespace Coordinator
             {
                 return false;
             }
+            _isThrown = true;
             _rb2d.AddForce(dir*force,ForceMode2D.Impulse);
             return true;
         }
@@ -86,6 +109,7 @@ namespace Coordinator
             }
             else
             {
+                _isThrown = false;
                 _rb2d.linearVelocity = Vector2.zero;
                 _rb2d.angularVelocity = 0;
                 transform.SetParent(anchor,false);
