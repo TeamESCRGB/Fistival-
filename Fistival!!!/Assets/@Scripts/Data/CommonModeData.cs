@@ -9,6 +9,7 @@ namespace Data
             //ThrowPower = original.ThrowPower;
             AttackCooldown = original.AttackCooldown;
             MoveSpeed = original.MoveSpeed;
+            JumpPower = original.JumpPower;
             AnimControllerName = original.AnimControllerName;
         }
         public CommonModeData() { }
@@ -18,6 +19,7 @@ namespace Data
         //public float ThrowPower;
         public float AttackCooldown;
         public float MoveSpeed;
+        public float JumpPower;
         public string AnimControllerName;
     }
 }
