@@ -9,6 +9,7 @@ namespace Coordinator.Modes
     {
         private HandCoordinator _hand;
         private PlatformerMovementCoordinator _movCoordinator;
+        private float _objectWeight = 0;
         private void Awake()
         {
             _movCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
@@ -20,17 +21,39 @@ namespace Coordinator.Modes
         public override void Init(CommonModeData data)
         {
             base.Init(data);
-            _movCoordinator.Init(data.MoveSpeed,data.JumpPower,GetComponentInParent<Rigidbody2D>());
+            _movCoordinator.Init(data.MoveSpeed,data.JumpPower,_commonData.SlownessSensitivity,_commonData.MaxSlowness,GetComponentInParent<Rigidbody2D>());
             _inputCoordinator.SetDropInputHandler(this);
             _inputCoordinator.SetLMBInputHandler(this);
             _inputCoordinator.SetRMBInputHandler(this);
             _inputCoordinator.SetMovementInputHandler(_movCoordinator);
             _hand.Init(GetComponentInParent<Rigidbody2D>(), data.Damage, 0,Vector2.zero);//아니 이거 데이터에 추가해야되네
+            _hand.OnGrabbedObjectChanged+=OnGrabbedObjectChanged;
+            _hand.OnChargeRateChanged += OnChargeRateChanged;
+            _objectWeight = 0;
         }
 
         public override void DeInit()
         {
+            _hand.Drop();
             base.DeInit();
+        }
+
+        private void OnGrabbedObjectChanged(ObjectData objData)
+        {
+            if(objData == null)
+            {
+                _objectWeight = 0;
+            }
+            else
+            {
+                _objectWeight = objData.Weight;
+            }
+
+        }
+
+        private void OnChargeRateChanged(int now, int max)
+        {
+            _movCoordinator.SetSlowness(1/(1 + (now / max * _objectWeight)));
         }
 
         public void OnRMBEvent(bool pressed, Vector2 screenPos)

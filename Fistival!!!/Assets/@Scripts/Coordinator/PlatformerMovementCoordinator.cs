@@ -18,17 +18,24 @@ namespace Coordinator
         private Transform _parentTransform;
         private float _speed;
         private float _jumpPow;
+        private float _slowness;
+
+        private float _slownessSensitivity=1;
+        private float _maxSlowness=0;
 
         [SerializeField]
         private float _platformIgnoreThreshold;
 
-        public void Init(float speed,float jumpPow ,Rigidbody2D rb2d)
+        public void Init(float speed,float jumpPow ,float slownessSensitivity,float maxSlowness,Rigidbody2D rb2d)
         {
             _rb2d = rb2d;
             _speed = speed;
             _jumpPow = jumpPow;
             _parentCol = _rb2d.gameObject.GetComponent<Collider2D>();
             _parentTransform = _rb2d.transform;
+            _slowness = 1;
+            _maxSlowness = maxSlowness;
+            _slownessSensitivity = slownessSensitivity;
         }
 
         private void FixedUpdate()
@@ -37,9 +44,30 @@ namespace Coordinator
             {
                 return;
             }
+            Debug.Log(_slowness);
             var vel = _rb2d.linearVelocity;
-            vel.x = _vel.x;
+            vel.x = _vel.x * _slowness;
             _rb2d.linearVelocity = vel;
+        }
+
+        public void SetSlowness(float slowness)
+        {
+            if(_slownessSensitivity == 0)
+            {
+                _slowness = 1;
+                return;
+            }
+            _slowness = slowness/_slownessSensitivity;
+
+            if(_slowness >= 1)
+            {
+                _slowness = 1;
+            }
+            else if(_slowness <= _maxSlowness)
+            {
+                _slowness = _maxSlowness;
+            }
+            
         }
 
         public void OnDownMovementInputEvent(bool pressed)
