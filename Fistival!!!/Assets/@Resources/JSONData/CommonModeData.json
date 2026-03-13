@@ -10,6 +10,8 @@
       "CommonModeDataIdx": 0,
       "Damage": 2,
       "AttackCooldown": 2,
+      "SlownessSensitivity": 0.01,
+      "MaxSlowness": 0.5,
       "MoveSpeed": 5,
       "JumpPower": 6,
       "AnimControllerName": "TestController"

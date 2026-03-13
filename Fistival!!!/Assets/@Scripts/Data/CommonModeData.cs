@@ -9,6 +9,8 @@ namespace Data
             //ThrowPower = original.ThrowPower;
             AttackCooldown = original.AttackCooldown;
             MoveSpeed = original.MoveSpeed;
+            SlownessSensitivity = original.SlownessSensitivity;
+            MaxSlowness = original.MaxSlowness;
             JumpPower = original.JumpPower;
             AnimControllerName = original.AnimControllerName;
         }
@@ -19,6 +21,8 @@ namespace Data
         //public float ThrowPower;
         public float AttackCooldown;
         public float MoveSpeed;
+        public float SlownessSensitivity;
+        public float MaxSlowness;
         public float JumpPower;
         public string AnimControllerName;
     }

@@ -59,6 +59,19 @@ namespace Coordinator
             }
         }
 
+        public int GetMaxCharge()
+        {
+            return _chargeMax;
+        }
+
+        public void SetMaxCharge(int maxCharge)
+        {
+            if(maxCharge < 0)
+            {
+                maxCharge = 0;
+            }
+        }
+
         public void Attack()
         {
             var enemy = Physics2D.OverlapBox(_attackPivot.position, _attackBoxSize, 0, _attackableFilter);
