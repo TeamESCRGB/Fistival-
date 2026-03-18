@@ -1,3 +1,4 @@
+using Manager.Contents;
 using Manager.Core;
 using UnityEngine;
 using Utils;
@@ -9,6 +10,15 @@ namespace Manager
         private static Managers _sInstance = null;
 
         public static Managers Instance { get { Init(); return _sInstance; } }
+
+
+        #region Contents
+        private CooldownManager _cooldownMgr;
+
+        public CooldownManager CooldownManager { get { return Instance._cooldownMgr; } }
+
+        #endregion
+
 
         #region core
 
@@ -40,6 +50,9 @@ namespace Manager
                 }
 
                 _sInstance = go.GetOrAddComponent<Managers>();
+
+                _sInstance._cooldownMgr = go.GetOrAddComponent<CooldownManager>();
+
                 DontDestroyOnLoad(go);
             }
         }
