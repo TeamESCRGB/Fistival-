@@ -1,6 +1,5 @@
 using ComponentModule;
 using Manager;
-using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 
@@ -43,6 +42,8 @@ namespace Coordinator.Victims
 
         public T RequestComponent<T>() where T : class
         {
+            //나중에 기획 더 나오면 자주 쓰이는 컴포넌트들은 미리 내부에 저장해두고, 그게 아닌것들은 다른 경로에서 가져오도록 코드 짜둘 것
+            //솔직히 이거 자체가 solid위반이긴 한데, 그렇게 하기에는 성능이 너무 떨어질 가능성이 높음
             return GetComponent<T>();
         }
 
