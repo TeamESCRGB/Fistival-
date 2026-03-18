@@ -1,3 +1,6 @@
+using ComponentModule;
+using Manager;
+using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 
@@ -7,6 +10,7 @@ namespace Coordinator.Victims
     {
         //방어도 없다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
         private HPCoordinator _hpCoord;
+        private CooldownComponentModule _cooldownModule = null;
         private void Awake()
         {
             _hpCoord = gameObject.GetOrAddComponent<HPCoordinator>();
@@ -16,11 +20,25 @@ namespace Coordinator.Victims
         public void Init(int hp, int maxHP, float invincibilityTime)
         {
             _hpCoord.Init(hp, maxHP);
+            _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(invincibilityTime);
+        }
+
+        private void OnDisable()
+        {
+            if(_cooldownModule is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_cooldownModule);
+                _cooldownModule = null;
+            }
         }
 
         public bool CanAttack()
         {
-            return !_hpCoord.IsDead();//무적시간도 고려할 것
+            if(_cooldownModule is null)
+            {
+                return false;
+            }
+            return (_hpCoord.IsDead() == false) && _cooldownModule.IsCooldownEnded();//무적시간도 고려할 것
         }
 
         public T RequestComponent<T>() where T : class
@@ -42,8 +60,11 @@ namespace Coordinator.Victims
 
         public void StartInvincibleTime()
         {
-            //not implemented yet
-            //to be implemented when CooldownSystem
+            if(_cooldownModule is null)
+            {
+                return;
+            }
+            _cooldownModule.StartCooldown();
         }
     }
 }
