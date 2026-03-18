@@ -10,6 +10,7 @@ namespace Coordinator.Victims
         //방어도 없다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
         private HPCoordinator _hpCoord;
         private CooldownComponentModule _cooldownModule = null;
+        private int _maskedLayer = 0;
         private void Awake()
         {
             _hpCoord = gameObject.GetOrAddComponent<HPCoordinator>();
@@ -18,6 +19,7 @@ namespace Coordinator.Victims
 
         public void Init(int hp, int maxHP, float invincibilityTime)
         {
+            _maskedLayer = 1 << gameObject.layer;
             _hpCoord.Init(hp, maxHP);
             _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(invincibilityTime);
         }
@@ -68,9 +70,9 @@ namespace Coordinator.Victims
             _cooldownModule.StartCooldown();
         }
 
-        public int GetLayer()
+        public int GetMaskedLayer()
         {
-            return gameObject.layer;
+            return _maskedLayer;
         }
     }
 }

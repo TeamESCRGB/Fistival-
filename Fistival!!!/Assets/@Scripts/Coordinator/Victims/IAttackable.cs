@@ -6,6 +6,6 @@
         public T RequestComponent<T>() where T : class;
         public void TakeDamage(int damage);
         public void StartInvincibleTime();
-        public int GetLayer();
+        public int GetMaskedLayer();
     }
 }
