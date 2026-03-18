@@ -67,5 +67,10 @@ namespace Coordinator.Victims
             }
             _cooldownModule.StartCooldown();
         }
+
+        public int GetLayer()
+        {
+            return gameObject.layer;
+        }
     }
 }
