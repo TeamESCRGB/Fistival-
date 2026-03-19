@@ -1,3 +1,4 @@
+using Coordinator.Victims;
 using Data;
 using Manager;
 using UnityEngine;
@@ -11,20 +12,31 @@ namespace Coordinator
         private ObjectData _data;
         private Rigidbody2D _rb2d;
         private Collider2D _col2d;
+        private SkillCoordinatorBase _skillBase;
         private int _durability = 1;
-        private int _abrasableLayerMask = 1;
+        private int _abrasableLayerMask = 0;
         private float _platformSpeedThreshold=1;
+        private int _attackableLayer = 0;
         private bool _isThrown = false;
         
         private void Awake()
         {
             _rb2d = gameObject.GetOrAddComponent<Rigidbody2D>();
             _col2d = gameObject.GetOrAddComponent<Collider2D>();
+            _skillBase = gameObject.GetComponent<SkillCoordinatorBase>();
+
+#if UNITY_EDITOR
+            if (_skillBase == null)
+            {
+                Debug.LogError($"{name}에 SkillCoordinatorBase 상속받은 클레스가 없습니다.");
+            }
+#endif
+
         }
 
         public virtual void Init(ObjectData data)
         {
-            if(data == null)
+            if (data == null)
             {
 #if UNITY_EDITOR
                 Debug.LogError("data null");
@@ -42,6 +54,13 @@ namespace Coordinator
             _durability = data.Durability;
             _abrasableLayerMask = data.AbrasableLayerMask;
             _isThrown = false;
+            _skillBase.Init(0,data.Damage);
+        }
+
+        public void SetAttackableLayer(int maskedLayer)
+        {
+            _skillBase.SetAttackableLayer(maskedLayer);
+            _attackableLayer = maskedLayer;
         }
 
         private void FixedUpdate()
@@ -122,15 +141,31 @@ namespace Coordinator
 
         protected virtual void InternalCollisionHandler(Collision2D col)
         {
+            if(_isThrown == false)
+            {
+                return;
+            }
+
             if (col == null || col.gameObject == null)
             {
                 return;
             }
             
+            if(col.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
+            {
+                return;
+            }
+
             if(((1<<col.gameObject.layer) & _abrasableLayerMask) != 0)
             {
                 _durability--;
             }
+            else if (((1 << col.gameObject.layer) & _attackableLayer) != 0 && comp.CanAttack())
+            {
+                _durability--;
+            }
+
+            Managers.Instance.AttackManager.RequestAttack(comp,_skillBase, (int)(_skillBase.GetBaseDamage * _rb2d.linearVelocity.magnitude));
 
             if(_durability <= 0)
             {

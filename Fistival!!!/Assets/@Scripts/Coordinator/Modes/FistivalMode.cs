@@ -26,7 +26,7 @@ namespace Coordinator.Modes
             _inputCoordinator.SetLMBInputHandler(this);
             _inputCoordinator.SetRMBInputHandler(this);
             _inputCoordinator.SetMovementInputHandler(_movCoordinator);
-            _hand.Init(GetComponentInParent<Rigidbody2D>(), data.Damage, 0,Vector2.zero);//아니 이거 데이터에 추가해야되네
+            _hand.Init(GetComponentInParent<Rigidbody2D>(), data.Damage, data.AttackableLayers);//아니 이거 데이터에 추가해야되네
             _hand.OnGrabbedObjectChanged+=OnGrabbedObjectChanged;
             _hand.OnChargeRateChanged += OnChargeRateChanged;
             _objectWeight = 0;

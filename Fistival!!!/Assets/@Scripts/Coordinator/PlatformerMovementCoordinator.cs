@@ -44,7 +44,7 @@ namespace Coordinator
             {
                 return;
             }
-            Debug.Log(_slowness);
+
             var vel = _rb2d.linearVelocity;
             vel.x = _vel.x * _slowness;
             _rb2d.linearVelocity = vel;

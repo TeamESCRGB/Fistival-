@@ -95,9 +95,9 @@ namespace Coordinator
 
         }
 
-        public void Init(Rigidbody2D parentRb2d, int damage, LayerMask attackableFilter, in Vector2 attackBoxSize)
+        public void Init(Rigidbody2D parentRb2d, int damage, LayerMask attackableFilter)
         {
-            _attackBoxSize = attackBoxSize;
+            _attackBoxSize = _attackPivot.localScale;
             _attackableFilter = attackableFilter;
             _grabbedObject = null;
             _parentRb2d = parentRb2d;
@@ -126,11 +126,13 @@ namespace Coordinator
         {
             if(_grabbedObject != null)
             {
+                _grabbedObject.SetAttackableLayer(_attackableFilter);
                 _grabbedObject.Throw((Camera.main.ScreenToWorldPoint(MousePos) - _handAnchor.position).normalized,_parentRb2d.linearVelocity,_forceStep*_chargeCnt);
                 _chargeCnt = 0;
                 _grabbedObject = null;
                 OnChargeRateChanged?.Invoke(_chargeCnt, _chargeMax);
                 OnGrabbedObjectChanged?.Invoke(null);
+                
             }
         }
 

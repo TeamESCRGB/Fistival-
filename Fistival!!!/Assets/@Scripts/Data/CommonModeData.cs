@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Data
 {
     public class CommonModeData
@@ -8,6 +10,7 @@ namespace Data
             Damage = original.Damage;
             //ThrowPower = original.ThrowPower;
             AttackCooldown = original.AttackCooldown;
+            AttackableLayers = original.AttackableLayers;
             MoveSpeed = original.MoveSpeed;
             SlownessSensitivity = original.SlownessSensitivity;
             MaxSlowness = original.MaxSlowness;
@@ -20,6 +23,7 @@ namespace Data
         public int Damage;
         //public float ThrowPower;
         public float AttackCooldown;
+        public int AttackableLayers;
         public float MoveSpeed;
         public float SlownessSensitivity;
         public float MaxSlowness;
