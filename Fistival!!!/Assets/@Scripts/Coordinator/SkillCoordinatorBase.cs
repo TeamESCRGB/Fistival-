@@ -10,20 +10,18 @@ namespace Coordinator
 
         private int _baseDamage = 0;
 
-        public void Init(IReadOnlyList<int> attackableLayers, int baseDamage)
+        public void Init(int attackableLayers, int baseDamage)
         {
             _baseDamage = baseDamage;
             _attackableLayers = 0;
 
-            if (attackableLayers is null || attackableLayers.Count > 32)
-            {
-                return;
-            }
-            foreach(int layer in attackableLayers)
-            {
-                _attackableLayers |= (1 << layer);
-            }
+            SetAttackableLayer(attackableLayers);
 
+        }
+
+        public void SetAttackableLayer(int attackableLayers)
+        {
+            _attackableLayers = attackableLayers;
         }
 
         public virtual bool CanAttackTarget(IAttackable target)

@@ -10,6 +10,7 @@
       "CommonModeDataIdx": 0,
       "Damage": 2,
       "AttackCooldown": 2,
+      "AttackableLayers": 16,
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
       "MoveSpeed": 5,
