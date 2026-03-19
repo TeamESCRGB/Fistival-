@@ -2,16 +2,35 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
+using Utils;
 
 namespace Manager.Core
 {
     //string -> enum으로 방식 바꾸기
-    public class ResourceManager
+    public class ResourceManager : MonoBehaviour
     {
         private Dictionary<string, ValueTuple<int,UnityEngine.Object>> _resources
             = new Dictionary<string, ValueTuple<int, UnityEngine.Object>>();//리소스 키 / <참조카운트,리소스>
         private Dictionary<string, List<string>> _lableStatus
             = new Dictionary<string, List<string>>();//라벨 / 리스트(리소스 키 <= 자기가 로드한 리소스 키들)
+
+        private Queue<UnityEngine.GameObject> _destroyQueue = new Queue<UnityEngine.GameObject>(64);
+
+        public void Clear()
+        {
+            while (_destroyQueue.IsEmpty() == false)
+            {
+                Destroy(_destroyQueue.Dequeue());
+            }
+        }
+
+        private void LateUpdate()
+        {
+            while (_destroyQueue.IsEmpty() == false)
+            {
+                Destroy(_destroyQueue.Dequeue());
+            }
+        }
 
         public T Load<T>(string key) where T : UnityEngine.Object
         {
@@ -46,10 +65,16 @@ namespace Manager.Core
             return go;
         }
 
-        public void Destroy(GameObject go)
+        public void Destroy(GameObject go, bool destroyAtEndOfFrame = false)
         {
             if (go == null)
             {
+                return;
+            }
+
+            if(destroyAtEndOfFrame)
+            {
+                _destroyQueue.Enqueue(go);
                 return;
             }
 

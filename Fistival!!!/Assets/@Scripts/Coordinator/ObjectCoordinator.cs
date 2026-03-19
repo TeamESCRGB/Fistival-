@@ -169,7 +169,7 @@ namespace Coordinator
 
             if(_durability <= 0)
             {
-                Managers.Instance.ResourceManager.Destroy(gameObject);
+                Managers.Instance.ResourceManager.Destroy(gameObject,true);
             }
         }
 
