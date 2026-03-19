@@ -14,9 +14,9 @@ namespace Manager
 
         #region Contents
         private CooldownManager _cooldownMgr;
-
+        private AttackManager _attackMgr;
         public CooldownManager CooldownManager { get { return Instance._cooldownMgr; } }
-
+        public AttackManager AttackManager { get { return Instance._attackMgr; }  }
         #endregion
 
 
@@ -52,6 +52,7 @@ namespace Manager
                 _sInstance = go.GetOrAddComponent<Managers>();
 
                 _sInstance._cooldownMgr = go.GetOrAddComponent<CooldownManager>();
+                _sInstance._attackMgr = go.GetOrAddComponent<AttackManager>();
 
                 DontDestroyOnLoad(go);
             }
@@ -59,6 +60,7 @@ namespace Manager
 
         public void ResetManagers()
         {
+            _attackMgr.Clear();
             _goPoolMgr.Clear();
             _gSoundMgr.Clear();
             _uiMgr.Clear();

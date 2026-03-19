@@ -28,6 +28,12 @@ namespace Manager.Contents
             return (_reqQueue.Count, _isRequested);
         }
 
+        public void Clear()
+        {
+            _reqQueue.Clear();
+            _isRequested = false;
+        }
+
         private void LateUpdate()
         {
             if (_isRequested == false)
