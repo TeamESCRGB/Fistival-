@@ -1,5 +1,7 @@
+using Coordinator.Victims;
 using Data;
 using InputHandler;
+using Manager;
 using System;
 using UnityEngine;
 
@@ -43,6 +45,20 @@ namespace Coordinator
         private LayerMask _attackableFilter=0;
         private Vector2 _attackBoxSize;
 
+        private SkillCoordinatorBase _skillBase;
+
+        private void Awake()
+        {
+            _skillBase = _attackPivot.gameObject.GetComponent<SkillCoordinatorBase>();
+#if UNITY_EDITOR
+            if (_skillBase == null)
+            {
+                Debug.LogError($"{_attackPivot.name} 에 skillbase가 없습니다");
+
+            }
+#endif
+        }
+
         private void Update()
         {
             //게임 일시정지 로직 나중에 추가
@@ -75,6 +91,12 @@ namespace Coordinator
         public void Attack()
         {
             var enemy = Physics2D.OverlapBox(_attackPivot.position, _attackBoxSize, 0, _attackableFilter);
+
+            if(enemy == null || enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
+            {
+                return;
+            }
+
             //BoxOverlap에 필터링에 걸린것만 가져와서 수행.
             //없으면 실행 안함
             int totalDmg = _damage;
@@ -82,6 +104,7 @@ namespace Coordinator
             {
 
                 totalDmg += _grabbedObject.GetSharedData().Damage;
+
                 if(_grabbedObject.Smash() == false)
                 {
                     _grabbedObject = null;
@@ -90,8 +113,10 @@ namespace Coordinator
                     OnGrabbedObjectChanged?.Invoke(null);
                 }
             }
+
+            Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg);
             //공격하는 함수. 데미지: damage +  해서 OverlapBox써서 나중에 함
-            
+
 
         }
 
@@ -108,6 +133,8 @@ namespace Coordinator
             OnChargeRateChanged = null;
             OnGrabbedObjectChanged = null;
             _damage = damage;
+
+            _skillBase.Init(_attackableFilter,_damage);
         }
 
         public void Drop()
