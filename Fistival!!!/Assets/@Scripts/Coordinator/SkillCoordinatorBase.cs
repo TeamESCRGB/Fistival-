@@ -15,8 +15,13 @@ namespace Coordinator
             _baseDamage = baseDamage;
             _attackableLayers = 0;
 
-            _attackableLayers = attackableLayers;
+            SetAttackableLayer(attackableLayers);
 
+        }
+
+        public void SetAttackableLayer(int attackableLayers)
+        {
+            _attackableLayers = attackableLayers;
         }
 
         public virtual bool CanAttackTarget(IAttackable target)
