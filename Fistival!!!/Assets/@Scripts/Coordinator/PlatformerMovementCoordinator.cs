@@ -27,8 +27,12 @@ namespace Coordinator
         private float _slownessSensitivity=1;
         private float _maxSlowness=0;
 
+        private Vector3 _leftRotation = new Vector3(0, 180, 0);
+        private WaitForSeconds _platformEnableDelay;
+
         private void Awake()
         {
+            _platformEnableDelay = new WaitForSeconds(_platformIgnoreTime);
             _groundedCheckBox = transform.Find("@GroundedCheckBox");
         }
 
@@ -95,7 +99,7 @@ namespace Coordinator
         private IEnumerator DisablePlatform(Collider2D col)
         {
             Physics2D.IgnoreCollision(col,_parentCol);
-            yield return new WaitForSeconds(_platformIgnoreTime);
+            yield return _platformEnableDelay ;
             Physics2D.IgnoreCollision(col, _parentCol, false);
         }
 
@@ -112,7 +116,7 @@ namespace Coordinator
             if (pressed)
             {
                 _vel.x = -_speed;
-                _parentTransform.eulerAngles = new Vector3(0, 180, 0);
+                _parentTransform.eulerAngles = _leftRotation;
             }
             else if(_vel.x == -_speed)
             {
@@ -125,7 +129,7 @@ namespace Coordinator
             if (pressed)
             {
                 _vel.x = _speed;
-                _parentTransform.eulerAngles = new Vector3(0, 0, 0);
+                _parentTransform.eulerAngles = Vector3.zero;
             }
             else if(_vel.x == _speed)
             {
