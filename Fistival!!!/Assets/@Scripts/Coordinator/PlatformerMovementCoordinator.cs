@@ -30,6 +30,9 @@ namespace Coordinator
         private Vector3 _leftRotation = new Vector3(0, 180, 0);
         private WaitForSeconds _platformEnableDelay;
 
+        private bool _isLeftPressed = false;
+        private bool _isRightPressed = false;
+
         private void Awake()
         {
             _platformEnableDelay = new WaitForSeconds(_platformIgnoreTime);
@@ -46,6 +49,8 @@ namespace Coordinator
             _slowness = 1;
             _maxSlowness = maxSlowness;
             _slownessSensitivity = slownessSensitivity;
+            _isLeftPressed = false;
+            _isRightPressed = false;
         }
 
         private void FixedUpdate()
@@ -104,12 +109,14 @@ namespace Coordinator
         {
             if (pressed)
             {
+                _isLeftPressed = true;
                 _vel.x = -_speed;
                 _parentTransform.eulerAngles = _leftRotation;
             }
-            else if(_vel.x == -_speed)
+            else
             {
-                _vel.x = 0;
+                _isLeftPressed = false;
+                RestoreMovementState();
             }
         }
 
@@ -117,12 +124,30 @@ namespace Coordinator
         {
             if (pressed)
             {
+                _isRightPressed = true;
                 _vel.x = _speed;
                 _parentTransform.eulerAngles = Vector3.zero;
             }
-            else if(_vel.x == _speed)
+            else
             {
-                _vel.x = 0;
+                _isRightPressed = false;
+                RestoreMovementState();
+            }
+        }
+
+        private void RestoreMovementState()
+        {
+            _vel.x = 0;
+
+            if (_isLeftPressed)
+            {
+                _vel.x = -_speed;
+                _parentTransform.eulerAngles = _leftRotation;
+            }
+            else if(_isRightPressed)
+            {
+                _vel.x = _speed;
+                _parentTransform.eulerAngles = Vector3.zero;
             }
         }
 
