@@ -1,6 +1,5 @@
 using Coordinator.Victims;
 using Data;
-using InputHandler;
 using Manager;
 using System;
 using UnityEngine;
@@ -10,23 +9,23 @@ namespace Coordinator
     public class HandCoordinator : MonoBehaviour
     {
         [SerializeField]
-        private Vector2 _reachBox;
+        private Vector2 _pickupBoxcastSize;
         [SerializeField]
-        private float _reachDistance;
+        private float _pickupBoxcastDistance;
         [SerializeField]
-        private LayerMask _objectFilter;
+        private LayerMask _pickableObjectMask;
         [SerializeField]
         private Transform _handAnchor;
         [SerializeField]
-        private Transform _attackPivot;
+        private Transform _attackBox;
         private ObjectCoordinator _grabbedObject;
         private Rigidbody2D _parentRb2d;
 
-        private int _chargeMax = 3;
+        private int _maxChargeCnt = 3;
         private int _chargeCnt = 0;
 
         [SerializeField]
-        private float _forceStep=10;
+        private float _forcePerCharge=10;
         [SerializeField]
         private float _chargeTimeInterval=1;
         private float _chargeTime=0;
@@ -40,20 +39,20 @@ namespace Coordinator
         public event Action<int,int> OnChargeRateChanged;//now rate, max rate
         public event Action<ObjectData> OnGrabbedObjectChanged;
 
-        private int _damage;
+        private int _baseSmashDamage;
 
-        private LayerMask _attackableFilter=0;
+        private LayerMask _attackableMask=0;
         private Vector2 _attackBoxSize;
 
         private SkillCoordinatorBase _skillBase;
 
         private void Awake()
         {
-            _skillBase = _attackPivot.gameObject.GetComponent<SkillCoordinatorBase>();
+            _skillBase = _attackBox.gameObject.GetComponent<SkillCoordinatorBase>();
 #if UNITY_EDITOR
             if (_skillBase == null)
             {
-                Debug.LogError($"{_attackPivot.name} 에 skillbase가 없습니다");
+                Debug.LogError($"{_attackBox.name} 에 skillbase가 없습니다");
 
             }
 #endif
@@ -62,7 +61,7 @@ namespace Coordinator
         private void Update()
         {
             //게임 일시정지 로직 나중에 추가
-            if(_isCharging && _chargeCnt < _chargeMax)
+            if(_isCharging && _chargeCnt < _maxChargeCnt)
             {
                 _chargeTime += Time.deltaTime;
 
@@ -70,14 +69,14 @@ namespace Coordinator
                 {
                     _chargeTime = 0;
                     _chargeCnt += 1;
-                    OnChargeRateChanged?.Invoke(_chargeCnt,_chargeMax);
+                    OnChargeRateChanged?.Invoke(_chargeCnt,_maxChargeCnt);
                 }
             }
         }
 
         public int GetMaxCharge()
         {
-            return _chargeMax;
+            return _maxChargeCnt;
         }
 
         public void SetMaxCharge(int maxCharge)
@@ -86,12 +85,12 @@ namespace Coordinator
             {
                 maxCharge = 0;
             }
-            _chargeMax = maxCharge;
+            _maxChargeCnt = maxCharge;
         }
 
         public void Attack()
         {
-            var enemy = Physics2D.OverlapBox(_attackPivot.position, _attackBoxSize, 0, _attackableFilter);
+            var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBoxSize, 0, _attackableMask);
 
             if(enemy == null || enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
             {
@@ -100,7 +99,7 @@ namespace Coordinator
 
             //BoxOverlap에 필터링에 걸린것만 가져와서 수행.
             //없으면 실행 안함
-            int totalDmg = _damage;
+            int totalDmg = _baseSmashDamage;
             if(_grabbedObject != null)
             {
 
@@ -110,7 +109,7 @@ namespace Coordinator
                 {
                     _grabbedObject = null;
                     _chargeCnt = 0;
-                    OnChargeRateChanged?.Invoke(_chargeCnt, _chargeMax);
+                    OnChargeRateChanged?.Invoke(_chargeCnt, _maxChargeCnt);
                     OnGrabbedObjectChanged?.Invoke(null);
                 }
             }
@@ -121,10 +120,10 @@ namespace Coordinator
 
         }
 
-        public void Init(Rigidbody2D parentRb2d, int damage, LayerMask attackableFilter)
+        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
-            _attackBoxSize = _attackPivot.localScale;
-            _attackableFilter = attackableFilter;
+            _attackBoxSize = _attackBox.localScale;
+            _attackableMask = attackableFilter;
             _grabbedObject = null;
             _parentRb2d = parentRb2d;
             _chargeTime = 0;
@@ -133,9 +132,9 @@ namespace Coordinator
             _isCharging = false;
             OnChargeRateChanged = null;
             OnGrabbedObjectChanged = null;
-            _damage = damage;
+            _baseSmashDamage = baseSmashDamage;
 
-            _skillBase.Init(_attackableFilter,_damage);
+            _skillBase.Init(_attackableMask,_baseSmashDamage);
         }
 
         public void Drop()
@@ -145,7 +144,7 @@ namespace Coordinator
                 _grabbedObject.Drop(_parentRb2d.linearVelocity);
                 _grabbedObject = null;
                 _chargeCnt = 0;
-                OnChargeRateChanged?.Invoke(_chargeCnt,_chargeMax);
+                OnChargeRateChanged?.Invoke(_chargeCnt,_maxChargeCnt);
                 OnGrabbedObjectChanged?.Invoke(null);
             }        
         }
@@ -154,11 +153,11 @@ namespace Coordinator
         {
             if(_grabbedObject != null)
             {
-                _grabbedObject.SetAttackableLayer(_attackableFilter);
-                _grabbedObject.Throw((Camera.main.ScreenToWorldPoint(MousePos) - _handAnchor.position).normalized,_parentRb2d.linearVelocity,_forceStep*_chargeCnt);
+                _grabbedObject.SetAttackableLayer(_attackableMask);
+                _grabbedObject.Throw((Camera.main.ScreenToWorldPoint(MousePos) - _handAnchor.position).normalized,_parentRb2d.linearVelocity,_forcePerCharge*_chargeCnt);
                 _chargeCnt = 0;
                 _grabbedObject = null;
-                OnChargeRateChanged?.Invoke(_chargeCnt, _chargeMax);
+                OnChargeRateChanged?.Invoke(_chargeCnt, _maxChargeCnt);
                 OnGrabbedObjectChanged?.Invoke(null);
                 
             }
@@ -166,7 +165,7 @@ namespace Coordinator
 
         private void Pickup()
         {
-            var hit = Physics2D.BoxCast(_handAnchor.position, _reachBox, 0, _handAnchor.right, _reachDistance, _objectFilter);
+            var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, _pickableObjectMask);
             if (hit.transform != null && hit.transform.gameObject.TryGetComponent<ObjectCoordinator>(out var comp))
             {
                 _grabbedObject = comp;
