@@ -7,7 +7,7 @@ using Utils;
 namespace Manager.Core
 {
     //string -> enum으로 방식 바꾸기
-    public class ResourceManager : MonoBehaviour
+    public class ResourceManager
     {
         private Dictionary<string, ValueTuple<int,UnityEngine.Object>> _resources
             = new Dictionary<string, ValueTuple<int, UnityEngine.Object>>();//리소스 키 / <참조카운트,리소스>
@@ -24,7 +24,7 @@ namespace Manager.Core
             }
         }
 
-        private void LateUpdate()
+        public void OnLateUpdate()
         {
             while (_destroyQueue.IsEmpty() == false)
             {
