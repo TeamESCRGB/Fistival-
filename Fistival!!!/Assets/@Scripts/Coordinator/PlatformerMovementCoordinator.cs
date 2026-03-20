@@ -6,15 +6,19 @@ namespace Coordinator
 {
     public class PlatformerMovementCoordinator : MonoBehaviour ,IMovementInputHandler
     {
-        private Collider2D _parentCol;
+        [SerializeField]
+        private float _platformIgnoreTime = 0.5f;
+        
         [SerializeField]
         private LayerMask _platformMask;
         [SerializeField]
         private LayerMask _groundLayer;
-        [SerializeField]
-        private Transform _checkBox;
+
+        private Transform _groundedCheckBox;
         private Vector2 _vel;
-        private Rigidbody2D _rb2d;
+
+        private Collider2D _parentCol;
+        private Rigidbody2D _parentRb2d;
         private Transform _parentTransform;
         private float _speed;
         private float _jumpPow;
@@ -23,16 +27,18 @@ namespace Coordinator
         private float _slownessSensitivity=1;
         private float _maxSlowness=0;
 
-        [SerializeField]
-        private float _platformIgnoreThreshold;
-
-        public void Init(float speed,float jumpPow ,float slownessSensitivity,float maxSlowness,Rigidbody2D rb2d)
+        private void Awake()
         {
-            _rb2d = rb2d;
+            _groundedCheckBox = transform.Find("@GroundedCheckBox");
+        }
+
+        public void Init(float speed,float jumpPow ,float slownessSensitivity,float maxSlowness,Rigidbody2D parentRb2d)
+        {
+            _parentRb2d = parentRb2d;
             _speed = speed;
             _jumpPow = jumpPow;
-            _parentCol = _rb2d.gameObject.GetComponent<Collider2D>();
-            _parentTransform = _rb2d.transform;
+            _parentCol = _parentRb2d.gameObject.GetComponent<Collider2D>();
+            _parentTransform = _parentRb2d.transform;
             _slowness = 1;
             _maxSlowness = maxSlowness;
             _slownessSensitivity = slownessSensitivity;
@@ -40,14 +46,14 @@ namespace Coordinator
 
         private void FixedUpdate()
         {
-            if(_rb2d == null)
+            if(_parentRb2d == null)
             {
                 return;
             }
 
-            var vel = _rb2d.linearVelocity;
+            var vel = _parentRb2d.linearVelocity;
             vel.x = _vel.x * _slowness;
-            _rb2d.linearVelocity = vel;
+            _parentRb2d.linearVelocity = vel;
         }
 
         public void SetSlowness(float slowness)
@@ -72,13 +78,13 @@ namespace Coordinator
 
         public void OnDownMovementInputEvent(bool pressed)
         {
-            if(_rb2d == null || _parentCol == null)
+            if(_parentRb2d == null || _parentCol == null)
             {
                 return;
             }
             if(pressed)
             {
-                var col = Physics2D.OverlapBox(_checkBox.position, _checkBox.localScale, 0,_platformMask);
+                var col = Physics2D.OverlapBox(_groundedCheckBox.position, _groundedCheckBox.localScale, 0,_platformMask);
                 if(col != null)
                 {
                     StartCoroutine(DisablePlatform(col));
@@ -89,7 +95,7 @@ namespace Coordinator
         private IEnumerator DisablePlatform(Collider2D col)
         {
             Physics2D.IgnoreCollision(col,_parentCol);
-            yield return new WaitForSeconds(_platformIgnoreThreshold);
+            yield return new WaitForSeconds(_platformIgnoreTime);
             Physics2D.IgnoreCollision(col, _parentCol, false);
         }
 
@@ -97,7 +103,7 @@ namespace Coordinator
         {
             if (pressed && IsGrounded())
             {
-                _rb2d.AddForce(Vector2.up * _jumpPow,ForceMode2D.Impulse);
+                _parentRb2d.AddForce(Vector2.up * _jumpPow,ForceMode2D.Impulse);
             }
         }
 
@@ -129,11 +135,11 @@ namespace Coordinator
 
         public bool IsGrounded()
         {
-            if(_checkBox == null)
+            if(_groundedCheckBox == null)
             {
                 return false;
             }
-            return (Physics2D.OverlapBox(_checkBox.position, _checkBox.localScale, 0, _groundLayer) != null);
+            return (Physics2D.OverlapBox(_groundedCheckBox.position, _groundedCheckBox.localScale, 0, _groundLayer) != null);
         }
     }
 }
