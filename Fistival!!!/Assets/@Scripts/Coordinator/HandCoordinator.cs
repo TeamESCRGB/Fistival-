@@ -42,7 +42,6 @@ namespace Coordinator
         private int _baseSmashDamage;
 
         private LayerMask _attackableMask=0;
-        private Vector2 _attackBoxSize;
 
         private SkillCoordinatorBase _skillBase;
 
@@ -90,7 +89,7 @@ namespace Coordinator
 
         public void Attack()
         {
-            var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBoxSize, 0, _attackableMask);
+            var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
 
             if(enemy == null || enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
             {
@@ -122,7 +121,6 @@ namespace Coordinator
 
         public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
-            _attackBoxSize = _attackBox.localScale;
             _attackableMask = attackableFilter;
             _grabbedObject = null;
             _parentRb2d = parentRb2d;
