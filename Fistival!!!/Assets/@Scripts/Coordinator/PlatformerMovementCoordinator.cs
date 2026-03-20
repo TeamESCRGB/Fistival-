@@ -67,32 +67,21 @@ namespace Coordinator
                 _slowness = 1;
                 return;
             }
-            _slowness = slowness/_slownessSensitivity;
 
-            if(_slowness >= 1)
-            {
-                _slowness = 1;
-            }
-            else if(_slowness <= _maxSlowness)
-            {
-                _slowness = _maxSlowness;
-            }
-            
+            _slowness = Mathf.Clamp(slowness / _slownessSensitivity, _maxSlowness, 1);
         }
 
         public void OnDownMovementInputEvent(bool pressed)
         {
-            if(_parentRb2d == null || _parentCol == null)
+            if(pressed == false || _parentRb2d == null || _parentCol == null)
             {
                 return;
             }
-            if(pressed)
+
+            var col = Physics2D.OverlapBox(_groundedCheckBox.position, _groundedCheckBox.localScale, 0, _platformMask);
+            if (col != null)
             {
-                var col = Physics2D.OverlapBox(_groundedCheckBox.position, _groundedCheckBox.localScale, 0,_platformMask);
-                if(col != null)
-                {
-                    StartCoroutine(DisablePlatform(col));
-                }
+                StartCoroutine(DisablePlatform(col));
             }
         }
 
