@@ -461,7 +461,6 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 1032
-  _groundedCheckBox: {fileID: 901346740}
 --- !u!1 &821594821
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,14 +712,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b410be2a4ee44444daea5d015ea9c8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandCoordinator
-  _reachBox: {x: 0.5, y: 2}
-  _reachDistance: 0.7
-  _objectFilter:
+  _pickupBoxcastSize: {x: 0.5, y: 2}
+  _pickupBoxcastDistance: 2
+  _pickableObjectMask:
     serializedVersion: 2
     m_Bits: 64
-  _handAnchor: {fileID: 946154881}
-  _attackPivot: {fileID: 1590955301}
-  _forceStep: 50
+  _forcePerCharge: 10
   _chargeTimeInterval: 0.5
 --- !u!1 &901346739
 GameObject:
@@ -733,8 +730,8 @@ GameObject:
   - component: {fileID: 901346740}
   - component: {fileID: 901346741}
   m_Layer: 7
-  m_Name: GroundCheckBox
-  m_TagString: Untagged
+  m_Name: '@GroundedCheckBox'
+  m_TagString: GroundCheckbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -824,7 +821,7 @@ GameObject:
   - component: {fileID: 946154881}
   - component: {fileID: 946154882}
   m_Layer: 8
-  m_Name: HandAnchor
+  m_Name: '@HandAnchor'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1397,7 +1394,7 @@ GameObject:
   - component: {fileID: 1590955302}
   - component: {fileID: 1590955303}
   m_Layer: 9
-  m_Name: AttackBox
+  m_Name: '@AttackBox'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

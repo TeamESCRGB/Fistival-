@@ -14,9 +14,7 @@ namespace Coordinator
         private float _pickupBoxcastDistance;
         [SerializeField]
         private LayerMask _pickableObjectMask;
-        [SerializeField]
         private Transform _handAnchor;
-        [SerializeField]
         private Transform _attackBox;
         private ObjectCoordinator _grabbedObject;
         private Rigidbody2D _parentRb2d;
@@ -47,6 +45,21 @@ namespace Coordinator
 
         private void Awake()
         {
+            _handAnchor = transform.Find("@HandAnchor");
+            _attackBox = transform.Find("@AttackBox");
+
+#if UNITY_EDITOR
+            if (_handAnchor == null)
+            {
+                Debug.LogError($"@HandAnchor 가 {gameObject.name}의 자식중에 없습니다.");
+            }
+
+            if (_attackBox == null)
+            {
+                Debug.LogError($"@AttackBox 가 {gameObject.name}의 자식중에 없습니다.");
+            }
+#endif
+
             _skillBase = _attackBox.gameObject.GetComponent<SkillCoordinatorBase>();
 #if UNITY_EDITOR
             if (_skillBase == null)
@@ -55,6 +68,7 @@ namespace Coordinator
 
             }
 #endif
+            
         }
 
         private void Update()
