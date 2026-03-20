@@ -86,6 +86,7 @@ namespace Coordinator
             {
                 maxCharge = 0;
             }
+            _chargeMax = maxCharge;
         }
 
         public void Attack()
