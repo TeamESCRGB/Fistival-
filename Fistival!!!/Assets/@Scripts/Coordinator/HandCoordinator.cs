@@ -109,37 +109,7 @@ namespace Coordinator
             _maxChargeCnt = maxCharge;
         }
 
-        public void Attack()
-        {
-            var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
-
-            if(enemy == null || enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
-            {
-                return;
-            }
-
-            //BoxOverlap에 필터링에 걸린것만 가져와서 수행.
-            //없으면 실행 안함
-            int totalDmg = _baseSmashDamage;
-            if(_grabbedObject != null)
-            {
-
-                totalDmg += _grabbedObject.GetSharedData().Damage;
-
-                if(_grabbedObject.Smash() == false)
-                {
-                    _grabbedObject = null;
-                    _chargeCnt = 0;
-                    OnChargeRateChanged?.Invoke(_chargeCnt, _maxChargeCnt);
-                    OnGrabbedObjectChanged?.Invoke(null);
-                }
-            }
-
-            Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg);
-            //공격하는 함수. 데미지: damage +  해서 OverlapBox써서 나중에 함
-
-
-        }
+        
 
         public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
@@ -160,6 +130,7 @@ namespace Coordinator
         {
             if(_grabbedObject != null)
             {
+                _status = HandStatus.IDLE;
                 _grabbedObject.Drop(_parentRb2d.linearVelocity);
                 _grabbedObject = null;
                 _chargeCnt = 0;
@@ -168,18 +139,46 @@ namespace Coordinator
             }        
         }
 
+        public void Attack()
+        {
+            var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
+
+            if (enemy == null || enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
+            {
+                return;
+            }
+
+            //BoxOverlap에 필터링에 걸린것만 가져와서 수행.
+            //없으면 실행 안함
+            int totalDmg = _baseSmashDamage;
+            if (_grabbedObject != null)
+            {
+
+                totalDmg += _grabbedObject.GetSharedData().Damage;
+
+                if (_grabbedObject.Smash() == false)
+                {
+                    _grabbedObject = null;
+                    _chargeCnt = 0;
+                    OnChargeRateChanged?.Invoke(_chargeCnt, _maxChargeCnt);
+                    OnGrabbedObjectChanged?.Invoke(null);
+                    _status = HandStatus.IDLE;
+                }
+            }
+
+            Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg);
+            //공격하는 함수. 데미지: damage +  해서 OverlapBox써서 나중에 함
+        }
+
         private void Throw()
         {
-            if(_grabbedObject != null)
-            {
-                _grabbedObject.SetAttackableLayer(_attackableMask);
-                _grabbedObject.Throw((_mainCam.ScreenToWorldPoint(MousePos) - _handAnchor.position).normalized,_parentRb2d.linearVelocity,_forcePerCharge*_chargeCnt);
-                _chargeCnt = 0;
-                _grabbedObject = null;
-                OnChargeRateChanged?.Invoke(_chargeCnt, _maxChargeCnt);
-                OnGrabbedObjectChanged?.Invoke(null);
-                
-            }
+            _status = HandStatus.IDLE;
+            _grabbedObject.SetAttackableLayer(_attackableMask);
+            _grabbedObject.Throw((_mainCam.ScreenToWorldPoint(MousePos) - _handAnchor.position).normalized, _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt);
+            _chargeCnt = 0;
+            _grabbedObject = null;
+            OnChargeRateChanged?.Invoke(_chargeCnt, _maxChargeCnt);
+            OnGrabbedObjectChanged?.Invoke(null);
         }
 
         private void Pickup()
@@ -190,7 +189,10 @@ namespace Coordinator
                 _grabbedObject = comp;
                 comp.PickUp(_handAnchor);
                 OnGrabbedObjectChanged?.Invoke(comp.GetSharedData());
+                _status = HandStatus.GRABBED;
             }
+
+            _status = HandStatus.IDLE;
         }
 
         public void OnRMBPressed()
@@ -198,10 +200,6 @@ namespace Coordinator
             if (_grabbedObject == null)
             {
                 Pickup();
-                if (_grabbedObject != null)
-                {
-                    _status = HandStatus.GRABBED;
-                }
             }
             else
             {
@@ -215,7 +213,6 @@ namespace Coordinator
         {
             if(_grabbedObject != null && _status == HandStatus.CHARGE)
             {
-                _status = HandStatus.IDLE;
                 Throw();
             }
         }
