@@ -32,7 +32,7 @@ namespace Coordinator
         public Vector2 MousePos { get; set; }
 
 
-        private HandStatus _status;
+        [SerializeField]private HandStatus _status = HandStatus.IDLE;
 
         public event Action<int,int> OnChargeRateChanged;//now rate, max rate
         public event Action<ObjectData> OnGrabbedObjectChanged;
@@ -183,6 +183,7 @@ namespace Coordinator
 
         private void Pickup()
         {
+            _status = HandStatus.IDLE;
             var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, _pickableObjectMask);
             if (hit.transform != null && hit.transform.gameObject.TryGetComponent<ObjectCoordinator>(out var comp))
             {
@@ -191,8 +192,6 @@ namespace Coordinator
                 OnGrabbedObjectChanged?.Invoke(comp.GetSharedData());
                 _status = HandStatus.GRABBED;
             }
-
-            _status = HandStatus.IDLE;
         }
 
         public void OnRMBPressed()
@@ -211,7 +210,7 @@ namespace Coordinator
 
         public void OnRMBReleased()
         {
-            if(_grabbedObject != null && _status == HandStatus.CHARGE)
+            if(_status == HandStatus.CHARGE && _grabbedObject != null)
             {
                 Throw();
             }
