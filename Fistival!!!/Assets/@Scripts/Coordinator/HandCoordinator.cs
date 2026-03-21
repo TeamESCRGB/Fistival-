@@ -1,5 +1,6 @@
 using Coordinator.Victims;
 using Data;
+using Defines;
 using Manager;
 using System;
 using UnityEngine;
@@ -28,11 +29,10 @@ namespace Coordinator
         private float _chargeTimeInterval=1;
         private float _chargeTime=0;
 
-        private bool _isCharging = false;
-
         public Vector2 MousePos { get; set; }
 
-        private bool _isGrabbedClick = false;
+
+        private HandStatus _status;
 
         public event Action<int,int> OnChargeRateChanged;//now rate, max rate
         public event Action<ObjectData> OnGrabbedObjectChanged;
@@ -82,7 +82,7 @@ namespace Coordinator
         private void Update()
         {
             //게임 일시정지 로직 나중에 추가
-            if(_isCharging && _chargeCnt < _maxChargeCnt)
+            if(_status == HandStatus.CHARGE && _chargeCnt < _maxChargeCnt)
             {
                 _chargeTime += Time.deltaTime;
 
@@ -143,13 +143,12 @@ namespace Coordinator
 
         public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
+            _status = HandStatus.IDLE;
             _attackableMask = attackableFilter;
             _grabbedObject = null;
             _parentRb2d = parentRb2d;
             _chargeTime = 0;
             _chargeCnt = 0;
-            _isGrabbedClick = false;
-            _isCharging = false;
             OnChargeRateChanged = null;
             OnGrabbedObjectChanged = null;
             _baseSmashDamage = baseSmashDamage;
@@ -201,23 +200,22 @@ namespace Coordinator
                 Pickup();
                 if (_grabbedObject != null)
                 {
-                    _isGrabbedClick = true;
+                    _status = HandStatus.GRABBED;
                 }
             }
             else
             {
                 _chargeTime = 0;
                 _chargeCnt = 1;
-                _isGrabbedClick = false;
-                _isCharging = true;
+                _status = HandStatus.CHARGE;
             }
         }
 
         public void OnRMBReleased()
         {
-            if(_grabbedObject != null && _isGrabbedClick == false)
+            if(_grabbedObject != null && _status == HandStatus.CHARGE)
             {
-                _isCharging = false;
+                _status = HandStatus.IDLE;
                 Throw();
             }
         }
