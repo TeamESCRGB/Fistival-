@@ -4,6 +4,8 @@ using Defines;
 using Manager;
 using System;
 using UnityEngine;
+using Utils;
+using static Utils.VectorUtils;
 
 namespace Coordinator
 {
@@ -174,7 +176,7 @@ namespace Coordinator
         {
             _status = HandStatus.IDLE;
             _grabbedObject.SetAttackableLayer(_attackableMask);
-            _grabbedObject.Throw((_mainCam.ScreenToWorldPoint(MousePos) - _handAnchor.position).normalized, _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt);
+            _grabbedObject.Throw(GetDirVec2(_mainCam.ScreenToWorldPoint(MousePos), _handAnchor.position), _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt);
             _chargeCnt = 0;
             _grabbedObject = null;
             OnChargeRateChanged?.Invoke(_chargeCnt, _maxChargeCnt);
