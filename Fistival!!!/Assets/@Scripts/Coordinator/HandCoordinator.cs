@@ -43,10 +43,13 @@ namespace Coordinator
 
         private SkillCoordinatorBase _skillBase;
 
+        private Camera _mainCam;
+
         private void Awake()
         {
             _handAnchor = transform.Find("@HandAnchor");
             _attackBox = transform.Find("@AttackBox");
+            _mainCam = Camera.main;
 
 #if UNITY_EDITOR
             if (_handAnchor == null)
@@ -57,6 +60,11 @@ namespace Coordinator
             if (_attackBox == null)
             {
                 Debug.LogError($"@AttackBox 가 {gameObject.name}의 자식중에 없습니다.");
+            }
+
+            if (_mainCam == null)
+            {
+                Debug.LogError($"MainCamera테그를 가진 카메라가 없습니다.");
             }
 #endif
 
@@ -166,7 +174,7 @@ namespace Coordinator
             if(_grabbedObject != null)
             {
                 _grabbedObject.SetAttackableLayer(_attackableMask);
-                _grabbedObject.Throw((Camera.main.ScreenToWorldPoint(MousePos) - _handAnchor.position).normalized,_parentRb2d.linearVelocity,_forcePerCharge*_chargeCnt);
+                _grabbedObject.Throw((_mainCam.ScreenToWorldPoint(MousePos) - _handAnchor.position).normalized,_parentRb2d.linearVelocity,_forcePerCharge*_chargeCnt);
                 _chargeCnt = 0;
                 _grabbedObject = null;
                 OnChargeRateChanged?.Invoke(_chargeCnt, _maxChargeCnt);
