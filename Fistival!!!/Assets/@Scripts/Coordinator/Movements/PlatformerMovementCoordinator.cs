@@ -2,7 +2,7 @@ using InputHandler;
 using System.Collections;
 using UnityEngine;
 
-namespace Coordinator
+namespace Coordinator.Movements
 {
     public class PlatformerMovementCoordinator : MonoBehaviour ,IMovementInputHandler
     {

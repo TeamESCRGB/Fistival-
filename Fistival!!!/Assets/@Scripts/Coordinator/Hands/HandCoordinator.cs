@@ -5,9 +5,10 @@ using Manager;
 using System;
 using UnityEngine;
 using Utils;
+using Coordinator.Objects;
 using static Utils.VectorUtils;
 
-namespace Coordinator
+namespace Coordinator.Hands
 {
     public class HandCoordinator : MonoBehaviour
     {

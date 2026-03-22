@@ -2,6 +2,8 @@ using Data;
 using InputHandler;
 using UnityEngine;
 using Utils;
+using Coordinator.Hands;
+using Coordinator.Movements;
 
 namespace Coordinator.Modes
 {
