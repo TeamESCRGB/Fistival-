@@ -66,7 +66,7 @@ namespace Coordinator.Modes
             }
             else
             {
-                _hand.MousePos = screenPos;
+                _hand.SetMousePos(screenPos);
                 _hand.OnRMBReleased();
             }
         }

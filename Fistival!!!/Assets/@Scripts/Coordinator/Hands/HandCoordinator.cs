@@ -1,53 +1,17 @@
 using Coordinator.Victims;
-using Data;
 using Defines;
 using Manager;
-using System;
 using UnityEngine;
-using Utils;
 using Coordinator.Objects;
 using static Utils.VectorUtils;
 
 namespace Coordinator.Hands
 {
-    public class HandCoordinator : MonoBehaviour
+    public class HandCoordinator : HandCoordinatorBase
     {
-        [SerializeField]
-        private Vector2 _pickupBoxcastSize;
-        [SerializeField]
-        private float _pickupBoxcastDistance;
-        [SerializeField]
-        private LayerMask _pickableObjectMask;
-        private Transform _handAnchor;
         private Transform _attackBox;
-        private ObjectCoordinator _grabbedObject;
-        private Rigidbody2D _parentRb2d;
-
-        private int _maxChargeCnt = 3;
-        private int _chargeCnt = 0;
-
-        [SerializeField]
-        private float _forcePerCharge=10;
-        [SerializeField]
-        private float _chargeTimeInterval=1;
-        private float _chargeTime=0;
-
-        public Vector2 MousePos { get; set; }
-
-
-        [SerializeField]private HandStatus _status = HandStatus.IDLE;
-
-        public event Action<int,int> OnChargeRateChanged;//now rate, max rate
-        public event Action<ObjectData> OnGrabbedObjectChanged;
-
         private int _baseSmashDamage;
-
-        private LayerMask _attackableMask=0;
-
         private SkillCoordinatorBase _skillBase;
-
-        private Camera _mainCam;
-
         private void Awake()
         {
             _handAnchor = transform.Find("@HandAnchor");
@@ -93,23 +57,9 @@ namespace Coordinator.Hands
                 {
                     _chargeTime = 0;
                     _chargeCnt += 1;
-                    OnChargeRateChanged?.Invoke(_chargeCnt,_maxChargeCnt);
+                    InvokeOnChargeRateChanged(_chargeCnt,_maxChargeCnt);
                 }
             }
-        }
-
-        public int GetMaxCharge()
-        {
-            return _maxChargeCnt;
-        }
-
-        public void SetMaxCharge(int maxCharge)
-        {
-            if(maxCharge < 0)
-            {
-                maxCharge = 0;
-            }
-            _maxChargeCnt = maxCharge;
         }
 
         
@@ -122,14 +72,13 @@ namespace Coordinator.Hands
             _parentRb2d = parentRb2d;
             _chargeTime = 0;
             _chargeCnt = 0;
-            OnChargeRateChanged = null;
-            OnGrabbedObjectChanged = null;
+            ResetEvents();
             _baseSmashDamage = baseSmashDamage;
 
             _skillBase.Init(_attackableMask,_baseSmashDamage);
         }
 
-        public void Drop()
+        public override void Drop()
         {
             if(_grabbedObject != null)
             {
@@ -137,8 +86,8 @@ namespace Coordinator.Hands
                 _grabbedObject.Drop(_parentRb2d.linearVelocity);
                 _grabbedObject = null;
                 _chargeCnt = 0;
-                OnChargeRateChanged?.Invoke(_chargeCnt,_maxChargeCnt);
-                OnGrabbedObjectChanged?.Invoke(null);
+                InvokeOnChargeRateChanged(_chargeCnt,_maxChargeCnt);
+                InvokeOnGrabbedObjectChanged(null);
             }        
         }
 
@@ -163,8 +112,8 @@ namespace Coordinator.Hands
                 {
                     _grabbedObject = null;
                     _chargeCnt = 0;
-                    OnChargeRateChanged?.Invoke(_chargeCnt, _maxChargeCnt);
-                    OnGrabbedObjectChanged?.Invoke(null);
+                    InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
+                    InvokeOnGrabbedObjectChanged(null);
                     _status = HandStatus.IDLE;
                 }
             }
@@ -173,18 +122,18 @@ namespace Coordinator.Hands
             //공격하는 함수. 데미지: damage +  해서 OverlapBox써서 나중에 함
         }
 
-        private void Throw()
+        protected override void Throw()
         {
             _status = HandStatus.IDLE;
             _grabbedObject.SetAttackableLayer(_attackableMask);
-            _grabbedObject.Throw(GetDirVec2(_mainCam.ScreenToWorldPoint(MousePos), _handAnchor.position), _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt);
+            _grabbedObject.Throw(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), _handAnchor.position), _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt);
             _chargeCnt = 0;
             _grabbedObject = null;
-            OnChargeRateChanged?.Invoke(_chargeCnt, _maxChargeCnt);
-            OnGrabbedObjectChanged?.Invoke(null);
+            InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
+            InvokeOnGrabbedObjectChanged(null);
         }
 
-        private void Pickup()
+        protected override void Pickup()
         {
             _status = HandStatus.IDLE;
             var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, _pickableObjectMask);
@@ -192,12 +141,12 @@ namespace Coordinator.Hands
             {
                 _grabbedObject = comp;
                 comp.PickUp(_handAnchor);
-                OnGrabbedObjectChanged?.Invoke(comp.GetSharedData());
+                InvokeOnGrabbedObjectChanged(comp.GetSharedData());
                 _status = HandStatus.GRABBED;
             }
         }
 
-        public void OnRMBPressed()
+        public override void OnRMBPressed()
         {
             if (_grabbedObject == null)
             {
@@ -211,7 +160,7 @@ namespace Coordinator.Hands
             }
         }
 
-        public void OnRMBReleased()
+        public override void OnRMBReleased()
         {
             if(_status == HandStatus.CHARGE && _grabbedObject != null)
             {
