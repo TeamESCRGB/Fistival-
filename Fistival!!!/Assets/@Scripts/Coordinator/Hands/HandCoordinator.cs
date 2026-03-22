@@ -12,7 +12,7 @@ namespace Coordinator.Hands
         private Transform _attackBox;
         private int _baseSmashDamage;
         private SkillCoordinatorBase _skillBase;
-        private void Awake()
+        protected override void OnAwake()
         {
             _handAnchor = transform.Find("@HandAnchor");
             _attackBox = transform.Find("@AttackBox");
@@ -46,7 +46,9 @@ namespace Coordinator.Hands
             
         }
 
-        private void Update()
+
+
+        protected override void OnUpdate()
         {
             //게임 일시정지 로직 나중에 추가
             if(_status == HandStatus.CHARGE && _chargeCnt < _maxChargeCnt)

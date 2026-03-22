@@ -86,6 +86,29 @@ namespace Coordinator
             _maxChargeCnt = maxCharge;
         }
 
+        #region LifecycleFunctionInheritance
+
+        private void Update()
+        {
+            OnUpdate();
+        }
+
+        private void Awake()
+        {
+            OnAwake();
+        }
+
+        private void Start()
+        {
+            OnStart();
+        }
+
+        protected virtual void OnUpdate() { }
+        protected virtual void OnAwake() { }
+        protected virtual void OnStart() { }
+
+        #endregion
+
 
         #region RMBOperations
 
