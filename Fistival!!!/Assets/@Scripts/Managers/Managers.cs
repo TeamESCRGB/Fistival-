@@ -23,7 +23,7 @@ namespace Manager
         #region core
 
         private GameObjectPoolManager _goPoolMgr = new GameObjectPoolManager();
-        private ResourceManager _resourceMgr;// = new ResourceManager()
+        private ResourceManager _resourceMgr = new ResourceManager();// 
         private GlobalSoundManager _gSoundMgr = new GlobalSoundManager();
         private SceneManagerEx _sceneMgr = new SceneManagerEx();
         private DataManager _dataMgr = new DataManager();
@@ -37,6 +37,11 @@ namespace Manager
         public UIManager UIManager {  get { return Instance._uiMgr; } }
 
         #endregion
+
+        private void LateUpdate()
+        {
+            _resourceMgr.OnLateUpdate();
+        }
 
         private static void Init()
         {
@@ -53,7 +58,7 @@ namespace Manager
 
                 _sInstance._cooldownMgr = go.GetOrAddComponent<CooldownManager>();
                 _sInstance._attackMgr = go.GetOrAddComponent<AttackManager>();
-                _sInstance._resourceMgr = go.GetOrAddComponent<ResourceManager>();
+                //_sInstance._resourceMgr = go.GetOrAddComponent<ResourceManager>();
 
                 DontDestroyOnLoad(go);
             }

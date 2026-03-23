@@ -4,7 +4,7 @@ using Manager;
 using UnityEngine;
 using Utils;
 
-namespace Coordinator
+namespace Coordinator.Objects
 {
     public class ObjectCoordinator : MonoBehaviour
     {

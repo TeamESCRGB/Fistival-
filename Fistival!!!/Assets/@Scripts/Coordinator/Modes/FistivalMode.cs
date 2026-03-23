@@ -2,6 +2,8 @@ using Data;
 using InputHandler;
 using UnityEngine;
 using Utils;
+using Coordinator.Hands;
+using Coordinator.Movements;
 
 namespace Coordinator.Modes
 {
@@ -64,7 +66,7 @@ namespace Coordinator.Modes
             }
             else
             {
-                _hand.MousePos = screenPos;
+                _hand.SetMousePos(screenPos);
                 _hand.OnRMBReleased();
             }
         }
