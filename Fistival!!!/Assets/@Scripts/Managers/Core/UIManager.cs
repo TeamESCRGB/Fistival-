@@ -56,18 +56,14 @@ namespace Manager.Core
             }
         }
 
-        public T MakeWorldSpaceUI<T>(Transform parent = null, string name = null, bool worldPositionStays = false) where T : UIBase
+        public T MakeWorldSpaceUI<T>(string name = null, Transform parent = null, bool worldPositionStays = false) where T : UIBase
         {
             if (string.IsNullOrEmpty(name))
             {
                 name = typeof(T).Name;
             }
 
-            GameObject go = Managers.Instance.ResourceManager.Instantiate(name);
-            if (parent != null)
-            {
-                go.transform.SetParent(parent,worldPositionStays);
-            }
+            GameObject go = Managers.Instance.ResourceManager.Instantiate(name,parent,worldPositionStays);
 
             Canvas canvas = go.GetOrAddComponent<Canvas>();
             canvas.renderMode = RenderMode.WorldSpace;
@@ -76,15 +72,15 @@ namespace Manager.Core
             return go.GetOrAddComponent<T>();
         }
 
-        public T MakeSubItem<T>(Transform parent = null, string name = null, bool pooling = true, bool worldPositionStays = false) where T : UIBase
+        public T MakeSubItem<T>(string name = null, Transform parent = null, bool worldPositionStays = false, bool pooling = true) where T : UIBase
         {
             if (string.IsNullOrEmpty(name))
             {
                 name = typeof(T).Name;
             }
 
-            GameObject go = Managers.Instance.ResourceManager.Instantiate(name, parent, pooling);
-            go.transform.SetParent(parent,worldPositionStays);
+            GameObject go = Managers.Instance.ResourceManager.Instantiate(name, parent,worldPositionStays ,pooling);
+
             return go.GetOrAddComponent<T>();
         }
 
@@ -95,11 +91,10 @@ namespace Manager.Core
                 name = typeof(T).Name;
             }
 
-            GameObject go = Managers.Instance.ResourceManager.Instantiate(name);
+            GameObject go = Managers.Instance.ResourceManager.Instantiate(name,_uiRoot.transform,worldPositionStays);
             T sceneUI = go.GetOrAddComponent<T>();
             _uiScene = sceneUI;
 
-            go.transform.SetParent(_uiRoot.transform,worldPositionStays);
 
             return sceneUI;
         }
@@ -111,11 +106,10 @@ namespace Manager.Core
                 name = typeof(T).Name;
             }
 
-            GameObject go = Managers.Instance.ResourceManager.Instantiate(name);
+            GameObject go = Managers.Instance.ResourceManager.Instantiate(name,_uiRoot.transform, worldPositionStays);
             T popup = go.GetOrAddComponent<T>();
             _uiPopupStack.Push(popup);
 
-            go.transform.SetParent(_uiRoot.transform,worldPositionStays);
             IsPopupUIOn = true;
 
             return popup;
