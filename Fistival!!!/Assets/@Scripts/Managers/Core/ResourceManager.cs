@@ -46,7 +46,7 @@ namespace Manager.Core
             return null;
         }
 
-        public GameObject Instantiate(string key, Transform parent = null, bool pooling = false)
+        public GameObject Instantiate(string key, Transform parent = null,bool instantiateInWorldSpace = false, bool pooling = false)
         {
             GameObject prefab = Load<GameObject>(key);
             if (prefab == null)
@@ -59,7 +59,7 @@ namespace Manager.Core
                 return Managers.Instance.GameObjectPoolManager.GetFromPool(prefab);
             }
 
-            GameObject go = UnityEngine.Object.Instantiate(prefab, parent);
+            GameObject go = UnityEngine.Object.Instantiate(prefab, parent,instantiateInWorldSpace);
 
             go.name = prefab.name;
             return go;
