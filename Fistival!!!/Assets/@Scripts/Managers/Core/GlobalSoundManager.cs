@@ -67,6 +67,21 @@ namespace Manager.Core
             }
         }
 
+        public void Pause(SoundChannel channel)
+        {
+            GetSource(channel).Pause();
+        }
+
+        public void UnPause(SoundChannel channel)
+        {
+            GetSource(channel).UnPause();
+        }
+
+        public float GetSoundTime(SoundChannel channel)
+        {
+            return GetSource(channel).time;
+        }
+
 
         private AudioSource GetSource(SoundChannel channel)
         {
