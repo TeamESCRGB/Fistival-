@@ -35,15 +35,14 @@ namespace Manager.Core
 
         public void Play(SoundChannel channel, string key, bool loop, float volume = 1.0f, float pitch = 1.0f)
         {
-            if (channel < SoundChannel.BGM_0 || (int)channel >= (int)SoundChannelInfo.CHANNEL_CNT)
+            AudioSource audioSource = GetSource(channel);
+
+            if(audioSource == null)
             {
-#if UNITY_EDITOR
-                Debug.LogWarning("wrong channel number");
-#endif  
                 return;
             }
 
-            AudioSource audioSource = _channels[(int)channel];
+
             AudioClip clip = LoadAudioClip(key);
 
             if (clip == null)
@@ -67,6 +66,35 @@ namespace Manager.Core
                 audioSource.PlayOneShot(clip);
             }
         }
+
+        public void Pause(SoundChannel channel)
+        {
+            GetSource(channel).Pause();
+        }
+
+        public void UnPause(SoundChannel channel)
+        {
+            GetSource(channel).UnPause();
+        }
+
+        public float GetSoundTime(SoundChannel channel)
+        {
+            return GetSource(channel).time;
+        }
+
+
+        private AudioSource GetSource(SoundChannel channel)
+        {
+            if (channel < SoundChannel.BGM_0 || (int)channel >= (int)SoundChannelInfo.CHANNEL_CNT)
+            {
+#if UNITY_EDITOR
+                Debug.LogWarning("wrong channel number");
+#endif  
+                return null;
+            }
+            return _channels[(int)channel];
+        }
+
 
         public void PlayBGMInIdleChannel(SoundChannelType type, string key, bool loop, float volume = 1.0f, float pitch = 1.0f)
         {
