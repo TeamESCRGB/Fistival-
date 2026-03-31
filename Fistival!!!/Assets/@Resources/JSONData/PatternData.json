@@ -1,0 +1,37 @@
+{
+  "patternDatas": [
+    {
+      "Key": "TestPattern",
+      "BPM": 120,
+      "SongName": "TestSong",
+      "PerfactRange": 0.04,
+      "GoodRange": 0.06,
+      "Notes": [
+        {
+          "NoteType": 1,
+          "Timing": 5
+        },
+        {
+          "NoteType": 1,
+          "Timing": 5.5
+        },
+        {
+          "NoteType": 1,
+          "Timing": 6
+        },
+        {
+          "NoteType": 1,
+          "Timing": 6.5
+        },
+        {
+          "NoteType": 1,
+          "Timing": 7
+        },
+        {
+          "NoteType": 1,
+          "Timing": 7.5
+        }
+      ]
+    }
+  ]
+}
