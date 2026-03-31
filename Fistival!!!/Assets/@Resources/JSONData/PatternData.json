@@ -2,6 +2,7 @@
   "patternDatas": [
     {
       "Key": "TestPattern",
+      "IsLooping": true,
       "BPM": 120,
       "SongName": "TestSong",
       "PerfactRange": 0.04,

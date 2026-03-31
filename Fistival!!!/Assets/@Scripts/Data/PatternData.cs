@@ -9,6 +9,7 @@ namespace Data
         public PatternData(PatternData original)
         {
             Key = original.Key;
+            IsLooping = original.IsLooping;
             BPM = original.BPM;
             SongName = original.SongName;
             PerfactRange = original.PerfactRange;
@@ -19,6 +20,7 @@ namespace Data
         public PatternData() { }
 
         public string Key;
+        public bool IsLooping;
         public float BPM;
         public string SongName;
         public float PerfactRange;
