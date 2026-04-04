@@ -77,12 +77,17 @@ namespace Manager.Core
             GetSource(channel).UnPause();
         }
 
+        public bool IsPlaying(SoundChannel channel)
+        {
+            return GetSource(channel).isPlaying;
+        }
+
         public float GetSoundTime(SoundChannel channel)
         {
             return GetSource(channel).time;
         }
 
-
+        
         private AudioSource GetSource(SoundChannel channel)
         {
             if (channel < SoundChannel.BGM_0 || (int)channel >= (int)SoundChannelInfo.CHANNEL_CNT)
