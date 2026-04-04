@@ -8,6 +8,7 @@ namespace Manager.Core
     {
         private Dictionary<string,AudioClip> _cachedSounds = new Dictionary<string,AudioClip>(32);
         private double[] _pauseTimes = null;
+        private double[] _pauseStartedTimes = null;
         private (double startTime, AudioSource source)[] _channels = null;
         private GameObject _soundRoot = null;
 
@@ -25,6 +26,7 @@ namespace Manager.Core
                     int channelCnt = (int)SoundChannelInfo.CHANNEL_CNT;
                     _channels = new (double, AudioSource)[channelCnt];
                     _pauseTimes = new double[channelCnt];
+                    _pauseStartedTimes = new double[channelCnt];
                     for(int i = 0; i < channelCnt; i++)
                     {
                         GameObject go = new GameObject(soundTypeNames[i]);
@@ -54,7 +56,7 @@ namespace Manager.Core
 
             audioSource.pitch = pitch;
             audioSource.volume = volume;
-
+            _pauseTimes[(int)channel] = 0;
             if (channel < SoundChannel.EFFECT_0)
             {
                 audioSource.Stop();
@@ -72,12 +74,26 @@ namespace Manager.Core
 
         public void Pause(SoundChannel channel)
         {
-            GetSource(channel).Pause();
+            var source = GetSource(channel);
+            if(source == null || source.isPlaying == false)
+            {
+                return;
+            }
+
+            source.Pause();
+            _pauseStartedTimes[(int)channel] = AudioSettings.dspTime;
         }
 
         public void UnPause(SoundChannel channel)
         {
-            GetSource(channel).UnPause();
+            var source = GetSource(channel);
+            if (source == null || source.isPlaying)
+            {
+                return;
+            }
+
+            source.UnPause();
+            _pauseTimes[(int)channel] += AudioSettings.dspTime - _pauseStartedTimes[(int)channel];
         }
 
         public bool IsPlaying(SoundChannel channel)
@@ -147,6 +163,7 @@ namespace Manager.Core
             for(int i = 0; i < _pauseTimes.Length; i++)
             {
                 _pauseTimes[i] = 0;
+                _pauseStartedTimes[i] = 0;
             }
         }
 
