@@ -96,6 +96,27 @@ namespace Manager.Core
             _pauseTimes[(int)channel] += AudioSettings.dspTime - _pauseStartedTimes[(int)channel];
         }
 
+        public double GetDSPTime(SoundChannel channel)
+        {
+            var source = GetSource(channel);
+
+            if(source == null)
+            {
+                return -1;
+            }
+
+            if(source.isPlaying)
+            {
+                return AudioSettings.dspTime - _channels[(int)channel].startTime - _pauseTimes[(int)channel];
+            }
+            else if(source.time > 0)//
+            {
+                return _pauseStartedTimes[(int)channel] - _channels[(int)channel].startTime - _pauseTimes[(int)channel];
+            }
+
+            return 0;
+        }
+
         public bool IsPlaying(SoundChannel channel)
         {
             return GetSource(channel).isPlaying;
