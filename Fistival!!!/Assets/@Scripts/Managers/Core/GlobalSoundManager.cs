@@ -7,7 +7,8 @@ namespace Manager.Core
     public class GlobalSoundManager
     {
         private Dictionary<string,AudioClip> _cachedSounds = new Dictionary<string,AudioClip>(32);
-        private AudioSource[] _channels = null;
+        private double[] _pauseTimes = null;
+        private (double startTime, AudioSource source)[] _channels = null;
         private GameObject _soundRoot = null;
 
         public void Init()
@@ -22,12 +23,13 @@ namespace Manager.Core
 
                     string[] soundTypeNames = System.Enum.GetNames(typeof(SoundChannel));
                     int channelCnt = (int)SoundChannelInfo.CHANNEL_CNT;
-                    _channels = new AudioSource[channelCnt];
+                    _channels = new (double, AudioSource)[channelCnt];
+                    _pauseTimes = new double[channelCnt];
                     for(int i = 0; i < channelCnt; i++)
                     {
                         GameObject go = new GameObject(soundTypeNames[i]);
                         go.transform.parent = _soundRoot.transform;
-                        _channels[i] = go.AddComponent<AudioSource>();
+                        _channels[i].source = go.AddComponent<AudioSource>();
                     }
                 }
             }
@@ -58,6 +60,7 @@ namespace Manager.Core
                 audioSource.Stop();
                 audioSource.loop = loop;
                 audioSource.clip = clip;
+                _channels[(int)channel] = (AudioSettings.dspTime, audioSource);
                 audioSource.Play();
             }
             else
@@ -97,7 +100,7 @@ namespace Manager.Core
 #endif  
                 return null;
             }
-            return _channels[(int)channel];
+            return _channels[(int)channel].source;
         }
 
 
@@ -109,7 +112,7 @@ namespace Manager.Core
 
             for (int i = channelIdxStart, end = channelIdxStart + channelCnt; i < end; i++)
             {
-                if (_channels[i].isPlaying == false)
+                if (_channels[i].source.isPlaying == false)
                 {
                     channel = (SoundChannel)i;
                 }
@@ -122,7 +125,7 @@ namespace Manager.Core
         {
             foreach (var source in _channels)
             {
-                source.Stop();
+                source.source.Stop();
             }
         }
 
@@ -133,7 +136,7 @@ namespace Manager.Core
 
             for(int i=channelIdxStart, end=channelIdxStart+channelCnt; i < end;i++)
             {
-                _channels[i].Stop();
+                _channels[i].source.Stop();
             }
         }
 
@@ -141,6 +144,10 @@ namespace Manager.Core
         {
             StopAll();
             _cachedSounds.Clear();
+            for(int i = 0; i < _pauseTimes.Length; i++)
+            {
+                _pauseTimes[i] = 0;
+            }
         }
 
 
