@@ -158,6 +158,18 @@ namespace Manager.Core
             Play(channel, key, loop, volume, pitch);
         }
 
+        public void StopAt(SoundChannel channel)
+        {
+            var source = GetSource(channel);
+
+            if(source == null)
+            {
+                return;
+            }
+
+            source.Stop();
+        }
+
         public void StopAll()
         {
             foreach (var source in _channels)
