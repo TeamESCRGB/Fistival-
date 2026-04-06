@@ -19,6 +19,8 @@ namespace Manager.Contents
         private double _perfectRange = 0;
         private double _goodRange = 0;
 
+        private string _musicKey = "";
+
         private RhythmStatus _nextBeatType;
 
         private bool _isLoop = false;
@@ -27,7 +29,16 @@ namespace Manager.Contents
 
         private void Update()
         {
-            
+            if(_isPlaying == false)
+            {
+                return;
+            }
+        }
+
+        private void InitPlayStatus()
+        {
+            _noteIdx = 0;
+            _nextBeatType = RhythmStatus.EXACT_BEAT;
         }
 
         public void RegisterOnExactTime(IRhythmReceiver receiver)
@@ -78,11 +89,23 @@ namespace Manager.Contents
             _isLoop = false;
             _perfectRange = 0;
             _goodRange = 0;
-            _noteIdx = 0;
             _notes = null;
             _onExactTime = null;
             _onLateTime = null;
-            _nextBeatType = RhythmStatus.EXACT_BEAT;
+            _musicKey = "";
+            InitPlayStatus();
+        }
+
+        public void StartPattern(string patternName)
+        {
+            var pattern = Managers.Instance.DataManager.PatternDataDict[patternName];
+
+            if(pattern is null)
+            {
+                return;
+            }
+
+            InitPlayStatus();
         }
     }
 }
