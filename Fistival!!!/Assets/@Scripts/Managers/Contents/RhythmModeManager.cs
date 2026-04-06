@@ -39,6 +39,7 @@ namespace Manager.Contents
         {
             _noteIdx = 0;
             _nextBeatType = RhythmStatus.EXACT_BEAT;
+            Managers.Instance.GlobalSoundManager.StopAt(SoundChannel.BGM_0);
         }
 
         public void RegisterOnExactTime(IRhythmReceiver receiver)
