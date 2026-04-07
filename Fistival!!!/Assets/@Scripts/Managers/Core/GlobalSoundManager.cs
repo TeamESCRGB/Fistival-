@@ -62,8 +62,8 @@ namespace Manager.Core
                 audioSource.Stop();
                 audioSource.loop = loop;
                 audioSource.clip = clip;
-                _channels[(int)channel] = (AudioSettings.dspTime, audioSource);
                 audioSource.Play();
+                _channels[(int)channel] = (AudioSettings.dspTime, audioSource);
             }
             else
             {
