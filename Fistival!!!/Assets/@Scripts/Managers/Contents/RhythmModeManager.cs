@@ -33,6 +33,63 @@ namespace Manager.Contents
             {
                 return;
             }
+            if (_noteIdx >= _notes.Count)
+            {
+                return;
+            }
+
+            NoteTypes noteType = _notes[_noteIdx].NoteType;
+            switch(CheckJudgementType(Managers.Instance.GlobalSoundManager.GetDSPTime(SoundChannel.BGM_0), _notes[_noteIdx].Timing))
+            {
+                case JudgementTypes.PERFECT:
+                    if(_nextBeatType == RhythmStatus.EXACT_BEAT)
+                    {
+                        _nextBeatType = RhythmStatus.LATE_BEAT;
+                        _onExactTime?.Invoke(_noteIdx,noteType);
+                    }
+                    break;
+                case JudgementTypes.LATE_MISS:
+                    if (_nextBeatType == RhythmStatus.LATE_BEAT)
+                    {
+                        _nextBeatType = RhythmStatus.EXACT_BEAT;
+                        _onLateTime?.Invoke(_noteIdx, noteType);
+                        _noteIdx++;
+                    }
+                    break;
+            }
+
+        }
+
+        /*
+         그냥 빈 노트도 전부 패턴파일에 포함되도록 한다 <- 이게 로직 짜기 편할거같음. <- 지금은 따로 더 해서 한다? 욕심임 일정 밀렸어
+         */
+
+        private JudgementTypes CheckJudgementType(double time, double noteTime)
+        {
+            if (_noteIdx >= _notes.Count)
+            {
+                return 0;
+            }
+
+
+            if ((noteTime - _perfectRange <= time) && (noteTime + _perfectRange >= time))
+            {
+                return JudgementTypes.PERFECT;
+            }
+            else if ((noteTime - _goodRange <= time) && (noteTime + _goodRange >= time))
+            {
+                return JudgementTypes.GOOD;
+            }
+            else if (noteTime - _goodRange > time)
+            {
+                return JudgementTypes.EARLY_MISS;
+            }
+            else
+            {
+                return JudgementTypes.LATE_MISS;
+                
+            }
+
         }
 
         private void InitPlayStatus()
@@ -107,6 +164,14 @@ namespace Manager.Contents
             }
 
             InitPlayStatus();
+            _goodRange = pattern.GoodRange;
+            _perfectRange = pattern.PerfactRange;
+            _musicKey = pattern.SongName;
+            _notes = pattern.Notes;
+            _isLoop = pattern.IsLooping;
+
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0,_musicKey,false);
+            _isPlaying = Managers.Instance.GlobalSoundManager.IsPlaying(SoundChannel.BGM_0);
         }
     }
 }
