@@ -4,6 +4,7 @@
     {
         PERFECT = 1,
         GOOD = 2,
-        MISS=3
+        EARLY_MISS=3,
+        LATE_MISS=4
     }
 }
