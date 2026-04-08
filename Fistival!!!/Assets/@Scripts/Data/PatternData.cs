@@ -24,8 +24,8 @@ namespace Data
         public bool IsLooping;
         public float BPM;
         public string SongName;
-        public float PerfactRange;
-        public float GoodRange;
+        public double PerfactRange;
+        public double GoodRange;
         public float SongLength;
         public List<NoteData> Notes;
 

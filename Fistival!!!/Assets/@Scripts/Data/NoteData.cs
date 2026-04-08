@@ -5,6 +5,6 @@ namespace Data
     public struct NoteData
     {
         public NoteTypes NoteType;
-        public float Timing;
+        public double Timing;
     }
 }
