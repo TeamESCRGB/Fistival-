@@ -28,8 +28,15 @@ namespace Manager.Contents
         private bool _isPlaying = false;
 
         private double _oldTime;
+
+        private bool _isPaused = false;
+
         private void Update()
         {
+            if(_isPaused)
+            {
+                return;
+            }
             if(_isPlaying == false)
             {
                 if(_isLoop == false)
@@ -84,6 +91,18 @@ namespace Manager.Contents
          그냥 빈 노트도 전부 패턴파일에 포함되도록 한다 <- 이게 로직 짜기 편할거같음. <- 지금은 따로 더 해서 한다? 욕심임 일정 밀렸어
          */
 
+        public void PausePattern()
+        {
+            _isPaused = true;
+            Managers.Instance.GlobalSoundManager.Pause(SoundChannel.BGM_0);
+        }
+
+        public void UnPausePattern()
+        {
+            Managers.Instance.GlobalSoundManager.UnPause(SoundChannel.BGM_0);
+            _isPaused = false;
+        }
+
         private JudgementTypes CheckJudgementType(double time, double noteTime)
         {
             if (_noteIdx >= _notes.Count)
@@ -114,6 +133,7 @@ namespace Manager.Contents
 
         private void InitPlayStatus()
         {
+            _isPaused = false;
             _oldTime = 0;
             _noteIdx = 0;
             _nextBeatType = RhythmStatus.EXACT_BEAT;
@@ -129,6 +149,13 @@ namespace Manager.Contents
 
             _onExactTime -= receiver.OnExactBPM;
             _onExactTime += receiver.OnExactBPM;
+        }
+
+
+        public (int idx, NoteTypes noteType) TryParry()
+        {
+
+            return (-1, 0);
         }
 
         public void RegisterOnLateTime(IRhythmReceiver receiver)
