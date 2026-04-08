@@ -14,6 +14,7 @@ namespace Data
             SongName = original.SongName;
             PerfactRange = original.PerfactRange;
             GoodRange = original.GoodRange;
+            SongLength = original.SongLength;
             Notes = original.Notes;
         }
 
@@ -25,6 +26,7 @@ namespace Data
         public string SongName;
         public float PerfactRange;
         public float GoodRange;
+        public float SongLength;
         public List<NoteData> Notes;
 
     }
