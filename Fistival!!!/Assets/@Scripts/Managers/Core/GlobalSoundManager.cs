@@ -79,9 +79,9 @@ namespace Manager.Core
             {
                 return;
             }
-
-            source.Pause();
             _pauseStartedTimes[(int)channel] = AudioSettings.dspTime;
+            source.Pause();
+            
         }
 
         public void UnPause(SoundChannel channel)
