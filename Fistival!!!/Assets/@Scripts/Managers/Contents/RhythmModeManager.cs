@@ -27,19 +27,39 @@ namespace Manager.Contents
 
         private bool _isPlaying = false;
 
+        private double _oldTime;
         private void Update()
         {
             if(_isPlaying == false)
             {
+                if(_isLoop == false)
+                {
+                    return;
+                    
+                }
+                InitPlayStatus();
+                Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, _musicKey, false);
+                _isPlaying = Managers.Instance.GlobalSoundManager.IsPlaying(SoundChannel.BGM_0);
+            }
+
+
+            double dspTime = Managers.Instance.GlobalSoundManager.GetDSPTime(SoundChannel.BGM_0);
+
+            if(dspTime <= 0 && _oldTime > 0)
+            {
+                _isPlaying = false;Debug.Log("asdf");
                 return;
             }
+
+            _oldTime = dspTime;
+
             if (_noteIdx >= _notes.Count)
             {
                 return;
             }
 
             NoteTypes noteType = _notes[_noteIdx].NoteType;
-            switch(CheckJudgementType(Managers.Instance.GlobalSoundManager.GetDSPTime(SoundChannel.BGM_0), _notes[_noteIdx].Timing))
+            switch(CheckJudgementType(dspTime, _notes[_noteIdx].Timing))
             {
                 case JudgementTypes.PERFECT:
                     if(_nextBeatType == RhythmStatus.EXACT_BEAT)
@@ -94,6 +114,7 @@ namespace Manager.Contents
 
         private void InitPlayStatus()
         {
+            _oldTime = 0;
             _noteIdx = 0;
             _nextBeatType = RhythmStatus.EXACT_BEAT;
             Managers.Instance.GlobalSoundManager.StopAt(SoundChannel.BGM_0);
