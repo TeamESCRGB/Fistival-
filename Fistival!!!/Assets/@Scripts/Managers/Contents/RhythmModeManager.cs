@@ -158,7 +158,7 @@ namespace Manager.Contents
 
         public (int nowIdx, int endIdx, NoteTypes noteType, JudgementTypes judgeType) ClickParry()
         {
-            if(_noteIdx >= _notes.Count)
+            if(_noteIdx >= _notes.Count || _isPlaying == false || _isPaused)
             {
                 return (-1, -1, 0, _missMask);
             }
@@ -186,7 +186,7 @@ namespace Manager.Contents
 
         public (int nowIdx, NoteTypes noteType, JudgementTypes judgeType) ReleaseParry(int end)
         {
-            if (_noteIdx >= _notes.Count)
+            if (_noteIdx >= _notes.Count || _isPlaying == false || _isPaused)
             {
                 return (-1, 0, _missMask);
             }
