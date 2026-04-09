@@ -31,6 +31,9 @@ namespace Manager.Contents
 
         private bool _isPaused = false;
 
+        private const JudgementTypes _missMask = JudgementTypes.EARLY_MISS | JudgementTypes.LATE_MISS;
+
+
         private void Update()
         {
             if(_isPaused)
@@ -64,7 +67,7 @@ namespace Manager.Contents
             {
                 return;
             }
-
+            
             NoteTypes noteType = _notes[_noteIdx].NoteType;
             switch(CheckJudgementType(dspTime, _notes[_noteIdx].Timing))
             {
@@ -152,10 +155,28 @@ namespace Manager.Contents
         }
 
 
-        public (int idx, NoteTypes noteType) TryParry()
-        {
 
-            return (-1, 0);
+        public (int nowIdx, int endIdx, NoteTypes noteType, JudgementTypes judgeType) ClickParry()
+        {
+            if(_noteIdx >= _notes.Count)
+            {
+                return (-1, -1, 0, 0);
+            }
+
+            NoteTypes noteType = _notes[_noteIdx].NoteType;
+            JudgementTypes judgement = CheckJudgementType(Managers.Instance.GlobalSoundManager.GetDSPTime(SoundChannel.BGM_0), _notes[_noteIdx].Timing);
+
+            if((judgement & _missMask) != 0)
+            {
+                return (-1, -1, noteType, judgement);
+            }
+            
+            if(noteType == NoteTypes.LONG_PARRY_START)
+            {
+                return (_noteIdx, _noteIdx + 2, NoteTypes.LONG_PARRY_START, judgement);
+            }
+
+            return (_noteIdx, _noteIdx, noteType, judgement);
         }
 
         public void RegisterOnLateTime(IRhythmReceiver receiver)
