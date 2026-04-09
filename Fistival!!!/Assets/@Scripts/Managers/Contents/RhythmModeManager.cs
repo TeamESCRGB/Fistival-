@@ -175,6 +175,10 @@ namespace Manager.Contents
             {
                 return (_noteIdx, _noteIdx + 2, NoteTypes.LONG_PARRY_START, judgement);
             }
+            else if(noteType == NoteTypes.LONG_PARRY_END)
+            {
+                return (_noteIdx, -1, NoteTypes.LONG_PARRY_END, judgement);
+            }
 
             return (_noteIdx, _noteIdx, noteType, judgement);
         }
