@@ -143,7 +143,7 @@ namespace Manager.Contents
             Managers.Instance.GlobalSoundManager.StopAt(SoundChannel.BGM_0);
         }
 
-        public void RegisterOnExactTime(IRhythmReceiver receiver)
+        public void RegisterOnExactTime(IExactRhythmReceiver receiver)
         {
             if(receiver is null)
             {
@@ -203,7 +203,7 @@ namespace Manager.Contents
             return (_noteIdx, NoteTypes.LONG_PARRY_END, judgement);
         }
 
-        public void RegisterOnLateTime(IRhythmReceiver receiver)
+        public void RegisterOnLateTime(ILateRhythmReceiver receiver)
         {
             if (receiver is null)
             {
@@ -214,7 +214,7 @@ namespace Manager.Contents
             _onLateTime += receiver.OnLateBPM;
         }
 
-        public void UnregisterOnExactTime(IRhythmReceiver receiver)
+        public void UnregisterOnExactTime(IExactRhythmReceiver receiver)
         {
             if (receiver is null)
             {
@@ -224,7 +224,7 @@ namespace Manager.Contents
             _onExactTime -= receiver.OnExactBPM;
         }
 
-        public void UnregisterOnLateTime(IRhythmReceiver receiver)
+        public void UnregisterOnLateTime(ILateRhythmReceiver receiver)
         {
             if (receiver is null)
             {
