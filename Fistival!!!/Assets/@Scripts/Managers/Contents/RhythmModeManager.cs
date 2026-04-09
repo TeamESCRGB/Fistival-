@@ -179,6 +179,26 @@ namespace Manager.Contents
             return (_noteIdx, _noteIdx, noteType, judgement);
         }
 
+
+        public (int nowIdx, NoteTypes noteType, JudgementTypes judgeType) ReleaseParry(int end)
+        {
+            if (_noteIdx >= _notes.Count)
+            {
+                return (-1, 0, 0);
+            }
+
+            NoteTypes noteType = _notes[_noteIdx].NoteType;
+
+            if (noteType != NoteTypes.LONG_PARRY_END || _noteIdx != end)
+            {
+                return (_noteIdx, noteType, 0);
+            }
+
+            JudgementTypes judgement = CheckJudgementType(Managers.Instance.GlobalSoundManager.GetDSPTime(SoundChannel.BGM_0), _notes[_noteIdx].Timing);
+
+            return (_noteIdx, NoteTypes.LONG_PARRY_END, judgement);
+        }
+
         public void RegisterOnLateTime(IRhythmReceiver receiver)
         {
             if (receiver is null)
