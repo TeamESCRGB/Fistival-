@@ -160,7 +160,7 @@ namespace Manager.Contents
         {
             if(_noteIdx >= _notes.Count)
             {
-                return (-1, -1, 0, 0);
+                return (-1, -1, 0, _missMask);
             }
 
             NoteTypes noteType = _notes[_noteIdx].NoteType;
@@ -184,14 +184,14 @@ namespace Manager.Contents
         {
             if (_noteIdx >= _notes.Count)
             {
-                return (-1, 0, 0);
+                return (-1, 0, _missMask);
             }
 
             NoteTypes noteType = _notes[_noteIdx].NoteType;
 
             if (noteType != NoteTypes.LONG_PARRY_END || _noteIdx != end)
             {
-                return (_noteIdx, noteType, 0);
+                return (_noteIdx, noteType, _missMask);
             }
 
             JudgementTypes judgement = CheckJudgementType(Managers.Instance.GlobalSoundManager.GetDSPTime(SoundChannel.BGM_0), _notes[_noteIdx].Timing);
