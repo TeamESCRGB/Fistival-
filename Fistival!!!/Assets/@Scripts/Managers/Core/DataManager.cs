@@ -15,11 +15,13 @@ namespace Manager.Core
 
         public Dictionary<int,ObjectData> ObjectDataDict { get; private set; }
         public Dictionary<int,CommonModeData> CommonModeDataDict { get;private set; }
+        public Dictionary<string,PatternData> PatternDataDict { get; private set; }
 
         public void Init()
         {
             ObjectDataDict = LoadJson<ObjectDataLoader, int, ObjectData>("ObjectData").MakeDict();
             CommonModeDataDict = LoadJson<CommonModeDataLoader, int, CommonModeData>("CommonModeData").MakeDict();
+            PatternDataDict = LoadJson<PatternDataLoader, string, PatternData>("PatternData").MakeDict();
         }
 
         //솔직히, 이게 어떻게 가능한건지 아직 모르겠다
