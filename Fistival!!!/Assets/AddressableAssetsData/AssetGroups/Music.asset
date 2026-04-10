@@ -14,7 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Music
   m_GUID: 83f60012ecbac834fbcd26fa9641bced
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 0ff6fc57050c80a429eb5e3b92efa21b
+    m_Address: TestSong
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestPreload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6132ea35fd3cd4647832ece684bbd461
+    m_Address: TestSong_cut
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestPreload
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
   m_SchemaSet:
