@@ -2,6 +2,7 @@ using Coordinator.Objects;
 using Coordinator.Rhythm;
 using Defines;
 using Manager;
+using Unity.Mathematics;
 using UnityEngine;
 using static Utils.VectorUtils;
 
@@ -14,6 +15,21 @@ namespace Coordinator.Hands
         private int _endIdx = -1;
         private JudgementTypes _judgeType;
         private NoteTypes _noteType;
+        private Transform _parryAttackBox;
+
+        private int _parryReflectionDamage;
+
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+            _parryAttackBox = transform.Find("@ParryAttackBox");
+#if UNITY_EDITOR
+            if (_parryAttackBox == null)
+            {
+                Debug.LogError($"@ParryAttackBox 가 {gameObject.name}의 자식중에 없습니다.");
+            }
+#endif
+        }
 
         public override void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
@@ -22,6 +38,7 @@ namespace Coordinator.Hands
             _endIdx = -1;
             _judgeType = _missMask;
             _noteType = NoteTypes.NO_ACTION;
+            _parryReflectionDamage = 0;
         }
 
         public override void Attack()
@@ -40,6 +57,11 @@ namespace Coordinator.Hands
         }
 
         public void OnLMBReleased()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AddParryDamage(int calculatedDamage)
         {
             throw new System.NotImplementedException();
         }
