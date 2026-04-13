@@ -4,7 +4,6 @@ namespace Coordinator.Rhythm
 {
     public interface IParrableObject
     {
-        public bool IsParrySuccess(int idx, NoteTypes noteType);
         public void AddParryDamage(int calculatedDamage);
     }
 }
