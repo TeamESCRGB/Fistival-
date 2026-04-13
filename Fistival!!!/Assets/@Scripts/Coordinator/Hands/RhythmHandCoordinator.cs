@@ -46,11 +46,6 @@ namespace Coordinator.Hands
             throw new System.NotImplementedException();
         }
 
-        public bool IsParrySuccess(int idx, NoteTypes noteType)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void OnLMBPressed()
         {
             throw new System.NotImplementedException();
@@ -63,7 +58,7 @@ namespace Coordinator.Hands
 
         public void AddParryDamage(int calculatedDamage)
         {
-            throw new System.NotImplementedException();
+            _parryReflectionDamage += calculatedDamage;
         }
     }
 }
