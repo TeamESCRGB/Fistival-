@@ -44,16 +44,54 @@ namespace Coordinator.Hands
         public override void Attack()
         {
             throw new System.NotImplementedException();
+            /*
+             판정에 따른 데미지 계수 곱하는거 빼면 로직은 기본가 똑같음
+             */
         }
+
+        private void ReflectDamage()
+        {
+            throw new System.NotImplementedException();
+            /*
+             마우스의 방향을 구한다
+             _parryAttackBox의 크기와 길이만큼의 범위로 Boxcast를 날려서 범위에 닿은 모든 오브젝트를 가져온다
+             그 오브젝트들에 공격 요청 내린다. 데미지는 들어온 데미지만큼 반사한다.
+            */
+        }
+
 
         public void OnLMBPressed()
         {
-            throw new System.NotImplementedException();
+            _parryReflectionDamage = 0;
+
+            var parryResult = Managers.Instance.RhythmModeManager.ClickParry(this);
+            _parriedIdx = parryResult.nowIdx;
+            _endIdx = parryResult.endIdx;
+            _judgeType = parryResult.judgeType;
+            _noteType = parryResult.noteType;
+
+            if(_noteType == NoteTypes.LONG_PARRY_START)
+            {
+                return;
+            }
+
+            if((_judgeType & _missMask) == 0)
+            {
+                ReflectDamage();
+            }
+
+            Attack();
         }
 
         public void OnLMBReleased()
         {
-            throw new System.NotImplementedException();
+            var parryResult = Managers.Instance.RhythmModeManager.ReleaseParry(_endIdx, this);
+            if((parryResult.judgeType & _missMask) != 0)
+            {
+                return;
+            }
+            ReflectDamage();
+            Attack();
         }
 
         public void AddParryDamage(int calculatedDamage)
