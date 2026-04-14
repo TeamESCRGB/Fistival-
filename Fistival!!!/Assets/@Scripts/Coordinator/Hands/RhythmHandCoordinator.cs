@@ -4,6 +4,7 @@ using Coordinator.Victims;
 using Defines;
 using Manager;
 using Unity.Mathematics;
+using Unity.Mathematics.Geometry;
 using UnityEngine;
 using static Utils.VectorUtils;
 
@@ -90,14 +91,23 @@ namespace Coordinator.Hands
 
         private void ReflectDamage()
         {
-            throw new System.NotImplementedException();
             /*
              마우스의 방향을 구한다
              _parryAttackBox의 크기와 길이만큼의 범위로 Boxcast를 날려서 범위에 닿은 오브젝트를 가져온다
              그 오브젝트들에 공격 요청 내린다. 데미지는 들어온 데미지만큼 반사한다.
             */
 
+            var dir = GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), _parentRb2d.transform.position);
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                    //Physics2D.BoxCast(transform.position,             new Vector2(0.1f, box.localScale.y),             angle, dir, box.localScale.x, 1<<1);
+            var hit = Physics2D.BoxCast(_parentRb2d.transform.position, new Vector2(0.1f, _parryAttackBox.localScale.y), angle, dir, _parryAttackBox.localScale.x, _attackableMask);
 
+            if(hit.collider == null || hit.collider.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
+            {
+                return;
+            }
+
+            Managers.Instance.AttackManager.RequestAttack(comp,_skillBase,_parryReflectionDamage);
         }
 
 
