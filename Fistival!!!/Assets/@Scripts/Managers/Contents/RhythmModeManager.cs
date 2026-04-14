@@ -33,6 +33,8 @@ namespace Manager.Contents
 
         private const JudgementTypes _missMask = JudgementTypes.EARLY_MISS | JudgementTypes.LATE_MISS;
 
+        private const NoteTypes _noActionMask = NoteTypes.SHORT_PARRY_RDY | NoteTypes.LONG_PARRY_RDY | NoteTypes.LONG_PARRY_MIDDLE | NoteTypes.LONG_PARRY_START | NoteTypes.NO_ACTION;
+
         private bool _isParried = false;
 
 
@@ -83,7 +85,7 @@ namespace Manager.Contents
                 case JudgementTypes.LATE_MISS:
                     if (_nextBeatType == RhythmStatus.LATE_BEAT)
                     {
-                        if(_isParried == false)
+                        if((noteType & _noActionMask) == 0 && _isParried == false)
                         {
                             _onParry?.Invoke(false, null, noteType);
                         }
@@ -183,7 +185,7 @@ namespace Manager.Contents
                 return (_noteIdx, _noteIdx + 2, NoteTypes.LONG_PARRY_START, judgement);
             }
             
-            if(_isParried == false)
+            if((noteType & _noActionMask) == 0 && _isParried == false)
             {
                 _onParry?.Invoke(true, parrableObject, noteType);
                 _isParried = true;
