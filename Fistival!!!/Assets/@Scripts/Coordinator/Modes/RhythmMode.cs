@@ -77,7 +77,15 @@ namespace Coordinator.Modes
 
         public void OnLMBEvent(bool pressed, Vector2 screenPos)
         {
-            throw new NotImplementedException();
+            _hand.SetMousePos(screenPos);
+            if(pressed)
+            {
+                _hand.OnLMBPressed();
+            }
+            else
+            {
+                _hand.OnLMBReleased();
+            }
         }
 
         public void OnRMBEvent(bool pressed, Vector2 screenPos)
