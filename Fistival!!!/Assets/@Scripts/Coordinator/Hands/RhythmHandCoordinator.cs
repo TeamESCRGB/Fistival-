@@ -6,6 +6,7 @@ using Manager;
 using Unity.Mathematics;
 using Unity.Mathematics.Geometry;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static Utils.VectorUtils;
 
 namespace Coordinator.Hands
@@ -102,7 +103,12 @@ namespace Coordinator.Hands
                     //Physics2D.BoxCast(transform.position,             new Vector2(0.1f, box.localScale.y),             angle, dir, box.localScale.x, 1<<1);
             var hit = Physics2D.BoxCast(_parentRb2d.transform.position, new Vector2(0.1f, _parryAttackBox.localScale.y), angle, dir, _parryAttackBox.localScale.x, _attackableMask);
 
-            if(hit.collider == null || hit.collider.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
+#if UNITY_EDITOR
+            __DEBUG__angle = angle;
+            __DEBUG__dir = dir;
+            __DEBUG__hit = hit;
+#endif
+            if (hit.collider == null || hit.collider.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
             {
                 return;
             }
@@ -149,5 +155,50 @@ namespace Coordinator.Hands
         {
             _parryReflectionDamage += calculatedDamage;
         }
+
+
+#if UNITY_EDITOR
+        RaycastHit2D __DEBUG__hit;
+        float __DEBUG__angle;
+        Vector2 __DEBUG__dir;
+        private void OnDrawGizmos()
+        {
+            // 1. 박스의 시작 지점 (현재 위치)
+            Gizmos.color = Color.yellow;
+            __DEBUG__DrawGizmoBox(transform.position, new Vector2(0.1f, _parryAttackBox.localScale.y), __DEBUG__angle);
+
+            if (__DEBUG__hit.collider != null)
+            {
+                // 2. 충돌 시: 발사 경로를 선으로 표시
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(transform.position, __DEBUG__hit.centroid);
+
+                // 3. 충돌 지점에서의 박스 모습
+                __DEBUG__DrawGizmoBox(__DEBUG__hit.centroid, new Vector2(0.1f, _parryAttackBox.localScale.y), __DEBUG__angle);
+
+                // 4. 충돌 지점(Point)과 법선(Normal) 표시
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawSphere(__DEBUG__hit.point, 0.05f);
+                Gizmos.DrawRay(__DEBUG__hit.point, __DEBUG__hit.normal * 0.5f);
+            }
+            else
+            {
+                // 충돌 안 했을 때: 최대 거리만큼 가상의 경로 표시
+                Gizmos.color = Color.green;
+                Vector2 endPos = (Vector2)transform.position + (__DEBUG__dir.normalized * _parryAttackBox.localScale.x);
+                Gizmos.DrawLine(transform.position, endPos);
+                __DEBUG__DrawGizmoBox(endPos, new Vector2(0.1f, _parryAttackBox.localScale.y), __DEBUG__angle);
+            }
+        }
+
+        // 회전된 박스를 그리기 위한 보조 메서드
+        private void __DEBUG__DrawGizmoBox(Vector2 center, Vector2 size, float angle)
+        {
+            Matrix4x4 savedMatrix = Gizmos.matrix;
+            Gizmos.matrix = Matrix4x4.TRS(center, Quaternion.Euler(0, 0, angle), Vector3.one);
+            Gizmos.DrawWireCube(Vector3.zero, size);
+            Gizmos.matrix = savedMatrix;
+        }
+#endif
     }
 }

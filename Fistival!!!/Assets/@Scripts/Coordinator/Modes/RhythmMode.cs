@@ -14,7 +14,7 @@ namespace Coordinator.Modes
         private RhythmHandCoordinator _hand;
         private PlatformerMovementCoordinator _movementCoordinator;
         private float _objectWeight = 0;
-
+        
         private void Awake()
         {
             ModeType = Defines.ModeTypes.RHYTHM;
