@@ -69,7 +69,10 @@ namespace Coordinator.Modes
 
         public void OnDropEvent(bool pressed)
         {
-            throw new NotImplementedException();
+            if(pressed)
+            {
+                _hand.Drop();
+            }
         }
 
         public void OnLMBEvent(bool pressed, Vector2 screenPos)
