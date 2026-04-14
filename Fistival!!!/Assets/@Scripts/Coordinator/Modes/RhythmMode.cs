@@ -51,12 +51,20 @@ namespace Coordinator.Modes
 
         private void OnGrabbedObjectChanged(ObjectData objData)
         {
-            throw new NotImplementedException();
+            if (objData == null)
+            {
+                _objectWeight = 0;
+            }
+            else
+            {
+                _objectWeight = objData.Weight;
+            }
+
         }
 
         private void OnChargeRateChanged(int now, int max)
         {
-            throw new NotImplementedException();
+            _movementCoordinator.SetSlowness(1 / (1 + (now / max * _objectWeight)));
         }
 
         public void OnDropEvent(bool pressed)
