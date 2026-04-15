@@ -1,6 +1,7 @@
 using Coordinator.Hands;
 using Coordinator.Movements;
 using Data;
+using Defines;
 using InputHandler;
 using System;
 using UnityEngine;
@@ -14,10 +15,11 @@ namespace Coordinator.Modes
         private RhythmHandCoordinator _hand;
         private PlatformerMovementCoordinator _movementCoordinator;
         private float _objectWeight = 0;
-        
+
+        public override ModeTypes ModeType => ModeTypes.RHYTHM;
+
         private void Awake()
         {
-            ModeType = Defines.ModeTypes.RHYTHM;
             _hand = gameObject.GetComponentInChildren<RhythmHandCoordinator>();
             _inputCoordinator = gameObject.GetComponentInParent<PlayerInputCoordinator>();
             _movementCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
