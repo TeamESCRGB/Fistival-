@@ -7,6 +7,7 @@ using Unity.Mathematics;
 using Unity.Mathematics.Geometry;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static TreeEditor.TreeEditorHelper;
 using static Utils.VectorUtils;
 
 namespace Coordinator.Hands
@@ -14,6 +15,7 @@ namespace Coordinator.Hands
     public class RhythmHandCoordinator : HandCoordinator, IParrableObject
     {
         private const JudgementTypes _missMask = JudgementTypes.EARLY_MISS | JudgementTypes.LATE_MISS;
+        private const NoteTypes _noActionMask = NoteTypes.SHORT_PARRY_RDY | NoteTypes.LONG_PARRY_RDY | NoteTypes.LONG_PARRY_MIDDLE | NoteTypes.LONG_PARRY_START | NoteTypes.NO_ACTION;
         private int _parriedIdx = -1;
         private int _endIdx = -1;
         private JudgementTypes _judgeType;
@@ -132,7 +134,7 @@ namespace Coordinator.Hands
                 return;
             }
 
-            if((_judgeType & _missMask) == 0)
+            if((_noteType & _noActionMask) == 0 && (_judgeType & _missMask) == 0)
             {
                 ReflectDamage();
             }
