@@ -4,6 +4,7 @@ using UnityEngine;
 using Utils;
 using Coordinator.Hands;
 using Coordinator.Movements;
+using Defines;
 
 namespace Coordinator.Modes
 {
@@ -12,10 +13,10 @@ namespace Coordinator.Modes
         private HandCoordinator _hand;
         private PlatformerMovementCoordinator _movCoordinator;
         private float _objectWeight = 0;
+        public override ModeTypes ModeType => ModeTypes.FISTIVAL;
         private void Awake()
         {
             _movCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
-            ModeType = Defines.ModeTypes.FISTIVAL;
             _hand = GetComponentInChildren<HandCoordinator>();
             _inputCoordinator = gameObject.GetComponentInParent<PlayerInputCoordinator>();
         }

@@ -5,32 +5,32 @@
       "IsLooping": true,
       "BPM": 120,
       "SongName": "TestSong_cut",
-      "PerfactRange": 0.8,
+      "PerfactRange": 0.08,
       "GoodRange": 0.1,
       "SongLength": 20.1,
       "Notes": [
         {
-          "NoteType": 1,
+          "NoteType": 64,
           "Timing": 0
         },
         {
-          "NoteType": 1,
+          "NoteType": 64,
           "Timing": 0.5
         },
         {
-          "NoteType": 3,
+          "NoteType": 4,
           "Timing": 1
         },
         {
-          "NoteType": 4,
+          "NoteType": 8,
           "Timing": 1.5
         },
         {
-          "NoteType": 5,
+          "NoteType": 16,
           "Timing": 2
         },
         {
-          "NoteType": 6,
+          "NoteType": 32,
           "Timing": 2.5
         },
         {
@@ -38,7 +38,7 @@
           "Timing": 3
         },
         {
-          "NoteType": 1,
+          "NoteType": 2,
           "Timing": 3.5
         },
         {
@@ -46,7 +46,7 @@
           "Timing": 4
         },
         {
-          "NoteType": 1,
+          "NoteType": 2,
           "Timing": 4.5
         },
         {
@@ -54,7 +54,7 @@
           "Timing": 5
         },
         {
-          "NoteType": 1,
+          "NoteType": 2,
           "Timing": 5.5
         },
         {
@@ -62,39 +62,39 @@
           "Timing": 6
         },
         {
-          "NoteType": 1,
+          "NoteType": 2,
           "Timing": 6.5
         },
         {
-          "NoteType": 1,
+          "NoteType": 64,
           "Timing": 7
         },
         {
-          "NoteType": 1,
+          "NoteType": 64,
           "Timing": 7.5
         },
         {
-          "NoteType": 1,
+          "NoteType": 64,
           "Timing": 8
         },
         {
-          "NoteType": 1,
+          "NoteType": 64,
           "Timing": 8.5
         },
         {
-          "NoteType": 1,
+          "NoteType": 64,
           "Timing": 9
         },
         {
-          "NoteType": 1,
+          "NoteType": 64,
           "Timing": 9.5
         },
         {
-          "NoteType": 1,
+          "NoteType": 64,
           "Timing": 10
         },
         {
-          "NoteType": 1,
+          "NoteType": 64,
           "Timing": 10.5
         },
         {

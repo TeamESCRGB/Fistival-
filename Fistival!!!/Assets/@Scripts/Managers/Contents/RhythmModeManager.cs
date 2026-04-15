@@ -10,7 +10,7 @@ namespace Manager.Contents
     public class RhythmModeManager : MonoBehaviour
     {
         private event Action<int,NoteTypes> _onExactTime;
-        private event Action<int,NoteTypes> _onLateTime;
+        private event Action<bool,IParrableObject,NoteTypes> _onParry;
 
         private IReadOnlyList<NoteData> _notes = null;
 
@@ -32,6 +32,10 @@ namespace Manager.Contents
         private bool _isPaused = false;
 
         private const JudgementTypes _missMask = JudgementTypes.EARLY_MISS | JudgementTypes.LATE_MISS;
+
+        private const NoteTypes _noActionMask = NoteTypes.SHORT_PARRY_RDY | NoteTypes.LONG_PARRY_RDY | NoteTypes.LONG_PARRY_MIDDLE | NoteTypes.LONG_PARRY_START | NoteTypes.NO_ACTION;
+
+        private bool _isParried = false;
 
 
         private void Update()
@@ -81,9 +85,13 @@ namespace Manager.Contents
                 case JudgementTypes.LATE_MISS:
                     if (_nextBeatType == RhythmStatus.LATE_BEAT)
                     {
+                        if((noteType & _noActionMask) == 0 && _isParried == false)
+                        {
+                            _onParry?.Invoke(false, null, noteType);
+                        }
                         _nextBeatType = RhythmStatus.EXACT_BEAT;
-                        _onLateTime?.Invoke(_noteIdx, noteType);
                         _noteIdx++;
+                        _isParried = false;
                     }
                     break;
             }
@@ -136,6 +144,7 @@ namespace Manager.Contents
 
         private void InitPlayStatus()
         {
+            _isParried = false;
             _isPaused = false;
             _oldTime = 0;
             _noteIdx = 0;
@@ -156,7 +165,7 @@ namespace Manager.Contents
 
 
 
-        public (int nowIdx, int endIdx, NoteTypes noteType, JudgementTypes judgeType) ClickParry()
+        public (int nowIdx, int endIdx, NoteTypes noteType, JudgementTypes judgeType) ClickParry(IParrableObject parrableObject)
         {
             if(_noteIdx >= _notes.Count || _isPlaying == false || _isPaused)
             {
@@ -175,7 +184,14 @@ namespace Manager.Contents
             {
                 return (_noteIdx, _noteIdx + 2, NoteTypes.LONG_PARRY_START, judgement);
             }
-            else if(noteType == NoteTypes.LONG_PARRY_END)
+            
+            if((noteType & _noActionMask) == 0 && _isParried == false)
+            {
+                _onParry?.Invoke(true, parrableObject, noteType);
+                _isParried = true;
+            }
+
+            if(noteType == NoteTypes.LONG_PARRY_END)
             {
                 return (_noteIdx, -1, NoteTypes.LONG_PARRY_END, judgement);
             }
@@ -184,7 +200,7 @@ namespace Manager.Contents
         }
 
 
-        public (int nowIdx, NoteTypes noteType, JudgementTypes judgeType) ReleaseParry(int end)
+        public (int nowIdx, NoteTypes noteType, JudgementTypes judgeType) ReleaseParry(int end, IParrableObject parrableObject)
         {
             if (_noteIdx >= _notes.Count || _isPlaying == false || _isPaused)
             {
@@ -200,18 +216,24 @@ namespace Manager.Contents
 
             JudgementTypes judgement = CheckJudgementType(Managers.Instance.GlobalSoundManager.GetDSPTime(SoundChannel.BGM_0), _notes[_noteIdx].Timing);
 
+            if((judgement & _missMask) == 0)
+            {
+                _onParry?.Invoke(true, parrableObject, NoteTypes.LONG_PARRY_END);
+                _isParried = true;
+            }
+
             return (_noteIdx, NoteTypes.LONG_PARRY_END, judgement);
         }
 
-        public void RegisterOnLateTime(ILateRhythmReceiver receiver)
+        public void RegisterOnParry(IParryResultReceiver receiver)
         {
             if (receiver is null)
             {
                 return;
             }
 
-            _onLateTime -= receiver.OnLateBPM;
-            _onLateTime += receiver.OnLateBPM;
+            _onParry -= receiver.OnParry;
+            _onParry += receiver.OnParry;
         }
 
         public void UnregisterOnExactTime(IExactRhythmReceiver receiver)
@@ -224,14 +246,14 @@ namespace Manager.Contents
             _onExactTime -= receiver.OnExactBPM;
         }
 
-        public void UnregisterOnLateTime(ILateRhythmReceiver receiver)
+        public void UnregisterOnParry(IParryResultReceiver receiver)
         {
             if (receiver is null)
             {
                 return;
             }
 
-            _onLateTime -= receiver.OnLateBPM;
+            _onParry -= receiver.OnParry;
         }
 
         public void Clear()
@@ -242,7 +264,7 @@ namespace Manager.Contents
             _goodRange = 0;
             _notes = null;
             _onExactTime = null;
-            _onLateTime = null;
+            _onParry = null;
             _musicKey = "";
             InitPlayStatus();
         }

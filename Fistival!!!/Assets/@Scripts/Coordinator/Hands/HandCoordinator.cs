@@ -9,9 +9,9 @@ namespace Coordinator.Hands
 {
     public class HandCoordinator : HandCoordinatorBase
     {
-        private Transform _attackBox;
-        private int _baseSmashDamage;
-        private SkillCoordinatorBase _skillBase;
+        protected Transform _attackBox;
+        protected int _baseSmashDamage;
+        protected SkillCoordinatorBase _skillBase;
         protected override void OnAwake()
         {
             _handAnchor = transform.Find("@HandAnchor");
@@ -66,7 +66,7 @@ namespace Coordinator.Hands
 
         
 
-        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
+        public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
             _status = HandStatus.IDLE;
             _attackableMask = attackableFilter;
@@ -93,7 +93,7 @@ namespace Coordinator.Hands
             }        
         }
 
-        public void Attack()
+        public virtual void Attack()
         {
             var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
 
