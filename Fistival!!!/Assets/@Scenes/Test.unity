@@ -787,6 +787,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1032
   _coyoteTime: 0.1
+  _jumpBufferTime: 0.1
 --- !u!1 &718846911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1731,6 +1732,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1032
   _coyoteTime: 0.1
+  _jumpBufferTime: 0.1
 --- !u!1 &1266106689
 GameObject:
   m_ObjectHideFlags: 0
