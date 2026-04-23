@@ -36,11 +36,11 @@ namespace Coordinator.Movements
 
         [SerializeField]
         private float _coyoteTime = 0.1f;
-        private float _coyoteTimeCounter = 0;
+        private float _coyoteTimeCounter = -1;
 
         [SerializeField]
         private float _jumpBufferTime = 0.12f;
-        private float _jumpBufferCounter = 0;
+        private float _jumpBufferCounter = -1;
 
         private bool _isGrounded = false;
 
@@ -62,6 +62,8 @@ namespace Coordinator.Movements
             _slownessSensitivity = slownessSensitivity;
             _isLeftPressed = false;
             _isRightPressed = false;
+            _jumpBufferCounter = -1;
+            _coyoteTimeCounter = -1;
         }
 
         private void FixedUpdate()
