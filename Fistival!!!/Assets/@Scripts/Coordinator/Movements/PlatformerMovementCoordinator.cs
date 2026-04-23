@@ -33,6 +33,13 @@ namespace Coordinator.Movements
         private bool _isLeftPressed = false;
         private bool _isRightPressed = false;
 
+
+        [SerializeField]
+        private float _coyoteTime = 0.1f;
+        private float _coyoteTimeCounter = 0;
+
+        private bool _isGrounded = false;
+
         private void Awake()
         {
             _platformEnableDelay = new WaitForSeconds(_platformIgnoreTime);
@@ -55,6 +62,16 @@ namespace Coordinator.Movements
 
         private void FixedUpdate()
         {
+            _isGrounded = IsGrounded();
+            if (_isGrounded)
+            {
+                _coyoteTimeCounter = _coyoteTime;
+            }
+            else
+            {
+                _coyoteTimeCounter -= Time.fixedDeltaTime;
+            }
+
             if(_parentRb2d == null)
             {
                 return;
@@ -99,8 +116,9 @@ namespace Coordinator.Movements
 
         public void OnJumpMovementInputEvent(bool pressed)
         {
-            if (pressed && IsGrounded())
+            if (pressed && (IsGrounded() || _coyoteTimeCounter >= 0))
             {
+                _coyoteTimeCounter = -1;
                 _parentRb2d.AddForce(Vector2.up * _jumpPow,ForceMode2D.Impulse);
             }
         }
