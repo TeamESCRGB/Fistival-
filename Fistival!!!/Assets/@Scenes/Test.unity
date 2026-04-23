@@ -427,7 +427,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.48, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.95, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1179122752}
@@ -737,7 +737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &505499620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,6 +786,8 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 1032
+  _coyoteTime: 0.1
+  _jumpBufferTime: 0.1
 --- !u!1 &718846911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,7 +1127,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.48, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.95, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 505499621}
@@ -1729,6 +1731,8 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 1032
+  _coyoteTime: 0.1
+  _jumpBufferTime: 0.1
 --- !u!1 &1266106689
 GameObject:
   m_ObjectHideFlags: 0
@@ -2900,7 +2904,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 064a16f8481601743b4bf500c773dbcd, type: 2}
+  m_Material: {fileID: 6200000, guid: 4314a1258b979324aac8f9feca06f581, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
