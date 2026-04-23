@@ -38,6 +38,10 @@ namespace Coordinator.Movements
         private float _coyoteTime = 0.1f;
         private float _coyoteTimeCounter = 0;
 
+        [SerializeField]
+        private float _jumpBufferTime = 0.12f;
+        private float _jumpBufferCounter = 0;
+
         private bool _isGrounded = false;
 
         private void Awake()
@@ -72,14 +76,19 @@ namespace Coordinator.Movements
                 _coyoteTimeCounter -= Time.fixedDeltaTime;
             }
 
+            _jumpBufferCounter -= Time.fixedDeltaTime;
+
+            if(_isGrounded && _jumpBufferCounter>=0)
+            {
+                Jump();
+            }
+
             if(_parentRb2d == null)
             {
                 return;
             }
 
-            var vel = _parentRb2d.linearVelocity;
-            vel.x = _vel.x * _slowness;
-            _parentRb2d.linearVelocity = vel;
+            _parentRb2d.linearVelocityX = _vel.x * _slowness;
         }
 
         public void SetSlowness(float slowness)
@@ -114,12 +123,27 @@ namespace Coordinator.Movements
             Physics2D.IgnoreCollision(col, _parentCol, false);
         }
 
+        private void Jump()
+        {
+            _jumpBufferCounter = -1;
+            _coyoteTimeCounter = -1;
+            _parentRb2d.linearVelocityY = 0;
+            _parentRb2d.AddForce(Vector2.up * _jumpPow, ForceMode2D.Impulse);
+        }
+
         public void OnJumpMovementInputEvent(bool pressed)
         {
-            if (pressed && (IsGrounded() || _coyoteTimeCounter >= 0))
+            if(pressed == false)
             {
-                _coyoteTimeCounter = -1;
-                _parentRb2d.AddForce(Vector2.up * _jumpPow,ForceMode2D.Impulse);
+                return;
+            }
+            if (IsGrounded() || _coyoteTimeCounter >= 0)
+            {
+                Jump();
+            }
+            else
+            {
+                _jumpBufferCounter = _jumpBufferTime;
             }
         }
 
