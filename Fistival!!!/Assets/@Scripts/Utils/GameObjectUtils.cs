@@ -1,4 +1,8 @@
+using Defines;
+using System;
+using UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Utils
 {
@@ -50,6 +54,11 @@ namespace Utils
             }
 
             return null;
+        }
+
+        public static void BindUIEvent(this GameObject go, Action<PointerEventData> action = null, UIEventType type = UIEventType.CLICK)
+        {
+            UIBase.BindEvent(go, action, type);
         }
     }
 }

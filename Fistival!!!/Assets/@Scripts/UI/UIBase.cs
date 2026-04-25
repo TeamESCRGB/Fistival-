@@ -25,6 +25,11 @@ namespace UI
             return true;
         }
 
+        protected virtual void Start()
+        {
+            Init();
+        }
+
         protected void Bind<T>(Type type) where T : UnityEngine.Object
         {
             string[] names = Enum.GetNames(type);
