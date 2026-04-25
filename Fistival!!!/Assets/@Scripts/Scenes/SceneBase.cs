@@ -5,7 +5,7 @@ namespace Scenes
 {
     public class SceneBase : MonoBehaviour
     {
-        public SceneType NowSceneType { get; protected set; } = SceneType.UNKNOWN;//이거 방식 바꾸기
+        public virtual SceneType NowSceneType { get; }
 
         private void Awake()
         {
