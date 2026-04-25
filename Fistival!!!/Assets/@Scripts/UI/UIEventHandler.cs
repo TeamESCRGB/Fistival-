@@ -4,6 +4,8 @@ using UnityEngine.EventSystems;
 
 namespace UI
 {
+    //오브젝트에 붙는거다
+    //유니티가 제공하는 EventSystem의 호출을 받아서 그 오브젝트가 등록한 콜백을 실행해주는 역할
     public class UIEventHandler : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
     {
         public Action<PointerEventData> OnClickHandler = null;
@@ -17,11 +19,11 @@ namespace UI
         public Action<PointerEventData> OnPointerExitHandler = null;
 
         private PointerEventData _lastEventData;
-        private bool _isPressed = false;
+        bool _pressed = false;
 
         private void Update()
         {
-            if (_isPressed)
+            if (_pressed)
             {
                 OnPressedHandler?.Invoke(_lastEventData);
             }
@@ -34,18 +36,19 @@ namespace UI
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            _isPressed = true;
+            _pressed = true;
             OnPointerDownHandler?.Invoke(eventData);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            _isPressed = false;
+            _pressed = false;
             OnPointerUpHandler?.Invoke(eventData);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
+            _pressed = true;
             OnDragHandler?.Invoke(eventData);
         }
 

@@ -5,13 +5,13 @@ namespace Scenes
 {
     public class SceneBase : MonoBehaviour
     {
-        public SceneType NowSceneType { get; protected set; } = SceneType.UNKNOWN;
+        public virtual SceneType NowSceneType { get; }
 
         private void Awake()
         {
             Init();
         }
-        protected void Init()
+        protected virtual void Init()
         {
 
         }

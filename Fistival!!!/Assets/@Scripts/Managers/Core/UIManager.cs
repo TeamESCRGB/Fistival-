@@ -14,7 +14,7 @@ namespace Manager.Core
         private UISceneBase _uiScene = null;
         private Stack<UIPopupBase> _uiPopupStack = new Stack<UIPopupBase>();
         private GameObject _uiRoot;
-        public bool IsPopupUIOn { get; private set; } = false;
+        public bool IsPopupUIOn { get { return _uiPopupStack.IsEmpty() == false; } }
         public void Init()
         {
             if (_uiRoot == null)
@@ -64,6 +64,7 @@ namespace Manager.Core
             }
 
             GameObject go = Managers.Instance.ResourceManager.Instantiate(name,parent,worldPositionStays);
+            go.transform.SetParent(parent, worldPositionStays);
 
             Canvas canvas = go.GetOrAddComponent<Canvas>();
             canvas.renderMode = RenderMode.WorldSpace;
@@ -80,6 +81,7 @@ namespace Manager.Core
             }
 
             GameObject go = Managers.Instance.ResourceManager.Instantiate(name, parent,worldPositionStays ,pooling);
+            go.transform.SetParent(parent, worldPositionStays);
 
             return go.GetOrAddComponent<T>();
         }
@@ -95,11 +97,12 @@ namespace Manager.Core
             T sceneUI = go.GetOrAddComponent<T>();
             _uiScene = sceneUI;
 
+            go.transform.SetParent(_uiRoot.transform, worldPositionStays);
 
             return sceneUI;
         }
 
-        public T ShowPopupUI<T>(string name = null, bool worldPositionStays = false) where T : UIPopupBase
+        public T ShowPopupUI<T>(string name = null, Transform parent = null, bool worldPositionStays = false) where T : UIPopupBase
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -110,14 +113,19 @@ namespace Manager.Core
             T popup = go.GetOrAddComponent<T>();
             _uiPopupStack.Push(popup);
 
-            IsPopupUIOn = true;
+            if(parent == null)
+            {
+                parent = _uiRoot.transform;
+            }
+
+            go.transform.SetParent(parent,worldPositionStays);
 
             return popup;
         }
 
         public void ClosePopupUI()
         {
-            if (_uiPopupStack.IsEmpty())//_uiPopupStack.Count <= 0
+            if (IsPopupUIOn)
             {
                 return;
             }
@@ -128,15 +136,11 @@ namespace Manager.Core
             popup = null;
             _order--;
 
-            if(_uiPopupStack.IsEmpty()) 
-            {
-                IsPopupUIOn = false;
-            }
         }
 
         public void CloseAllPopupUI()
         {
-            while (_uiPopupStack.IsEmpty() == false)//_uiPopupStack.Count > 0
+            while (IsPopupUIOn)//_uiPopupStack.Count > 0
             {
                 ClosePopupUI();
             }

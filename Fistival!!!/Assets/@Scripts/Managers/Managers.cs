@@ -45,6 +45,30 @@ namespace Manager
             _resourceMgr.OnLateUpdate();
         }
 
+        private void OnDestroy()
+        {
+            _sInstance._attackMgr.Clear();
+            _sInstance._rhythmMgr.Clear();
+
+            _sInstance._cooldownMgr = null;
+            _sInstance._attackMgr = null;
+            _sInstance._rhythmMgr = null;
+
+            _goPoolMgr.Clear();
+            _sInstance._resourceMgr.Clear();
+            _sInstance._gSoundMgr.Clear();
+            _sInstance._uiMgr.Clear();
+
+            _sInstance._goPoolMgr = null;
+            _sInstance._resourceMgr = null;
+            _sInstance._gSoundMgr = null;
+            _sInstance._sceneMgr = null;
+            _sInstance._dataMgr = null;
+            _sInstance._uiMgr = null;
+
+            _sInstance = null;
+        }
+
         private static void Init()
         {
             if(_sInstance == null)
@@ -61,6 +85,8 @@ namespace Manager
                 _sInstance._cooldownMgr = go.GetOrAddComponent<CooldownManager>();
                 _sInstance._attackMgr = go.GetOrAddComponent<AttackManager>();
                 _sInstance._rhythmMgr = go.GetOrAddComponent<RhythmModeManager>();
+
+                _sInstance._gSoundMgr.Init();
 
                 DontDestroyOnLoad(go);
             }
