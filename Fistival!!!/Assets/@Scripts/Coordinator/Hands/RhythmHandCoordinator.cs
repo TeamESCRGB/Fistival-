@@ -52,44 +52,55 @@ namespace Coordinator.Hands
              판정에 따른 데미지 계수 곱하는거 빼면 로직은 기본가 똑같음
              */
 
-            var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
+            //var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
 
-            if (enemy == null || enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
+            var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
+
+            if(enemies is null)
             {
                 return;
             }
 
-            //BoxOverlap에 필터링에 걸린것만 가져와서 수행.
-            //없으면 실행 안함
-            int totalDmg = _baseSmashDamage;
-            if (_grabbedObject != null)
+            for(int i = 0;  i < enemies.Length; i++)
             {
-
-                totalDmg += _grabbedObject.GetSharedData().Damage;
-
-                if (_grabbedObject.Smash() == false)
+                Collider2D enemy = enemies[i];
+                if (enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
                 {
-                    _grabbedObject = null;
-                    _chargeCnt = 0;
-                    InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
-                    InvokeOnGrabbedObjectChanged(null);
-                    _status = HandStatus.IDLE;
+                    return;
                 }
+
+                //BoxOverlap에 필터링에 걸린것만 가져와서 수행.
+                //없으면 실행 안함
+                int totalDmg = _baseSmashDamage;
+                if (_grabbedObject != null)
+                {
+
+                    totalDmg += _grabbedObject.GetSharedData().Damage;
+
+                    if (_grabbedObject.Smash() == false)
+                    {
+                        _grabbedObject = null;
+                        _chargeCnt = 0;
+                        InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
+                        InvokeOnGrabbedObjectChanged(null);
+                        _status = HandStatus.IDLE;
+                    }
+                }
+
+                float damageMultiplier = 1;
+
+                switch (_judgeType)
+                {
+                    case JudgementTypes.PERFECT:
+                        damageMultiplier = 2;
+                        break;
+                    case JudgementTypes.GOOD:
+                        damageMultiplier = 1.5f;
+                        break;
+                }
+
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, (int)(totalDmg * damageMultiplier));
             }
-
-            float damageMultiplier = 1;
-
-            switch(_judgeType)
-            {
-                case JudgementTypes.PERFECT:
-                    damageMultiplier = 2;
-                    break;
-                case JudgementTypes.GOOD:
-                    damageMultiplier = 1.5f;
-                    break;
-            }
-
-            Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, (int)(totalDmg * damageMultiplier));
         }
 
         private void ReflectDamage()

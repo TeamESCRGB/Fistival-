@@ -47,6 +47,10 @@ namespace Manager
 
         private void OnDestroy()
         {
+            if (_sInstance == null)
+            {
+                return;
+            }
             _sInstance._attackMgr.Clear();
             _sInstance._rhythmMgr.Clear();
 
