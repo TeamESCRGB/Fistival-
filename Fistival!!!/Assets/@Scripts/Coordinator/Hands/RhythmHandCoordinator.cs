@@ -7,6 +7,10 @@ namespace Coordinator.Hands
 {
     public class RhythmHandCoordinator : HandCoordinator, IParrableObject
     {
+        [SerializeField]
+        private float _shortParryReflectRadius = 2;
+        [SerializeField]
+        private float _longParryReflectRadius = 4.5f;
         private const JudgementTypes _missMask = JudgementTypes.EARLY_MISS | JudgementTypes.LATE_MISS;
         private const NoteTypes _noActionMask = NoteTypes.SHORT_PARRY_RDY | NoteTypes.LONG_PARRY_RDY | NoteTypes.LONG_PARRY_MIDDLE | NoteTypes.LONG_PARRY_START | NoteTypes.NO_ACTION;
         private int _parriedIdx = -1;
@@ -82,9 +86,25 @@ namespace Coordinator.Hands
             }
         }
 
-        private void ReflectDamage()
+        private void ReflectDamage(NoteTypes noteType)
         {
-            var hit = Physics2D.OverlapCircleAll(_attackBox.position, _attackBox.localScale.x / 2, _attackableMask);
+            if(_parryReflectionDamage <= 0)
+            {
+                return;
+            }
+
+            float attackboxRange = 1;
+            switch (noteType)
+            {
+                case NoteTypes.SHORT_PARRY:
+                    attackboxRange = _shortParryReflectRadius;
+                    break;
+                case NoteTypes.LONG_PARRY_END:
+                    attackboxRange = _longParryReflectRadius;
+                    break;
+            }
+
+            var hit = Physics2D.OverlapCircleAll(_attackBox.position, _attackBox.localScale.x * attackboxRange / 2, _attackableMask);
 
             if(hit == null)
             {
@@ -121,7 +141,7 @@ namespace Coordinator.Hands
 
             if((_noteType & _noActionMask) == 0 && (_judgeType & _missMask) == 0)
             {
-                ReflectDamage();
+                ReflectDamage(_noteType);
             }
 
             Attack();
@@ -130,11 +150,12 @@ namespace Coordinator.Hands
         public void OnLMBReleased()
         {
             var parryResult = Managers.Instance.RhythmModeManager.ReleaseParry(_endIdx, this);
+            _parryReflectionDamage = 0;
             if((parryResult.judgeType & _missMask) != 0)
             {
                 return;
             }
-            ReflectDamage();
+            ReflectDamage(parryResult.noteType);
             Attack();
         }
 
