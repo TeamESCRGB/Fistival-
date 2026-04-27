@@ -4,6 +4,7 @@ using Manager;
 using UnityEngine;
 using Coordinator.Objects;
 using static Utils.VectorUtils;
+using System;
 
 namespace Coordinator.Hands
 {
@@ -12,13 +13,14 @@ namespace Coordinator.Hands
 
         [Header("HandCoordinator Field")]
         [SerializeField]
-        private float _strongRdyThreshold = 0.5f;
+        private double _strongRdyThreshold = 0.5f;
         [SerializeField]
-        private float _strongAttackThreshold = 1;
+        private double _strongAttackThreshold = 1;
         [SerializeField]
-        private float _strongDamageMultiplier = 2;
-        private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
-        private float _pressedTime = 0;
+        private int _strongDamageMultiplier = 2;
+        [SerializeField]private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
+        private double _pressedTime = 0;
+        public Action<AttackStatus> OnAttackStatusChanged;//null
         
 
         protected Transform _attackBox;
@@ -75,6 +77,14 @@ namespace Coordinator.Hands
                     InvokeOnChargeRateChanged(_chargeCnt,_maxChargeCnt);
                 }
             }
+
+            if(_attackStatus == AttackStatus.PRESSED)
+            {
+                if(Time.timeAsDouble - _pressedTime >= _strongRdyThreshold)
+                {
+                    _attackStatus = AttackStatus.STRONG_RDY;
+                }
+            }
         }
 
         
@@ -129,6 +139,12 @@ namespace Coordinator.Hands
                 //BoxOverlap에 필터링에 걸린것만 가져와서 수행.
                 //없으면 실행 안함
                 int totalDmg = _baseSmashDamage;
+
+                if(_attackStatus == AttackStatus.STRONG)
+                {
+                    totalDmg *= _strongDamageMultiplier;
+                }
+
                 if (_grabbedObject != null)
                 {
 
@@ -199,12 +215,19 @@ namespace Coordinator.Hands
 
         public virtual void OnLMBPressed()
         {
-
+            _attackStatus = AttackStatus.PRESSED;
+            _pressedTime = Time.timeAsDouble;
         }
 
         public virtual void OnLMBReleased()
         {
 
+            if(_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
+            {
+                _attackStatus = AttackStatus.STRONG;
+            }
+            Attack();
+            _attackStatus = AttackStatus.NO_PRESSED;
         }
     }
 }

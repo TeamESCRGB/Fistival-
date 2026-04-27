@@ -4,6 +4,7 @@
     {
         NO_PRESSED=1,
         PRESSED=2,
-        STRONG_RDY=3
+        STRONG_RDY=3,
+        STRONG=4
     }
 }

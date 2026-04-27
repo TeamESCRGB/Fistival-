@@ -74,11 +74,14 @@ namespace Coordinator.Modes
 
         public void OnLMBEvent(bool pressed, Vector2 screenPos)
         {
-            if(pressed == false)
+            if(pressed)
             {
-                return;
+                _hand.OnLMBPressed();
             }
-            _hand.Attack();
+            else
+            {
+                _hand.OnLMBReleased();
+            }
         }
 
         public void OnDropEvent(bool pressed)
