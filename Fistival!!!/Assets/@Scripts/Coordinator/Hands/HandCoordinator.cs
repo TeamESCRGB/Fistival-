@@ -196,5 +196,15 @@ namespace Coordinator.Hands
                 Throw();
             }
         }
+
+        public virtual void OnLMBPressed()
+        {
+
+        }
+
+        public virtual void OnLMBReleased()
+        {
+
+        }
     }
 }
