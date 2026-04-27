@@ -4,14 +4,29 @@ using Manager;
 using UnityEngine;
 using Coordinator.Objects;
 using static Utils.VectorUtils;
+using System;
 
 namespace Coordinator.Hands
 {
     public class HandCoordinator : HandCoordinatorBase
     {
+
+        [Header("HandCoordinator Field")]
+        [SerializeField]
+        private double _strongRdyThreshold = 0.5f;
+        [SerializeField]
+        private double _strongAttackThreshold = 1;
+        [SerializeField]
+        private int _strongDamageMultiplier = 2;
+        [SerializeField]private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
+        private double _pressedTime = 0;
+        public Action<AttackStatus> OnAttackStatusChanged;
+        
+
         protected Transform _attackBox;
         protected int _baseSmashDamage;
         protected SkillCoordinatorBase _skillBase;
+
         protected override void OnAwake()
         {
             _handAnchor = transform.Find("@HandAnchor");
@@ -62,12 +77,23 @@ namespace Coordinator.Hands
                     InvokeOnChargeRateChanged(_chargeCnt,_maxChargeCnt);
                 }
             }
+
+            if(_attackStatus == AttackStatus.PRESSED)
+            {
+                if(Time.timeAsDouble - _pressedTime >= _strongRdyThreshold)
+                {
+                    _attackStatus = AttackStatus.STRONG_RDY;
+                    OnAttackStatusChanged?.Invoke(AttackStatus.STRONG_RDY);
+                }
+            }
         }
 
         
 
         public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
+            _attackStatus = AttackStatus.NO_PRESSED;
+            _pressedTime = 0;
             _status = HandStatus.IDLE;
             _attackableMask = attackableFilter;
             _grabbedObject = null;
@@ -114,6 +140,12 @@ namespace Coordinator.Hands
                 //BoxOverlap에 필터링에 걸린것만 가져와서 수행.
                 //없으면 실행 안함
                 int totalDmg = _baseSmashDamage;
+
+                if(_attackStatus == AttackStatus.STRONG)
+                {
+                    totalDmg *= _strongDamageMultiplier;
+                }
+
                 if (_grabbedObject != null)
                 {
 
@@ -180,6 +212,25 @@ namespace Coordinator.Hands
             {
                 Throw();
             }
+        }
+
+        public virtual void OnLMBPressed()
+        {
+            _attackStatus = AttackStatus.PRESSED;
+            _pressedTime = Time.timeAsDouble;
+            OnAttackStatusChanged?.Invoke(AttackStatus.PRESSED);
+        }
+
+        public virtual void OnLMBReleased()
+        {
+
+            if(_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
+            {
+                _attackStatus = AttackStatus.STRONG;
+            }
+            Attack();
+            _attackStatus = AttackStatus.NO_PRESSED;
+            OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
         }
     }
 }

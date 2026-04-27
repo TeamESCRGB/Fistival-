@@ -7,6 +7,7 @@ namespace Coordinator.Hands
 {
     public class RhythmHandCoordinator : HandCoordinator, IParrableObject
     {
+        [Header("RhythmHandCoordinator Field")]
         [SerializeField]
         private float _shortParryReflectRadius = 2;
         [SerializeField]
@@ -124,7 +125,7 @@ namespace Coordinator.Hands
         }
 
 
-        public void OnLMBPressed()
+        public override void OnLMBPressed()
         {
             _parryReflectionDamage = 0;
 
@@ -147,7 +148,7 @@ namespace Coordinator.Hands
             Attack();
         }
 
-        public void OnLMBReleased()
+        public override void OnLMBReleased()
         {
             var parryResult = Managers.Instance.RhythmModeManager.ReleaseParry(_endIdx, this);
             _parryReflectionDamage = 0;
