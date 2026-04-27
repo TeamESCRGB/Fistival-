@@ -106,6 +106,10 @@ namespace Coordinator.Hands
             _skillBase.Init(_attackableMask,_baseSmashDamage);
         }
 
+        public int GetStrongAttackDamageMultiplier()
+        {
+            return _strongDamageMultiplier;
+        }
         public override void Drop()
         {
             if(_grabbedObject != null)

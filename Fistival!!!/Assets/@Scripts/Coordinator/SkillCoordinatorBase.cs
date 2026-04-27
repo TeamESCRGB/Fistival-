@@ -6,9 +6,9 @@ namespace Coordinator
 {
     public abstract class SkillCoordinatorBase : MonoBehaviour
     {
-        private int _attackableLayers = 0;
+        protected int _attackableLayers = 0;
 
-        private int _baseDamage = 0;
+        protected int _baseDamage = 0;
 
         public void Init(int attackableLayers, int baseDamage)
         {
