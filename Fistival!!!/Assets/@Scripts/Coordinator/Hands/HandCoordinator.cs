@@ -9,9 +9,22 @@ namespace Coordinator.Hands
 {
     public class HandCoordinator : HandCoordinatorBase
     {
+
+        [Header("HandCoordinator Field")]
+        [SerializeField]
+        private float _strongRdyThreshold = 0.5f;
+        [SerializeField]
+        private float _strongAttackThreshold = 1;
+        [SerializeField]
+        private float _strongDamageMultiplier = 2;
+        private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
+        private float _pressedTime = 0;
+        
+
         protected Transform _attackBox;
         protected int _baseSmashDamage;
         protected SkillCoordinatorBase _skillBase;
+
         protected override void OnAwake()
         {
             _handAnchor = transform.Find("@HandAnchor");
@@ -68,6 +81,8 @@ namespace Coordinator.Hands
 
         public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
+            _attackStatus = AttackStatus.NO_PRESSED;
+            _pressedTime = 0;
             _status = HandStatus.IDLE;
             _attackableMask = attackableFilter;
             _grabbedObject = null;
