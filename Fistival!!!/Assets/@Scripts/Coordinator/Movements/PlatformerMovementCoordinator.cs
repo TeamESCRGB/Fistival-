@@ -133,7 +133,7 @@ namespace Coordinator.Movements
             _parentRb2d.AddForce(Vector2.up * _jumpPow, ForceMode2D.Impulse);
         }
 
-        public void OnJumpMovementInputEvent(bool pressed)
+        public virtual void OnJumpMovementInputEvent(bool pressed)
         {
             if(pressed == false)
             {

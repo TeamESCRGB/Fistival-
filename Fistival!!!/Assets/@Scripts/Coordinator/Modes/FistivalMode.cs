@@ -16,6 +16,11 @@ namespace Coordinator.Modes
         public override ModeTypes ModeType => ModeTypes.FISTIVAL;
         private void Awake()
         {
+            OnAwake();
+        }
+
+        protected virtual void OnAwake()
+        {
             _movCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
             _hand = GetComponentInChildren<HandCoordinator>();
             _inputCoordinator = gameObject.GetComponentInParent<PlayerInputCoordinator>();
