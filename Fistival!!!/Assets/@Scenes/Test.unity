@@ -960,6 +960,7 @@ GameObject:
   - component: {fileID: 505499621}
   - component: {fileID: 505499620}
   - component: {fileID: 505499622}
+  - component: {fileID: 505499623}
   m_Layer: 7
   m_Name: FistivalMode
   m_TagString: Untagged
@@ -1003,7 +1004,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505499619}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce06ab51188fc2845bc6a94596c9c45f, type: 3}
   m_Name: 
@@ -1017,6 +1018,27 @@ MonoBehaviour:
     m_Bits: 1032
   _coyoteTime: 0.1
   _jumpBufferTime: 0.1
+--- !u!114 &505499623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505499619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6950f2b1cd0932b41ab4636cef243c35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Movements.DoubleJumpMovementCoordinator
+  _platformIgnoreTime: 0.5
+  _platformMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 1032
+  _coyoteTime: 0.1
+  _jumpBufferTime: 0.12
 --- !u!1 &718846911
 GameObject:
   m_ObjectHideFlags: 0
