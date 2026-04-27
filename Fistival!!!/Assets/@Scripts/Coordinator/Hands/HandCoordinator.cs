@@ -20,7 +20,7 @@ namespace Coordinator.Hands
         private int _strongDamageMultiplier = 2;
         [SerializeField]private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
-        public Action<AttackStatus> OnAttackStatusChanged;//null
+        public Action<AttackStatus> OnAttackStatusChanged;
         
 
         protected Transform _attackBox;
@@ -83,6 +83,7 @@ namespace Coordinator.Hands
                 if(Time.timeAsDouble - _pressedTime >= _strongRdyThreshold)
                 {
                     _attackStatus = AttackStatus.STRONG_RDY;
+                    OnAttackStatusChanged?.Invoke(AttackStatus.STRONG_RDY);
                 }
             }
         }
@@ -217,6 +218,7 @@ namespace Coordinator.Hands
         {
             _attackStatus = AttackStatus.PRESSED;
             _pressedTime = Time.timeAsDouble;
+            OnAttackStatusChanged?.Invoke(AttackStatus.PRESSED);
         }
 
         public virtual void OnLMBReleased()
@@ -228,6 +230,7 @@ namespace Coordinator.Hands
             }
             Attack();
             _attackStatus = AttackStatus.NO_PRESSED;
+            OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
         }
     }
 }
