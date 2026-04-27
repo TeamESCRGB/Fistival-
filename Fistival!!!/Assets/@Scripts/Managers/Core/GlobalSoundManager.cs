@@ -174,7 +174,10 @@ namespace Manager.Core
         {
             foreach (var source in _channels)
             {
-                source.source.Stop();
+                if(source.source != null)
+                {
+                    source.source.Stop();
+                }
             }
         }
 

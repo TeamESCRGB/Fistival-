@@ -95,32 +95,44 @@ namespace Coordinator.Hands
 
         public virtual void Attack()
         {
-            var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
+            //var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBox.localScale, 0, _attackableMask);//gc
+            var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
 
-            if (enemy == null || enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
+            if(enemies is null)
             {
                 return;
             }
 
-            //BoxOverlap에 필터링에 걸린것만 가져와서 수행.
-            //없으면 실행 안함
-            int totalDmg = _baseSmashDamage;
-            if (_grabbedObject != null)
+            for(int i = 0; i < enemies.Length; i++)
             {
-
-                totalDmg += _grabbedObject.GetSharedData().Damage;
-
-                if (_grabbedObject.Smash() == false)
+                Collider2D enemy = enemies[i];
+                if (enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
                 {
-                    _grabbedObject = null;
-                    _chargeCnt = 0;
-                    InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
-                    InvokeOnGrabbedObjectChanged(null);
-                    _status = HandStatus.IDLE;
+                    return;
                 }
+
+                //BoxOverlap에 필터링에 걸린것만 가져와서 수행.
+                //없으면 실행 안함
+                int totalDmg = _baseSmashDamage;
+                if (_grabbedObject != null)
+                {
+
+                    totalDmg += _grabbedObject.GetSharedData().Damage;
+
+                    if (_grabbedObject.Smash() == false)
+                    {
+                        _grabbedObject = null;
+                        _chargeCnt = 0;
+                        InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
+                        InvokeOnGrabbedObjectChanged(null);
+                        _status = HandStatus.IDLE;
+                    }
+                }
+
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg);
             }
 
-            Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg);
+            
             //공격하는 함수. 데미지: damage +  해서 OverlapBox써서 나중에 함
         }
 
