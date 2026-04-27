@@ -36,11 +36,11 @@ namespace Coordinator.Movements
 
         [SerializeField]
         private float _coyoteTime = 0.1f;
-        private float _coyoteTimeCounter = -1;
+        protected float _coyoteTimeCounter = -1;
 
         [SerializeField]
-        private float _jumpBufferTime = 0.12f;
-        private float _jumpBufferCounter = -1;
+        protected float _jumpBufferTime = 0.12f;
+        protected float _jumpBufferCounter = -1;
 
         private bool _isGrounded = false;
 
@@ -50,7 +50,7 @@ namespace Coordinator.Movements
             _groundedCheckBox = transform.Find("@GroundedCheckBox");
         }
 
-        public void Init(float speed,float jumpPow ,float slownessSensitivity,float maxSlowness,Rigidbody2D parentRb2d)
+        public virtual void Init(float speed,float jumpPow ,float slownessSensitivity,float maxSlowness,Rigidbody2D parentRb2d)
         {
             _parentRb2d = parentRb2d;
             _speed = speed;
@@ -125,7 +125,7 @@ namespace Coordinator.Movements
             Physics2D.IgnoreCollision(col, _parentCol, false);
         }
 
-        private void Jump()
+        protected void Jump()
         {
             _jumpBufferCounter = -1;
             _coyoteTimeCounter = -1;
@@ -133,7 +133,7 @@ namespace Coordinator.Movements
             _parentRb2d.AddForce(Vector2.up * _jumpPow, ForceMode2D.Impulse);
         }
 
-        public void OnJumpMovementInputEvent(bool pressed)
+        public virtual void OnJumpMovementInputEvent(bool pressed)
         {
             if(pressed == false)
             {
