@@ -1071,7 +1071,6 @@ MonoBehaviour:
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _strongDamageMultiplier: 2
-  _attackStatus: 1
   _shortParryReflectRadius: 2
   _longParryReflectRadius: 4.5
 --- !u!1 &750047763
@@ -1374,7 +1373,6 @@ MonoBehaviour:
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _strongDamageMultiplier: 5
-  _attackStatus: 1
 --- !u!1 &901346739
 GameObject:
   m_ObjectHideFlags: 0
@@ -2402,7 +2400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1401871905
 Transform:
   m_ObjectHideFlags: 0
@@ -4538,7 +4536,6 @@ MonoBehaviour:
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _strongDamageMultiplier: 5
-  _attackStatus: 1
 --- !u!1 &2141514440
 GameObject:
   m_ObjectHideFlags: 0
