@@ -121,5 +121,12 @@ namespace Coordinator
         public abstract void OnRMBReleased();
 
         #endregion
+
+        #region LMBOperations
+
+        public abstract void OnLMBPressed();
+        public abstract void OnLMBReleased();
+
+        #endregion
     }
 }

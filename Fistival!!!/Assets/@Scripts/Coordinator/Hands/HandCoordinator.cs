@@ -218,14 +218,14 @@ namespace Coordinator.Hands
             }
         }
 
-        public virtual void OnLMBPressed()
+        public override void OnLMBPressed()
         {
             _attackStatus = AttackStatus.PRESSED;
             _pressedTime = Time.timeAsDouble;
             OnAttackStatusChanged?.Invoke(AttackStatus.PRESSED);
         }
 
-        public virtual void OnLMBReleased()
+        public override void OnLMBReleased()
         {
 
             if(_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
