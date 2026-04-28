@@ -14,7 +14,6 @@ namespace Coordinator.Hands
         private float _longParryReflectRadius = 4.5f;
         private const JudgementTypes _missMask = JudgementTypes.EARLY_MISS | JudgementTypes.LATE_MISS;
         private const NoteTypes _noActionMask = NoteTypes.SHORT_PARRY_RDY | NoteTypes.LONG_PARRY_RDY | NoteTypes.LONG_PARRY_MIDDLE | NoteTypes.LONG_PARRY_START | NoteTypes.NO_ACTION;
-        private int _parriedIdx = -1;
         private int _endIdx = -1;
         private JudgementTypes _judgeType;
         private NoteTypes _noteType;
@@ -29,7 +28,6 @@ namespace Coordinator.Hands
         public override void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
             base.Init(parentRb2d, baseSmashDamage, attackableFilter);
-            _parriedIdx = -1;
             _endIdx = -1;
             _judgeType = _missMask;
             _noteType = NoteTypes.NO_ACTION;
@@ -130,7 +128,6 @@ namespace Coordinator.Hands
             _parryReflectionDamage = 0;
 
             var parryResult = Managers.Instance.RhythmModeManager.ClickParry(this);
-            _parriedIdx = parryResult.nowIdx;
             _endIdx = parryResult.endIdx;
             _judgeType = parryResult.judgeType;
             _noteType = parryResult.noteType;

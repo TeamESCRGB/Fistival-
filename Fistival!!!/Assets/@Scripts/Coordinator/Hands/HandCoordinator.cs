@@ -18,7 +18,7 @@ namespace Coordinator.Hands
         private double _strongAttackThreshold = 1;
         [SerializeField]
         private int _strongDamageMultiplier = 2;
-        [SerializeField]private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
+        private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
         public Action<AttackStatus> OnAttackStatusChanged;
         
