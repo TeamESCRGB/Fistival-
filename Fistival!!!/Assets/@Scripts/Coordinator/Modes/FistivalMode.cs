@@ -8,31 +8,26 @@ using Defines;
 
 namespace Coordinator.Modes
 {
-    public class FistivalMode : ModeBase, IRMBInputHandler, ILMBInputHandler, IDropInputHandler
+    public class FistivalMode : ModeBase, ILMBInputHandler
     {
         protected HandCoordinator _hand;
         private PlatformerMovementCoordinator _movCoordinator;
         private float _objectWeight = 0;
         public override ModeTypes ModeType => ModeTypes.FISTIVAL;
-        private void Awake()
-        {
-            OnAwake();
-        }
 
-        protected virtual void OnAwake()
+
+        protected override void OnAwake()
         {
+            base.OnAwake();
             _movCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
             _hand = GetComponentInChildren<HandCoordinator>();
-            _inputCoordinator = gameObject.GetComponentInParent<PlayerInputCoordinator>();
         }
 
         public override void Init(CommonModeData data)
         {
             base.Init(data);
             _movCoordinator.Init(data.MoveSpeed,data.JumpPower,_commonData.SlownessSensitivity,_commonData.MaxSlowness,GetComponentInParent<Rigidbody2D>());
-            _inputCoordinator.SetDropInputHandler(this);
             _inputCoordinator.SetLMBInputHandler(this);
-            _inputCoordinator.SetRMBInputHandler(this);
             _inputCoordinator.SetMovementInputHandler(_movCoordinator);
             _hand.Init(GetComponentInParent<Rigidbody2D>(), data.Damage, data.AttackableLayers);//아니 이거 데이터에 추가해야되네
             _hand.OnGrabbedObjectChanged+=OnGrabbedObjectChanged;
@@ -64,7 +59,7 @@ namespace Coordinator.Modes
             _movCoordinator.SetSlowness(1/(1 + (now / max * _objectWeight)));
         }
 
-        public void OnRMBEvent(bool pressed, Vector2 screenPos)
+        public override void OnRMBEvent(bool pressed, Vector2 screenPos)
         {
             if(pressed)
             {
@@ -89,7 +84,7 @@ namespace Coordinator.Modes
             }
         }
 
-        public void OnDropEvent(bool pressed)
+        public override void OnDropEvent(bool pressed)
         {
             _hand.Drop();
         }

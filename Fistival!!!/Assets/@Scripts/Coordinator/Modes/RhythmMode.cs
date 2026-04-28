@@ -3,13 +3,12 @@ using Coordinator.Movements;
 using Data;
 using Defines;
 using InputHandler;
-using System;
 using UnityEngine;
 using Utils;
 
 namespace Coordinator.Modes
 {
-    public class RhythmMode : ModeBase, IRMBInputHandler, ILMBInputHandler, IDropInputHandler
+    public class RhythmMode : ModeBase, ILMBInputHandler
     {
 
         private RhythmHandCoordinator _hand;
@@ -18,10 +17,10 @@ namespace Coordinator.Modes
 
         public override ModeTypes ModeType => ModeTypes.RHYTHM;
 
-        private void Awake()
+        protected override void OnAwake()
         {
+            base.OnAwake();
             _hand = gameObject.GetComponentInChildren<RhythmHandCoordinator>();
-            _inputCoordinator = gameObject.GetComponentInParent<PlayerInputCoordinator>();
             _movementCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
         }
 
@@ -34,9 +33,7 @@ namespace Coordinator.Modes
 
             _objectWeight = 0;
 
-            _inputCoordinator.SetDropInputHandler(this);
             _inputCoordinator.SetLMBInputHandler(this);
-            _inputCoordinator.SetRMBInputHandler(this);
             _inputCoordinator.SetMovementInputHandler(_movementCoordinator);
 
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
@@ -69,7 +66,7 @@ namespace Coordinator.Modes
             _movementCoordinator.SetSlowness(1 / (1 + (now / max * _objectWeight)));
         }
 
-        public void OnDropEvent(bool pressed)
+        public override void OnDropEvent(bool pressed)
         {
             if(pressed)
             {
@@ -90,7 +87,7 @@ namespace Coordinator.Modes
             }
         }
 
-        public void OnRMBEvent(bool pressed, Vector2 screenPos)
+        public override void OnRMBEvent(bool pressed, Vector2 screenPos)
         {
             if (pressed)
             {
