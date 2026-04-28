@@ -8,6 +8,7 @@ namespace Manager
     public class Managers : MonoBehaviour
     {
         private static Managers _sInstance = null;
+        private static bool _isDisposed = false;
 
         public static Managers Instance { get { Init(); return _sInstance; } }
 
@@ -45,12 +46,23 @@ namespace Manager
             _resourceMgr.OnLateUpdate();
         }
 
+        private void OnApplicationQuit()
+        {
+            _isDisposed = true;
+        }
+
         private void OnDestroy()
         {
             if (_sInstance == null)
             {
                 return;
             }
+
+            if(_isDisposed == false)
+            {
+                return;
+            }
+
             _sInstance._attackMgr.Clear();
             _sInstance._rhythmMgr.Clear();
 
@@ -75,6 +87,11 @@ namespace Manager
 
         private static void Init()
         {
+            if(_isDisposed)
+            {
+                return;
+            }
+
             if(_sInstance == null)
             {
                 GameObject go = GameObject.Find("@Managers");

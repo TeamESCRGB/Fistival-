@@ -3,7 +3,7 @@ using Manager;
 using System;
 using UnityEngine;
 
-namespace Coordinator
+namespace Coordinator.Skills
 {
     public class PlatformerFootCoordinator : SkillCoordinatorBase
     {

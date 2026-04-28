@@ -2,8 +2,6 @@ using Coordinator.Victims;
 using Defines;
 using Manager;
 using UnityEngine;
-using Coordinator.Objects;
-using static Utils.VectorUtils;
 using System;
 
 namespace Coordinator.Hands
@@ -18,7 +16,7 @@ namespace Coordinator.Hands
         private double _strongAttackThreshold = 1;
         [SerializeField]
         private int _strongDamageMultiplier = 2;
-        [SerializeField]private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
+        private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
         public Action<AttackStatus> OnAttackStatusChanged;
         
@@ -29,27 +27,15 @@ namespace Coordinator.Hands
 
         protected override void OnAwake()
         {
-            _handAnchor = transform.Find("@HandAnchor");
             _attackBox = transform.Find("@AttackBox");
-            _mainCam = Camera.main;
+            base.OnAwake();
 
 #if UNITY_EDITOR
-            if (_handAnchor == null)
-            {
-                Debug.LogError($"@HandAnchor 가 {gameObject.name}의 자식중에 없습니다.");
-            }
-
             if (_attackBox == null)
             {
                 Debug.LogError($"@AttackBox 가 {gameObject.name}의 자식중에 없습니다.");
             }
-
-            if (_mainCam == null)
-            {
-                Debug.LogError($"MainCamera테그를 가진 카메라가 없습니다.");
-            }
 #endif
-
             _skillBase = _attackBox.gameObject.GetComponent<SkillCoordinatorBase>();
 #if UNITY_EDITOR
             if (_skillBase == null)
@@ -58,7 +44,6 @@ namespace Coordinator.Hands
 
             }
 #endif
-            
         }
 
 
@@ -66,17 +51,7 @@ namespace Coordinator.Hands
         protected override void OnUpdate()
         {
             //게임 일시정지 로직 나중에 추가
-            if(_status == HandStatus.CHARGE && _chargeCnt < _maxChargeCnt)
-            {
-                _chargeTime += Time.deltaTime;
-
-                if(_chargeTime >= _chargeTimeInterval)
-                {
-                    _chargeTime = 0;
-                    _chargeCnt += 1;
-                    InvokeOnChargeRateChanged(_chargeCnt,_maxChargeCnt);
-                }
-            }
+            base.OnUpdate();
 
             if(_attackStatus == AttackStatus.PRESSED)
             {
@@ -87,8 +62,6 @@ namespace Coordinator.Hands
                 }
             }
         }
-
-        
 
         public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
@@ -110,24 +83,12 @@ namespace Coordinator.Hands
         {
             return _strongDamageMultiplier;
         }
-        public override void Drop()
-        {
-            if(_grabbedObject != null)
-            {
-                _status = HandStatus.IDLE;
-                _grabbedObject.Drop(_parentRb2d.linearVelocity);
-                _grabbedObject = null;
-                _chargeCnt = 0;
-                InvokeOnChargeRateChanged(_chargeCnt,_maxChargeCnt);
-                InvokeOnGrabbedObjectChanged(null);
-            }        
-        }
 
         public virtual void Attack()
         {
             //var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBox.localScale, 0, _attackableMask);//gc
             var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
-
+            
             if(enemies is null)
             {
                 return;
@@ -172,60 +133,14 @@ namespace Coordinator.Hands
             //공격하는 함수. 데미지: damage +  해서 OverlapBox써서 나중에 함
         }
 
-        protected override void Throw()
-        {
-            _status = HandStatus.IDLE;
-            _grabbedObject.SetAttackableLayer(_attackableMask);
-            _grabbedObject.Throw(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), _handAnchor.position), _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt);
-            _chargeCnt = 0;
-            _grabbedObject = null;
-            InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
-            InvokeOnGrabbedObjectChanged(null);
-        }
-
-        protected override void Pickup()
-        {
-            _status = HandStatus.IDLE;
-            var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, _pickableObjectMask);
-            if (hit.transform != null && hit.transform.gameObject.TryGetComponent<ObjectCoordinator>(out var comp))
-            {
-                _grabbedObject = comp;
-                comp.PickUp(_handAnchor);
-                InvokeOnGrabbedObjectChanged(comp.GetSharedData());
-                _status = HandStatus.GRABBED;
-            }
-        }
-
-        public override void OnRMBPressed()
-        {
-            if (_grabbedObject == null)
-            {
-                Pickup();
-            }
-            else
-            {
-                _chargeTime = 0;
-                _chargeCnt = 1;
-                _status = HandStatus.CHARGE;
-            }
-        }
-
-        public override void OnRMBReleased()
-        {
-            if(_status == HandStatus.CHARGE && _grabbedObject != null)
-            {
-                Throw();
-            }
-        }
-
-        public virtual void OnLMBPressed()
+        public override void OnLMBPressed()
         {
             _attackStatus = AttackStatus.PRESSED;
             _pressedTime = Time.timeAsDouble;
             OnAttackStatusChanged?.Invoke(AttackStatus.PRESSED);
         }
 
-        public virtual void OnLMBReleased()
+        public override void OnLMBReleased()
         {
 
             if(_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
