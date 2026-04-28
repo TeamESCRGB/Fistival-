@@ -2,13 +2,12 @@ using Coordinator.Hands;
 using Coordinator.Movements;
 using Data;
 using Defines;
-using InputHandler;
 using UnityEngine;
 using Utils;
 
 namespace Coordinator.Modes
 {
-    public class RhythmMode : ModeBase, ILMBInputHandler
+    public class RhythmMode : ModeBase
     {
 
         private RhythmHandCoordinator _hand;
@@ -32,8 +31,6 @@ namespace Coordinator.Modes
             _movementCoordinator.Init(data.MoveSpeed, data.JumpPower, _commonData.SlownessSensitivity, _commonData.MaxSlowness, GetComponentInParent<Rigidbody2D>());
 
             _objectWeight = 0;
-
-            _inputCoordinator.SetLMBInputHandler(this);
             _inputCoordinator.SetMovementInputHandler(_movementCoordinator);
 
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
@@ -74,7 +71,7 @@ namespace Coordinator.Modes
             }
         }
 
-        public void OnLMBEvent(bool pressed, Vector2 screenPos)
+        public override void OnLMBEvent(bool pressed, Vector2 screenPos)
         {
             _hand.SetMousePos(screenPos);
             if(pressed)

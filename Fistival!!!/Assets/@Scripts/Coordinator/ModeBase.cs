@@ -5,7 +5,7 @@ using InputHandler;
 
 namespace Coordinator
 {
-    public abstract class ModeBase : MonoBehaviour, IRMBInputHandler, IDropInputHandler
+    public abstract class ModeBase : MonoBehaviour,ILMBInputHandler, IRMBInputHandler, IDropInputHandler
     {
         protected PlayerInputCoordinator _inputCoordinator;
         protected CommonModeData _commonData;
@@ -29,6 +29,7 @@ namespace Coordinator
             _commonData = data;
             _inputCoordinator.SetDropInputHandler(this);
             _inputCoordinator.SetRMBInputHandler(this);
+            _inputCoordinator.SetLMBInputHandler(this);
 
         }
 
@@ -45,5 +46,7 @@ namespace Coordinator
         public abstract void OnRMBEvent(bool pressed, Vector2 screenPos);
 
         public abstract void OnDropEvent(bool pressed);
+
+        public abstract void OnLMBEvent(bool pressed, Vector2 screenPos);
     }
 }
