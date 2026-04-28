@@ -104,7 +104,22 @@ namespace Coordinator
         }
 
         protected virtual void OnUpdate() { }
-        protected virtual void OnAwake() { }
+        protected virtual void OnAwake()
+        {
+            _mainCam = Camera.main;
+            _handAnchor = transform.Find("@HandAnchor");
+#if UNITY_EDITOR
+            if (_handAnchor == null)
+            {
+                Debug.LogError($"@HandAnchor 가 {gameObject.name}의 자식중에 없습니다.");
+            }
+
+            if (_mainCam == null)
+            {
+                Debug.LogError($"MainCamera테그를 가진 카메라가 없습니다.");
+            }
+#endif
+        }
         protected virtual void OnStart() { }
 
         #endregion

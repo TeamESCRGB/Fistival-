@@ -29,27 +29,15 @@ namespace Coordinator.Hands
 
         protected override void OnAwake()
         {
-            _handAnchor = transform.Find("@HandAnchor");
             _attackBox = transform.Find("@AttackBox");
-            _mainCam = Camera.main;
+            base.OnAwake();
 
 #if UNITY_EDITOR
-            if (_handAnchor == null)
-            {
-                Debug.LogError($"@HandAnchor 가 {gameObject.name}의 자식중에 없습니다.");
-            }
-
             if (_attackBox == null)
             {
                 Debug.LogError($"@AttackBox 가 {gameObject.name}의 자식중에 없습니다.");
             }
-
-            if (_mainCam == null)
-            {
-                Debug.LogError($"MainCamera테그를 가진 카메라가 없습니다.");
-            }
 #endif
-
             _skillBase = _attackBox.gameObject.GetComponent<SkillCoordinatorBase>();
 #if UNITY_EDITOR
             if (_skillBase == null)
@@ -58,7 +46,6 @@ namespace Coordinator.Hands
 
             }
 #endif
-            
         }
 
 
