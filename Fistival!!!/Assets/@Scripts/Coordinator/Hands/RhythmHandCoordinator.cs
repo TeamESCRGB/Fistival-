@@ -20,11 +20,6 @@ namespace Coordinator.Hands
 
         private int _parryReflectionDamage;
 
-        protected override void OnAwake()
-        {
-            base.OnAwake();
-        }
-
         public override void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
             base.Init(parentRb2d, baseSmashDamage, attackableFilter);
