@@ -2,8 +2,6 @@ using Coordinator.Victims;
 using Defines;
 using Manager;
 using UnityEngine;
-using Coordinator.Objects;
-using static Utils.VectorUtils;
 using System;
 
 namespace Coordinator.Hands
@@ -53,17 +51,7 @@ namespace Coordinator.Hands
         protected override void OnUpdate()
         {
             //게임 일시정지 로직 나중에 추가
-            if(_status == HandStatus.CHARGE && _chargeCnt < _maxChargeCnt)
-            {
-                _chargeTime += Time.deltaTime;
-
-                if(_chargeTime >= _chargeTimeInterval)
-                {
-                    _chargeTime = 0;
-                    _chargeCnt += 1;
-                    InvokeOnChargeRateChanged(_chargeCnt,_maxChargeCnt);
-                }
-            }
+            base.OnUpdate();
 
             if(_attackStatus == AttackStatus.PRESSED)
             {
@@ -74,8 +62,6 @@ namespace Coordinator.Hands
                 }
             }
         }
-
-        
 
         public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
@@ -96,18 +82,6 @@ namespace Coordinator.Hands
         public int GetStrongAttackDamageMultiplier()
         {
             return _strongDamageMultiplier;
-        }
-        public override void Drop()
-        {
-            if(_grabbedObject != null)
-            {
-                _status = HandStatus.IDLE;
-                _grabbedObject.Drop(_parentRb2d.linearVelocity);
-                _grabbedObject = null;
-                _chargeCnt = 0;
-                InvokeOnChargeRateChanged(_chargeCnt,_maxChargeCnt);
-                InvokeOnGrabbedObjectChanged(null);
-            }        
         }
 
         public virtual void Attack()
@@ -157,52 +131,6 @@ namespace Coordinator.Hands
 
             
             //공격하는 함수. 데미지: damage +  해서 OverlapBox써서 나중에 함
-        }
-
-        protected override void Throw()
-        {
-            _status = HandStatus.IDLE;
-            _grabbedObject.SetAttackableLayer(_attackableMask);
-            _grabbedObject.Throw(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), _handAnchor.position), _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt);
-            _chargeCnt = 0;
-            _grabbedObject = null;
-            InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
-            InvokeOnGrabbedObjectChanged(null);
-        }
-
-        protected override void Pickup()
-        {
-            _status = HandStatus.IDLE;
-            var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, _pickableObjectMask);
-            if (hit.transform != null && hit.transform.gameObject.TryGetComponent<ObjectCoordinator>(out var comp))
-            {
-                _grabbedObject = comp;
-                comp.PickUp(_handAnchor);
-                InvokeOnGrabbedObjectChanged(comp.GetSharedData());
-                _status = HandStatus.GRABBED;
-            }
-        }
-
-        public override void OnRMBPressed()
-        {
-            if (_grabbedObject == null)
-            {
-                Pickup();
-            }
-            else
-            {
-                _chargeTime = 0;
-                _chargeCnt = 1;
-                _status = HandStatus.CHARGE;
-            }
-        }
-
-        public override void OnRMBReleased()
-        {
-            if(_status == HandStatus.CHARGE && _grabbedObject != null)
-            {
-                Throw();
-            }
         }
 
         public override void OnLMBPressed()

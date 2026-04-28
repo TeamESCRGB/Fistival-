@@ -3,6 +3,7 @@ using Data;
 using Defines;
 using System;
 using UnityEngine;
+using static Utils.VectorUtils;
 
 namespace Coordinator
 {
@@ -103,7 +104,20 @@ namespace Coordinator
             OnStart();
         }
 
-        protected virtual void OnUpdate() { }
+        protected virtual void OnUpdate()
+        {
+            if (_status == HandStatus.CHARGE && _chargeCnt < _maxChargeCnt)
+            {
+                _chargeTime += Time.deltaTime;
+
+                if (_chargeTime >= _chargeTimeInterval)
+                {
+                    _chargeTime = 0;
+                    _chargeCnt += 1;
+                    InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
+                }
+            }
+        }
         protected virtual void OnAwake()
         {
             _mainCam = Camera.main;
@@ -127,13 +141,62 @@ namespace Coordinator
 
         #region RMBOperations
 
-        protected abstract void Throw();
-        protected abstract void Pickup();
-        public abstract void Drop();
+        protected virtual void Throw()
+        {
+            _status = HandStatus.IDLE;
+            _grabbedObject.SetAttackableLayer(_attackableMask);
+            _grabbedObject.Throw(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), _handAnchor.position), _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt);
+            _chargeCnt = 0;
+            _grabbedObject = null;
+            InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
+            InvokeOnGrabbedObjectChanged(null);
+        }
+        protected virtual void Pickup()
+        {
+            _status = HandStatus.IDLE;
+            var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, _pickableObjectMask);
+            if (hit.transform != null && hit.transform.gameObject.TryGetComponent<ObjectCoordinator>(out var comp))
+            {
+                _grabbedObject = comp;
+                comp.PickUp(_handAnchor);
+                InvokeOnGrabbedObjectChanged(comp.GetSharedData());
+                _status = HandStatus.GRABBED;
+            }
+        }
+        public virtual void Drop()
+        {
+            if (_grabbedObject != null)
+            {
+                _status = HandStatus.IDLE;
+                _grabbedObject.Drop(_parentRb2d.linearVelocity);
+                _grabbedObject = null;
+                _chargeCnt = 0;
+                InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
+                InvokeOnGrabbedObjectChanged(null);
+            }
+        }
 
-        public abstract void OnRMBPressed();
+        public virtual void OnRMBPressed()
+        {
+            if (_grabbedObject == null)
+            {
+                Pickup();
+            }
+            else
+            {
+                _chargeTime = 0;
+                _chargeCnt = 1;
+                _status = HandStatus.CHARGE;
+            }
+        }
 
-        public abstract void OnRMBReleased();
+        public virtual void OnRMBReleased()
+        {
+            if (_status == HandStatus.CHARGE && _grabbedObject != null)
+            {
+                Throw();
+            }
+        }
 
         #endregion
 
