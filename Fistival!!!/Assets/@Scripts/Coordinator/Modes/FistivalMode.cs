@@ -26,7 +26,8 @@ namespace Coordinator.Modes
         {
             base.Init(data);
             _movCoordinator.Init(data.MoveSpeed,data.JumpPower,_commonData.SlownessSensitivity,_commonData.MaxSlowness,GetComponentInParent<Rigidbody2D>());
-            _inputCoordinator.SetMovementInputHandler(_movCoordinator);
+            _inputCoordinator.SetJumpsMovementInputHandler(_movCoordinator);
+            _inputCoordinator.SetHorizontalMovementInputHandler(_movCoordinator);
             _hand.Init(GetComponentInParent<Rigidbody2D>(), data.Damage, data.AttackableLayers);//아니 이거 데이터에 추가해야되네
             _hand.OnGrabbedObjectChanged+=OnGrabbedObjectChanged;
             _hand.OnChargeRateChanged += OnChargeRateChanged;

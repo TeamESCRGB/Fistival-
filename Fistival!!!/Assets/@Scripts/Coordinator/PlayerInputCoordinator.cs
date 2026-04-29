@@ -6,12 +6,17 @@ namespace Coordinator
 {
     public class PlayerInputCoordinator : MonoBehaviour
     {
-        private bool _isDownTriggered = false;
+        private bool _isDownJumpTriggered = false;
         private ILMBInputHandler _lmbHandler;
         private IRMBInputHandler _rmbHandler;
         private IPointerMovementInputHandler _pointerHandler;
-        private IMovementInputHandler _movementHandler;
         private IDropInputHandler _dropHandler;
+        private IReloadInputHandler _reloadHandler;
+
+        private IJumpsMovementInputHandler _jumpsHandler;
+        private IHorizontalMovementInputHandler _horizontalMovementHandler;
+        private IVerticalMovementInputHandler _verticalMovementHandler;
+
         private Vector2 _lastPos;
 
         public void SetLMBInputHandler(ILMBInputHandler handler)
@@ -26,24 +31,68 @@ namespace Coordinator
         {
             _pointerHandler=handler;
         }
-        public void SetMovementInputHandler(IMovementInputHandler handler)
-        {
-            _movementHandler=handler;
-        }
+
         public void SetDropInputHandler(IDropInputHandler handler)
         {
             _dropHandler = handler;
         }
 
+
+        public void SetReloadInputHandler(IReloadInputHandler handler)
+        {
+            _reloadHandler = handler;
+        }
+
+
+        #region Movement
+        public void SetJumpsMovementInputHandler(IJumpsMovementInputHandler handler)
+        {
+            _jumpsHandler=handler;
+        }
+
+        public void SetVerticalMovementInputHandler(IVerticalMovementInputHandler handler)
+        {
+            _verticalMovementHandler = handler;
+        }
+
+        public void SetHorizontalMovementInputHandler(IHorizontalMovementInputHandler handler)
+        {
+            _horizontalMovementHandler=handler;
+        }
+        #endregion
+
+
         public void Init()
         {
-            _isDownTriggered = false;
+            _jumpsHandler = null;
+            _verticalMovementHandler =null;
+            _horizontalMovementHandler = null;
+
+            _reloadHandler = null;
+            _isDownJumpTriggered = false;
             _lmbHandler = null;
             _rmbHandler = null;
             _pointerHandler = null;
-            _movementHandler = null;
             _dropHandler = null;
             _lastPos = Vector2.zero;
+        }
+
+        public void OnReloadInputEvent(InputAction.CallbackContext callbackContext)
+        {
+            if (callbackContext.started)
+            {
+                return;
+            }
+            _reloadHandler?.OnReloadInputEvent(callbackContext.control.IsPressed());
+        }
+
+        public void OnUpMovementInputEvent(InputAction.CallbackContext callbackContext)
+        {
+            if(callbackContext.started)
+            {
+                return;
+            }
+            _verticalMovementHandler?.OnUpMovementInputEvent(callbackContext.control.IsPressed());
         }
 
         public void OnDownMovementInputEvent(InputAction.CallbackContext callbackContext)
@@ -54,11 +103,13 @@ namespace Coordinator
             }
             if (callbackContext.control.IsPressed())
             {
-                _isDownTriggered = true;
+                _verticalMovementHandler?.OnDownMovementInputEvent(true);
+                _isDownJumpTriggered = true;
             }
             else
             {
-                _isDownTriggered = false;
+                _verticalMovementHandler?.OnDownMovementInputEvent(false);
+                _isDownJumpTriggered = false;
             }
         }
 
@@ -69,13 +120,13 @@ namespace Coordinator
                 return;
             }
 
-            if(_isDownTriggered)
+            if(_isDownJumpTriggered)
             {
-                _movementHandler?.OnDownMovementInputEvent(callbackContext.control.IsPressed());
+                _jumpsHandler?.OnDownJumpMovementInputEvent(callbackContext.control.IsPressed());
             }
             else
             {
-                _movementHandler?.OnJumpMovementInputEvent(callbackContext.control.IsPressed());
+                _jumpsHandler?.OnJumpMovementInputEvent(callbackContext.control.IsPressed());
             }
         }
 
@@ -85,7 +136,7 @@ namespace Coordinator
             {
                 return;
             }
-            _movementHandler?.OnLeftMovementInputEvent(callbackContext.control.IsPressed());
+            _horizontalMovementHandler?.OnLeftMovementInputEvent(callbackContext.control.IsPressed());
         }
         public void OnRightMovementInputEvent(InputAction.CallbackContext callbackContext)
         {
@@ -93,7 +144,7 @@ namespace Coordinator
             {
                 return;
             }
-            _movementHandler?.OnRightMovementInputEvent(callbackContext.control.IsPressed());
+            _horizontalMovementHandler?.OnRightMovementInputEvent(callbackContext.control.IsPressed());
         }
 
         public void OnPointerMove(InputAction.CallbackContext callbackContext)
