@@ -14,6 +14,7 @@ namespace Coordinator
         private IDropInputHandler _dropHandler;
         private IUpMovementInputHandler _upHandler;
         private IReloadInputHandler _reloadHandler;
+        private IDownMovementInputHandler _downHandler;
         private Vector2 _lastPos;
 
         public void SetLMBInputHandler(ILMBInputHandler handler)
@@ -47,8 +48,14 @@ namespace Coordinator
             _reloadHandler = handler;
         }
 
+        public void SetDownMovementInputHandler(IDownMovementInputHandler handler)
+        {
+            _downHandler=handler;
+        }
+
         public void Init()
         {
+            _downHandler = null;
             _reloadHandler = null;
             _upHandler = null;
             _isDownJumpTriggered = false;
@@ -86,10 +93,12 @@ namespace Coordinator
             }
             if (callbackContext.control.IsPressed())
             {
+                _downHandler?.OnDownMovementInputEvent(true);
                 _isDownJumpTriggered = true;
             }
             else
             {
+                _downHandler?.OnDownMovementInputEvent(false);
                 _isDownJumpTriggered = false;
             }
         }
