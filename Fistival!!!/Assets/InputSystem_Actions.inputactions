@@ -79,9 +79,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Diagnostics",
+                    "name": "DiagnosticsInput",
                     "type": "Button",
                     "id": "9697b721-49e3-491d-953e-f952e1deb572",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UpMovementInput",
+                    "type": "Button",
+                    "id": "d8f11e11-6e84-4a98-bfe1-5602dacec1c9",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -184,7 +193,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Diagnostics",
+                    "action": "DiagnosticsInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "32e5071d-4447-4b1d-a38e-a2363bbfef04",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "UpMovementInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
