@@ -17,8 +17,8 @@ TagManager:
   - Anchor
   - Attack
   - Platform
-  - 
-  - 
+  - StepAttackableEntity
+  - AttackableEntity
   - 
   - 
   - 
