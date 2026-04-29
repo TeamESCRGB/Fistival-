@@ -31,7 +31,8 @@ namespace Coordinator.Modes
             _movementCoordinator.Init(data.MoveSpeed, data.JumpPower, _commonData.SlownessSensitivity, _commonData.MaxSlowness, GetComponentInParent<Rigidbody2D>());
 
             _objectWeight = 0;
-            _inputCoordinator.SetMovementInputHandler(_movementCoordinator);
+            _inputCoordinator.SetJumpsMovementInputHandler(_movementCoordinator);
+            _inputCoordinator.SetHorizontalMovementInputHandler(_movementCoordinator);
 
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
             _hand.OnChargeRateChanged += OnChargeRateChanged;

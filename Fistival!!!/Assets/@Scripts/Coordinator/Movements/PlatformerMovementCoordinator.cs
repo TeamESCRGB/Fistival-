@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Coordinator.Movements
 {
-    public class PlatformerMovementCoordinator : MonoBehaviour ,IMovementInputHandler
+    public class PlatformerMovementCoordinator : MonoBehaviour ,IJumpsMovementInputHandler, IHorizontalMovementInputHandler
     {
         [SerializeField]
         private float _platformIgnoreTime = 0.5f;
