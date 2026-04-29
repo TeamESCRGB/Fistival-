@@ -3904,6 +3904,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9697b721-49e3-491d-953e-f952e1deb572
     m_ActionName: 'Player/Diagnostics[/Keyboard/f12]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1657564215}
+        m_TargetAssemblyTypeName: Coordinator.PlayerInputCoordinator, Assembly-CSharp
+        m_MethodName: OnUpMovementInputEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d8f11e11-6e84-4a98-bfe1-5602dacec1c9
+    m_ActionName: 'Player/UpMovementInput[/Keyboard/w]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1657564215}
+        m_TargetAssemblyTypeName: Coordinator.PlayerInputCoordinator, Assembly-CSharp
+        m_MethodName: OnReloadInputEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5a957480-9ff6-44d3-a131-b06811bf4a52
+    m_ActionName: 'Player/ReloadInput[/Keyboard/k]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
