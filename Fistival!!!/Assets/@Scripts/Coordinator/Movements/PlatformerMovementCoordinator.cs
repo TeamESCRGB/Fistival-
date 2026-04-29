@@ -104,7 +104,7 @@ namespace Coordinator.Movements
             _slowness = Mathf.Clamp(slowness / _slownessSensitivity, _maxSlowness, 1);
         }
 
-        public void OnDownMovementInputEvent(bool pressed)
+        public void OnDownJumpMovementInputEvent(bool pressed)
         {
             if(pressed == false || _parentRb2d == null || _parentCol == null)
             {

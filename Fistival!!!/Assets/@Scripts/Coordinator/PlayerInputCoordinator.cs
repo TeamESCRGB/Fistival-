@@ -6,7 +6,7 @@ namespace Coordinator
 {
     public class PlayerInputCoordinator : MonoBehaviour
     {
-        private bool _isDownTriggered = false;
+        private bool _isDownJumpTriggered = false;
         private ILMBInputHandler _lmbHandler;
         private IRMBInputHandler _rmbHandler;
         private IPointerMovementInputHandler _pointerHandler;
@@ -44,7 +44,7 @@ namespace Coordinator
         public void Init()
         {
             _upHandler = null;
-            _isDownTriggered = false;
+            _isDownJumpTriggered = false;
             _lmbHandler = null;
             _rmbHandler = null;
             _pointerHandler = null;
@@ -70,11 +70,11 @@ namespace Coordinator
             }
             if (callbackContext.control.IsPressed())
             {
-                _isDownTriggered = true;
+                _isDownJumpTriggered = true;
             }
             else
             {
-                _isDownTriggered = false;
+                _isDownJumpTriggered = false;
             }
         }
 
@@ -85,9 +85,9 @@ namespace Coordinator
                 return;
             }
 
-            if(_isDownTriggered)
+            if(_isDownJumpTriggered)
             {
-                _movementHandler?.OnDownMovementInputEvent(callbackContext.control.IsPressed());
+                _movementHandler?.OnDownJumpMovementInputEvent(callbackContext.control.IsPressed());
             }
             else
             {

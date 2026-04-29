@@ -7,6 +7,6 @@ namespace InputHandler
         public void OnLeftMovementInputEvent(bool pressed);
         public void OnRightMovementInputEvent(bool pressed);
         public void OnJumpMovementInputEvent(bool pressed);
-        public void OnDownMovementInputEvent(bool pressed);
+        public void OnDownJumpMovementInputEvent(bool pressed);
     }
 }
