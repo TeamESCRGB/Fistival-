@@ -16,6 +16,7 @@ namespace Coordinator
         protected LayerMask _attackableLayer;
         protected LayerMask _targetLayer;
         protected float _baseSpeed;
+        protected Transform _attackRange;
 
         private void Awake()
         {
@@ -23,6 +24,7 @@ namespace Coordinator
             _rb2d = GetComponent<Rigidbody2D>();
             _skill = GetComponent<SkillCoordinatorBase>();
             _projActor = new ProjectileActor(_rb2d);
+            _attackRange = transform.Find("@AttackBox");
         }
 
         private void FixedUpdate()
@@ -58,7 +60,7 @@ namespace Coordinator
 
         protected virtual void OnFixedUpdate()
         {
-            var enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0, _targetLayer);
+            var enemies = Physics2D.OverlapCircleAll(_attackRange.position, _attackRange.localScale.x/2, _targetLayer);
 
             if (enemies is null)
             {
