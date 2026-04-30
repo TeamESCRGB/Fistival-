@@ -1,4 +1,5 @@
-﻿using Manager;
+﻿using Coordinator;
+using Manager;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Utils
     public static class ProjectileLaunchHelper
 
     {
-        public bool LaunchConstantDir(int idx)
+        public  static bool LaunchConstantDir(int idx)
         {
             if(Managers.Instance.DataManager.ProjectileDataDict.TryGetValue(idx,out var data) == false)
             {
@@ -23,7 +24,7 @@ namespace Utils
 
             var go = Managers.Instance.ResourceManager.Instantiate(data.ProjectilePrefabName, pooling: true);
             var proj = go.GetComponent<ProjectileCoordinator>();
-            proj.Init();
+
 
             return true;
         }
