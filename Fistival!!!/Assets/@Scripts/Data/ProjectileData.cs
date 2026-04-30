@@ -5,7 +5,6 @@
         public ProjectileData(ProjectileData original)
         {
             IDX = original.IDX;
-            BouncableLayerMask= original.BouncableLayerMask;
             ExplodableLayerMask= original.ExplodableLayerMask;
             Speed = original.Speed;
             Damage = original.Damage;
@@ -15,7 +14,6 @@
         public ProjectileData() { }
 
         public int IDX;
-        public int BouncableLayerMask;
         public int ExplodableLayerMask;
         public float Speed;
         public int Damage;
