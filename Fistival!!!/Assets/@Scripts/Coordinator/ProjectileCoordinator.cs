@@ -10,11 +10,8 @@ namespace Coordinator
     public abstract class ProjectileCoordinator : MonoBehaviour
     {
         protected ProjectileActor _projActor;
-        protected Camera _mainCam;
         protected SkillCoordinatorBase _skill;
         protected Rigidbody2D _rb2d;
-        protected LayerMask _explodableLayer;
-        protected LayerMask _attackableLayer;
         protected LayerMask _targetLayer;
         protected float _baseSpeed;
         protected Transform _attackRange;
@@ -23,7 +20,6 @@ namespace Coordinator
 
         private void Awake()
         {
-            _mainCam = Camera.main;
             _rb2d = GetComponent<Rigidbody2D>();
             _skill = GetComponent<SkillCoordinatorBase>();
             _projActor = new ProjectileActor(_rb2d);
@@ -44,9 +40,7 @@ namespace Coordinator
         public virtual void Init(LayerMask attackableLayerMask, ProjectileData data)
         {
             _attackRange.localScale = new Vector3(data.AttackRadius*2, data.AttackRadius * 2, 1);
-            _explodableLayer = data.ExplodableLayerMask;
-            _attackableLayer = attackableLayerMask;
-            _targetLayer = _explodableLayer | attackableLayerMask;
+            _targetLayer = data.ExplodableLayerMask | attackableLayerMask;
             _baseSpeed = data.Speed;
             _rb2d.sharedMaterial = Managers.Instance.ResourceManager.Load<PhysicsMaterial2D>(data.Physics2DMaterialName);
             _skill.Init(attackableLayerMask, data.Damage);

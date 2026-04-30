@@ -1,6 +1,4 @@
-﻿using Coordinator.Victims;
-using Data;
-using Manager;
+﻿using Data;
 using UnityEngine;
 using static Utils.VectorUtils;
 
