@@ -29,31 +29,7 @@ namespace Coordinator
                 _rb2d.linearVelocity = _rb2d.linearVelocity.RotateByRad(Mathf.DeltaAngle(curRad * Mathf.Rad2Deg, tarRad * Mathf.Rad2Deg) * Mathf.Deg2Rad);
             }
 
-            if (CanExplode() == false)
-            {
-                return;
-            }
-
-            var enemies = Physics2D.OverlapCircleAll(_attackRange.position, _attackRange.localScale.x / 2, _targetLayer);
-
-            if (enemies is null)
-            {
-                return;
-            }
-
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                var enemy = enemies[i];
-                if (enemy.TryGetComponent<IAttackable>(out var target) && _skill.CanAttackTarget(target))
-                {
-                    Managers.Instance.AttackManager.RequestAttack(target, _skill, _skill.GetBaseDamage);
-                }
-            }
-
-            if (enemies.Length > 0)
-            {
-                OnExplode();
-            }
+            base.OnFixedUpdate();
 
         }
     }
