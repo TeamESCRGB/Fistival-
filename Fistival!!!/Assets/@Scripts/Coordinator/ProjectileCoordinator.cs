@@ -17,14 +17,17 @@ namespace Coordinator
         protected LayerMask _targetLayer;
         protected float _baseSpeed;
         protected Transform _attackRange;
+        protected Transform _activateRange;
 
         private void Awake()
         {
+
             _mainCam = Camera.main;
             _rb2d = GetComponent<Rigidbody2D>();
             _skill = GetComponent<SkillCoordinatorBase>();
             _projActor = new ProjectileActor(_rb2d);
             _attackRange = transform.Find("@AttackBox");
+            _activateRange = transform.Find("@ActivationRange");
         }
 
         private void FixedUpdate()
@@ -34,6 +37,7 @@ namespace Coordinator
 
         public virtual void Init(LayerMask attackableLayerMask, ProjectileData data)
         {
+            _attackRange.localScale = new Vector3(data.AttackRadius*2, data.AttackRadius * 2, 1);
             _explodableLayer = data.ExplodableLayerMask;
             _attackableLayer = attackableLayerMask;
             _targetLayer = _explodableLayer | attackableLayerMask;
@@ -58,8 +62,20 @@ namespace Coordinator
             Managers.Instance.ResourceManager.Destroy(gameObject, true);
         }
 
+        protected virtual bool CanExplode()
+        {
+            var objects = Physics2D.OverlapCircleAll(_activateRange.position, _activateRange.localScale.x / 2, _targetLayer);
+            return objects is not null && objects.Length > 0;
+        }
+
         protected virtual void OnFixedUpdate()
         {
+
+            if(CanExplode() == false)
+            {
+                return;
+            }
+
             var enemies = Physics2D.OverlapCircleAll(_attackRange.position, _attackRange.localScale.x/2, _targetLayer);
 
             if (enemies is null)
