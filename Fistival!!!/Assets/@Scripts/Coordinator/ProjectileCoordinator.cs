@@ -1,4 +1,5 @@
 using Actor;
+using ComponentModule;
 using Coordinator.Victims;
 using Data;
 using Manager;
@@ -18,16 +19,21 @@ namespace Coordinator
         protected float _baseSpeed;
         protected Transform _attackRange;
         protected Transform _activateRange;
+        protected CooldownComponentModule _explodeTimer;
 
         private void Awake()
         {
-
             _mainCam = Camera.main;
             _rb2d = GetComponent<Rigidbody2D>();
             _skill = GetComponent<SkillCoordinatorBase>();
             _projActor = new ProjectileActor(_rb2d);
             _attackRange = transform.Find("@AttackBox");
             _activateRange = transform.Find("@ActivationRange");
+        }
+
+        private void OnDisable()
+        {
+            OnDisabled();
         }
 
         private void FixedUpdate()
@@ -44,6 +50,14 @@ namespace Coordinator
             _baseSpeed = data.Speed;
             _rb2d.sharedMaterial = Managers.Instance.ResourceManager.Load<PhysicsMaterial2D>(data.Physics2DMaterialName);
             _skill.Init(attackableLayerMask, data.Damage);
+            
+            if(data.Lifetime > 0)
+            {
+                _explodeTimer = Managers.Instance.CooldownManager.GetCooldownModule(data.Lifetime);
+                _explodeTimer.OnCooldownEnded += Destruct;
+                _explodeTimer.StartCooldown();
+            }
+
         }
 
         public virtual void Destruct()
@@ -66,6 +80,15 @@ namespace Coordinator
         {
             var obj = Physics2D.OverlapCircle(_activateRange.position, _activateRange.localScale.x / 2, _targetLayer);
             return obj != null && obj.gameObject != null;
+        }
+
+        protected virtual void OnDisabled()
+        {
+            if(_explodeTimer != null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_explodeTimer);
+                _explodeTimer = null;
+            }
         }
 
         protected virtual void OnFixedUpdate()
