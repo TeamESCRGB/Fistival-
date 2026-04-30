@@ -16,13 +16,13 @@ namespace ComponentModule
 
         public int Index { get; set; }
 
-        public void InitCooldown(float cooldownTime, int index, float timeChangedCallInterval = 1)
+        public void InitCooldown(float cooldownTime, int index, float timeChangedCallInterval)
         {
             SetCooldownTime(cooldownTime);
             _accumulatedTime = 0;
             _isCooldownEnded = true;
             Index = index;
-            _timeChangedCallInterval = 1;
+            _timeChangedCallInterval = timeChangedCallInterval;
         }
 
         public void DeinitCooldown()
