@@ -1,12 +1,10 @@
-﻿using Coordinator;
-using Coordinator.Victims;
+﻿using Coordinator.Victims;
 using Data;
 using Manager;
-using Unity.VectorGraphics;
 using UnityEngine;
 using static Utils.VectorUtils;
 
-namespace Assets._Scripts
+namespace Coordinator
 {
     public abstract class GuidedProjectileCoordinator : ProjectileCoordinator
     {

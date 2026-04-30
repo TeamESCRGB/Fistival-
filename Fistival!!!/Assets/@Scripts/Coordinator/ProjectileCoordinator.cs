@@ -53,7 +53,7 @@ namespace Coordinator
 
         public virtual void Launch(Vector3 initialPos, Vector2 dir)
         {
-            _rb2d.AddForce(dir * _baseSpeed);
+            _rb2d.AddForce(dir * _baseSpeed, ForceMode2D.Impulse);
             _projActor.LookDir(dir);
         }
 
