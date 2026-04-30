@@ -64,8 +64,8 @@ namespace Coordinator
 
         protected virtual bool CanExplode()
         {
-            var objects = Physics2D.OverlapCircleAll(_activateRange.position, _activateRange.localScale.x / 2, _targetLayer);
-            return objects is not null && objects.Length > 0;
+            var obj = Physics2D.OverlapCircle(_activateRange.position, _activateRange.localScale.x / 2, _targetLayer);
+            return obj != null && obj.gameObject != null;
         }
 
         protected virtual void OnFixedUpdate()
