@@ -1,6 +1,8 @@
+using ComponentModule;
 using Coordinator.Objects;
 using Data;
 using Defines;
+using Manager;
 using System;
 using UnityEngine;
 using static Utils.VectorUtils;
@@ -16,6 +18,7 @@ namespace Coordinator
         protected LayerMask _attackableMask = 0;
         protected Rigidbody2D _parentRb2d;
         protected ObjectCoordinator _grabbedObject;
+        protected CooldownComponentModule _cooldownModule;
         #endregion
 
         #region AboutPickup
@@ -57,7 +60,7 @@ namespace Coordinator
 
         #endregion
 
-        protected void InitRMBOperations(Rigidbody2D parentRb2d, LayerMask attackableMask,LayerMask pickableObjectMask ,float forcePerCharge, float chargeTimeInterval)
+        protected void InitCommonDatas(Rigidbody2D parentRb2d, LayerMask attackableMask,LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval)
         {
             _pickableObjectMask = pickableObjectMask;
             _attackableMask = attackableMask;
@@ -66,7 +69,7 @@ namespace Coordinator
             _parentRb2d = parentRb2d;
             _chargeTime = 0;
             _chargeCnt = 0;
-            _forcePerCharge = forcePerCharge; ;
+            _forcePerCharge = forcePerCharge;
             _chargeTimeInterval = chargeTimeInterval;
         }
 
@@ -112,6 +115,10 @@ namespace Coordinator
         {
             OnStart();
         }
+        private void OnDisable()
+        {
+            OnDisabled();
+        }
 
         protected virtual void OnUpdate()
         {
@@ -144,7 +151,14 @@ namespace Coordinator
 #endif
         }
         protected virtual void OnStart() { }
-
+        protected virtual void OnDisabled()
+        {
+            if (_cooldownModule != null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_cooldownModule);
+                _cooldownModule = null;
+            }
+        }
         #endregion
 
 
