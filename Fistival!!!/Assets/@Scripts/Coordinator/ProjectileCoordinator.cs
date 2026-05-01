@@ -61,6 +61,7 @@ namespace Coordinator
 
         public virtual void Launch(Vector3 initialPos, Vector2 dir)
         {
+            transform.position = initialPos;
             _rb2d.AddForce(dir * _baseSpeed, ForceMode2D.Impulse);
             _projActor.LookDir(dir);
         }

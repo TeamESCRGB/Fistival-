@@ -12,6 +12,7 @@ namespace Coordinator
         {
             Init(attackableLayerMask, data);
             _target = target;
+            _tarPos = new Vector3(1,1,transform.position.z);
         }
 
 
