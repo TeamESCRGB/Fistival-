@@ -3223,7 +3223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df70569e1c1e3d45ad00ea2c9f6df2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestMusic
-  active: 1
+  active: 3
   mod: {fileID: 1841974925}
   obc: {fileID: 1604905679}
   ren: {fileID: 1067254925}
