@@ -63,9 +63,9 @@ namespace Coordinator.Hands
             }
         }
 
-        public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval)
+        public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
         {
-            InitRMBOperations(parentRb2d, attackableFilter, pickableObjectMask,forcePerCharge, chargeTimeInterval);
+            InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask,forcePerCharge, chargeTimeInterval,attackCooldwn);
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             ResetEvents();
@@ -130,6 +130,10 @@ namespace Coordinator.Hands
 
         public override void OnLMBPressed()
         {
+            if(_cooldownModule.IsCooldownEnded() == false)
+            {
+                return;
+            }
             _attackStatus = AttackStatus.PRESSED;
             _pressedTime = Time.timeAsDouble;
             OnAttackStatusChanged?.Invoke(AttackStatus.PRESSED);
@@ -137,6 +141,10 @@ namespace Coordinator.Hands
 
         public override void OnLMBReleased()
         {
+            if(_cooldownModule.IsCooldownEnded() == false || _attackStatus == AttackStatus.NO_PRESSED)
+            {
+                return;
+            }
 
             if(_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
             {
@@ -145,6 +153,7 @@ namespace Coordinator.Hands
             Attack();
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
+            _cooldownModule.StartCooldown();
         }
     }
 }

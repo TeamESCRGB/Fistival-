@@ -27,7 +27,7 @@ namespace Coordinator.Modes
         {
             base.Init(data);
             //초기화 로직
-            _hand.Init(GetComponentInParent<Rigidbody2D>(), data.Damage, data.AttackableLayers, data.PickableLayers, data.ForcePerCharge, data.ChargeTimeInterval);
+            _hand.Init(GetComponentInParent<Rigidbody2D>(), data.Damage, data.AttackableLayers, data.PickableLayers, data.ForcePerCharge, data.ChargeTimeInterval, data.AttackCooldown);
             _movementCoordinator.Init(data.MoveSpeed, data.JumpPower, _commonData.SlownessSensitivity, _commonData.MaxSlowness, GetComponentInParent<Rigidbody2D>());
 
             _objectWeight = 0;

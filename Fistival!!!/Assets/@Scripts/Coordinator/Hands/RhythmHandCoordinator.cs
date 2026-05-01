@@ -20,9 +20,9 @@ namespace Coordinator.Hands
 
         private int _parryReflectionDamage;
 
-        public override void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask,float forcePerCharge, float chargeTimeInterval)
+        public override void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask,float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
         {
-            base.Init(parentRb2d, baseSmashDamage, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval);
+            base.Init(parentRb2d, baseSmashDamage, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval,attackCooldwn);
             _endIdx = -1;
             _judgeType = _missMask;
             _noteType = NoteTypes.NO_ACTION;
@@ -120,9 +120,12 @@ namespace Coordinator.Hands
 
         public override void OnLMBPressed()
         {
-            _parryReflectionDamage = 0;
-
+            if(_cooldownModule.IsCooldownEnded() == false)
+            {
+                return;
+            }
             var parryResult = Managers.Instance.RhythmModeManager.ClickParry(this);
+            _parryReflectionDamage = 0;
             _endIdx = parryResult.endIdx;
             _judgeType = parryResult.judgeType;
             _noteType = parryResult.noteType;
@@ -138,12 +141,22 @@ namespace Coordinator.Hands
             }
 
             Attack();
+
+            _cooldownModule.StartCooldown();
+            _noteType = 0;
         }
 
         public override void OnLMBReleased()
         {
+            if(_cooldownModule.IsCooldownEnded() == false || _noteType != NoteTypes.LONG_PARRY_START)
+            {
+                _noteType = 0;
+                return;
+            }
             var parryResult = Managers.Instance.RhythmModeManager.ReleaseParry(_endIdx, this);
             _parryReflectionDamage = 0;
+            _noteType = 0;
+            _cooldownModule.StartCooldown();
             if((parryResult.judgeType & _missMask) != 0)
             {
                 return;
@@ -151,6 +164,12 @@ namespace Coordinator.Hands
             ReflectDamage(parryResult.noteType);
             Attack();
         }
+
+        /*
+        쿨타임 도는 조건: 공격 시도를 했을 때
+        단노트일 때 입력이 들어갔을 때<-확정
+        입력 시작 노트가 롱노트 시작노트고, 때는 입력이 들어왔을 때(판정은 상관x. 일단 롱노트 입력이었고, 때는 입력으로 공격 시도를 했으니까, 쿨타임이 도는게 맞음)
+        */
 
         public void AddParryDamage(int calculatedDamage)
         {

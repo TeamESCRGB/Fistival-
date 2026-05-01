@@ -13,25 +13,19 @@ namespace Coordinator.Hands
         protected bool _isLMBPressed;
         protected Transform _attackBox;
         protected int _projectileIdx;
-        protected CooldownComponentModule _cooldownModule;
-
-        public void Init(int projectileIdx,Rigidbody2D parentrb2d , LayerMask attackableMask, LayerMask pickableObjectMask,float cooldownTime, float forcePerCharge, float chargeTimeInterval)
+        public void Init(int projectileIdx,Rigidbody2D parentrb2d , LayerMask attackableMask, LayerMask pickableObjectMask,float cooldownTime, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
         {
-            InitRMBOperations(parentrb2d, attackableMask, pickableObjectMask, forcePerCharge, chargeTimeInterval);
+            InitCommonDatas(parentrb2d, attackableMask, pickableObjectMask, forcePerCharge, chargeTimeInterval,attackCooldwn);
             ResetEvents();
             _isLMBPressed = false;
             _projectileIdx = projectileIdx;
             _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(cooldownTime,-1);
         }
 
-        private void OnDisable()
+        protected override void OnDisabled()
         {
-            if( _cooldownModule != null )
-            {
-                Managers.Instance.CooldownManager.ReturnModule(_cooldownModule);
-                _cooldownModule = null;
-                _isLMBPressed =false;
-            }
+            base.OnDisabled();
+            _isLMBPressed = false;
         }
 
         protected override void OnAwake()

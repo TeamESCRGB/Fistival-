@@ -9,7 +9,7 @@
     {
       "CommonModeDataIdx": 1,
       "Damage": 2,
-      "AttackCooldown": 0.5,
+      "AttackCooldown": 1.25,
       "AttackableLayers": 4096,
       "PickableLayers": 64,
       "ForcePerCharge": 10,
@@ -23,7 +23,7 @@
     {
       "CommonModeDataIdx": 2,
       "Damage": 2,
-      "AttackCooldown": 0.5,
+      "AttackCooldown": 0.25,
       "AttackableLayers": 4096,
       "PickableLayers": 64,
       "ForcePerCharge": 10,
@@ -37,7 +37,7 @@
     {
       "CommonModeDataIdx": 3,
       "Damage": 2,
-      "AttackCooldown": 0.5,
+      "AttackCooldown": 0.25,
       "AttackableLayers": 4096,
       "PickableLayers": 64,
       "ForcePerCharge": 10,
