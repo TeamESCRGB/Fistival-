@@ -35,7 +35,7 @@ namespace Coordinator.Modes
             _inputCoordinator.SetHorizontalMovementInputHandler(_movementCoord);
             _inputCoordinator.SetVerticalMovementInputHandler(_movementCoord);
 
-            _shooterHand.Init(_projectileIdx,GetComponentInParent<Rigidbody2D>() ,data.AttackableLayers, data.AttackCooldown);
+            _shooterHand.Init(_projectileIdx,GetComponentInParent<Rigidbody2D>() ,data.AttackableLayers, data.PickableLayers, data.AttackCooldown, data.ForcePerCharge, data.ChargeTimeInterval);
         }
 
         public override void DeInit()

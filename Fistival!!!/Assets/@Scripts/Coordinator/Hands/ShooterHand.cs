@@ -15,15 +15,10 @@ namespace Coordinator.Hands
         protected int _projectileIdx;
         protected CooldownComponentModule _cooldownModule;
 
-        public void Init(int projectileIdx,Rigidbody2D parentrb2d , LayerMask attackableMask, float cooldownTime)
+        public void Init(int projectileIdx,Rigidbody2D parentrb2d , LayerMask attackableMask, LayerMask pickableObjectMask,float cooldownTime, float forcePerCharge, float chargeTimeInterval)
         {
-            _parentRb2d = parentrb2d;
+            InitRMBOperations(parentrb2d, attackableMask, pickableObjectMask, forcePerCharge, chargeTimeInterval);
             ResetEvents();
-            _status = HandStatus.IDLE;
-            _attackableMask = attackableMask;
-            _grabbedObject = null;
-            _chargeTime = 0;
-            _chargeCnt = 0;
             _isLMBPressed = false;
             _projectileIdx = projectileIdx;
             _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(cooldownTime,-1);

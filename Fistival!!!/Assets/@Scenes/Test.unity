@@ -891,11 +891,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.ShooterHand
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
-  _pickableObjectMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _forcePerCharge: 10
-  _chargeTimeInterval: 0.5
 --- !u!1 &170154462
 GameObject:
   m_ObjectHideFlags: 0
@@ -2013,11 +2008,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.RhythmHandCoordinator
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
-  _pickableObjectMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _forcePerCharge: 10
-  _chargeTimeInterval: 0.5
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _strongDamageMultiplier: 2
@@ -2315,11 +2305,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandCoordinator
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
-  _pickableObjectMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _forcePerCharge: 10
-  _chargeTimeInterval: 0.5
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _strongDamageMultiplier: 5
@@ -3238,7 +3223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df70569e1c1e3d45ad00ea2c9f6df2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestMusic
-  active: 4
+  active: 1
   mod: {fileID: 1841974925}
   obc: {fileID: 1604905679}
   ren: {fileID: 1067254925}
@@ -6705,11 +6690,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandCoordinator
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
-  _pickableObjectMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _forcePerCharge: 10
-  _chargeTimeInterval: 0.5
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _strongDamageMultiplier: 5
