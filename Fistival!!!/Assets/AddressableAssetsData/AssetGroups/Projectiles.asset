@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Projectiles
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Projectiles
+  m_GUID: 54de3e8eaac0b9e44a260543eecbf3ee
+  m_SerializeEntries:
+  - m_GUID: 04052d0e82a522b45b3ecd7432de2363
+    m_Address: TestProjectile1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestPreload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a64a251eaad4bdc4296ba65a3353d306
+    m_Address: TestProjectile2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestPreload
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 49c98fb449e514945bc567d05993ae10, type: 2}
+    - {fileID: 11400000, guid: 5e4996ab17283f94989744c93ca4ebe8, type: 2}
