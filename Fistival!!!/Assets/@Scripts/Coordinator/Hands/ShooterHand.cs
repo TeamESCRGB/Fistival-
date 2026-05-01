@@ -35,6 +35,7 @@ namespace Coordinator.Hands
             {
                 Managers.Instance.CooldownManager.ReturnModule(_cooldownModule);
                 _cooldownModule = null;
+                _isLMBPressed =false;
             }
         }
 

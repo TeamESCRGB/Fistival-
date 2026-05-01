@@ -1,7 +1,6 @@
 ﻿
-
-using Assets._Scripts.Coordinator.Movements;
 using Coordinator.Hands;
+using Coordinator.Movements;
 using Data;
 using Defines;
 using UnityEngine;

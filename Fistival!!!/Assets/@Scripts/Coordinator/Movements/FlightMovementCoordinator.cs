@@ -1,7 +1,7 @@
 ﻿using InputHandler;
 using UnityEngine;
 
-namespace Assets._Scripts.Coordinator.Movements
+namespace Coordinator.Movements
 {
     public class FlightMovementCoordinator :MonoBehaviour, IHorizontalMovementInputHandler, IVerticalMovementInputHandler
     {
