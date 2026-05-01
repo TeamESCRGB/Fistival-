@@ -60,6 +60,15 @@ namespace Coordinator
 
         #endregion
 
+        protected void InitRMBOperations(Rigidbody2D parentRb2d, LayerMask attackableMask)
+        {
+            _attackableMask = attackableMask;
+            _status = HandStatus.IDLE;
+            _grabbedObject = null;
+            _parentRb2d = parentRb2d;
+            _chargeTime = 0;
+            _chargeCnt = 0;
+        }
 
 
         public void SetMousePos(in Vector2 mousePos)

@@ -65,14 +65,9 @@ namespace Coordinator.Hands
 
         public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter)
         {
+            InitRMBOperations(parentRb2d,attackableFilter);
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
-            _status = HandStatus.IDLE;
-            _attackableMask = attackableFilter;
-            _grabbedObject = null;
-            _parentRb2d = parentRb2d;
-            _chargeTime = 0;
-            _chargeCnt = 0;
             ResetEvents();
             _baseSmashDamage = baseSmashDamage;
 

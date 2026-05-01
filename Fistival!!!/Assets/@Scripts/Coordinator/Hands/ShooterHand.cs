@@ -17,13 +17,8 @@ namespace Coordinator.Hands
 
         public void Init(int projectileIdx,Rigidbody2D parentrb2d , LayerMask attackableMask, float cooldownTime)
         {
-            _parentRb2d = parentrb2d;
+            InitRMBOperations(parentrb2d,attackableMask);
             ResetEvents();
-            _status = HandStatus.IDLE;
-            _attackableMask = attackableMask;
-            _grabbedObject = null;
-            _chargeTime = 0;
-            _chargeCnt = 0;
             _isLMBPressed = false;
             _projectileIdx = projectileIdx;
             _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(cooldownTime,-1);
