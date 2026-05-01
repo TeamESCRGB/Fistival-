@@ -891,9 +891,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.ShooterHand
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
-  _pickableObjectMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &170154462
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,9 +2008,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.RhythmHandCoordinator
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
-  _pickableObjectMask:
-    serializedVersion: 2
-    m_Bits: 64
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _strongDamageMultiplier: 2
@@ -2311,9 +2305,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandCoordinator
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
-  _pickableObjectMask:
-    serializedVersion: 2
-    m_Bits: 64
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _strongDamageMultiplier: 5
@@ -6699,9 +6690,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandCoordinator
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
-  _pickableObjectMask:
-    serializedVersion: 2
-    m_Bits: 64
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _strongDamageMultiplier: 5
