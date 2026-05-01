@@ -1,6 +1,7 @@
 ﻿
 
 using Assets._Scripts.Coordinator.Movements;
+using Coordinator.Hands;
 using Data;
 using Defines;
 using UnityEngine;
@@ -10,9 +11,12 @@ namespace Coordinator.Modes
 {
     public class Shoot2DMode : ModeBase
     {
+        [SerializeField]
+        private int _projectileIdx;
         private FlightMovementCoordinator _movementCoord;
         public override ModeTypes ModeType => ModeTypes.SHOOT_2D;
         private Rigidbody2D _parentrb2d;
+        protected ShooterHand _shooterHand;
         private float _gravityScale;
 
         protected override void OnAwake()
@@ -20,6 +24,7 @@ namespace Coordinator.Modes
             base.OnAwake();
             _parentrb2d = GetComponentInParent<Rigidbody2D>();
             _movementCoord = gameObject.GetOrAddComponent<FlightMovementCoordinator>();
+            _shooterHand = GetComponentInChildren<ShooterHand>();
         }
 
         public override void Init(CommonModeData data)
@@ -30,6 +35,8 @@ namespace Coordinator.Modes
             _parentrb2d.gravityScale = 0;
             _inputCoordinator.SetHorizontalMovementInputHandler(_movementCoord);
             _inputCoordinator.SetVerticalMovementInputHandler(_movementCoord);
+
+            _shooterHand.Init(_projectileIdx,GetComponentInParent<Rigidbody2D>() ,data.AttackableLayers, data.AttackCooldown);
         }
 
         public override void DeInit()
@@ -40,17 +47,32 @@ namespace Coordinator.Modes
 
         public override void OnDropEvent(bool pressed)
         {
-            throw new System.NotImplementedException();
+            _shooterHand.Drop();
         }
 
         public override void OnLMBEvent(bool pressed, Vector2 screenPos)
         {
-            throw new System.NotImplementedException();
+            if(pressed)
+            {
+                _shooterHand.OnLMBPressed();
+            }
+            else
+            {
+                _shooterHand.OnLMBReleased();
+            }
         }
 
         public override void OnRMBEvent(bool pressed, Vector2 screenPos)
         {
-            throw new System.NotImplementedException();
+            _shooterHand.SetMousePos(screenPos);
+            if(pressed)
+            {
+                _shooterHand.OnRMBPressed();
+            }
+            else
+            {
+                _shooterHand.OnRMBReleased();
+            }
         }
     }
 }

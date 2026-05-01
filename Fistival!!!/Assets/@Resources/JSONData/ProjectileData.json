@@ -19,6 +19,17 @@
       "AttackRadius": 0.5,
       "Physics2DMaterialName": "Obj",
       "ProjectilePrefabName": "TestProjectile2"
+    },
+
+    {
+      "IDX": 1,
+      "ExplodableLayerMask": 0,
+      "Speed": 10,
+      "Damage": 200,
+      "Lifetime": 2,
+      "AttackRadius": 1,
+      "Physics2DMaterialName": "Obj",
+      "ProjectilePrefabName": "TestProjectile2"
     }
   ]
 }

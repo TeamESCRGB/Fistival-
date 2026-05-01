@@ -9,7 +9,7 @@
     {
       "CommonModeDataIdx": 1,
       "Damage": 2,
-      "AttackCooldown": 2,
+      "AttackCooldown": 0.5,
       "AttackableLayers": 4096,
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
@@ -20,7 +20,7 @@
     {
       "CommonModeDataIdx": 2,
       "Damage": 2,
-      "AttackCooldown": 2,
+      "AttackCooldown": 0.5,
       "AttackableLayers": 4096,
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
@@ -31,7 +31,7 @@
     {
       "CommonModeDataIdx": 3,
       "Damage": 2,
-      "AttackCooldown": 2,
+      "AttackCooldown": 0.5,
       "AttackableLayers": 4096,
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
@@ -42,7 +42,7 @@
     {
       "CommonModeDataIdx": 4,
       "Damage": 2,
-      "AttackCooldown": 2,
+      "AttackCooldown": 0.1,
       "AttackableLayers": 4096,
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,

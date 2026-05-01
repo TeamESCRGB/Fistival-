@@ -884,11 +884,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 166956665}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b410be2a4ee44444daea5d015ea9c8dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 27bb71633c159134e89b018abb93a499, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HandCoordinator
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.ShooterHand
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
   _pickableObjectMask:
@@ -896,9 +896,6 @@ MonoBehaviour:
     m_Bits: 64
   _forcePerCharge: 10
   _chargeTimeInterval: 0.5
-  _strongRdyThreshold: 0.5
-  _strongAttackThreshold: 1
-  _strongDamageMultiplier: 5
 --- !u!1 &170154462
 GameObject:
   m_ObjectHideFlags: 0
@@ -1404,6 +1401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f827d1a353d954985b63a22c3eb528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Modes.Shoot2DMode
+  _projectileIdx: 1
 --- !u!1 &334298001
 GameObject:
   m_ObjectHideFlags: 0
@@ -2830,7 +2828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df70569e1c1e3d45ad00ea2c9f6df2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestMusic
-  active: 4
+  active: 2
   mod: {fileID: 1841974925}
   obc: {fileID: 1604905679}
   ren: {fileID: 1067254925}
@@ -4759,7 +4757,7 @@ Transform:
   m_GameObject: {fileID: 1657564214}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.62, y: 2.31, z: 0}
+  m_LocalPosition: {x: -6.95, y: 1.74, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4916,7 +4914,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1901669409}
-  - component: {fileID: 1901669410}
   m_Layer: 0
   m_Name: Projectiles
   m_TagString: Untagged
@@ -4939,20 +4936,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1901669410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1901669408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb69f9008cfbf7d4ba4da092d33a05a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets._Scripts.TestScripts.Testlu
-  target: {fileID: 0}
-  dir: {x: 0, y: 0}
 --- !u!1 &1913454829
 GameObject:
   m_ObjectHideFlags: 0
@@ -5472,8 +5455,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb69f9008cfbf7d4ba4da092d33a05a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Scripts.TestScripts.Testlu
-  target: {fileID: 0}
-  dir: {x: 0, y: 0}
+  target: {fileID: 821594828}
+  dir: {x: 1, y: 1}
 --- !u!1 &2106044865
 GameObject:
   m_ObjectHideFlags: 0
