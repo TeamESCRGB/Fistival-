@@ -10,13 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: Projectiles
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Default Local Group
-  m_GUID: b24eaeb5f76778844850176db7d3c569
+  m_GroupName: Projectiles
+  m_GUID: 54de3e8eaac0b9e44a260543eecbf3ee
   m_SerializeEntries:
-  - m_GUID: 108c953ec12f8f74d9710e21314f6fa7
-    m_Address: Obj
+  - m_GUID: 04052d0e82a522b45b3ecd7432de2363
+    m_Address: TestProjectile1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestPreload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a64a251eaad4bdc4296ba65a3353d306
+    m_Address: TestProjectile2
     m_ReadOnly: 0
     m_SerializedLabels:
     - TestPreload
@@ -25,5 +31,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 900e767d5f7fd384e8b1027b461db017, type: 2}
-    - {fileID: 11400000, guid: b5887679674e6d14f8ac339aecedf392, type: 2}
+    - {fileID: 11400000, guid: 49c98fb449e514945bc567d05993ae10, type: 2}
+    - {fileID: 11400000, guid: 5e4996ab17283f94989744c93ca4ebe8, type: 2}

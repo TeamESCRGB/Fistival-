@@ -17,7 +17,7 @@ namespace Manager.Contents
             }
         }
 
-        public CooldownComponentModule GetCooldownModule(float cooldownTime)
+        public CooldownComponentModule GetCooldownModule(float cooldownTime, float timeChangedCallInterval = 1)
         {
             CooldownComponentModule tmp = null;
 
@@ -28,7 +28,7 @@ namespace Manager.Contents
 
             tmp = _cooldownObjects[_idx];
 
-            tmp.InitCooldown(cooldownTime, _idx);
+            tmp.InitCooldown(cooldownTime, _idx, timeChangedCallInterval);
             _idx++;
             return tmp;
         }

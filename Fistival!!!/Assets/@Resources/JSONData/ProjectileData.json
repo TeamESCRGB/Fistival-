@@ -1,0 +1,24 @@
+{
+  "projectileDatas": [
+    {
+      "IDX": -1,
+      "ExplodableLayerMask": 0,
+      "Speed": 1,
+      "Damage": 200,
+      "Lifetime": 10,
+      "AttackRadius": 0.5,
+      "Physics2DMaterialName": "Obj",
+      "ProjectilePrefabName": "TestProjectile1"
+    },
+    {
+      "IDX": -2,
+      "ExplodableLayerMask": 0,
+      "Speed": 1,
+      "Damage": 200,
+      "Lifetime": 10,
+      "AttackRadius": 0.5,
+      "Physics2DMaterialName": "Obj",
+      "ProjectilePrefabName": "TestProjectile2"
+    }
+  ]
+}
