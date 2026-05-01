@@ -15,9 +15,9 @@ namespace Coordinator.Hands
         protected int _projectileIdx;
         protected CooldownComponentModule _cooldownModule;
 
-        public void Init(int projectileIdx,Rigidbody2D parentrb2d , LayerMask attackableMask, float cooldownTime)
+        public void Init(int projectileIdx,Rigidbody2D parentrb2d , LayerMask attackableMask, LayerMask pickableObjectMask,float cooldownTime, float forcePerCharge, float chargeTimeInterval)
         {
-            InitRMBOperations(parentrb2d,attackableMask);
+            InitRMBOperations(parentrb2d, attackableMask, pickableObjectMask, forcePerCharge, chargeTimeInterval);
             ResetEvents();
             _isLMBPressed = false;
             _projectileIdx = projectileIdx;

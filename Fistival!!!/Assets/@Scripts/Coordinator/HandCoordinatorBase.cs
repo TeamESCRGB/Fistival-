@@ -23,7 +23,6 @@ namespace Coordinator
         protected Vector2 _pickupBoxcastSize;
         [SerializeField]
         protected float _pickupBoxcastDistance;
-        [SerializeField]
         protected LayerMask _pickableObjectMask;
         protected Transform _handAnchor;
         #endregion
@@ -31,9 +30,7 @@ namespace Coordinator
         #region AboutCharge
         protected int _maxChargeCnt = 3;
         protected int _chargeCnt = 0;
-        [SerializeField]
         protected float _forcePerCharge = 10;
-        [SerializeField]
         protected float _chargeTimeInterval = 1;
         protected float _chargeTime = 0;
         public event Action<int, int> OnChargeRateChanged;//now rate, max rate
@@ -60,14 +57,17 @@ namespace Coordinator
 
         #endregion
 
-        protected void InitRMBOperations(Rigidbody2D parentRb2d, LayerMask attackableMask)
+        protected void InitRMBOperations(Rigidbody2D parentRb2d, LayerMask attackableMask,LayerMask pickableObjectMask ,float forcePerCharge, float chargeTimeInterval)
         {
+            _pickableObjectMask = pickableObjectMask;
             _attackableMask = attackableMask;
             _status = HandStatus.IDLE;
             _grabbedObject = null;
             _parentRb2d = parentRb2d;
             _chargeTime = 0;
             _chargeCnt = 0;
+            _forcePerCharge = forcePerCharge; ;
+            _chargeTimeInterval = chargeTimeInterval;
         }
 
 
