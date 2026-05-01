@@ -60,7 +60,7 @@ namespace Coordinator
 
         #endregion
 
-        protected void InitCommonDatas(Rigidbody2D parentRb2d, LayerMask attackableMask,LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval)
+        protected void InitCommonDatas(Rigidbody2D parentRb2d, LayerMask attackableMask,LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldown)
         {
             _pickableObjectMask = pickableObjectMask;
             _attackableMask = attackableMask;
@@ -71,6 +71,7 @@ namespace Coordinator
             _chargeCnt = 0;
             _forcePerCharge = forcePerCharge;
             _chargeTimeInterval = chargeTimeInterval;
+            _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(attackCooldown, 0.1f);
         }
 
 
