@@ -61,6 +61,20 @@
       "MoveSpeed": 5,
       "JumpPower": 6,
       "AnimControllerName": "TestController"
+    },
+    {
+      "CommonModeDataIdx": 5,
+      "Damage": 2,
+      "AttackCooldown": 0.1,
+      "AttackableLayers": 4096,
+      "PickableLayers": 64,
+      "ForcePerCharge": 10,
+      "ChargeTimeInterval": 1,
+      "SlownessSensitivity": 0.01,
+      "MaxSlowness": 0.5,
+      "MoveSpeed": 5,
+      "JumpPower": 6,
+      "AnimControllerName": "TestController"
     }
   ]
 }
