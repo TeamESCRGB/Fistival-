@@ -10,5 +10,6 @@ namespace Defines
         LEFT = 1<<1,
         UP = 1<<2,
         DOWN= 1<<3,
+        INPUT_LOCK = 1<<4
     }
 }
