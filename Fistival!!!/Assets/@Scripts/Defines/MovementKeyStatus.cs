@@ -5,6 +5,7 @@ namespace Defines
     [Flags]
     public enum MovementKeyStatus : sbyte
     {
+        OFF = 0,
         RIGHT = 1<<0,
         LEFT = 1<<1,
         UP = 1<<2,

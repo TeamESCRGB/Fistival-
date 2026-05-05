@@ -1,4 +1,5 @@
-﻿using InputHandler;
+﻿using Defines;
+using InputHandler;
 using UnityEngine;
 
 namespace Coordinator.Movements
@@ -11,17 +12,12 @@ namespace Coordinator.Movements
         private float _speed;
         private Vector2 _vel;
 
-        private sbyte _keyStatus = 0;//0번비트:rightOn, 1번비트: leftOn, 2번비트: upOn, 3번비트:downOn
-        private const sbyte _rightOnMask = 1 << 0;
-        private const sbyte _leftOnMask = 1 << 1;
-        private const sbyte _upOnMask = 1 << 2;
-        private const sbyte _downOnMask = 1 << 3;
-
+        private MovementKeyStatus _keyStatus = MovementKeyStatus.OFF;//0번비트:rightOn, 1번비트: leftOn, 2번비트: upOn, 3번비트:downOn
         public virtual void Init(float speed, Rigidbody2D parentRb2d)
         {
             _parentRb2d = parentRb2d;
             _speed = speed;
-            _keyStatus = 0;
+            _keyStatus = MovementKeyStatus.OFF;
         }
 
         private void FixedUpdate()
@@ -38,12 +34,12 @@ namespace Coordinator.Movements
         {
             if (pressed)
             {
-                _keyStatus |= _leftOnMask;
+                _keyStatus |= MovementKeyStatus.LEFT;
                 _vel.x = -_speed;
             }
             else
             {
-                _keyStatus &= ~_leftOnMask;
+                _keyStatus &= ~MovementKeyStatus.LEFT;
                 RestoreHorizontalMovementState();
             }
         }
@@ -52,12 +48,12 @@ namespace Coordinator.Movements
         {
             if (pressed)
             {
-                _keyStatus |= _rightOnMask;
+                _keyStatus |= MovementKeyStatus.RIGHT;
                 _vel.x = _speed;
             }
             else
             {
-                _keyStatus &= ~_rightOnMask;
+                _keyStatus &= ~MovementKeyStatus.RIGHT;
                 RestoreHorizontalMovementState();
             }
         }
@@ -66,12 +62,12 @@ namespace Coordinator.Movements
         {
             if (pressed)
             {
-                _keyStatus |= _downOnMask;
+                _keyStatus |= MovementKeyStatus.DOWN;
                 _vel.y = -_speed;
             }
             else
             {
-                _keyStatus &= ~_downOnMask;
+                _keyStatus &= ~MovementKeyStatus.DOWN;
                 RestoreVerticalMovementState();
             }
         }
@@ -80,12 +76,12 @@ namespace Coordinator.Movements
         {
             if (pressed)
             {
-                _keyStatus |= _upOnMask;
+                _keyStatus |= MovementKeyStatus.UP;
                 _vel.y = _speed;
             }
             else
             {
-                _keyStatus &= ~_upOnMask;
+                _keyStatus &= ~MovementKeyStatus.UP;
                 RestoreVerticalMovementState();
             }
         }
@@ -94,11 +90,11 @@ namespace Coordinator.Movements
         {
             _vel.x = 0;
 
-            if ((_keyStatus & _leftOnMask) == _leftOnMask)
+            if ((_keyStatus & MovementKeyStatus.LEFT) == MovementKeyStatus.LEFT)
             {
                 _vel.x = -_speed;
             }
-            else if ((_keyStatus & _rightOnMask) == _rightOnMask)
+            else if ((_keyStatus & MovementKeyStatus.RIGHT) == MovementKeyStatus.RIGHT)
             {
                 _vel.x = _speed;
             }
@@ -108,11 +104,11 @@ namespace Coordinator.Movements
         {
             _vel.y = 0;
 
-            if ((_keyStatus & _downOnMask) == _downOnMask)
+            if ((_keyStatus & MovementKeyStatus.DOWN) == MovementKeyStatus.DOWN)
             {
                 _vel.y = -_speed;
             }
-            else if ((_keyStatus & _upOnMask) == _upOnMask)
+            else if ((_keyStatus & MovementKeyStatus.UP) == MovementKeyStatus.UP)
             {
                 _vel.y = _speed;
             }

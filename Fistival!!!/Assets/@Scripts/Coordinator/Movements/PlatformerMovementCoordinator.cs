@@ -1,3 +1,4 @@
+using Defines;
 using InputHandler;
 using System.Collections;
 using UnityEngine;
@@ -30,9 +31,7 @@ namespace Coordinator.Movements
         private Vector3 _leftRotation = new Vector3(0, 180, 0);
         private WaitForSeconds _platformEnableDelay;
 
-        private bool _isLeftPressed = false;
-        private bool _isRightPressed = false;
-
+        private MovementKeyStatus _keyStatus = MovementKeyStatus.OFF;
 
         [SerializeField]
         private float _coyoteTime = 0.1f;
@@ -60,8 +59,7 @@ namespace Coordinator.Movements
             _slowness = 1;
             _maxSlowness = maxSlowness;
             _slownessSensitivity = slownessSensitivity;
-            _isLeftPressed = false;
-            _isRightPressed = false;
+            _keyStatus = MovementKeyStatus.OFF;
             _jumpBufferCounter = -1;
             _coyoteTimeCounter = -1;
         }
@@ -90,7 +88,10 @@ namespace Coordinator.Movements
                 return;
             }
 
-            _parentRb2d.linearVelocityX = _vel.x * _slowness;
+            float newSpeed = _vel.x * _slowness;
+            float nowSpeed = _parentRb2d.linearVelocityX;
+
+            _parentRb2d.linearVelocityX = newSpeed;
         }
 
         public void SetSlowness(float slowness)
@@ -153,13 +154,13 @@ namespace Coordinator.Movements
         {
             if (pressed)
             {
-                _isLeftPressed = true;
+                _keyStatus |= MovementKeyStatus.LEFT;
                 _vel.x = -_speed;
                 _parentTransform.eulerAngles = _leftRotation;
             }
             else
             {
-                _isLeftPressed = false;
+                _keyStatus &= ~MovementKeyStatus.LEFT;
                 RestoreMovementState();
             }
         }
@@ -168,13 +169,13 @@ namespace Coordinator.Movements
         {
             if (pressed)
             {
-                _isRightPressed = true;
+                _keyStatus |= MovementKeyStatus.RIGHT;
                 _vel.x = _speed;
                 _parentTransform.eulerAngles = Vector3.zero;
             }
             else
             {
-                _isRightPressed = false;
+                _keyStatus &= ~MovementKeyStatus.RIGHT;
                 RestoreMovementState();
             }
         }
@@ -183,12 +184,12 @@ namespace Coordinator.Movements
         {
             _vel.x = 0;
 
-            if (_isLeftPressed)
+            if ((_keyStatus & MovementKeyStatus.LEFT) == MovementKeyStatus.LEFT)
             {
                 _vel.x = -_speed;
                 _parentTransform.eulerAngles = _leftRotation;
             }
-            else if(_isRightPressed)
+            else if((_keyStatus & MovementKeyStatus.RIGHT) == MovementKeyStatus.RIGHT)
             {
                 _vel.x = _speed;
                 _parentTransform.eulerAngles = Vector3.zero;
