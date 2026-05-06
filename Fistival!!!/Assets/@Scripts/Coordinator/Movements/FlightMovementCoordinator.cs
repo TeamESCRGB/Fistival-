@@ -30,6 +30,11 @@ namespace Coordinator.Movements
             _parentRb2d.linearVelocity = _vel;
         }
 
+        public void PushTo(Vector2 force)
+        {
+            _parentRb2d.AddForce(force, ForceMode2D.Impulse);
+        }
+
         public void OnLeftMovementInputEvent(bool pressed)
         {
             if (pressed)

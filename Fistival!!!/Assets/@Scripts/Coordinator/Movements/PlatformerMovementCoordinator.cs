@@ -2,6 +2,7 @@ using Defines;
 using InputHandler;
 using System.Collections;
 using UnityEngine;
+using Utils;
 
 namespace Coordinator.Movements
 {
@@ -90,8 +91,13 @@ namespace Coordinator.Movements
 
             float newSpeed = _vel.x * _slowness;
             float nowSpeed = _parentRb2d.linearVelocityX;
-
             _parentRb2d.linearVelocityX = newSpeed;
+
+        }
+
+        public void PushTo(Vector2 force)
+        {
+            _parentRb2d.AddForce(force, ForceMode2D.Impulse);
         }
 
         public void SetSlowness(float slowness)
