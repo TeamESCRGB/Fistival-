@@ -1,12 +1,14 @@
 ﻿using ComponentModule;
 using Defines;
 using InputHandler;
+using Manager;
+using System;
 using UnityEngine;
 using Utils;
 
 namespace Coordinator.Movements
 {
-    public class FlightMovementCoordinator :MonoBehaviour, IHorizontalMovementInputHandler, IVerticalMovementInputHandler, IPushable
+    public class FlightMovementCoordinator :MonoBehaviour, IHorizontalMovementInputHandler, IVerticalMovementInputHandler, IPushable, IInputLockable
     {
         [SerializeField]
         private LayerMask _groundLayer;
@@ -21,6 +23,14 @@ namespace Coordinator.Movements
         private MovementKeyStatus _keyStatus = MovementKeyStatus.OFF;//0번비트:rightOn, 1번비트: leftOn, 2번비트: upOn, 3번비트:downOn
         private const MovementKeyStatus _verticalMask = MovementKeyStatus.UP | MovementKeyStatus.DOWN;
         private const MovementKeyStatus _horizontalMask = MovementKeyStatus.LEFT | MovementKeyStatus.RIGHT;
+
+        private CooldownComponentModule _inputLockCounter;
+        private Action _onInputLockEnd;
+        private bool _isInputLocked;
+        private void Awake()
+        {
+            _onInputLockEnd = OnInputLockEnd;
+        }
         public virtual void Init(float speed, Rigidbody2D parentRb2d)
         {
             _parentRb2d = parentRb2d;
@@ -28,7 +38,23 @@ namespace Coordinator.Movements
             _keyStatus = MovementKeyStatus.OFF;
             _nextYDir = _nextXDir = Directions.OFF;
             _yMovState = _xMovState = MovementState.OFF;
-            
+            _isInputLocked = false;
+            if (_inputLockCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_inputLockCounter);
+                _inputLockCounter = null;
+            }
+            _inputLockCounter = Managers.Instance.CooldownManager.GetCooldownModule(0);
+            _inputLockCounter.OnCooldownEnded += _onInputLockEnd;
+        }
+
+        private void OnDisable()
+        {
+            if (_inputLockCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_inputLockCounter);
+                _inputLockCounter = null;
+            }
         }
 
         private void FixedUpdate()
@@ -38,9 +64,67 @@ namespace Coordinator.Movements
                 return;
             }
 
+            if(_isInputLocked == false)
+            {
+                _parentRb2d.linearVelocityX = MovementUtils.CalculateNewSpeed(_parentRb2d.linearVelocityX, _speed, (float)_nextXDir, ref _xMovState);
+                _parentRb2d.linearVelocityY = MovementUtils.CalculateNewSpeed(_parentRb2d.linearVelocityY, _speed, (float)_nextYDir, ref _yMovState);   
+            }
+        }
+
+        private void OnInputLockEnd()
+        {
+            _isInputLocked = false;
+
+            if (_xMovState == MovementState.STOP_REQ)
+            {
+                _xMovState = MovementState.STOP_ACCEPT;
+            }
+
+            if (_yMovState == MovementState.STOP_REQ)
+            {
+                _yMovState = MovementState.STOP_ACCEPT;
+            }
+
             _parentRb2d.linearVelocityX = MovementUtils.CalculateNewSpeed(_parentRb2d.linearVelocityX, _speed, (float)_nextXDir, ref _xMovState);
             _parentRb2d.linearVelocityY = MovementUtils.CalculateNewSpeed(_parentRb2d.linearVelocityY, _speed, (float)_nextYDir, ref _yMovState);
         }
+
+        public void LockInputFor(float time)
+        {
+            if (time <= 0)
+            {
+                return;
+            }
+
+            if (_inputLockCounter.IsCooldownEnded())
+            {
+                if(_xMovState != MovementState.START_REQ && _xMovState != MovementState.STOP_ACCEPT)
+                {
+                    MovementState stopReq = MovementState.STOP_REQ;
+                    _parentRb2d.linearVelocityX = MovementUtils.CalculateNewSpeed(_parentRb2d.linearVelocityX, _speed, 0, ref stopReq);
+                }
+
+                if(_yMovState != MovementState.START_REQ && _yMovState != MovementState.STOP_ACCEPT)
+                {
+                    MovementState stopReq = MovementState.STOP_REQ;
+                    _parentRb2d.linearVelocityY = MovementUtils.CalculateNewSpeed(_parentRb2d.linearVelocityY, _speed, 0, ref stopReq);
+                }
+            }
+
+            _inputLockCounter.SetCooldownTime(time);
+            _inputLockCounter.StartCooldown();
+            _isInputLocked = true;
+        }
+
+        public void UnlockInput()
+        {
+            if (_inputLockCounter is null || _inputLockCounter.IsCooldownEnded())
+            {
+                return;
+            }
+            _inputLockCounter.StopCooldown();
+        }
+
 
         public void PushTo(Vector2 force)
         {

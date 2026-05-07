@@ -30,7 +30,7 @@
       "ChargeTimeInterval": 1,
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
-      "MoveSpeed": 5,
+      "MoveSpeed": 10,
       "JumpPower": 6,
       "AnimControllerName": "TestController"
     },
@@ -44,7 +44,7 @@
       "ChargeTimeInterval": 1,
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
-      "MoveSpeed": 5,
+      "MoveSpeed": 10,
       "JumpPower": 6,
       "AnimControllerName": "TestController"
     },
@@ -58,7 +58,7 @@
       "ChargeTimeInterval": 1,
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
-      "MoveSpeed": 5,
+      "MoveSpeed": 10,
       "JumpPower": 6,
       "AnimControllerName": "TestController"
     },
@@ -72,7 +72,7 @@
       "ChargeTimeInterval": 1,
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
-      "MoveSpeed": 5,
+      "MoveSpeed": 10,
       "JumpPower": 6,
       "AnimControllerName": "TestController"
     }
