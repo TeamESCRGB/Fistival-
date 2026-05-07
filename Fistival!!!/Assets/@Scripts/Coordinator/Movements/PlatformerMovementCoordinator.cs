@@ -107,7 +107,7 @@ namespace Coordinator.Movements
 
             _jumpBufferCounter -= Time.fixedDeltaTime;
 
-            if(_isGrounded && _jumpBufferCounter>=0)
+            if(_isGrounded && _jumpBufferCounter>=0 && (_isInputLocked == false))
             {
                 Jump();
             }
@@ -193,7 +193,7 @@ namespace Coordinator.Movements
 
         public void OnDownJumpMovementInputEvent(bool pressed)
         {
-            if(pressed == false || _parentRb2d == null || _parentCol == null)
+            if(pressed == false || _parentRb2d == null || _parentCol == null || _isInputLocked)
             {
                 return;
             }
@@ -226,7 +226,7 @@ namespace Coordinator.Movements
             {
                 return;
             }
-            if (IsGrounded() || _coyoteTimeCounter >= 0)
+            if ((IsGrounded() || _coyoteTimeCounter >= 0) && (_isInputLocked == false))
             {
                 Jump();
             }
