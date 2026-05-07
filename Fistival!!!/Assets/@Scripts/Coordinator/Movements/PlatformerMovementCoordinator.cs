@@ -1,12 +1,15 @@
+using ComponentModule;
 using Defines;
 using InputHandler;
+using Manager;
+using System;
 using System.Collections;
 using UnityEngine;
 using Utils;
 
 namespace Coordinator.Movements
 {
-    public class PlatformerMovementCoordinator : MonoBehaviour ,IJumpsMovementInputHandler, IHorizontalMovementInputHandler
+    public class PlatformerMovementCoordinator : MonoBehaviour ,IJumpsMovementInputHandler, IHorizontalMovementInputHandler, IPushable
     {
         [SerializeField]
         private float _platformIgnoreTime = 0.5f;
@@ -17,7 +20,7 @@ namespace Coordinator.Movements
         private LayerMask _groundLayer;
 
         private Transform _groundedCheckBox;
-        private Vector2 _vel;
+        
 
         private Collider2D _parentCol;
         private Rigidbody2D _parentRb2d;
@@ -33,7 +36,9 @@ namespace Coordinator.Movements
         private WaitForSeconds _platformEnableDelay;
 
         private MovementKeyStatus _keyStatus = MovementKeyStatus.OFF;
-
+        private Directions _nextDir;
+        [SerializeField]private MovementState _movState;
+        
         [SerializeField]
         private float _coyoteTime = 0.1f;
         protected float _coyoteTimeCounter = -1;
@@ -52,6 +57,8 @@ namespace Coordinator.Movements
 
         public virtual void Init(float speed,float jumpPow ,float slownessSensitivity,float maxSlowness,Rigidbody2D parentRb2d)
         {
+            _movState = MovementState.OFF;
+            _nextDir = Directions.OFF;
             _parentRb2d = parentRb2d;
             _speed = speed;
             _jumpPow = jumpPow;
@@ -89,10 +96,7 @@ namespace Coordinator.Movements
                 return;
             }
 
-            float newSpeed = _vel.x * _slowness;
-            float nowSpeed = _parentRb2d.linearVelocityX;
-            _parentRb2d.linearVelocityX = newSpeed;
-
+            _parentRb2d.linearVelocityX = MovementUtils.CalculateNewSpeed(_parentRb2d.linearVelocityX, _speed * _slowness, (float)_nextDir ,ref _movState);
         }
 
         public void PushTo(Vector2 force)
@@ -160,8 +164,12 @@ namespace Coordinator.Movements
         {
             if (pressed)
             {
+                if(_keyStatus == MovementKeyStatus.OFF)
+                {
+                    _movState = MovementState.START_REQ;
+                }
                 _keyStatus |= MovementKeyStatus.LEFT;
-                _vel.x = -_speed;
+                _nextDir = Directions.LEFT;
                 _parentTransform.eulerAngles = _leftRotation;
             }
             else
@@ -175,8 +183,12 @@ namespace Coordinator.Movements
         {
             if (pressed)
             {
+                if (_keyStatus == MovementKeyStatus.OFF)
+                {
+                    _movState = MovementState.START_REQ;
+                }
                 _keyStatus |= MovementKeyStatus.RIGHT;
-                _vel.x = _speed;
+                _nextDir = Directions.RIGHT;
                 _parentTransform.eulerAngles = Vector3.zero;
             }
             else
@@ -188,17 +200,20 @@ namespace Coordinator.Movements
 
         private void RestoreMovementState()
         {
-            _vel.x = 0;
-
+            _nextDir = Directions.OFF;
             if ((_keyStatus & MovementKeyStatus.LEFT) == MovementKeyStatus.LEFT)
             {
-                _vel.x = -_speed;
+                _nextDir = Directions.LEFT;
                 _parentTransform.eulerAngles = _leftRotation;
             }
             else if((_keyStatus & MovementKeyStatus.RIGHT) == MovementKeyStatus.RIGHT)
             {
-                _vel.x = _speed;
+                _nextDir = Directions.RIGHT;
                 _parentTransform.eulerAngles = Vector3.zero;
+            }
+            else if(_keyStatus == MovementKeyStatus.OFF)
+            {
+                _movState = MovementState.STOP_REQ;
             }
         }
 
