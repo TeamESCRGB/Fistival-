@@ -9,7 +9,7 @@ using Utils;
 
 namespace Coordinator.Movements
 {
-    public class PlatformerMovementCoordinator : MonoBehaviour ,IJumpsMovementInputHandler, IHorizontalMovementInputHandler, IPushable
+    public class PlatformerMovementCoordinator : MonoBehaviour ,IJumpsMovementInputHandler, IHorizontalMovementInputHandler, IPushable, IInputLockable
     {
         [SerializeField]
         private float _platformIgnoreTime = 0.5f;
@@ -35,9 +35,12 @@ namespace Coordinator.Movements
         private Vector3 _leftRotation = new Vector3(0, 180, 0);
         private WaitForSeconds _platformEnableDelay;
 
-        private MovementKeyStatus _keyStatus = MovementKeyStatus.OFF;
+        [SerializeField]private MovementKeyStatus _keyStatus = MovementKeyStatus.OFF;
         private Directions _nextDir;
         [SerializeField]private MovementState _movState;
+        private CooldownComponentModule _inputLockCounter;
+        private Action _onInputLockEnd;
+        private bool _isInputLocked;
         
         [SerializeField]
         private float _coyoteTime = 0.1f;
@@ -53,6 +56,7 @@ namespace Coordinator.Movements
         {
             _platformEnableDelay = new WaitForSeconds(_platformIgnoreTime);
             _groundedCheckBox = transform.Find("@GroundedCheckBox");
+            _onInputLockEnd = OnInputLockEnd;
         }
 
         public virtual void Init(float speed,float jumpPow ,float slownessSensitivity,float maxSlowness,Rigidbody2D parentRb2d)
@@ -68,8 +72,25 @@ namespace Coordinator.Movements
             _maxSlowness = maxSlowness;
             _slownessSensitivity = slownessSensitivity;
             _keyStatus = MovementKeyStatus.OFF;
+            _isInputLocked = false;
             _jumpBufferCounter = -1;
             _coyoteTimeCounter = -1;
+            if(_inputLockCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_inputLockCounter);
+                _inputLockCounter = null;
+            }
+            _inputLockCounter = Managers.Instance.CooldownManager.GetCooldownModule(0);
+            _inputLockCounter.OnCooldownEnded += _onInputLockEnd;
+        }
+
+        private void OnDisable()
+        {
+            if(_inputLockCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_inputLockCounter);
+                _inputLockCounter = null;
+            }
         }
 
         private void FixedUpdate()
@@ -96,7 +117,62 @@ namespace Coordinator.Movements
                 return;
             }
 
-            _parentRb2d.linearVelocityX = MovementUtils.CalculateNewSpeed(_parentRb2d.linearVelocityX, _speed * _slowness, (float)_nextDir ,ref _movState);
+
+            //이거는 어쨌든 이동 입력이 있을때만 작동하는데, 그러면 락이 걸리지 않고, 입력이 있을때만 작동하게 하면 안되나?
+            if(_isInputLocked == false)
+            {
+                _parentRb2d.linearVelocityX = MovementUtils.CalculateNewSpeed(_parentRb2d.linearVelocityX, _speed * _slowness, (float)_nextDir, ref _movState);
+            }
+        }
+
+
+
+        private void OnInputLockEnd()
+        {
+            //락 해제
+            _isInputLocked = false;
+
+            if(_movState == MovementState.STOP_REQ)
+            {
+                _movState = MovementState.STOP_ACCEPT;
+            }
+
+            _parentRb2d.linearVelocityX = MovementUtils.CalculateNewSpeed(_parentRb2d.linearVelocityX, _speed * _slowness, (float)_nextDir, ref _movState);
+
+            //먼저, 속도부터 복구
+            //복구되면 안되는 상황:
+            //입력된 키가 없음, STOP_REQ인 상황
+        }
+
+        public void LockInputFor(float time)
+        {
+            if(time <= 0)
+            {
+                return;
+            }
+
+            if(_inputLockCounter.IsCooldownEnded() && _movState != MovementState.START_REQ && _movState != MovementState.STOP_ACCEPT)
+            {
+                MovementState stopReq = MovementState.STOP_REQ;
+                _parentRb2d.linearVelocityX = MovementUtils.CalculateNewSpeed(_parentRb2d.linearVelocityX, _speed * _slowness, 0, ref stopReq);
+            }
+
+            _inputLockCounter.SetCooldownTime(time);
+            _inputLockCounter.StartCooldown();
+            _isInputLocked = true;
+            //inputlock플레그 올리기
+            //속도를 빼면 안되는 상황:
+            //쿨다운이 안끝났는데, 다시 요청 들어옴, START_REQ인 상황, STOP_REQ_ACCEPT인 상황
+
+        }
+
+        public void UnlockInput()
+        {
+            if(_inputLockCounter is null || _inputLockCounter.IsCooldownEnded())
+            {
+                return;
+            }
+            _inputLockCounter.StopCooldown();
         }
 
         public void PushTo(Vector2 force)
