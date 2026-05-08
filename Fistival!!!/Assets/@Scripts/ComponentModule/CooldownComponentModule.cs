@@ -55,6 +55,11 @@ namespace ComponentModule
             return _isCooldownEnded;
         }
 
+        public float GetRemainedTime()
+        {
+            return _accumulatedTime;
+        }
+
         public void Tick(float dt)
         {
             if (_isCooldownEnded)
