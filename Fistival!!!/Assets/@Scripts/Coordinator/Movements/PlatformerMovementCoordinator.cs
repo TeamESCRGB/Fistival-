@@ -39,6 +39,7 @@ namespace Coordinator.Movements
         private Directions _nextDir;
         [SerializeField]private MovementState _movState;
         protected bool _isInputLocked;
+        private int _lockCnt = 0;
         
         [SerializeField]
         private float _coyoteTime = 0.1f;
@@ -72,6 +73,7 @@ namespace Coordinator.Movements
             _isInputLocked = false;
             _jumpBufferCounter = -1;
             _coyoteTimeCounter = -1;
+            _lockCnt = 0;
         }
 
         private void FixedUpdate()
@@ -112,6 +114,7 @@ namespace Coordinator.Movements
         //입력된 키가 없음, STOP_REQ인 상황
         public void LockMovement()
         {
+            _lockCnt++;
             if(_isInputLocked)
             {
                 return;
@@ -134,6 +137,13 @@ namespace Coordinator.Movements
             {
                 return;
             }
+
+            _lockCnt--;
+            if(_lockCnt > 0)
+            {
+                return;
+            }
+
             _isInputLocked = false;
 
             if (_movState == MovementState.STOP_REQ)
