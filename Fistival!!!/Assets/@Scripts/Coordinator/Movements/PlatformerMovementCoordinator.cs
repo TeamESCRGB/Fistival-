@@ -40,7 +40,7 @@ namespace Coordinator.Movements
         [SerializeField]private MovementState _movState;
         private CooldownComponentModule _inputLockCounter;
         private Action _onInputLockEnd;
-        private bool _isInputLocked;
+        protected bool _isInputLocked;
         
         [SerializeField]
         private float _coyoteTime = 0.1f;

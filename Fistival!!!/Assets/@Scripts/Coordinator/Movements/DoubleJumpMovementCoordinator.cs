@@ -26,7 +26,7 @@ namespace Coordinator.Movements
                 return;
             }
 
-            if (IsGrounded() || _coyoteTimeCounter >= 0)
+            if ((IsGrounded() || _coyoteTimeCounter >= 0) && (_isInputLocked == false))
             {
                 Jump();
                 _canDoubleJump = true;
