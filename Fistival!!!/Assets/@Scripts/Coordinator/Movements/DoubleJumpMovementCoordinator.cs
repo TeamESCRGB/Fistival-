@@ -26,12 +26,12 @@ namespace Coordinator.Movements
                 return;
             }
 
-            if (IsGrounded() || _coyoteTimeCounter >= 0)
+            if ((IsGrounded() || _coyoteTimeCounter >= 0) && (_isInputLocked == false))
             {
                 Jump();
                 _canDoubleJump = true;
             }
-            else if(_canDoubleJump)
+            else if(_canDoubleJump && (_isInputLocked == false))
             {
                 Jump();
                 _canDoubleJump = false;

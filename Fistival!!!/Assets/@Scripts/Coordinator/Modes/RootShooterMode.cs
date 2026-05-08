@@ -34,5 +34,35 @@ namespace Coordinator.Modes
         {
             throw new NotImplementedException();
         }
+        protected override void OnStunEnd()
+        {
+            _isStunned = false;
+        }
+
+        public override void StunFor(float time)
+        {
+            if (time <= 0)
+            {
+                return;
+            }
+
+            if (_stunCounter.IsCooldownEnded())
+            {
+
+            }
+
+            _stunCounter.SetCooldownTime(time);
+            _stunCounter.StartCooldown();
+            _isStunned = true;
+        }
+
+        public override void ReleaseStun()
+        {
+            if (_stunCounter is null || _stunCounter.IsCooldownEnded())
+            {
+                return;
+            }
+            _stunCounter.StopCooldown();
+        }
     }
 }

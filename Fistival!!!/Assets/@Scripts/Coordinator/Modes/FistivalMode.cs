@@ -60,6 +60,10 @@ namespace Coordinator.Modes
 
         public override void OnRMBEvent(bool pressed, Vector2 screenPos)
         {
+            if(_isStunned)
+            {
+                return;
+            }
             if(pressed)
             {
                 _hand.OnRMBPressed();
@@ -73,6 +77,10 @@ namespace Coordinator.Modes
 
         public override void OnLMBEvent(bool pressed, Vector2 screenPos)
         {
+            if(_isStunned)
+            {
+                return;
+            }
             if(pressed)
             {
                 _hand.OnLMBPressed();
@@ -85,7 +93,42 @@ namespace Coordinator.Modes
 
         public override void OnDropEvent(bool pressed)
         {
-            _hand.Drop();
+            if(pressed && (_isStunned == false))
+            {
+                _hand.Drop();
+            }
+        }
+        protected override void OnStunEnd()
+        {
+            _isStunned = false;
+            _movCoordinator.UnlockMovement();
+        }
+
+        public override void StunFor(float time)
+        {
+            if (time <= 0)
+            {
+                return;
+            }
+
+            if (_stunCounter.IsCooldownEnded())
+            {
+                _movCoordinator.LockMovement();
+                _hand.Drop();
+            }
+
+            _stunCounter.SetCooldownTime(time);
+            _stunCounter.StartCooldown();
+            _isStunned = true;
+        }
+
+        public override void ReleaseStun()
+        {
+            if (_stunCounter is null || _stunCounter.IsCooldownEnded())
+            {
+                return;
+            }
+            _stunCounter.StopCooldown();
         }
     }
 }

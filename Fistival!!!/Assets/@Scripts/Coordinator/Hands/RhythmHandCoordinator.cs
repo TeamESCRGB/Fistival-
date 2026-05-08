@@ -118,6 +118,14 @@ namespace Coordinator.Hands
         }
 
 
+        public void ReleaseRhythmCharge()
+        {
+            _parryReflectionDamage = 0;
+            _endIdx = -1;
+            _judgeType = 0;
+            _noteType = 0;
+        }
+
         public override void OnLMBPressed()
         {
             if(_cooldownModule.IsCooldownEnded() == false)
