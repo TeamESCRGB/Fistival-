@@ -31,7 +31,7 @@ namespace Coordinator.Movements
                 Jump();
                 _canDoubleJump = true;
             }
-            else if(_canDoubleJump)
+            else if(_canDoubleJump && (_isInputLocked == false))
             {
                 Jump();
                 _canDoubleJump = false;
