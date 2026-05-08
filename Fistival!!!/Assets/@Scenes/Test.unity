@@ -2100,8 +2100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f159c4c1494fd34280c9ef2f21ebdac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushPad
-  force: {x: -10, y: 10}
+  force: {x: 10, y: 5}
   asdf: 1
+  cool: 5
 --- !u!212 &802305180
 SpriteRenderer:
   serializedVersion: 2
@@ -3332,7 +3333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df70569e1c1e3d45ad00ea2c9f6df2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestMusic
-  active: 4
+  active: 3
   mod: {fileID: 1841974925}
   obc: {fileID: 1604905679}
   ren: {fileID: 1067254925}
@@ -4335,7 +4336,7 @@ Transform:
   m_GameObject: {fileID: 1476450486}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.02, y: 6.11, z: 0}
+  m_LocalPosition: {x: 0.85, y: 2.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5712,7 +5713,7 @@ Transform:
   m_GameObject: {fileID: 1657564214}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.53, y: 7, z: 0}
+  m_LocalPosition: {x: -8.57, y: 8.01, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

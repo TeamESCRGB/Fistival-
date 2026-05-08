@@ -9,7 +9,7 @@ using System;
 
 namespace Coordinator
 {
-    public abstract class ModeBase : MonoBehaviour,ILMBInputHandler, IRMBInputHandler, IDropInputHandler, IStunable
+    public abstract class ModeBase : MonoBehaviour,ILMBInputHandler, IRMBInputHandler, IDropInputHandler, IStunnable
     {
         protected PlayerInputCoordinator _inputCoordinator;
         protected CommonModeData _commonData;

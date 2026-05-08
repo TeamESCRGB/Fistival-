@@ -1,6 +1,6 @@
 ﻿namespace Coordinator.Movements
 {
-    public interface IStunable
+    public interface IStunnable
     {
         public void StunFor(float time);
         public void ReleaseStun();
