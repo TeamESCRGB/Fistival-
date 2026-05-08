@@ -100,7 +100,7 @@ namespace Coordinator.Modes
 
         public override void StunFor(float time)
         {
-            if (time <= 0)
+            if (time <= 0 || _stunCounter.GetRemainedTime() >= time)
             {
                 return;
             }
