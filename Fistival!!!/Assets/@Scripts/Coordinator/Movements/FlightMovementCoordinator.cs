@@ -25,9 +25,11 @@ namespace Coordinator.Movements
         private const MovementKeyStatus _horizontalMask = MovementKeyStatus.LEFT | MovementKeyStatus.RIGHT;
 
         private bool _isInputLocked;
+        private int _lockCnt;
 
         public virtual void Init(float speed, Rigidbody2D parentRb2d)
         {
+            _lockCnt = 0;
             _parentRb2d = parentRb2d;
             _speed = speed;
             _keyStatus = MovementKeyStatus.OFF;
@@ -52,6 +54,7 @@ namespace Coordinator.Movements
 
         public void LockMovement()
         {
+            _lockCnt++;
             if(_isInputLocked)
             {
                 return;
@@ -75,6 +78,12 @@ namespace Coordinator.Movements
         public void UnlockMovement()
         {
             if(_isInputLocked == false)
+            {
+                return;
+            }
+
+            _lockCnt--;
+            if(_lockCnt > 0)
             {
                 return;
             }
