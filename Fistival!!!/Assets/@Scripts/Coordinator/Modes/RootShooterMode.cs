@@ -1,54 +1,104 @@
-﻿using Data;
+﻿using Coordinator.Hands;
+using Coordinator.Movements;
+using Data;
 using Defines;
-using System;
+using InputHandler;
 using UnityEngine;
+using Utils;
 
 namespace Coordinator.Modes
 {
-    public class RootShooterMode : ModeBase
+    public class RootShooterMode : ModeBase, IReloadInputHandler
     {
+        private PlatformerMovementCoordinator _movCoordinator;
+        private RootShooterHand _hand;
+        private float _objectWeight = 0;
+
         public override ModeTypes ModeType => ModeTypes.ROOT_SHOOTER;
+
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+            _movCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
+            _hand = GetComponentInChildren<RootShooterHand>();
+        }
+
         public override void Init(CommonModeData data)
         {
             base.Init(data);
-
+            _movCoordinator.Init(data.MoveSpeed, data.JumpPower, _commonData.SlownessSensitivity, _commonData.MaxSlowness, GetComponentInParent<Rigidbody2D>());
+            _inputCoordinator.SetJumpsMovementInputHandler(_movCoordinator);
+            _inputCoordinator.SetHorizontalMovementInputHandler(_movCoordinator);
+            _inputCoordinator.SetPointerMovementInputHandler(_hand);
+            _hand.Init(GetComponentInParent<Rigidbody2D>(),data.Damage, data.AttackableLayers, data.PickableLayers, data.ForcePerCharge, data.ChargeTimeInterval, data.AttackCooldown);
+            _hand.OnChargeRateChanged += OnChargeRateChanged;
+            _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
+            _objectWeight = 0;
         }
 
         public override void DeInit()
         {
-
+            _hand.Drop();
             base.DeInit();
+        }
+
+        private void OnGrabbedObjectChanged(ObjectData objData)
+        {
+            if (objData == null)
+            {
+                _objectWeight = 0;
+            }
+            else
+            {
+                _objectWeight = objData.Weight;
+            }
+
+        }
+
+        private void OnChargeRateChanged(int now, int max)
+        {
+            _movCoordinator.SetSlowness(1 / (1 + (now / max * _objectWeight)));
         }
 
         public override void OnDropEvent(bool pressed)
         {
-            throw new NotImplementedException();
+            if (pressed && (_isStunned == false))
+            {
+                _hand.Drop();
+            }
         }
 
         public override void OnLMBEvent(bool pressed, Vector2 screenPos)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
 
         public override void OnRMBEvent(bool pressed, Vector2 screenPos)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
+        public void OnReloadInputEvent(bool pressed)
+        {
+            throw new System.NotImplementedException();
+        }
+
         protected override void OnStunEnd()
         {
             _isStunned = false;
+            _movCoordinator.UnlockMovement();
         }
 
         public override void StunFor(float time)
         {
-            if (time <= 0)
+            if (time <= 0 || _stunCounter.GetRemainedTime() >= time)
             {
                 return;
             }
 
             if (_stunCounter.IsCooldownEnded())
             {
-
+                _movCoordinator.LockMovement();
+                _hand.Drop();
             }
 
             _stunCounter.SetCooldownTime(time);
