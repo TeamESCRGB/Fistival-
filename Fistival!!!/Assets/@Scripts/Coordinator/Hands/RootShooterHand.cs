@@ -39,6 +39,7 @@ namespace Coordinator.Hands
         private float _reloadTime;
         private int _bulletCnt = 0;
         private int _maxBulletCnt = 7;
+        public event Action OnReload;
         #endregion
 
         #region 입력락_(임시분류)
@@ -109,6 +110,8 @@ namespace Coordinator.Hands
             _reloadCooldown = Managers.Instance.CooldownManager.GetCooldownModule(_reloadTime);
             _reloadUnlockCounter = Managers.Instance.CooldownManager.GetCooldownModule(attackCooldwn/2);
             _isAttack = false;
+
+            _reloadCooldown.OnCooldownEnded += (() => OnReload?.Invoke());//나중에 gc상태 보고 따로 뺴두든지 한다
         }
 
         protected override void OnUpdate()
@@ -154,7 +157,34 @@ namespace Coordinator.Hands
 
         public void Reload()
         {
+            /*
+             재장전이 불가능한 경우(스턴으로 인한건 Mode에서 막아주니까 제외하고)
+             이미 만발일 때
+             재장전 쿨타임이 다 안됐을 때
+             공격 후 재장전 쿨타임이 다 안됐을 때
+             총 상태가 Fanning일 때
+            ---
+            재장전을 하면:
+            재장전 쿨타임을 활성화한다
+            총 상태를 RELOAD로 바꾼다
+            끝나면 공격 쿨타임을 Stop을 한다
 
+            ---
+
+            지금은 Hand단위에서 거르고,
+            나중에 애니메이션 타임에 따라서 해야된다 하면, 작동 할 수 있는지 검사하는 로직을 만들어서 위에서 확인하도록 한다
+
+            ---
+
+            근데, 저거 RELOAD상태는 굳이 있을 필요가 있나
+            어차피 쿨타임 체크하면 될텐데
+            */
+            if(_bulletCnt >= _maxBulletCnt || _gunStatus == GunStatus.FANNING || _reloadUnlockCounter.IsCooldownEnded() == false || _reloadCooldown.IsCooldownEnded() == false)
+            {
+                return;
+            }
+            _bulletCnt = _maxBulletCnt;
+            _reloadCooldown.StartCooldown();
         }
 
         public override void OnLMBPressed()
@@ -192,5 +222,25 @@ namespace Coordinator.Hands
             wp.z = _attackBox.position.z;
             _attackBox.position = wp;
         }
+
+
+        public override void OnRMBPressed()
+        {
+            if ((_gunStatus == GunStatus.FANNING || _reloadCooldown.IsCooldownEnded() == false) && _grabbedObject == null)
+            {
+                return;
+            }
+            base.OnRMBPressed();
+        }
+
+        public override void OnRMBReleased()
+        {
+            base.OnRMBReleased();
+        }
+
+
+        #region Callbacks
+
+        #endregion
     }
 }
