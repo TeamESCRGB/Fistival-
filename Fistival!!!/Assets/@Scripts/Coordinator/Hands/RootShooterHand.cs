@@ -38,7 +38,13 @@ namespace Coordinator.Hands
         private float _reloadTime;
         private int _bulletCnt = 0;
         private int _maxBulletCnt = 7;
-        private CooldownComponentModule _reloadCooldown;
+        #endregion
+
+        #region 입력락_(임시분류)
+        //쿨타임 락
+        private CooldownComponentModule _reloadCooldown;//장전동안 다른 행동 막는 락
+        private CooldownComponentModule _reloadUnlockCounter;//공격 후 재장전 막는 락
+        private bool _isAttack;//공격동안 다른 입력 막는 락
         #endregion
 
         protected override void OnAwake()
@@ -70,6 +76,12 @@ namespace Coordinator.Hands
                 Managers.Instance.CooldownManager.ReturnModule(_reloadCooldown);
                 _reloadCooldown = null;
             }
+
+            if(_reloadUnlockCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_reloadUnlockCounter);
+                _reloadUnlockCounter = null;
+            }
         }
 
         public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
@@ -88,7 +100,14 @@ namespace Coordinator.Hands
                 Managers.Instance.CooldownManager.ReturnModule(_reloadCooldown);
                 _reloadCooldown = null;
             }
+            if (_reloadUnlockCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_reloadUnlockCounter);
+                _reloadUnlockCounter = null;
+            }
             _reloadCooldown = Managers.Instance.CooldownManager.GetCooldownModule(_reloadTime);
+            _reloadUnlockCounter = Managers.Instance.CooldownManager.GetCooldownModule(attackCooldwn/2);
+            _isAttack = false;
         }
 
         protected override void OnUpdate()
