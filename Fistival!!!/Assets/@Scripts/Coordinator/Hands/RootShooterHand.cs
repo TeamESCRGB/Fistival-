@@ -170,7 +170,11 @@ namespace Coordinator.Hands
 
         public void OnPointerMove(Vector2 screenPos)
         {
-
+            //조준선은 ui업데이트 할 때 좌클릭 눌렀을때만 나오게 한다.
+            SetMousePos(screenPos);
+            Vector3 wp = _mainCam.ScreenToWorldPoint(screenPos);
+            wp.z = _attackBox.position.z;
+            _attackBox.position = wp;
         }
     }
 }
