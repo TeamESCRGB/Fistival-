@@ -9,13 +9,13 @@ namespace Coordinator.Hands
 {
     public class RootShooterHand : HandCoordinatorBase, IPointerMovementInputHandler
     {
+        private GunStatus _gunStatus;
+
         #region 강공_상태_조정
         [SerializeField]
         private double _strongRdyThreshold = 0.5f;
         [SerializeField]
         private double _strongAttackThreshold = 1;
-        [SerializeField]
-        private int _strongDamageMultiplier = 2;
         private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
         public Action<AttackStatus> OnAttackStatusChanged;
@@ -79,6 +79,7 @@ namespace Coordinator.Hands
             _baseSmashDamage = baseSmashDamage;
             _bulletCnt = _maxBulletCnt;
 
+            _gunStatus = GunStatus.USE;
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             _skillBase.Init(_attackableMask, _baseSmashDamage);
@@ -122,12 +123,30 @@ namespace Coordinator.Hands
 
         public override void OnLMBPressed()
         {
-            throw new NotImplementedException();
+            if (_cooldownModule.IsCooldownEnded() == false)
+            {
+                return;
+            }
+            _attackStatus = AttackStatus.PRESSED;
+            _pressedTime = Time.timeAsDouble;
+            OnAttackStatusChanged?.Invoke(AttackStatus.PRESSED);
         }
 
         public override void OnLMBReleased()
         {
-            throw new NotImplementedException();
+            if (_cooldownModule.IsCooldownEnded() == false || _attackStatus == AttackStatus.NO_PRESSED)
+            {
+                return;
+            }
+
+            if (_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
+            {
+                _attackStatus = AttackStatus.STRONG;
+            }
+            Attack();
+            _attackStatus = AttackStatus.NO_PRESSED;
+            OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
+            _cooldownModule.StartCooldown();
         }
 
         public void OnPointerMove(Vector2 screenPos)
