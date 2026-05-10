@@ -112,7 +112,11 @@ namespace Coordinator.Hands
             _reloadUnlockCounter = Managers.Instance.CooldownManager.GetCooldownModule(attackCooldwn/2);
             _isAttack = false;
 
-            _reloadCooldown.OnCooldownEnded += (() => OnReload?.Invoke());//나중에 gc상태 보고 따로 뺴두든지 한다
+            _reloadCooldown.OnCooldownEnded += (() =>
+            {
+                _cooldownModule.StopCooldown();
+                OnReload?.Invoke();
+            });//나중에 gc상태 보고 따로 뺴두든지 한다
         }
 
         protected override void OnUpdate()
@@ -214,6 +218,11 @@ namespace Coordinator.Hands
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
         }
+
+        /*
+        공격 방식:
+
+        */
 
         public void OnPointerMove(Vector2 screenPos)
         {
