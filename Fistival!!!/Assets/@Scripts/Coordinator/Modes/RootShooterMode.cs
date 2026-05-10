@@ -30,6 +30,7 @@ namespace Coordinator.Modes
             _inputCoordinator.SetJumpsMovementInputHandler(_movCoordinator);
             _inputCoordinator.SetHorizontalMovementInputHandler(_movCoordinator);
             _inputCoordinator.SetPointerMovementInputHandler(_hand);
+            _inputCoordinator.SetReloadInputHandler(this);
             _hand.Init(GetComponentInParent<Rigidbody2D>(),data.Damage, data.AttackableLayers, data.PickableLayers, data.ForcePerCharge, data.ChargeTimeInterval, data.AttackCooldown);
             _hand.OnChargeRateChanged += OnChargeRateChanged;
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
@@ -91,7 +92,10 @@ namespace Coordinator.Modes
         }
         public void OnReloadInputEvent(bool pressed)
         {
-            throw new System.NotImplementedException();
+            if(pressed && (_isStunned == false))
+            {
+                _hand.Reload();
+            }
         }
 
         protected override void OnStunEnd()
@@ -111,6 +115,7 @@ namespace Coordinator.Modes
             {
                 _movCoordinator.LockMovement();
                 _hand.Drop();
+                _hand.StopAttack();
             }
 
             _stunCounter.SetCooldownTime(time);
