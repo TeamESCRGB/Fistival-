@@ -75,7 +75,19 @@ namespace Coordinator.Modes
 
         public override void OnRMBEvent(bool pressed, Vector2 screenPos)
         {
-            throw new System.NotImplementedException();
+            if (_isStunned)
+            {
+                return;
+            }
+            if (pressed)
+            {
+                _hand.OnRMBPressed();
+            }
+            else
+            {
+                _hand.SetMousePos(screenPos);
+                _hand.OnRMBReleased();
+            }
         }
         public void OnReloadInputEvent(bool pressed)
         {

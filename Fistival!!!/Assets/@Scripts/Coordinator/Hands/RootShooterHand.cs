@@ -1,5 +1,7 @@
-﻿using Defines;
+﻿using ComponentModule;
+using Defines;
 using InputHandler;
+using Manager;
 using System;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ namespace Coordinator.Hands
 {
     public class RootShooterHand : HandCoordinatorBase, IPointerMovementInputHandler
     {
+        #region 강공_상태_조정
         [SerializeField]
         private double _strongRdyThreshold = 0.5f;
         [SerializeField]
@@ -16,13 +19,27 @@ namespace Coordinator.Hands
         private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
         public Action<AttackStatus> OnAttackStatusChanged;
+        #endregion
 
+        #region 공격_박스_설정
         private Transform _attackBox;
         private SkillCoordinatorBase _skillBase;
         private int _baseSmashDamage;
+        #endregion
 
+        #region 패닝샷
+        [SerializeField]
+        private float _fanningInterval = 0.1f;
+        private float _lastShootTime = 0;
+        #endregion
+
+        #region 장전
+        [SerializeField]
+        private float _reloadTime;
         private int _bulletCnt = 0;
         private int _maxBulletCnt = 7;
+        private CooldownComponentModule _reloadCooldown;
+        #endregion
 
         protected override void OnAwake()
         {
@@ -45,6 +62,16 @@ namespace Coordinator.Hands
 #endif
         }
 
+        protected override void OnDisabled()
+        {
+            base.OnDisabled();
+            if(_reloadCooldown is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_reloadCooldown);
+                _reloadCooldown = null;
+            }
+        }
+
         public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn);
@@ -55,6 +82,12 @@ namespace Coordinator.Hands
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             _skillBase.Init(_attackableMask, _baseSmashDamage);
+            if(_reloadCooldown is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_reloadCooldown);
+                _reloadCooldown = null;
+            }
+            _reloadCooldown = Managers.Instance.CooldownManager.GetCooldownModule(_reloadTime);
         }
 
         protected override void OnUpdate()
@@ -72,6 +105,16 @@ namespace Coordinator.Hands
             }
         }
 
+        public void StopAttack()
+        {
+
+        }
+
+        private void Attack() //이건 순수히 공격만 하고 패닝/단일샷 이거는 호출부에서 생각
+        {
+
+        }
+        
         public void Reload()
         {
 
