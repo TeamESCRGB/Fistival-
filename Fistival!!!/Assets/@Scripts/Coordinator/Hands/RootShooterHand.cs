@@ -1,4 +1,5 @@
 ﻿using ComponentModule;
+using Coordinator.Victims;
 using Defines;
 using InputHandler;
 using Manager;
@@ -132,9 +133,25 @@ namespace Coordinator.Hands
 
         private void Attack() //이건 순수히 공격만 하고 패닝/단일샷 이거는 호출부에서 생각
         {
+            var enemies = Physics2D.OverlapCircleAll(_attackBox.position, _attackBox.localScale.x / 2, _attackableMask);
 
+            if (enemies is null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                Collider2D enemy = enemies[i];
+                if (enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
+                {
+                    return;
+                }
+
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, _baseSmashDamage);
+            }
         }
-        
+
         public void Reload()
         {
 
@@ -162,10 +179,9 @@ namespace Coordinator.Hands
             {
                 _attackStatus = AttackStatus.STRONG;
             }
-            Attack();
+
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
-            _cooldownModule.StartCooldown();
         }
 
         public void OnPointerMove(Vector2 screenPos)
