@@ -68,6 +68,7 @@ namespace Coordinator.Hands
 
             }
 #endif
+            _attackBox.SetParent(null,false);//나중에 ui로 옮기면 바꾸고, 옮기면 그대로.
         }
 
         protected override void OnDisabled()
