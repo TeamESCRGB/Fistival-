@@ -46,7 +46,6 @@ namespace Coordinator.Hands
         //쿨타임 락
         private CooldownComponentModule _reloadCooldown;//장전동안 다른 행동 막는 락
         private CooldownComponentModule _reloadUnlockCounter;//공격 후 재장전 막는 락
-        private bool _isAttack;//공격동안 다른 입력 막는 락
         #endregion
 
         protected override void OnAwake()
@@ -93,7 +92,7 @@ namespace Coordinator.Hands
             ResetEvents();
             _baseSmashDamage = baseSmashDamage;
             _bulletCnt = _maxBulletCnt;
-
+            _lastShootTime = 0;
             _gunStatus = GunStatus.OFF;
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
@@ -110,7 +109,6 @@ namespace Coordinator.Hands
             }
             _reloadCooldown = Managers.Instance.CooldownManager.GetCooldownModule(_reloadTime);
             _reloadUnlockCounter = Managers.Instance.CooldownManager.GetCooldownModule(attackCooldwn/2);
-            _isAttack = false;
 
             _reloadCooldown.OnCooldownEnded += (() =>
             {
@@ -133,15 +131,46 @@ namespace Coordinator.Hands
                     OnAttackStatusChanged?.Invoke(AttackStatus.STRONG_RDY);
                 }
             }
+
+            if(_gunStatus == GunStatus.USE)
+            {
+                Attack();
+                _gunStatus = GunStatus.OFF;
+                _cooldownModule.StartCooldown();
+                _reloadUnlockCounter.StartCooldown();
+            }
+            else if(_gunStatus == GunStatus.FANNING)
+            {
+                if(Time.time - _lastShootTime < _fanningInterval)
+                {
+                    return;
+                }
+                _lastShootTime = Time.time;
+                Attack();
+                if (_bulletCnt <= 0)
+                {
+                    _gunStatus = GunStatus.OFF;
+                    _cooldownModule.StartCooldown();
+                    _reloadUnlockCounter.StartCooldown();
+                }
+            }
         }
 
         public void StopAttack()
         {
-
+            if((_gunStatus & (GunStatus.USE | GunStatus.FANNING)) != GunStatus.OFF)
+            {
+                _cooldownModule.StartCooldown();
+                _reloadUnlockCounter.StartCooldown();
+            }
+            _gunStatus = GunStatus.OFF;
+            _attackStatus = AttackStatus.NO_PRESSED;
+            OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
         }
 
         private void Attack() //이건 순수히 공격만 하고 패닝/단일샷 이거는 호출부에서 생각
         {
+            _bulletCnt--;
             var enemies = Physics2D.OverlapCircleAll(_attackBox.position, _attackBox.localScale.x / 2, _attackableMask);
 
             if (enemies is null)
@@ -185,7 +214,7 @@ namespace Coordinator.Hands
             근데, 저거 RELOAD상태는 굳이 있을 필요가 있나
             어차피 쿨타임 체크하면 될텐데
             */
-            if(_bulletCnt >= _maxBulletCnt || (_gunStatus & (GunStatus.RELOAD | GunStatus.FANNING)) != GunStatus.OFF || _reloadUnlockCounter.IsCooldownEnded() == false)
+            if(_bulletCnt >= _maxBulletCnt || (_gunStatus & (GunStatus.RELOAD | GunStatus.FANNING | GunStatus.USE)) != GunStatus.OFF || _reloadUnlockCounter.IsCooldownEnded() == false)
             {
                 return;
             }
@@ -196,7 +225,7 @@ namespace Coordinator.Hands
 
         public override void OnLMBPressed()
         {
-            if (_cooldownModule.IsCooldownEnded() == false)
+            if (CanActiveShoot() == false)
             {
                 return;
             }
@@ -207,14 +236,16 @@ namespace Coordinator.Hands
 
         public override void OnLMBReleased()
         {
-            if (_cooldownModule.IsCooldownEnded() == false || _attackStatus == AttackStatus.NO_PRESSED)
+            if (CanActiveShoot() == false || _attackStatus == AttackStatus.NO_PRESSED)
             {
                 return;
             }
 
+            _gunStatus = GunStatus.USE;
             if (_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
             {
                 _attackStatus = AttackStatus.STRONG;
+                _gunStatus = GunStatus.FANNING;
             }
 
             _attackStatus = AttackStatus.NO_PRESSED;
@@ -236,7 +267,7 @@ namespace Coordinator.Hands
         그러면, 누르는 순간에도 처리를 해줘야됨
 
         그러면, 누르는 쪽에서 미리 검사를 해서 쳐내면 되겠네
-        근데, 때는 타이밍에 검사하니까, 때는쪽에서도 똑같이 검사 해야하긴 할듯. 아ㅏㅏ니면 플레그시스템을 넣거나
+        근데, 때는 타이밍에 검사하니까, 때는쪽에서도 똑같이 검사 해야하긴 할듯.
 
         ----
         공격을 할 수 없는 상황(스턴걸린건 호출부에서 처리하니까 신경쓰지 말고)
@@ -245,6 +276,12 @@ namespace Coordinator.Hands
         3: 총알이 없는 상황
         4: 재장전중인 상황
         */
+
+
+        public bool CanActiveShoot()
+        {
+            return (_gunStatus & (GunStatus.FANNING | GunStatus.RELOAD | GunStatus.USE)) == GunStatus.OFF && _cooldownModule.IsCooldownEnded() && _bulletCnt > 0;
+        }
 
         public void OnPointerMove(Vector2 screenPos)
         {
