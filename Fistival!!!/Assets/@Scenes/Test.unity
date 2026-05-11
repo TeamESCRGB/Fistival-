@@ -1361,7 +1361,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1826867857}
@@ -1427,7 +1427,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0.90713394, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2298,6 +2298,7 @@ MonoBehaviour:
   force: {x: 10, y: 5}
   asdf: 1
   cool: 5
+  rhandTest: {fileID: 1826867859}
 --- !u!212 &802305180
 SpriteRenderer:
   serializedVersion: 2
@@ -6314,6 +6315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1826867857}
   - component: {fileID: 1826867858}
+  - component: {fileID: 1826867859}
   m_Layer: 9
   m_Name: Hand
   m_TagString: Untagged
@@ -6345,7 +6347,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1826867856}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b410be2a4ee44444daea5d015ea9c8dd, type: 3}
   m_Name: 
@@ -6355,6 +6357,25 @@ MonoBehaviour:
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _strongDamageMultiplier: 5
+--- !u!114 &1826867859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826867856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdbbb5919cced7d4d9e328a2097e5618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.RootShooterHand
+  _pickupBoxcastSize: {x: 0.5, y: 2}
+  _pickupBoxcastDistance: 0
+  _strongRdyThreshold: 0.5
+  _strongAttackThreshold: 1
+  _fanningInterval: 0.1
+  _reloadTime: 20
+  _bulletCnt: 0
 --- !u!1 &1841974923
 GameObject:
   m_ObjectHideFlags: 0
@@ -6602,8 +6623,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1944621201}
-  - component: {fileID: 1944621203}
   - component: {fileID: 1944621202}
+  - component: {fileID: 1944621203}
   m_Layer: 7
   m_Name: RootShooter
   m_TagString: Untagged

@@ -1,4 +1,5 @@
 ﻿using ComponentModule;
+using Coordinator.Movements;
 using Coordinator.Victims;
 using Defines;
 using InputHandler;
@@ -48,6 +49,8 @@ namespace Coordinator.Hands
         private CooldownComponentModule _reloadUnlockCounter;//공격 후 재장전 막는 락
         #endregion
 
+        private IMovementLockable _movLocker;
+
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -64,6 +67,14 @@ namespace Coordinator.Hands
             if (_skillBase == null)
             {
                 Debug.LogError($"{_attackBox.name} 에 skillbase가 없습니다");
+
+            }
+#endif
+            _movLocker = GetComponentInParent<IMovementLockable>();
+#if UNITY_EDITOR
+            if (_movLocker == null)
+            {
+                Debug.LogError($"{transform.parent.name} 에 IMovementLockable이 없습니다");
 
             }
 #endif
@@ -152,6 +163,7 @@ namespace Coordinator.Hands
                     _gunStatus = GunStatus.OFF;
                     _cooldownModule.StartCooldown();
                     _reloadUnlockCounter.StartCooldown();
+                    _movLocker.UnlockMovement();
                 }
             }
         }
@@ -163,6 +175,12 @@ namespace Coordinator.Hands
                 _cooldownModule.StartCooldown();
                 _reloadUnlockCounter.StartCooldown();
             }
+
+            if(_gunStatus == GunStatus.FANNING)
+            {
+                _movLocker.UnlockMovement();
+            }
+
             _gunStatus = GunStatus.OFF;
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
@@ -192,28 +210,6 @@ namespace Coordinator.Hands
 
         public void Reload()
         {
-            /*
-             재장전이 불가능한 경우(스턴으로 인한건 Mode에서 막아주니까 제외하고)
-             이미 만발일 때
-             재장전 쿨타임이 다 안됐을 때
-             공격 후 재장전 쿨타임이 다 안됐을 때
-             총 상태가 Fanning일 때
-            ---
-            재장전을 하면:
-            재장전 쿨타임을 활성화한다
-            총 상태를 RELOAD로 바꾼다
-            끝나면 공격 쿨타임을 Stop을 한다
-
-            ---
-
-            지금은 Hand단위에서 거르고,
-            나중에 애니메이션 타임에 따라서 해야된다 하면, 작동 할 수 있는지 검사하는 로직을 만들어서 위에서 확인하도록 한다
-
-            ---
-
-            근데, 저거 RELOAD상태는 굳이 있을 필요가 있나
-            어차피 쿨타임 체크하면 될텐데
-            */
             if(_bulletCnt >= _maxBulletCnt || (_gunStatus & (GunStatus.RELOAD | GunStatus.FANNING | GunStatus.USE)) != GunStatus.OFF || _reloadUnlockCounter.IsCooldownEnded() == false)
             {
                 return;
@@ -244,6 +240,7 @@ namespace Coordinator.Hands
             _gunStatus = GunStatus.USE;
             if (_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
             {
+                _movLocker.LockMovement();
                 _attackStatus = AttackStatus.STRONG;
                 _gunStatus = GunStatus.FANNING;
             }
@@ -251,32 +248,6 @@ namespace Coordinator.Hands
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
         }
-
-        /*
-        공격 방식:
-        강공/약공은 모두 Update루프에서 실제로 Attack함수를 호출해서 진행된다.
-
-        어쨌든, 때는 시점에 공격 플레그를 설정하는 방식으로 이루어짐
-        약공: Use설정->Update에서 해당 부분 진입->단일공격->공격,재장전 쿨타임 활성화->탄약 까기
-        강공: FANN설정->Update에서 해당 부분 진입->공격 시점 기록->다음 업데이트 루프에서 쿨타임 이후인지 검사 후, 돌았을때만 다시 공격 및 기록->탄이 다 떨어지면 플레그 끄기->공격 재장전 쿨타임 활성화
-
-        공격이 취소-> 플레그를 OFF같은거로 처리하면 됨. + 패닝샷 도중이면 공격,재장전 쿨타임도 걸고
-
-        ----
-        공격이 눌렀다가 때는 순간에 들어감
-        그러면, 누르는 순간에도 처리를 해줘야됨
-
-        그러면, 누르는 쪽에서 미리 검사를 해서 쳐내면 되겠네
-        근데, 때는 타이밍에 검사하니까, 때는쪽에서도 똑같이 검사 해야하긴 할듯.
-
-        ----
-        공격을 할 수 없는 상황(스턴걸린건 호출부에서 처리하니까 신경쓰지 말고)
-        1: 이미 공격중인 상황
-        2: 쿨타임이 다 돌지 않은 상황
-        3: 총알이 없는 상황
-        4: 재장전중인 상황
-        */
-
 
         public bool CanActiveShoot()
         {
@@ -313,3 +284,56 @@ namespace Coordinator.Hands
         #endregion
     }
 }
+
+#if false
+/*
+공격 방식:
+강공/약공은 모두 Update루프에서 실제로 Attack함수를 호출해서 진행된다.
+
+어쨌든, 때는 시점에 공격 플레그를 설정하는 방식으로 이루어짐
+약공: Use설정->Update에서 해당 부분 진입->단일공격->공격,재장전 쿨타임 활성화->탄약 까기
+강공: FANN설정->Update에서 해당 부분 진입->공격 시점 기록->다음 업데이트 루프에서 쿨타임 이후인지 검사 후, 돌았을때만 다시 공격 및 기록->탄이 다 떨어지면 플레그 끄기->공격 재장전 쿨타임 활성화
+
+공격이 취소-> 플레그를 OFF같은거로 처리하면 됨. + 패닝샷 도중이면 공격,재장전 쿨타임도 걸고
+
+----
+공격이 눌렀다가 때는 순간에 들어감
+그러면, 누르는 순간에도 처리를 해줘야됨
+
+그러면, 누르는 쪽에서 미리 검사를 해서 쳐내면 되겠네
+근데, 때는 타이밍에 검사하니까, 때는쪽에서도 똑같이 검사 해야하긴 할듯.
+
+----
+공격을 할 수 없는 상황(스턴걸린건 호출부에서 처리하니까 신경쓰지 말고)
+1: 이미 공격중인 상황
+2: 쿨타임이 다 돌지 않은 상황
+3: 총알이 없는 상황
+4: 재장전중인 상황
+*/
+
+/*
+재장전이 불가능한 경우(스턴으로 인한건 Mode에서 막아주니까 제외하고)
+이미 만발일 때
+재장전 쿨타임이 다 안됐을 때
+공격 후 재장전 쿨타임이 다 안됐을 때
+총 상태가 Fanning일 때
+---
+재장전을 하면:
+재장전 쿨타임을 활성화한다
+총 상태를 RELOAD로 바꾼다
+끝나면 공격 쿨타임을 Stop을 한다
+
+---
+
+지금은 Hand단위에서 거르고,
+나중에 애니메이션 타임에 따라서 해야된다 하면, 작동 할 수 있는지 검사하는 로직을 만들어서 위에서 확인하도록 한다
+
+*/
+
+/*
+이동 잠금: 패닝샷에서만 가동
+
+패닝샷 기간동안 잠갔다가, 패닝샷이 끝나거나, 스턴이 걸리면 락 해제
+
+*/
+#endif
