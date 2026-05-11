@@ -10,7 +10,7 @@ namespace Coordinator.Hands
 {
     public class RootShooterHand : HandCoordinatorBase, IPointerMovementInputHandler
     {
-        private GunStatus _gunStatus;
+        [SerializeField]private GunStatus _gunStatus;
 
         #region 강공_상태_조정
         [SerializeField]
@@ -37,7 +37,7 @@ namespace Coordinator.Hands
         #region 장전
         [SerializeField]
         private float _reloadTime;
-        private int _bulletCnt = 0;
+        [SerializeField]private int _bulletCnt = 0;
         private int _maxBulletCnt = 7;
         public event Action OnReload;
         #endregion
@@ -94,7 +94,7 @@ namespace Coordinator.Hands
             _baseSmashDamage = baseSmashDamage;
             _bulletCnt = _maxBulletCnt;
 
-            _gunStatus = GunStatus.USE;
+            _gunStatus = GunStatus.OFF;
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             _skillBase.Init(_attackableMask, _baseSmashDamage);
@@ -114,6 +114,7 @@ namespace Coordinator.Hands
 
             _reloadCooldown.OnCooldownEnded += (() =>
             {
+                _gunStatus = GunStatus.OFF;
                 _cooldownModule.StopCooldown();
                 OnReload?.Invoke();
             });//나중에 gc상태 보고 따로 뺴두든지 한다
@@ -184,10 +185,11 @@ namespace Coordinator.Hands
             근데, 저거 RELOAD상태는 굳이 있을 필요가 있나
             어차피 쿨타임 체크하면 될텐데
             */
-            if(_bulletCnt >= _maxBulletCnt || _gunStatus == GunStatus.FANNING || _reloadUnlockCounter.IsCooldownEnded() == false || _reloadCooldown.IsCooldownEnded() == false)
+            if(_bulletCnt >= _maxBulletCnt || (_gunStatus & (GunStatus.RELOAD | GunStatus.FANNING)) != GunStatus.OFF || _reloadUnlockCounter.IsCooldownEnded() == false)
             {
                 return;
             }
+            _gunStatus = GunStatus.RELOAD;
             _bulletCnt = _maxBulletCnt;
             _reloadCooldown.StartCooldown();
         }
@@ -221,7 +223,27 @@ namespace Coordinator.Hands
 
         /*
         공격 방식:
+        강공/약공은 모두 Update루프에서 실제로 Attack함수를 호출해서 진행된다.
 
+        어쨌든, 때는 시점에 공격 플레그를 설정하는 방식으로 이루어짐
+        약공: Use설정->Update에서 해당 부분 진입->단일공격->공격,재장전 쿨타임 활성화->탄약 까기
+        강공: FANN설정->Update에서 해당 부분 진입->공격 시점 기록->다음 업데이트 루프에서 쿨타임 이후인지 검사 후, 돌았을때만 다시 공격 및 기록->탄이 다 떨어지면 플레그 끄기->공격 재장전 쿨타임 활성화
+
+        공격이 취소-> 플레그를 OFF같은거로 처리하면 됨. + 패닝샷 도중이면 공격,재장전 쿨타임도 걸고
+
+        ----
+        공격이 눌렀다가 때는 순간에 들어감
+        그러면, 누르는 순간에도 처리를 해줘야됨
+
+        그러면, 누르는 쪽에서 미리 검사를 해서 쳐내면 되겠네
+        근데, 때는 타이밍에 검사하니까, 때는쪽에서도 똑같이 검사 해야하긴 할듯. 아ㅏㅏ니면 플레그시스템을 넣거나
+
+        ----
+        공격을 할 수 없는 상황(스턴걸린건 호출부에서 처리하니까 신경쓰지 말고)
+        1: 이미 공격중인 상황
+        2: 쿨타임이 다 돌지 않은 상황
+        3: 총알이 없는 상황
+        4: 재장전중인 상황
         */
 
         public void OnPointerMove(Vector2 screenPos)

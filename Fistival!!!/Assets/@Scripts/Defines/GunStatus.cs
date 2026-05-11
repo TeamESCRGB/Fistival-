@@ -1,9 +1,10 @@
 ﻿namespace Defines
 {
-    public enum GunStatus
+    public enum GunStatus : sbyte
     {
-        USE,
-        RELOAD,
-        FANNING
+        OFF=0,
+        USE=1<<0,
+        RELOAD=1<<1,
+        FANNING=1<<2
     }
 }
