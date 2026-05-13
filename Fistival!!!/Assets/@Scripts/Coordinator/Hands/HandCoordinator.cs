@@ -16,7 +16,7 @@ namespace Coordinator.Hands
         private double _strongAttackThreshold = 1;
         [SerializeField]
         private int _strongDamageMultiplier = 2;
-        private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
+        [SerializeField]private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
         public Action<AttackStatus> OnAttackStatusChanged;
         
@@ -126,6 +126,12 @@ namespace Coordinator.Hands
 
             
             //공격하는 함수. 데미지: damage +  해서 OverlapBox써서 나중에 함
+        }
+
+        public void StopAttack()
+        {
+            _attackStatus = AttackStatus.NO_PRESSED;
+            OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
         }
 
         public override void OnLMBPressed()
