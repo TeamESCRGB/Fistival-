@@ -9,7 +9,7 @@ namespace Coordinator.Victims
     {
         //방어도 없다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
         private HPCoordinator _hpCoord;
-        private CooldownComponentModule _cooldownModule = null;
+        private CooldownComponentModule _invincibilityTimeCounter = null;
         private int _maskedLayer = 0;
         private void Awake()
         {
@@ -21,25 +21,25 @@ namespace Coordinator.Victims
         {
             _maskedLayer = 1 << gameObject.layer;
             _hpCoord.Init(hp, maxHP);
-            _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(invincibilityTime);
+            _invincibilityTimeCounter = Managers.Instance.CooldownManager.GetCooldownModule(invincibilityTime);
         }
 
         private void OnDisable()
         {
-            if(_cooldownModule is not null)
+            if(_invincibilityTimeCounter is not null)
             {
-                Managers.Instance.CooldownManager.ReturnModule(_cooldownModule);
-                _cooldownModule = null;
+                Managers.Instance.CooldownManager.ReturnModule(_invincibilityTimeCounter);
+                _invincibilityTimeCounter = null;
             }
         }
 
         public bool CanAttack()
         {
-            if(_cooldownModule is null)
+            if(_invincibilityTimeCounter is null)
             {
                 return false;
             }
-            return (_hpCoord.IsDead() == false) && _cooldownModule.IsCooldownEnded();//무적시간도 고려할 것
+            return (_hpCoord.IsDead() == false) && _invincibilityTimeCounter.IsCooldownEnded();
         }
 
         public T RequestComponent<T>() where T : class
@@ -63,11 +63,11 @@ namespace Coordinator.Victims
 
         public void StartInvincibleTime()
         {
-            if(_cooldownModule is null)
+            if(_invincibilityTimeCounter is null)
             {
                 return;
             }
-            _cooldownModule.StartCooldown();
+            _invincibilityTimeCounter.StartCooldown();
         }
 
         public int GetMaskedLayer()
