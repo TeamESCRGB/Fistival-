@@ -115,6 +115,7 @@ namespace Coordinator.Modes
             {
                 _movCoordinator.LockMovement();
                 _hand.Drop();
+                _hand.StopAttack();
             }
 
             _stunCounter.SetCooldownTime(time);
