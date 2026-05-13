@@ -21,6 +21,7 @@ namespace Data
             SlownessSensitivity = original.SlownessSensitivity;
             MaxSlowness = original.MaxSlowness;
             JumpPower = original.JumpPower;
+            InvincibilityTime = original.InvincibilityTime;
             AnimControllerName = original.AnimControllerName;
         }
         public CommonModeData() { }
@@ -40,6 +41,7 @@ namespace Data
         public float SlownessSensitivity;
         public float MaxSlowness;
         public float JumpPower;
+        public float InvincibilityTime;
         public string AnimControllerName;
     }
 }
