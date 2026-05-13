@@ -1,19 +1,25 @@
 using ComponentModule;
+using Coordinator.Movements;
 using Manager;
 using UnityEngine;
 using Utils;
 
 namespace Coordinator.Victims
 {
-    public class VictimCoordinator : MonoBehaviour, IAttackable
+    public class VictimCoordinator : MonoBehaviour, IAttackable, IStunnable
     {
         //방어도 없다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+        private IStunnable _internalTarget;
         private HPCoordinator _hpCoord;
         private CooldownComponentModule _invincibilityTimeCounter = null;
         private int _maskedLayer = 0;
         private void Awake()
         {
             _hpCoord = gameObject.GetOrAddComponent<HPCoordinator>();
+            _internalTarget = transform.parent.GetComponentInParent<IStunnable>();
+#if UNITY_EDITOR
+            Debug.Assert(_internalTarget != null, $"{gameObject.name} 이 붙어있는 상위 오브젝트 중 IStunnable이 없다.");
+#endif
         }
 
 
@@ -73,6 +79,16 @@ namespace Coordinator.Victims
         public int GetMaskedLayer()
         {
             return _maskedLayer;
+        }
+
+        public void StunFor(float time)
+        {
+            _internalTarget?.StunFor(time);
+        }
+
+        public void ReleaseStun()
+        {
+            _internalTarget?.ReleaseStun();
         }
     }
 }
