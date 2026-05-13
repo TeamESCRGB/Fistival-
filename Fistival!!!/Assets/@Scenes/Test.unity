@@ -5068,7 +5068,7 @@ GameObject:
   - component: {fileID: 1841974924}
   - component: {fileID: 1841974925}
   m_Layer: 7
-  m_Name: ModeManageObject
+  m_Name: '@ModeManageObject'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
