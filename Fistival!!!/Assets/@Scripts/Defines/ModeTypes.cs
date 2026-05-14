@@ -7,6 +7,7 @@
         PLATFORMER=2,
         RHYTHM=3,
         SHOOT_2D=4,
-        ROOT_SHOOTER=5
+        ROOT_SHOOTER=5,
+        WWE=6
     }
 }

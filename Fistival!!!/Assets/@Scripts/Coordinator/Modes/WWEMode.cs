@@ -1,0 +1,124 @@
+using Coordinator.Hands;
+using Coordinator.Movements;
+using Data;
+using Defines;
+using InputHandler;
+using System;
+using UnityEngine;
+using Utils;
+
+namespace Coordinator.Modes
+{
+    public class WWEMode : ModeBase, IVerticalMovementInputHandler, IHorizontalMovementInputHandler
+    {
+        private PlatformerMovementCoordinator _movCoordinator;
+        private float _objectWeight = 0;
+
+        public override ModeTypes ModeType => ModeTypes.WWE;
+
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+            _movCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
+        }
+
+        public override void Init(CommonModeData data)
+        {
+            base.Init(data);
+            _movCoordinator.Init(data.MoveSpeed, data.JumpPower, data.SlownessSensitivity, data.MaxSlowness, GetComponentInParent<Rigidbody2D>());
+            //_inputCoordinator.SetJumpsMovementInputHandler(_movCoordinator);//좌우이동은 여기에서 처리해야 할 추가적인 일이 있어서 대기
+            _objectWeight = 0;
+        }
+
+        public override void DeInit()
+        {
+
+            base.DeInit();
+        }
+
+        private void OnGrabbedObjectChanged(ObjectData objData)
+        {
+            if (objData == null)
+            {
+                _objectWeight = 0;
+            }
+            else
+            {
+                _objectWeight = objData.Weight;
+            }
+
+        }
+
+        private void OnChargeRateChanged(int now, int max)
+        {
+            _movCoordinator.SetSlowness(1 / (1 + (now / max * _objectWeight)));
+        }
+        public void OnDownMovementInputEvent(bool pressed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnUpMovementInputEvent(bool pressed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnLeftMovementInputEvent(bool pressed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnRightMovementInputEvent(bool pressed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OnRMBEvent(bool pressed, Vector2 screenPos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OnLMBEvent(bool pressed, Vector2 screenPos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OnDropEvent(bool pressed)
+        {
+            throw new NotImplementedException();
+        }
+        protected override void OnStunEnd()
+        {
+            _isStunned = false;
+            //_movCoordinator.UnlockMovement();
+        }
+
+        public override void StunFor(float time)
+        {
+            if (time <= 0 || _stunCounter.GetRemainedTime() >= time)
+            {
+                return;
+            }
+
+            if (_stunCounter.IsCooldownEnded())
+            {
+                //_movCoordinator.LockMovement();
+                //_hand.Drop();
+                //_hand.StopAttack();
+            }
+
+            _stunCounter.SetCooldownTime(time);
+            _stunCounter.StartCooldown();
+            _isStunned = true;
+        }
+
+        public override void ReleaseStun()
+        {
+            if (_stunCounter is null || _stunCounter.IsCooldownEnded())
+            {
+                return;
+            }
+            _stunCounter.StopCooldown();
+        }
+    }
+}
