@@ -11,6 +11,7 @@ namespace Coordinator.Modes
 {
     public class WWEMode : ModeBase, IVerticalMovementInputHandler, IHorizontalMovementInputHandler
     {
+        private WWEHandCoordinator _hand;
         private PlatformerMovementCoordinator _movCoordinator;
         private float _objectWeight = 0;
 
@@ -20,19 +21,24 @@ namespace Coordinator.Modes
         {
             base.OnAwake();
             _movCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
+            _hand = GetComponentInChildren<WWEHandCoordinator>();
         }
 
         public override void Init(CommonModeData data)
         {
             base.Init(data);
             _movCoordinator.Init(data.MoveSpeed, data.JumpPower, data.SlownessSensitivity, data.MaxSlowness, GetComponentInParent<Rigidbody2D>());
+            _hand.Init(GetComponentInParent<Rigidbody2D>(), data.Damage, data.AttackableLayers, data.PickableLayers, data.ForcePerCharge, data.ChargeTimeInterval, data.AttackCooldown);
+
+            _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
+            _hand.OnChargeRateChanged += OnChargeRateChanged;
             //_inputCoordinator.SetJumpsMovementInputHandler(_movCoordinator);//좌우이동은 여기에서 처리해야 할 추가적인 일이 있어서 대기
             _objectWeight = 0;
         }
 
         public override void DeInit()
         {
-
+            _hand.Drop();
             base.DeInit();
         }
 
@@ -103,8 +109,8 @@ namespace Coordinator.Modes
             if (_stunCounter.IsCooldownEnded())
             {
                 //_movCoordinator.LockMovement();
-                //_hand.Drop();
-                //_hand.StopAttack();
+                _hand.Drop();
+                _hand.StopAttack();
             }
 
             _stunCounter.SetCooldownTime(time);
