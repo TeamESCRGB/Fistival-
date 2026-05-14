@@ -17,7 +17,13 @@ namespace Coordinator.Hands
         [SerializeField] private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
         public Action<AttackStatus> OnAttackStatusChanged;
-        protected int _baseSmashDamage;
+        private int _baseSmashDamage;
+
+        [SerializeField]
+        private float _comboThreshold=0.5f;
+        private float _lastComboInput;
+        [SerializeField]private WWESkillTypes _skillType;
+        public event Action<WWESkillTypes> OnComboChanged;
 
         protected override void OnUpdate()
         {
@@ -32,13 +38,25 @@ namespace Coordinator.Hands
                     OnAttackStatusChanged?.Invoke(AttackStatus.STRONG_RDY);
                 }
             }
+
+            if(_skillType != WWESkillTypes.NORMAL)
+            {
+                _lastComboInput -= Time.deltaTime;
+                if (_lastComboInput <= 0)
+                {
+                    _skillType = WWESkillTypes.NORMAL;
+                    OnComboChanged?.Invoke(WWESkillTypes.NORMAL);
+                }
+            }
         }
 
         public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn);
             _attackStatus = AttackStatus.NO_PRESSED;
+            _skillType = WWESkillTypes.NORMAL;
             _pressedTime = 0;
+            _lastComboInput = 0;
             ResetEvents();
             _baseSmashDamage = baseSmashDamage;
         }
@@ -49,8 +67,10 @@ namespace Coordinator.Hands
         }
         public void StopAttack()
         {
+            _skillType = WWESkillTypes.NORMAL;
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
+            OnComboChanged?.Invoke(WWESkillTypes.NORMAL);
         }
 
         public override void OnLMBPressed()

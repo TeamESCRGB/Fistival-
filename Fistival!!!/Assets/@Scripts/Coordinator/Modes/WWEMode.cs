@@ -81,17 +81,43 @@ namespace Coordinator.Modes
 
         public override void OnRMBEvent(bool pressed, Vector2 screenPos)
         {
-            throw new NotImplementedException();
+            if(_isStunned)
+            {
+                return;
+            }
+            if(pressed)
+            {
+                _hand.OnRMBPressed();
+            }
+            else
+            {
+                _hand.SetMousePos(screenPos);
+                _hand.OnRMBReleased();
+            }
         }
 
         public override void OnLMBEvent(bool pressed, Vector2 screenPos)
         {
-            throw new NotImplementedException();
+            if (_isStunned)
+            {
+                return;
+            }
+            if (pressed)
+            {
+                _hand.OnLMBPressed();
+            }
+            else
+            {
+                _hand.OnLMBReleased();
+            }
         }
 
         public override void OnDropEvent(bool pressed)
         {
-            throw new NotImplementedException();
+            if (pressed && (_isStunned == false))
+            {
+                _hand.Drop();
+            }
         }
         protected override void OnStunEnd()
         {
