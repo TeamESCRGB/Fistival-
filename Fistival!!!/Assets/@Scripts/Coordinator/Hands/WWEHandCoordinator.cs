@@ -2,6 +2,7 @@ using Coordinator.Victims;
 using Defines;
 using Manager;
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Coordinator.Hands
@@ -24,6 +25,10 @@ namespace Coordinator.Hands
         private float _lastComboInput;
         [SerializeField]private WWESkillTypes _skillType;
         public event Action<WWESkillTypes> OnComboChanged;//기본이 아닌 같은 타입이 연속으로 들어오게 해서, 애니메이션 진행 상황을 다음으로 넘기는식으로 작동할 예정. 콤보 타이머는 거기서 이 클래스에서 직접 값을 뽑아간 다음, 거기서 자체 타이머 돌릴 예정. 아니면 타이머 콜백 만들거나
+
+        [SerializeField]
+        private int _maxEnergy;
+        private int _energy;
 
         protected override void OnUpdate()
         {
@@ -57,14 +62,16 @@ namespace Coordinator.Hands
             _skillType = WWESkillTypes.NORMAL;
             _pressedTime = 0;
             _lastComboInput = 0;
+            _energy = 0;
             ResetEvents();
             _baseSmashDamage = baseSmashDamage;
         }
 
-        public int GetStrongAttackDamageMultiplier()
+        public void AddEnergy(int amount)
         {
-            return _strongDamageMultiplier;
+            _energy = math.clamp(_energy + amount, 0, _maxEnergy);
         }
+
         public void StopAttack()
         {
             _lastComboInput = 0;
