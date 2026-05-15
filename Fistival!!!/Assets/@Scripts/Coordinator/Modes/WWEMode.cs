@@ -32,7 +32,9 @@ namespace Coordinator.Modes
 
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
             _hand.OnChargeRateChanged += OnChargeRateChanged;
-            //_inputCoordinator.SetJumpsMovementInputHandler(_movCoordinator);//좌우이동은 여기에서 처리해야 할 추가적인 일이 있어서 대기
+            _inputCoordinator.SetJumpsMovementInputHandler(_movCoordinator);//좌우이동은 여기에서 처리해야 할 추가적인 일이 있어서 대기
+            _inputCoordinator.SetHorizontalMovementInputHandler(this);
+            _inputCoordinator.SetVerticalMovementInputHandler(this);
             _objectWeight = 0;
         }
 
@@ -71,12 +73,28 @@ namespace Coordinator.Modes
 
         public void OnLeftMovementInputEvent(bool pressed)
         {
-            throw new NotImplementedException();
+            if(_isStunned)
+            {
+                return;
+            }
+            _movCoordinator.OnLeftMovementInputEvent(pressed);
+            if (pressed)
+            {
+                //콤보 입력
+            }
         }
 
         public void OnRightMovementInputEvent(bool pressed)
         {
-            throw new NotImplementedException();
+            if (_isStunned)
+            {
+                return;
+            }
+            _movCoordinator.OnRightMovementInputEvent(pressed);
+            if (pressed)
+            {
+                //콤보 입력
+            }
         }
 
         public override void OnRMBEvent(bool pressed, Vector2 screenPos)
