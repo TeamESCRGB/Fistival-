@@ -28,7 +28,7 @@ namespace Coordinator.Hands
 
         [SerializeField]
         private int _maxEnergy;
-        private int _energy;
+        [SerializeField]private int _energy;
 
         protected override void OnUpdate()
         {
@@ -79,6 +79,12 @@ namespace Coordinator.Hands
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
             OnComboChanged?.Invoke(WWESkillTypes.NORMAL);
+        }
+
+        protected override void Throw()
+        {
+            AddEnergy(_chargeCnt);
+            base.Throw();
         }
 
         public override void OnLMBPressed()
