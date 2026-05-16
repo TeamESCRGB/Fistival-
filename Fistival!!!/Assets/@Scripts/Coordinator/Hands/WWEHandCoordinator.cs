@@ -31,6 +31,8 @@ namespace Coordinator.Hands
         private int _maxEnergy;
         [SerializeField]private int _energy;
 
+        private bool _isSkillActing = false;
+
         private FistSkill _normalSkill;//이거 나중에 리펙토링 하면서 SkillCoordinatorBase로 할 수 있으려나
 
 
@@ -82,6 +84,7 @@ namespace Coordinator.Hands
             _lastComboInput = 0;
             _energy = 0;
             ResetEvents();
+            _isSkillActing = false;
             _baseSmashDamage = baseSmashDamage;
             _normalSkill.Init(attackableFilter,baseSmashDamage);
         }
@@ -89,6 +92,29 @@ namespace Coordinator.Hands
         public void AddEnergy(int amount)
         {
             _energy = math.clamp(_energy + amount, 0, _maxEnergy);
+        }
+
+        public void SetComboType(WWESkillTypes comboType)
+        {
+            if(_isSkillActing)
+            {
+                return;
+            }
+            _skillType = comboType;
+            _lastComboInput = _comboThreshold;
+            OnComboChanged?.Invoke(comboType);
+
+            /*
+             콤보 선택
+
+            콤보가 바뀌면,
+            지금 콤보 타입을 바꾼다,
+            콤보 선택 시간을 초기화한다
+            콜백 호출
+
+            콤보가 바뀌면 안되는 상황(스턴걸린 상황은 위에서 거르니까 제외):
+            이미 스킬 실행중인 상황
+             */
         }
 
         public void StopAttack()
@@ -137,6 +163,7 @@ namespace Coordinator.Hands
                 case WWESkillTypes.TORNADO:
                     break;
             }
+            OnAttackSuccess();//임시. 이거는 나중에 각 스킬에 end콜백 달아서 할거임
         }
 
         public override void OnLMBPressed()
@@ -174,6 +201,7 @@ namespace Coordinator.Hands
 
         private void OnAttackSuccess()
         {
+            _isSkillActing = false;
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
             _cooldownModule.StartCooldown();

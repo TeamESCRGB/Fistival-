@@ -63,12 +63,18 @@ namespace Coordinator.Modes
         }
         public void OnDownMovementInputEvent(bool pressed)
         {
-            throw new NotImplementedException();
+            if (pressed && (_isStunned == false))
+            {
+                _hand.SetComboType(WWESkillTypes.DRAGON);
+            }
         }
 
         public void OnUpMovementInputEvent(bool pressed)
         {
-            throw new NotImplementedException();
+            if (pressed && (_isStunned == false))
+            {
+                _hand.SetComboType(WWESkillTypes.TORNADO);
+            }
         }
 
         public void OnLeftMovementInputEvent(bool pressed)
@@ -80,7 +86,7 @@ namespace Coordinator.Modes
             _movCoordinator.OnLeftMovementInputEvent(pressed);
             if (pressed)
             {
-                //콤보 입력
+                _hand.SetComboType(WWESkillTypes.WAVE);
             }
         }
 
@@ -93,7 +99,7 @@ namespace Coordinator.Modes
             _movCoordinator.OnRightMovementInputEvent(pressed);
             if (pressed)
             {
-                //콤보 입력
+                _hand.SetComboType(WWESkillTypes.WAVE);
             }
         }
 
