@@ -5,6 +5,7 @@
         NORMAL=1,
         WAVE=2,
         DRAGON=3,
-        TORNADO=4
+        TORNADO=4,
+        ACTIVATION=5
     }
 }

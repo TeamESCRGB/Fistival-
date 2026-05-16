@@ -156,19 +156,19 @@ namespace Coordinator.Hands
             {
                 case WWESkillTypes.WAVE:
                     _isSkillActing = true;
-                    OnComboChanged?.Invoke(WWESkillTypes.WAVE);
+                    OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     //스킬 실행 코드 추가
                     break;
                 case WWESkillTypes.DRAGON:
                     _isSkillActing = true;
-                    OnComboChanged?.Invoke(WWESkillTypes.DRAGON);
+                    OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     //스킬 실행 코드 추가
                     break;
                 case WWESkillTypes.TORNADO:
                     _isSkillActing = true;
-                    OnComboChanged?.Invoke(WWESkillTypes.TORNADO);
+                    OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     //스킬 실행 코드 추가
                     break;
@@ -199,13 +199,13 @@ namespace Coordinator.Hands
                 _attackStatus = AttackStatus.STRONG;
             }
 
-            if(_skillType == WWESkillTypes.NORMAL)
-            {
-                Attack();
-            }
-            else//이거 강공 한정으로만 해야되는데 안하는 버그 있음
+            if(_skillType != WWESkillTypes.NORMAL && _attackStatus == AttackStatus.STRONG)
             {
                 DoWWESkill();
+            }
+            else
+            {
+                Attack();
             }
         }
 
