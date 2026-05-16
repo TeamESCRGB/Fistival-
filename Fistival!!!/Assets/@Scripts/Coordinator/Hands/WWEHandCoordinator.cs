@@ -14,8 +14,6 @@ namespace Coordinator.Hands
         private double _strongRdyThreshold = 0.5f;
         [SerializeField]
         private double _strongAttackThreshold = 1;
-        [SerializeField]
-        private int _strongDamageMultiplier = 2;
         [SerializeField] private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
         public Action<AttackStatus> OnAttackStatusChanged;
@@ -157,10 +155,22 @@ namespace Coordinator.Hands
             switch(_skillType)
             {
                 case WWESkillTypes.WAVE:
+                    _isSkillActing = true;
+                    OnComboChanged?.Invoke(WWESkillTypes.WAVE);
+                    _skillType = WWESkillTypes.NORMAL;
+                    //스킬 실행 코드 추가
                     break;
                 case WWESkillTypes.DRAGON:
+                    _isSkillActing = true;
+                    OnComboChanged?.Invoke(WWESkillTypes.DRAGON);
+                    _skillType = WWESkillTypes.NORMAL;
+                    //스킬 실행 코드 추가
                     break;
                 case WWESkillTypes.TORNADO:
+                    _isSkillActing = true;
+                    OnComboChanged?.Invoke(WWESkillTypes.TORNADO);
+                    _skillType = WWESkillTypes.NORMAL;
+                    //스킬 실행 코드 추가
                     break;
             }
             OnAttackSuccess();//임시. 이거는 나중에 각 스킬에 end콜백 달아서 할거임
@@ -193,7 +203,7 @@ namespace Coordinator.Hands
             {
                 Attack();
             }
-            else
+            else//이거 강공 한정으로만 해야되는데 안하는 버그 있음
             {
                 DoWWESkill();
             }
