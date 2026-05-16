@@ -1,3 +1,4 @@
+using Coordinator.Skills;
 using Coordinator.Victims;
 using Defines;
 using Manager;
@@ -30,6 +31,23 @@ namespace Coordinator.Hands
         private int _maxEnergy;
         [SerializeField]private int _energy;
 
+        private FistSkill _normalSkill;//이거 나중에 리펙토링 하면서 SkillCoordinatorBase로 할 수 있으려나
+
+
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+            var go = transform.Find("@FistSkill");
+            _normalSkill = go?.GetComponent<FistSkill>();
+#if UNITY_EDITOR
+            Debug.Assert(_normalSkill != null, $"@FistSkill이 없거나 여기에 FistSkill이 없습니다.");
+#endif
+            if(_normalSkill != null )
+            {
+                _normalSkill.OnAttack += AddEnergy;
+            }
+        }
+
         protected override void OnUpdate()
         {
             //게임 일시정지 로직 나중에 추가
@@ -44,7 +62,7 @@ namespace Coordinator.Hands
                 }
             }
 
-            if(_skillType != WWESkillTypes.NORMAL)
+            if (_skillType != WWESkillTypes.NORMAL)
             {
                 _lastComboInput -= Time.deltaTime;
                 if (_lastComboInput <= 0)
@@ -65,6 +83,7 @@ namespace Coordinator.Hands
             _energy = 0;
             ResetEvents();
             _baseSmashDamage = baseSmashDamage;
+            _normalSkill.Init(attackableFilter,baseSmashDamage);
         }
 
         public void AddEnergy(int amount)
@@ -85,6 +104,39 @@ namespace Coordinator.Hands
         {
             AddEnergy(_chargeCnt);
             base.Throw();
+        }
+
+        private void Attack()
+        {
+            int objDmg = 0;
+            if (_grabbedObject != null)
+            {
+                objDmg = _grabbedObject.GetSharedData().Damage;
+                if (_grabbedObject.Smash() == false)
+                {
+                    _grabbedObject = null;
+                    _chargeCnt = 0;
+                    InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
+                    InvokeOnGrabbedObjectChanged(null);
+                    _status = HandStatus.IDLE;
+                }
+            }
+            
+            _normalSkill.Attack(_attackStatus, objDmg);
+            OnAttackSuccess();
+        }
+
+        private void DoWWESkill()
+        {
+            switch(_skillType)
+            {
+                case WWESkillTypes.WAVE:
+                    break;
+                case WWESkillTypes.DRAGON:
+                    break;
+                case WWESkillTypes.TORNADO:
+                    break;
+            }
         }
 
         public override void OnLMBPressed()
@@ -110,9 +162,78 @@ namespace Coordinator.Hands
                 _attackStatus = AttackStatus.STRONG;
             }
 
+            if(_skillType == WWESkillTypes.NORMAL)
+            {
+                Attack();
+            }
+            else
+            {
+                DoWWESkill();
+            }
+        }
+
+        private void OnAttackSuccess()
+        {
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
             _cooldownModule.StartCooldown();
         }
     }
 }
+//(기본 공격 데미지*강공데미지 + 오브젝트 데미지)
+/*
+
+
+Update에서 하는건 콤보 체킹만 하고, 공격 땔 때 한번에 공격처리 하는거로 할까
+
+지속기는 자체적인 업데이트를 가지고
+
+일반기는 바로
+
+
+*/
+#if false
+public virtual void __Attack()
+{
+    int totalDmg = _baseSmashDamage;
+
+    if(_grabbedObject != null)
+    {
+        totalDmg += _grabbedObject.GetSharedData().Damage;
+    }
+
+    if (_grabbedObject.Smash() == false)
+    {
+        _grabbedObject = null;
+        _chargeCnt = 0;
+        InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
+        InvokeOnGrabbedObjectChanged(null);
+        _status = HandStatus.IDLE;
+    }
+    윗부분까지가 호출부에서 처리할 일
+
+    밑부분부터가 Skill쪽에서 처리할 일
+
+    var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
+
+    if (enemies is null)
+    {
+        return;
+    }
+
+    for (int i = 0; i < enemies.Length; i++)
+    {
+        Collider2D enemy = enemies[i];
+        if (enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
+        {
+            return;
+        }
+
+        if (_attackStatus == AttackStatus.STRONG)
+        {
+            totalDmg *= _strongDamageMultiplier;
+        }
+        Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg);
+    }
+}
+#endif
