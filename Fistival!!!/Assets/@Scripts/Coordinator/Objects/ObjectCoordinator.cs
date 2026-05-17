@@ -7,37 +7,24 @@ using Utils;
 
 namespace Coordinator.Objects
 {
-    public class ObjectCoordinator : MonoBehaviour
+    public class ObjectCoordinator : SkillCoordinatorBase
     {
         //추가 예정인 것: 소리(날아가는거, 충돌, 파괴), 파티클(날아가는거, 충돌, 파괴), 애니메이션
         private ObjectData _data;
         private Rigidbody2D _rb2d;
         private Collider2D _col2d;
-        private SkillCoordinatorBase _skillBase;
         private int _durability = 1;
         private int _abrasableLayerMask = 0;
         private float _platformSpeedThreshold=1;
-        private int _attackableLayer = 0;
         private bool _isThrown = false;
 
-        private int _attackCnt = 0;
-        private int _chargeRate = 0;
-
-        public event Action<int, int> OnAttack;//attackCnt, chargeRate
+        private int _chargeRate;
+        private int _attackCnt;
 
         private void Awake()
         {
             _rb2d = gameObject.GetOrAddComponent<Rigidbody2D>();
             _col2d = gameObject.GetOrAddComponent<Collider2D>();
-            _skillBase = gameObject.GetComponent<SkillCoordinatorBase>();
-
-#if UNITY_EDITOR
-            if (_skillBase == null)
-            {
-                Debug.LogError($"{name}에 SkillCoordinatorBase 상속받은 클레스가 없습니다.");
-            }
-#endif
-
         }
 
         public virtual void Init(ObjectData data)
@@ -49,8 +36,10 @@ namespace Coordinator.Objects
 #endif
                 return;
             }
-            _attackCnt = 0;
+
             _chargeRate = 0;
+            _attackCnt = 0;
+
             _data = data;
             _platformSpeedThreshold = data.PlatformSpeedThreshold;
             transform.SetParent(null, false);
@@ -62,18 +51,7 @@ namespace Coordinator.Objects
             _durability = data.Durability;
             _abrasableLayerMask = data.AbrasableLayerMask;
             _isThrown = false;
-            _skillBase.Init(0,data.Damage);
-        }
-
-        private void OnDisable()
-        {
-            OnAttack = null;
-        }
-
-        public void SetAttackableLayer(int maskedLayer)
-        {
-            _skillBase.SetAttackableLayer(maskedLayer);
-            _attackableLayer = maskedLayer;
+            base.Init(0, data.Damage);
         }
 
         private void FixedUpdate()
@@ -94,6 +72,11 @@ namespace Coordinator.Objects
             }
         }
 
+        private void OnDisable()
+        {
+            ResetOnAttack();
+        }
+
         public ObjectData GetSharedData()
         {
             return _data;
@@ -105,8 +88,9 @@ namespace Coordinator.Objects
             {
                 return false;
             }
-            _chargeRate = chargeRate;
+
             _attackCnt = 0;
+            _chargeRate=chargeRate;
             _isThrown = true;
             _rb2d.AddForce(dir*force,ForceMode2D.Impulse);
             return true;
@@ -175,14 +159,11 @@ namespace Coordinator.Objects
             {
                 _durability--;
             }
-            else if (((1 << col.gameObject.layer) & _attackableLayer) != 0 && comp.CanAttack())
+            else if (((1 << col.gameObject.layer) & _attackableLayers) != 0)
             {
+                Managers.Instance.AttackManager.RequestAttack(comp, this, (int)(_baseDamage * _rb2d.linearVelocity.magnitude), _rb2d.linearVelocity);
                 _durability--;
             }
-
-            Managers.Instance.AttackManager.RequestAttack(comp,_skillBase, (int)(_skillBase.GetBaseDamage * _rb2d.linearVelocity.magnitude), _rb2d.linearVelocity);
-            _attackCnt++;
-            OnAttack?.Invoke(_attackCnt, _chargeRate);
 
             if(_durability <= 0)
             {
@@ -193,6 +174,19 @@ namespace Coordinator.Objects
         private void OnCollisionEnter2D(Collision2D collision)
         {
             InternalCollisionHandler(collision);
+        }
+
+        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
+        {
+            if (target.CanAttack())
+            {
+                target.TakeDamage(calculatedDamage);
+                target.TakeKnockBack(knockback);
+                target.StartInvincibleTime();
+                _attackCnt++;
+                CallOnAttack(_attackCnt, _chargeRate);
+            }
+            return true;
         }
     }
 }

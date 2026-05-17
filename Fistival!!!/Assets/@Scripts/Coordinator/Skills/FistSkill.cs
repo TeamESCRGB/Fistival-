@@ -10,7 +10,6 @@ namespace Coordinator.Skills
     {
         [SerializeField]
         public int _strongDamageMultiplier=2;
-        public event Action<int> OnAttack;
 
         public void Attack(AttackStatus attackStatus, int objectDmg)
         {
@@ -49,8 +48,8 @@ namespace Coordinator.Skills
                 target.TakeDamage(calculatedDamage);
                 target.TakeKnockBack(knockback);
                 target.StartInvincibleTime();
+                CallOnAttack(1,calculatedDamage);
             }
-            OnAttack?.Invoke(calculatedDamage);
             return true;
         }
     }
