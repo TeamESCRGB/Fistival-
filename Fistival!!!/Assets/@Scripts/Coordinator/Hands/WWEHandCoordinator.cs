@@ -1,3 +1,4 @@
+using Coordinator.Movements;
 using Coordinator.Skills;
 using Coordinator.Victims;
 using Defines;
@@ -10,6 +11,8 @@ namespace Coordinator.Hands
 {
     public class WWEHandCoordinator : HandCoordinatorBase
     {
+        [SerializeField]
+        private int _strongDamageMultiplier = 2;
         [SerializeField]
         private double _strongRdyThreshold = 0.5f;
         [SerializeField]
@@ -33,6 +36,7 @@ namespace Coordinator.Hands
 
         private FistSkill _normalSkill;//이거 나중에 리펙토링 하면서 SkillCoordinatorBase로 할 수 있으려나
         private Hadouken _hadouken;
+        private Syouryuuken _syouryuuken;
 
         private Action<int, int> _onThrownObjectAttacked;
         protected override void OnAwake()
@@ -42,9 +46,11 @@ namespace Coordinator.Hands
             var go = transform.Find("@FistSkill");
             _normalSkill = go.GetComponent<FistSkill>();
             _hadouken = _handAnchor.Find("@Hadouken").GetComponent<Hadouken>();
+            _syouryuuken = transform.Find("@Syouryuuken").GetComponent<Syouryuuken>();
 #if UNITY_EDITOR
             Debug.Assert(_normalSkill != null, $"@FistSkill이 없거나 여기에 FistSkill이 없습니다.");
-            Debug.Assert(_hadouken != null, $"@HandAnchor의 자싱에 @Hadouken이 없거나 여기에 Hadouken이 없습니다.");
+            Debug.Assert(_hadouken != null, $"@HandAnchor의 자식에 @Hadouken이 없거나 여기에 Hadouken이 없습니다.");
+            Debug.Assert(_syouryuuken != null, $"@Syouryuuken이 없거나 여기에 Syouryuuken이 없습니다.");
 #endif
             if(_normalSkill != null )
             {
@@ -53,6 +59,10 @@ namespace Coordinator.Hands
             if (_hadouken != null)
             {
                 _hadouken.OnAttackEnd += OnAttackSuccess;
+            }
+            if (_syouryuuken != null)
+            {
+                _syouryuuken.OnAttackEnd += OnAttackSuccess;
             }
         }
 
@@ -94,6 +104,7 @@ namespace Coordinator.Hands
             _baseSmashDamage = baseSmashDamage;
             _normalSkill.Init(attackableFilter,baseSmashDamage);
             _hadouken.Init(attackableFilter, -1);
+            _syouryuuken.Init(attackableFilter, baseSmashDamage * _strongDamageMultiplier, GetComponentInParent<IPushable>(), transform.parent.parent.parent.Find("@Hitbox").GetComponent<IAttackable>());
         }
 
         public void AddEnergy(int amount)
@@ -112,9 +123,9 @@ namespace Coordinator.Hands
             {
                 return;
             }
-            else if(comboType == WWESkillTypes.SYOURYUUKEN)
+            else if(comboType == WWESkillTypes.SYOURYUUKEN && _syouryuuken.GetDemendedCost() > _energy)
             {
-
+                return;
             }
             else if(comboType == WWESkillTypes.TATSUMAKISENPUKYAKU)
             {
@@ -199,7 +210,8 @@ namespace Coordinator.Hands
                     _isSkillActing = true;
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
-                    //스킬 실행 코드 추가
+                    _energy -= _syouryuuken.GetDemendedCost();
+                    _syouryuuken.Attack(transform.forward.z < 0 ? -1 : 1);
                     break;
                 case WWESkillTypes.TATSUMAKISENPUKYAKU:
                     _isSkillActing = true;
