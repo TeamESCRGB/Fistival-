@@ -17,7 +17,7 @@
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
       "MoveSpeed": 10,
-      "JumpPower": 6,
+      "JumpPower": 10,
       "InvincibilityTime": 1,
       "AnimControllerName": "TestController"
     },
@@ -32,7 +32,7 @@
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
       "MoveSpeed": 10,
-      "JumpPower": 6,
+      "JumpPower": 10,
       "InvincibilityTime": 1,
       "AnimControllerName": "TestController"
     },
@@ -47,7 +47,7 @@
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
       "MoveSpeed": 10,
-      "JumpPower": 6,
+      "JumpPower": 10,
       "InvincibilityTime": 1,
       "AnimControllerName": "TestController"
     },
@@ -62,7 +62,7 @@
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
       "MoveSpeed": 10,
-      "JumpPower": 6,
+      "JumpPower": 10,
       "InvincibilityTime": 1,
       "AnimControllerName": "TestController"
     },
@@ -77,7 +77,7 @@
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
       "MoveSpeed": 10,
-      "JumpPower": 6,
+      "JumpPower": 10,
       "InvincibilityTime": 1,
       "AnimControllerName": "TestController"
     },
@@ -92,7 +92,7 @@
       "SlownessSensitivity": 0.01,
       "MaxSlowness": 0.5,
       "MoveSpeed": 10,
-      "JumpPower": 6,
+      "JumpPower": 10,
       "InvincibilityTime": 1,
       "AnimControllerName": "TestController"
     }

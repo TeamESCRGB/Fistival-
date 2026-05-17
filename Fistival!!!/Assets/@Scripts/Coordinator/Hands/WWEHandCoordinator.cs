@@ -34,9 +34,11 @@ namespace Coordinator.Hands
         private FistSkill _normalSkill;//이거 나중에 리펙토링 하면서 SkillCoordinatorBase로 할 수 있으려나
         private Hadouken _hadouken;
 
+        private Action<int, int> _onThrownObjectAttacked;
         protected override void OnAwake()
         {
             base.OnAwake();
+            _onThrownObjectAttacked = OnThrownObjectAttacked;
             var go = transform.Find("@FistSkill");
             _normalSkill = go.GetComponent<FistSkill>();
             _hadouken = _handAnchor.Find("@Hadouken").GetComponent<Hadouken>();
@@ -148,7 +150,9 @@ namespace Coordinator.Hands
 
         protected override void Throw()
         {
-            AddEnergy(_chargeCnt);
+            _grabbedObject.OnAttack -= _onThrownObjectAttacked;
+            _grabbedObject.OnAttack += _onThrownObjectAttacked;
+
             base.Throw();
         }
 
@@ -167,9 +171,17 @@ namespace Coordinator.Hands
                     _status = HandStatus.IDLE;
                 }
             }
-            
+
             _normalSkill.Attack(_attackStatus, objDmg);
             OnAttackSuccess();
+        }
+
+        private void OnThrownObjectAttacked(int attackCnt, int chargeRate)
+        {
+            if(attackCnt < 2)
+            {
+                AddEnergy(chargeRate);
+            }
         }
 
         private void DoWWESkill()
