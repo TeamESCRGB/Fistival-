@@ -39,10 +39,10 @@
       "IDX": 2,
       "ExplodableLayerMask": 5128,
       "Speed": 10,
-      "Damage": 4,
+      "Damage": 2,
       "ExplosionKnockBack": 10,
       "Lifetime": 2,
-      "AttackRadius": 1,
+      "AttackRadius": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
       "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile"
     }

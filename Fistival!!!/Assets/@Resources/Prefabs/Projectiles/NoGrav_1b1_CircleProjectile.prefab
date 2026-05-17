@@ -102,6 +102,8 @@ GameObject:
   - component: {fileID: 9050126743336729543}
   - component: {fileID: 3889136312970826046}
   - component: {fileID: 8660382074648058736}
+  - component: {fileID: 8190178245020716797}
+  - component: {fileID: 5717049257180868706}
   m_Layer: 0
   m_Name: NoGrav_1b1_CircleProjectile
   m_TagString: Untagged
@@ -212,6 +214,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8190178245020716797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4334905978447338907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db374f02714c54740a959110cde6ce3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Projectiles.BasicCircleProjectile
+--- !u!114 &5717049257180868706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4334905978447338907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edb6f3625c9dfb4195429bdd3a48268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Skills.BasicDamageSkill
 --- !u!1 &9177225345449462136
 GameObject:
   m_ObjectHideFlags: 0
