@@ -65,6 +65,11 @@ namespace Coordinator.Objects
             _skillBase.Init(0,data.Damage);
         }
 
+        private void OnDisable()
+        {
+            OnAttack = null;
+        }
+
         public void SetAttackableLayer(int maskedLayer)
         {
             _skillBase.SetAttackableLayer(maskedLayer);
