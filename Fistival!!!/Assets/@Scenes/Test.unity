@@ -1285,7 +1285,7 @@ GameObject:
   - component: {fileID: 286260813}
   - component: {fileID: 286260815}
   - component: {fileID: 286260814}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1320,6 +1320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b077f16eb6ca1434cbff6d41eb5900f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Scripts.TestScripts.TestMobCont
+  fo: {x: 0, y: 0}
   rb: {fileID: 286260815}
 --- !u!61 &286260814
 BoxCollider2D:
@@ -2359,6 +2360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.WWEHandCoordinator
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
+  _strongDamageMultiplier: 2
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _attackStatus: 1
@@ -3850,7 +3852,7 @@ GameObject:
   - component: {fileID: 1262662413}
   - component: {fileID: 1262662415}
   - component: {fileID: 1262662416}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: e1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3885,6 +3887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b077f16eb6ca1434cbff6d41eb5900f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Scripts.TestScripts.TestMobCont
+  fo: {x: 0, y: 0}
   rb: {fileID: 1262662415}
 --- !u!50 &1262662415
 Rigidbody2D:
@@ -4833,7 +4836,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476450486}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

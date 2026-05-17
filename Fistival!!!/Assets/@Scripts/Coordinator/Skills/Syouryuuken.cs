@@ -32,7 +32,8 @@ namespace Coordinator.Skills
 
         public void Attack(int facing)
         {
-            _pushable.PushTo(new Vector2(_force.x*facing, _force.y));
+            var knockback = new Vector2(_force.x * facing, _force.y);
+            _pushable.PushTo(knockback);
             _attackable.StartInvincibleTime();
 
             var enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0, _attackableLayers);
@@ -42,8 +43,6 @@ namespace Coordinator.Skills
             {
                 return;
             }
-
-            Vector2 knockback = new Vector2(transform.forward.z * totalDmg, 0);
 
             for (int i = 0; i < enemies.Length; i++)
             {
