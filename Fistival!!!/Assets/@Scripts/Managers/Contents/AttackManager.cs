@@ -8,7 +8,8 @@ namespace Manager.Contents
 {
     public class AttackManager : MonoBehaviour
     {
-        private Queue<(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage)> _reqQueue = new Queue<(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage)>(64);
+        private Queue<(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce)> _reqQueue =
+            new Queue<(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce)>(64);
         private bool _isRequested = false;
 
         public void Init()
@@ -17,9 +18,9 @@ namespace Manager.Contents
             _reqQueue.Clear();
         }
 
-        public void RequestAttack(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage)
+        public void RequestAttack(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce)
         {
-            _reqQueue.Enqueue((target, attacker, calculatedDamage));
+            _reqQueue.Enqueue((target, attacker, calculatedDamage, knockbackForce));
             _isRequested = true;
         }
 
@@ -53,7 +54,7 @@ namespace Manager.Contents
 
                 if(req.attacker.CanAttackTarget(req.target))
                 {
-                    req.attacker.Act(req.target, req.calculatedDamage);
+                    req.attacker.Act(req.target, req.calculatedDamage, req.knockbackForce);
                 }
             }
 

@@ -31,6 +31,6 @@ namespace Coordinator
 
         public int GetBaseDamage => _baseDamage;
 
-        public abstract bool Act(IAttackable target, int calculatedDamage);
+        public abstract bool Act(IAttackable target, int calculatedDamage, Vector2 knockback);
     }
 }

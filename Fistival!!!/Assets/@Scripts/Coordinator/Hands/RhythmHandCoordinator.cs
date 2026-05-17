@@ -3,6 +3,7 @@ using Coordinator.Victims;
 using Defines;
 using Manager;
 using UnityEngine;
+using Utils;
 namespace Coordinator.Hands
 {
     public class RhythmHandCoordinator : HandCoordinator, IParrableObject
@@ -75,8 +76,9 @@ namespace Coordinator.Hands
                         damageMultiplier = 1.5f;
                         break;
                 }
-
-                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, (int)(totalDmg * damageMultiplier));
+                totalDmg = (int)(totalDmg * damageMultiplier);
+                Vector2 dir = VectorUtils.GetDirVec2(enemy.transform.position, transform.position);
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg, dir*totalDmg);
             }
         }
 
@@ -104,6 +106,7 @@ namespace Coordinator.Hands
             {
                 return;
             }
+            
 
             for(int i = 0; i < hit.Length; i++)
             {
@@ -113,7 +116,8 @@ namespace Coordinator.Hands
                     return;
                 }
 
-                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, _parryReflectionDamage);
+                Vector2 dir = VectorUtils.GetDirVec2(enemy.transform.position, transform.position);
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, _parryReflectionDamage, dir*_parryReflectionDamage);
             }
         }
 

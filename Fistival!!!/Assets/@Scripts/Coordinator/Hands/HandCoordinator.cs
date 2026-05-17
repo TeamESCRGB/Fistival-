@@ -121,11 +121,9 @@ namespace Coordinator.Hands
                     }
                 }
 
-                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg);
+                Vector2 knockback = new Vector2(transform.forward.z * totalDmg,0);
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg, knockback);
             }
-
-            
-            //공격하는 함수. 데미지: damage +  해서 OverlapBox써서 나중에 함
         }
 
         public void StopAttack()

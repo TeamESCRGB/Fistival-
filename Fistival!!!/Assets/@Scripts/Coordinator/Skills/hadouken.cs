@@ -27,7 +27,7 @@ namespace Assets._Scripts.Coordinator.Skills
 
         }
 
-        public override bool Act(IAttackable target, int calculatedDamage)
+        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
         {
             if (target.CanAttack())
             {

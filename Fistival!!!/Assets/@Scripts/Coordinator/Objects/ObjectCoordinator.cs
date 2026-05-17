@@ -165,7 +165,7 @@ namespace Coordinator.Objects
                 _durability--;
             }
 
-            Managers.Instance.AttackManager.RequestAttack(comp,_skillBase, (int)(_skillBase.GetBaseDamage * _rb2d.linearVelocity.magnitude));
+            Managers.Instance.AttackManager.RequestAttack(comp,_skillBase, (int)(_skillBase.GetBaseDamage * _rb2d.linearVelocity.magnitude), _rb2d.linearVelocity);
 
             if(_durability <= 0)
             {
