@@ -14,8 +14,6 @@ namespace Coordinator.Skills
 
         public void Attack(AttackStatus attackStatus, int objectDmg)
         {
-            
-
             var enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0, _attackableLayers);
 
             int totalDmg = _baseDamage;
@@ -31,6 +29,8 @@ namespace Coordinator.Skills
                 return;
             }
 
+            Vector2 knockback = new Vector2(transform.forward.z * totalDmg,0);
+
             for (int i = 0; i < enemies.Length; i++)
             {
                 Collider2D enemy = enemies[i];
@@ -38,15 +38,16 @@ namespace Coordinator.Skills
                 {
                     continue;
                 }
-                Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg);
+                Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg, knockback);
             }
         }
 
-        public override bool Act(IAttackable target, int calculatedDamage)
+        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
         {
             if(target.CanAttack())
             {
                 target.TakeDamage(calculatedDamage);
+                target.TakeKnockBack(knockback);
                 target.StartInvincibleTime();
             }
             OnAttack?.Invoke(calculatedDamage);
