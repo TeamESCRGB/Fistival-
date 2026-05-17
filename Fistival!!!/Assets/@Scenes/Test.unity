@@ -5005,7 +5005,6 @@ GameObject:
   - component: {fileID: 1604905677}
   - component: {fileID: 1604905676}
   - component: {fileID: 1604905679}
-  - component: {fileID: 1604905680}
   m_Layer: 6
   m_Name: Obj1
   m_TagString: Untagged
@@ -5081,7 +5080,7 @@ Transform:
   m_GameObject: {fileID: 1604905673}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3743, y: 5.95252, z: -3.65}
+  m_LocalPosition: {x: -10.7, y: 5.95252, z: -3.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5172,18 +5171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ed00b0f5f8d0b4bac70376ecff6637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.ObjectCoordinator
---- !u!114 &1604905680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604905673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3994fbed6e98f64689f41c8f6d03196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestSkill
 --- !u!1 &1657331682
 GameObject:
   m_ObjectHideFlags: 0

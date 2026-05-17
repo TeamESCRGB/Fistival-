@@ -161,7 +161,7 @@ namespace Coordinator.Hands
 
         protected override void Throw()
         {
-            _grabbedObject.SetOnAttackCallback(_onThrownObjectAttacked);
+            _grabbedObject.RegisterOnAttack(_onThrownObjectAttacked);
             base.Throw();
         }
 
