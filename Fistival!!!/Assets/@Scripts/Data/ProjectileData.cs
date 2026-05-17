@@ -8,6 +8,7 @@
             ExplodableLayerMask= original.ExplodableLayerMask;
             Speed = original.Speed;
             Damage = original.Damage;
+            ExplosionKnockBack = original.ExplosionKnockBack;
             Lifetime = original.Lifetime;
             AttackRadius = original.AttackRadius;
             Physics2DMaterialName = original.Physics2DMaterialName;
@@ -19,6 +20,7 @@
         public int ExplodableLayerMask;
         public float Speed;
         public int Damage;
+        public float ExplosionKnockBack;
         public float Lifetime;
         public float AttackRadius;
         public string Physics2DMaterialName;
