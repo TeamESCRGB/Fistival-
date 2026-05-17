@@ -18,7 +18,10 @@ namespace Coordinator.Objects
         private float _platformSpeedThreshold=1;
         private int _attackableLayer = 0;
         private bool _isThrown = false;
-        
+
+        private int _attackCnt = 0;
+        private int _chargeRate = 0;
+
         private void Awake()
         {
             _rb2d = gameObject.GetOrAddComponent<Rigidbody2D>();
@@ -43,6 +46,8 @@ namespace Coordinator.Objects
 #endif
                 return;
             }
+            _attackCnt = 0;
+            _chargeRate = 0;
             _data = data;
             _platformSpeedThreshold = data.PlatformSpeedThreshold;
             transform.SetParent(null, false);
@@ -86,12 +91,14 @@ namespace Coordinator.Objects
             return _data;
         }
 
-        public virtual bool Throw(in Vector2 dir,in Vector2 parentLinVelocity ,float force)
+        public virtual bool Throw(in Vector2 dir,in Vector2 parentLinVelocity ,float force, int chargeRate)
         {
             if(Drop(parentLinVelocity) == false)
             {
                 return false;
             }
+            _chargeRate = chargeRate;
+            _attackCnt = 0;
             _isThrown = true;
             _rb2d.AddForce(dir*force,ForceMode2D.Impulse);
             return true;
@@ -166,6 +173,8 @@ namespace Coordinator.Objects
             }
 
             Managers.Instance.AttackManager.RequestAttack(comp,_skillBase, (int)(_skillBase.GetBaseDamage * _rb2d.linearVelocity.magnitude), _rb2d.linearVelocity);
+            _attackCnt++;
+
 
             if(_durability <= 0)
             {
