@@ -3,9 +3,9 @@
     public enum WWESkillTypes
     {
         NORMAL=1,
-        WAVE=2,
-        DRAGON=3,
-        TORNADO=4,
+        HADOUKEN=2,
+        SYOURYUUKEN=3,
+        TATSUMAKISENPUKYAKU=4,
         ACTIVATION=5
     }
 }

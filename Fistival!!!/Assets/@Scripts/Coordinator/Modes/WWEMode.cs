@@ -65,7 +65,7 @@ namespace Coordinator.Modes
         {
             if (pressed && (_isStunned == false))
             {
-                _hand.SetComboType(WWESkillTypes.DRAGON);
+                _hand.SetComboType(WWESkillTypes.SYOURYUUKEN);
             }
         }
 
@@ -73,7 +73,7 @@ namespace Coordinator.Modes
         {
             if (pressed && (_isStunned == false))
             {
-                _hand.SetComboType(WWESkillTypes.TORNADO);
+                _hand.SetComboType(WWESkillTypes.TATSUMAKISENPUKYAKU);
             }
         }
 
@@ -86,7 +86,7 @@ namespace Coordinator.Modes
             _movCoordinator.OnLeftMovementInputEvent(pressed);
             if (pressed)
             {
-                _hand.SetComboType(WWESkillTypes.WAVE);
+                _hand.SetComboType(WWESkillTypes.HADOUKEN);
             }
         }
 
@@ -99,7 +99,7 @@ namespace Coordinator.Modes
             _movCoordinator.OnRightMovementInputEvent(pressed);
             if (pressed)
             {
-                _hand.SetComboType(WWESkillTypes.WAVE);
+                _hand.SetComboType(WWESkillTypes.HADOUKEN);
             }
         }
 

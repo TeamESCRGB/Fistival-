@@ -155,19 +155,19 @@ namespace Coordinator.Hands
         {
             switch(_skillType)
             {
-                case WWESkillTypes.WAVE:
+                case WWESkillTypes.HADOUKEN:
                     _isSkillActing = true;
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     //스킬 실행 코드 추가
                     break;
-                case WWESkillTypes.DRAGON:
+                case WWESkillTypes.SYOURYUUKEN:
                     _isSkillActing = true;
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     //스킬 실행 코드 추가
                     break;
-                case WWESkillTypes.TORNADO:
+                case WWESkillTypes.TATSUMAKISENPUKYAKU:
                     _isSkillActing = true;
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
