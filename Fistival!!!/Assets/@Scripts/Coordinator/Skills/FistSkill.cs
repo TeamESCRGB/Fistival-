@@ -49,8 +49,8 @@ namespace Coordinator.Skills
                 target.TakeDamage(calculatedDamage);
                 target.TakeKnockBack(knockback);
                 target.StartInvincibleTime();
+                OnAttack?.Invoke(calculatedDamage);
             }
-            OnAttack?.Invoke(calculatedDamage);
             return true;
         }
     }
