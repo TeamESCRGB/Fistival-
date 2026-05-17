@@ -9,6 +9,7 @@ namespace Coordinator.Victims
     public class VictimCoordinator : MonoBehaviour, IAttackable, IStunnable
     {
         //방어도 없다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+        private IPushable _pushable;
         private IStunnable _internalTarget;
         private HPCoordinator _hpCoord;
         private CooldownComponentModule _invincibilityTimeCounter = null;
@@ -17,8 +18,10 @@ namespace Coordinator.Victims
         {
             _hpCoord = gameObject.GetOrAddComponent<HPCoordinator>();
             _internalTarget = transform.parent.GetComponentInParent<IStunnable>();
+            _pushable = transform.parent.GetComponentInParent<IPushable>();
 #if UNITY_EDITOR
             Debug.Assert(_internalTarget != null, $"{gameObject.name} 이 붙어있는 상위 오브젝트 중 IStunnable이 없다.");
+            Debug.Assert(_pushable != null, $"{gameObject.name} 이 붙어있는 상위 오브젝트 중 IPushable이 없다.");
 #endif
         }
 
@@ -89,6 +92,11 @@ namespace Coordinator.Victims
         public void ReleaseStun()
         {
             _internalTarget?.ReleaseStun();
+        }
+
+        public void TakeKnockBack(Vector2 force)
+        {
+            _pushable?.PushTo(force);
         }
     }
 }

@@ -44,5 +44,10 @@ namespace Coordinator.Victims
         {
             _original.TakeDamage(damage);
         }
+
+        public void TakeKnockBack(Vector2 force)
+        {
+            _original.TakeKnockBack(force);
+        }
     }
 }
