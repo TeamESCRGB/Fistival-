@@ -38,7 +38,7 @@ namespace Coordinator.Hands
         private Hadouken _hadouken;
         private Syouryuuken _syouryuuken;
 
-        private Action<int, int> _onThrownObjectAttacked;
+        private Action<int, int> _onThrownObjectAttacked;//attackCnt, chargerate
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -54,7 +54,7 @@ namespace Coordinator.Hands
 #endif
             if(_normalSkill != null )
             {
-                _normalSkill.OnAttack += AddEnergy;
+                _normalSkill.RegisterOnAttack((_, dmg) => { AddEnergy(dmg); } );
             }
             if (_hadouken != null)
             {
@@ -161,9 +161,7 @@ namespace Coordinator.Hands
 
         protected override void Throw()
         {
-            _grabbedObject.OnAttack -= _onThrownObjectAttacked;
-            _grabbedObject.OnAttack += _onThrownObjectAttacked;
-
+            _grabbedObject.SetOnAttackCallback(_onThrownObjectAttacked);
             base.Throw();
         }
 

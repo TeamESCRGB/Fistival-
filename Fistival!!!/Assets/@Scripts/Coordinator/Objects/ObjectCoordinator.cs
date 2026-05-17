@@ -20,11 +20,6 @@ namespace Coordinator.Objects
         private int _attackableLayer = 0;
         private bool _isThrown = false;
 
-        private int _attackCnt = 0;
-        private int _chargeRate = 0;
-
-        public event Action<int, int> OnAttack;//attackCnt, chargeRate
-
         private void Awake()
         {
             _rb2d = gameObject.GetOrAddComponent<Rigidbody2D>();
@@ -37,7 +32,6 @@ namespace Coordinator.Objects
                 Debug.LogError($"{name}에 SkillCoordinatorBase 상속받은 클레스가 없습니다.");
             }
 #endif
-
         }
 
         public virtual void Init(ObjectData data)
@@ -49,8 +43,6 @@ namespace Coordinator.Objects
 #endif
                 return;
             }
-            _attackCnt = 0;
-            _chargeRate = 0;
             _data = data;
             _platformSpeedThreshold = data.PlatformSpeedThreshold;
             transform.SetParent(null, false);
@@ -65,9 +57,9 @@ namespace Coordinator.Objects
             _skillBase.Init(0,data.Damage);
         }
 
-        private void OnDisable()
+        public void SetOnAttackCallback(Action<int,int> onAttack)
         {
-            OnAttack = null;
+
         }
 
         public void SetAttackableLayer(int maskedLayer)
@@ -105,8 +97,7 @@ namespace Coordinator.Objects
             {
                 return false;
             }
-            _chargeRate = chargeRate;
-            _attackCnt = 0;
+
             _isThrown = true;
             _rb2d.AddForce(dir*force,ForceMode2D.Impulse);
             return true;
@@ -175,14 +166,11 @@ namespace Coordinator.Objects
             {
                 _durability--;
             }
-            else if (((1 << col.gameObject.layer) & _attackableLayer) != 0 && comp.CanAttack())
+            else if (((1 << col.gameObject.layer) & _attackableLayer) != 0)
             {
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, (int)(_skillBase.GetBaseDamage * _rb2d.linearVelocity.magnitude), _rb2d.linearVelocity);
                 _durability--;
             }
-
-            Managers.Instance.AttackManager.RequestAttack(comp,_skillBase, (int)(_skillBase.GetBaseDamage * _rb2d.linearVelocity.magnitude), _rb2d.linearVelocity);
-            _attackCnt++;
-            OnAttack?.Invoke(_attackCnt, _chargeRate);
 
             if(_durability <= 0)
             {
