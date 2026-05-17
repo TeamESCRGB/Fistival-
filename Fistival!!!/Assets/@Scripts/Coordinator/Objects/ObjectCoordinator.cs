@@ -1,6 +1,7 @@
 using Coordinator.Victims;
 using Data;
 using Manager;
+using System;
 using UnityEngine;
 using Utils;
 
@@ -21,6 +22,8 @@ namespace Coordinator.Objects
 
         private int _attackCnt = 0;
         private int _chargeRate = 0;
+
+        public event Action<int, int> OnAttack;//attackCnt, chargeRate
 
         private void Awake()
         {
@@ -174,7 +177,7 @@ namespace Coordinator.Objects
 
             Managers.Instance.AttackManager.RequestAttack(comp,_skillBase, (int)(_skillBase.GetBaseDamage * _rb2d.linearVelocity.magnitude), _rb2d.linearVelocity);
             _attackCnt++;
-
+            OnAttack?.Invoke(_attackCnt, _chargeRate);
 
             if(_durability <= 0)
             {
