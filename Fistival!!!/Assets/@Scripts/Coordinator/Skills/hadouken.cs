@@ -6,11 +6,11 @@ using System;
 using UnityEngine;
 using Utils;
 
-namespace Assets._Scripts.Coordinator.Skills
+namespace Coordinator.Skills
 {
-    public class hadouken : SkillCoordinatorBase
+    public class Hadouken : SkillCoordinatorBase
     {
-        public event Action<int> OnAttack;
+        public event Action OnAttackEnd;
         [SerializeField]
         private int _demendedCost = 0;
         [SerializeField]
@@ -21,20 +21,14 @@ namespace Assets._Scripts.Coordinator.Skills
             return _demendedCost;
         }
 
-        public void Attack(AttackStatus attackStatus, int objectDmg, Vector2 dir)
+        public void Attack(Vector2 dir)
         {
-
-
+            ProjectileLaunchHelper.LaunchConstantDir(_attackableLayers, _projectileIDX, transform.position, dir);
+            OnAttackEnd?.Invoke();
         }
 
         public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
         {
-            if (target.CanAttack())
-            {
-                target.TakeDamage(calculatedDamage);
-                target.StartInvincibleTime();
-            }
-            OnAttack?.Invoke(calculatedDamage);
             return true;
         }
     }

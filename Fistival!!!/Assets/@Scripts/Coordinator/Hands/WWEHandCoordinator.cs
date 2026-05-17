@@ -32,19 +32,25 @@ namespace Coordinator.Hands
         private bool _isSkillActing = false;
 
         private FistSkill _normalSkill;//이거 나중에 리펙토링 하면서 SkillCoordinatorBase로 할 수 있으려나
-
+        private Hadouken _hadouken;
 
         protected override void OnAwake()
         {
             base.OnAwake();
             var go = transform.Find("@FistSkill");
-            _normalSkill = go?.GetComponent<FistSkill>();
+            _normalSkill = go.GetComponent<FistSkill>();
+            _hadouken = _handAnchor.Find("@Hadouken").GetComponent<Hadouken>();
 #if UNITY_EDITOR
             Debug.Assert(_normalSkill != null, $"@FistSkill이 없거나 여기에 FistSkill이 없습니다.");
+            Debug.Assert(_hadouken != null, $"@HandAnchor의 자싱에 @Hadouken이 없거나 여기에 Hadouken이 없습니다.");
 #endif
             if(_normalSkill != null )
             {
                 _normalSkill.OnAttack += AddEnergy;
+            }
+            if (_hadouken != null)
+            {
+                _hadouken.OnAttackEnd += OnAttackSuccess;
             }
         }
 
@@ -85,6 +91,7 @@ namespace Coordinator.Hands
             _isSkillActing = false;
             _baseSmashDamage = baseSmashDamage;
             _normalSkill.Init(attackableFilter,baseSmashDamage);
+            _hadouken.Init(attackableFilter, -1);
         }
 
         public void AddEnergy(int amount)
@@ -98,6 +105,20 @@ namespace Coordinator.Hands
             {
                 return;
             }
+
+            if(comboType == WWESkillTypes.HADOUKEN && _hadouken.GetDemendedCost() > _energy)
+            {
+                return;
+            }
+            else if(comboType == WWESkillTypes.SYOURYUUKEN)
+            {
+
+            }
+            else if(comboType == WWESkillTypes.TATSUMAKISENPUKYAKU)
+            {
+
+            }
+
             _skillType = comboType;
             _lastComboInput = _comboThreshold;
             OnComboChanged?.Invoke(comboType);
@@ -159,8 +180,9 @@ namespace Coordinator.Hands
                     _isSkillActing = true;
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
-                    //스킬 실행 코드 추가
-                    break;
+                    _energy -= _hadouken.GetDemendedCost();
+                    _hadouken.Attack(new Vector2(transform.forward.z,0));
+                    return;
                 case WWESkillTypes.SYOURYUUKEN:
                     _isSkillActing = true;
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
