@@ -98,11 +98,11 @@ namespace Coordinator
 
         protected virtual void OnDisabled()
         {
-            if(_explodeTimer != null)
+            if(Managers.Instance != null && _explodeTimer is not null)
             {
                 Managers.Instance.CooldownManager.ReturnModule(_explodeTimer);
-                _explodeTimer = null;
             }
+            _explodeTimer = null;
         }
 
         protected virtual void OnFixedUpdate()

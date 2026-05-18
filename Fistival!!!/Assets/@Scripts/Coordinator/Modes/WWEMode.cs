@@ -79,11 +79,11 @@ namespace Coordinator.Modes
 
         public void OnLeftMovementInputEvent(bool pressed)
         {
-            if(_isStunned)
+            _movCoordinator.OnLeftMovementInputEvent(pressed);
+            if (_isStunned)
             {
                 return;
             }
-            _movCoordinator.OnLeftMovementInputEvent(pressed);
             if (pressed)
             {
                 _hand.SetComboType(WWESkillTypes.HADOUKEN);
@@ -92,11 +92,11 @@ namespace Coordinator.Modes
 
         public void OnRightMovementInputEvent(bool pressed)
         {
+            _movCoordinator.OnRightMovementInputEvent(pressed);
             if (_isStunned)
             {
                 return;
             }
-            _movCoordinator.OnRightMovementInputEvent(pressed);
             if (pressed)
             {
                 _hand.SetComboType(WWESkillTypes.HADOUKEN);
@@ -146,7 +146,7 @@ namespace Coordinator.Modes
         protected override void OnStunEnd()
         {
             _isStunned = false;
-            //_movCoordinator.UnlockMovement();
+            _movCoordinator.UnlockMovement();
         }
 
         public override void StunFor(float time)
@@ -158,7 +158,7 @@ namespace Coordinator.Modes
 
             if (_stunCounter.IsCooldownEnded())
             {
-                //_movCoordinator.LockMovement();
+                _movCoordinator.LockMovement();
                 _hand.Drop();
                 _hand.StopAttack();
             }

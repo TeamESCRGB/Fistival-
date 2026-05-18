@@ -154,11 +154,11 @@ namespace Coordinator
         protected virtual void OnStart() { }
         protected virtual void OnDisabled()
         {
-            if (_cooldownModule != null)
+            if(Managers.Instance != null && _cooldownModule is not null)
             {
                 Managers.Instance.CooldownManager.ReturnModule(_cooldownModule);
-                _cooldownModule = null;
             }
+            _cooldownModule = null;
         }
         #endregion
 
