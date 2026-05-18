@@ -2732,7 +2732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PushPad
   force: {x: 1, y: 1}
   asdf: 1
-  cool: 5
+  cool: 1
   rhandTest: {fileID: 1826867859}
 --- !u!212 &802305180
 SpriteRenderer:
@@ -3059,7 +3059,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &908510455
 Transform:
   m_ObjectHideFlags: 0
