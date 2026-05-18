@@ -20,7 +20,10 @@ namespace Coordinator.Skills
         {
             return _demendedCost;
         }
-
+        private void OnDisable()
+        {
+            ResetOnAttack();
+        }
         public void Attack(Vector2 dir)
         {
             ProjectileLaunchHelper.LaunchConstantDir(_attackableLayers, _projectileIDX, transform.position, dir);

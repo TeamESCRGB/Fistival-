@@ -24,7 +24,10 @@ namespace Coordinator.Skills
             _pushable = pushable;
             _attackable = attackable;
         }
-
+        private void OnDisable()
+        {
+            ResetOnAttack();
+        }
         public int GetDemendedCost()
         {
             return _demendedCost;

@@ -49,7 +49,11 @@ namespace Coordinator.Skills
             _isAttack = false;
             _rb2d.gravityScale= _gravityScale;
             OnAttackEnd?.Invoke();
-            Debug.Log("끝!");
+        }
+
+        private void OnDisable()
+        {
+            ResetOnAttack();
         }
 
         public int GetDemendedCost()

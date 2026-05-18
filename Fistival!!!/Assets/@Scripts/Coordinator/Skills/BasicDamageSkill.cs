@@ -5,6 +5,10 @@ namespace Coordinator.Skills
 {
     public class BasicDamageSkill : SkillCoordinatorBase
     {
+        private void OnDisable()
+        {
+            ResetOnAttack();
+        }
         public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
         {
             if (target.CanAttack())
@@ -13,7 +17,6 @@ namespace Coordinator.Skills
                 target.TakeKnockBack(knockback);
                 target.StartInvincibleTime();
             }
-            Debug.Log(knockback);
             return true;
         }
     }

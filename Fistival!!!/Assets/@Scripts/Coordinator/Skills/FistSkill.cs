@@ -40,7 +40,10 @@ namespace Coordinator.Skills
                 Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg, knockback);
             }
         }
-
+        private void OnDisable()
+        {
+            ResetOnAttack();
+        }
         public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
         {
             if(target.CanAttack())

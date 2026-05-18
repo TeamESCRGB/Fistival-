@@ -25,7 +25,10 @@ namespace Coordinator.Skills
             target.TakeKnockBack(knockback);
             return true;
         }
-
+        private void OnDisable()
+        {
+            ResetOnAttack();
+        }
 
         private void FixedUpdate()
         {
