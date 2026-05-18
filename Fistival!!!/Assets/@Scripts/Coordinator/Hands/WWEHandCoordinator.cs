@@ -37,6 +37,7 @@ namespace Coordinator.Hands
         private FistSkill _normalSkill;//이거 나중에 리펙토링 하면서 SkillCoordinatorBase로 할 수 있으려나
         private Hadouken _hadouken;
         private Syouryuuken _syouryuuken;
+        private Tatsumakisenpukyaku _tatsumakisenpukyaku;
 
         private Action<int, int> _onThrownObjectAttacked;//attackCnt, chargerate
         protected override void OnAwake()
@@ -47,10 +48,12 @@ namespace Coordinator.Hands
             _normalSkill = go.GetComponent<FistSkill>();
             _hadouken = _handAnchor.Find("@Hadouken").GetComponent<Hadouken>();
             _syouryuuken = transform.Find("@Syouryuuken").GetComponent<Syouryuuken>();
+            _tatsumakisenpukyaku = transform.Find("@Tatsumakisenpukyaku").GetComponent<Tatsumakisenpukyaku>();
 #if UNITY_EDITOR
             Debug.Assert(_normalSkill != null, $"@FistSkill이 없거나 여기에 FistSkill이 없습니다.");
             Debug.Assert(_hadouken != null, $"@HandAnchor의 자식에 @Hadouken이 없거나 여기에 Hadouken이 없습니다.");
             Debug.Assert(_syouryuuken != null, $"@Syouryuuken이 없거나 여기에 Syouryuuken이 없습니다.");
+            Debug.Assert(_tatsumakisenpukyaku != null, $"@Tatsumakisenpukyaku이 없거나 여기에 Tatsumakisenpukyaku가 없습니다.");
 #endif
             if(_normalSkill != null )
             {
@@ -63,6 +66,10 @@ namespace Coordinator.Hands
             if (_syouryuuken != null)
             {
                 _syouryuuken.OnAttackEnd += OnAttackSuccess;
+            }
+            if(_tatsumakisenpukyaku != null)
+            {
+                _tatsumakisenpukyaku.OnAttackEnd += OnAttackSuccess;
             }
         }
 
@@ -104,7 +111,9 @@ namespace Coordinator.Hands
             _baseSmashDamage = baseSmashDamage;
             _normalSkill.Init(attackableFilter,baseSmashDamage);
             _hadouken.Init(attackableFilter, -1);
-            _syouryuuken.Init(attackableFilter, baseSmashDamage * _strongDamageMultiplier, GetComponentInParent<IPushable>(), transform.parent.parent.parent.Find("@Hitbox").GetComponent<IAttackable>());
+            var attackable = transform.parent.parent.parent.Find("@Hitbox").GetComponent<IAttackable>();
+            _syouryuuken.Init(attackableFilter, baseSmashDamage * _strongDamageMultiplier, GetComponentInParent<IPushable>(), attackable);
+            _tatsumakisenpukyaku.Init(attackableFilter,baseSmashDamage, parentRb2d, attackable);
         }
 
         public void AddEnergy(int amount)
@@ -127,9 +136,9 @@ namespace Coordinator.Hands
             {
                 return;
             }
-            else if(comboType == WWESkillTypes.TATSUMAKISENPUKYAKU)
+            else if(comboType == WWESkillTypes.TATSUMAKISENPUKYAKU && _tatsumakisenpukyaku.GetDemendedCost() > _energy)
             {
-
+                return;
             }
 
             _skillType = comboType;
@@ -215,10 +224,10 @@ namespace Coordinator.Hands
                     _isSkillActing = true;
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
-                    //스킬 실행 코드 추가
+                    _energy -= _tatsumakisenpukyaku.GetDemendedCost();
+                    _tatsumakisenpukyaku.Attack();
                     break;
             }
-            OnAttackSuccess();//임시. 이거는 나중에 각 스킬에 end콜백 달아서 할거임
         }
 
         public override void OnLMBPressed()
@@ -256,7 +265,7 @@ namespace Coordinator.Hands
 
         private void OnAttackSuccess()
         {
-            _isSkillActing = false;
+            _isSkillActing = false;//이거가 켜져있으면 공격,행동 이런거 못하게 해야함
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
             _cooldownModule.StartCooldown();
