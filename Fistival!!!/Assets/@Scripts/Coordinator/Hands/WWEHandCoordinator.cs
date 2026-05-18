@@ -40,6 +40,7 @@ namespace Coordinator.Hands
         private Tatsumakisenpukyaku _tatsumakisenpukyaku;
 
         private Action<int, int> _onThrownObjectAttacked;//attackCnt, chargerate
+        private Action<int, int> _onFistAttacked;
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -55,10 +56,8 @@ namespace Coordinator.Hands
             Debug.Assert(_syouryuuken != null, $"@Syouryuuken이 없거나 여기에 Syouryuuken이 없습니다.");
             Debug.Assert(_tatsumakisenpukyaku != null, $"@Tatsumakisenpukyaku이 없거나 여기에 Tatsumakisenpukyaku가 없습니다.");
 #endif
-            if(_normalSkill != null )
-            {
-                _normalSkill.RegisterOnAttack((_, dmg) => { AddEnergy(dmg); } );
-            }
+            _onFistAttacked = (_, dmg) => { AddEnergy(dmg); };
+            
             if (_hadouken != null)
             {
                 _hadouken.OnAttackEnd += OnAttackSuccess;
@@ -114,6 +113,10 @@ namespace Coordinator.Hands
             var attackable = transform.parent.parent.parent.Find("@Hitbox").GetComponent<IAttackable>();
             _syouryuuken.Init(attackableFilter, baseSmashDamage * _strongDamageMultiplier, GetComponentInParent<IPushable>(), attackable);
             _tatsumakisenpukyaku.Init(attackableFilter,baseSmashDamage, parentRb2d, attackable);
+            if (_normalSkill != null)
+            {
+                _normalSkill.RegisterOnAttack(_onFistAttacked);
+            }
         }
 
         public void AddEnergy(int amount)
