@@ -232,7 +232,7 @@ namespace Coordinator.Hands
 
         public override void OnLMBPressed()
         {
-            if (_cooldownModule.IsCooldownEnded() == false)
+            if (_isSkillActing || _cooldownModule.IsCooldownEnded() == false)
             {
                 return;
             }
@@ -243,7 +243,7 @@ namespace Coordinator.Hands
 
         public override void OnLMBReleased()
         {
-            if (_cooldownModule.IsCooldownEnded() == false || _attackStatus == AttackStatus.NO_PRESSED)
+            if (_isSkillActing || _cooldownModule.IsCooldownEnded() == false || _attackStatus == AttackStatus.NO_PRESSED)
             {
                 return;
             }
@@ -272,60 +272,3 @@ namespace Coordinator.Hands
         }
     }
 }
-//(기본 공격 데미지*강공데미지 + 오브젝트 데미지)
-/*
-
-
-Update에서 하는건 콤보 체킹만 하고, 공격 땔 때 한번에 공격처리 하는거로 할까
-
-지속기는 자체적인 업데이트를 가지고
-
-일반기는 바로
-
-
-*/
-#if false
-public virtual void __Attack()
-{
-    int totalDmg = _baseSmashDamage;
-
-    if(_grabbedObject != null)
-    {
-        totalDmg += _grabbedObject.GetSharedData().Damage;
-    }
-
-    if (_grabbedObject.Smash() == false)
-    {
-        _grabbedObject = null;
-        _chargeCnt = 0;
-        InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
-        InvokeOnGrabbedObjectChanged(null);
-        _status = HandStatus.IDLE;
-    }
-    윗부분까지가 호출부에서 처리할 일
-
-    밑부분부터가 Skill쪽에서 처리할 일
-
-    var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
-
-    if (enemies is null)
-    {
-        return;
-    }
-
-    for (int i = 0; i < enemies.Length; i++)
-    {
-        Collider2D enemy = enemies[i];
-        if (enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
-        {
-            return;
-        }
-
-        if (_attackStatus == AttackStatus.STRONG)
-        {
-            totalDmg *= _strongDamageMultiplier;
-        }
-        Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg);
-    }
-}
-#endif
