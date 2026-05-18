@@ -84,17 +84,19 @@ namespace Coordinator.Hands
         protected override void OnDisabled()
         {
             base.OnDisabled();
-            if(_reloadCooldown is not null)
+
+            if(Managers.Instance != null && _reloadCooldown is not null)
             {
                 Managers.Instance.CooldownManager.ReturnModule(_reloadCooldown);
-                _reloadCooldown = null;
+                
             }
-
-            if(_reloadUnlockCounter is not null)
+            if(Managers.Instance != null && _reloadUnlockCounter is not null)
             {
                 Managers.Instance.CooldownManager.ReturnModule(_reloadUnlockCounter);
-                _reloadUnlockCounter = null;
+                
             }
+            _reloadUnlockCounter = null;
+            _reloadCooldown = null;
         }
 
         public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)

@@ -57,7 +57,7 @@ namespace Manager
             {
                 return;
             }
-
+            Debug.Log("DestCall");
             if(_isDisposed == false)
             {
                 return;

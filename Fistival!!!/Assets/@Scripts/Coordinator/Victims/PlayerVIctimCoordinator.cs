@@ -36,11 +36,11 @@ namespace Coordinator.Victims
 
         private void OnDisable()
         {
-            if (_invincibilityTimeCounter is not null)
+            if(Managers.Instance != null && _invincibilityTimeCounter is not null)
             {
                 Managers.Instance.CooldownManager.ReturnModule(_invincibilityTimeCounter);
-                _invincibilityTimeCounter = null;
             }
+            _invincibilityTimeCounter = null;
         }
 
         public bool CanAttack()
