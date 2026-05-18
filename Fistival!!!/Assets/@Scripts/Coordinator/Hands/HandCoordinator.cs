@@ -147,6 +147,7 @@ namespace Coordinator.Hands
         {
             if(_cooldownModule.IsCooldownEnded() == false || _attackStatus == AttackStatus.NO_PRESSED)
             {
+                _attackStatus = AttackStatus.NO_PRESSED;
                 return;
             }
 

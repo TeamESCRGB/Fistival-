@@ -236,6 +236,7 @@ namespace Coordinator.Hands
         {
             if (CanActiveShoot() == false || _attackStatus == AttackStatus.NO_PRESSED)
             {
+                _attackStatus = AttackStatus.NO_PRESSED;
                 return;
             }
 
