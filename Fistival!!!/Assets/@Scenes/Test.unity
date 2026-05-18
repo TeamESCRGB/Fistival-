@@ -2439,7 +2439,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 641893411}
-  - component: {fileID: 641893412}
   - component: {fileID: 641893413}
   m_Layer: 9
   m_Name: Hand
@@ -2467,24 +2466,6 @@ Transform:
   - {fileID: 287738780}
   m_Father: {fileID: 908510455}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &641893412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 641893410}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b410be2a4ee44444daea5d015ea9c8dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HandCoordinator
-  _pickupBoxcastSize: {x: 0.5, y: 2}
-  _pickupBoxcastDistance: 2
-  _strongRdyThreshold: 0.5
-  _strongAttackThreshold: 1
-  _strongDamageMultiplier: 5
-  _attackStatus: 1
 --- !u!114 &641893413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6575,7 +6556,7 @@ MonoBehaviour:
   _demendedCost: 3
   _force: {x: 0, y: 20}
   _rb2d: {fileID: 0}
-  _attackInterval: 1
+  _attackInterval: 0.2
 --- !u!1 &1925517537
 GameObject:
   m_ObjectHideFlags: 0
