@@ -1,4 +1,6 @@
-﻿namespace Coordinator.Victims
+﻿using UnityEngine;
+
+namespace Coordinator.Victims
 {
     public interface IAttackable
     {
@@ -7,5 +9,6 @@
         public void TakeDamage(int damage);
         public void StartInvincibleTime();
         public int GetMaskedLayer();
+        public void TakeKnockBack(Vector2 force);
     }
 }

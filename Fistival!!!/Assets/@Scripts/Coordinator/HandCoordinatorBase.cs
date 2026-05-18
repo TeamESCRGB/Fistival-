@@ -169,7 +169,7 @@ namespace Coordinator
         {
             _status = HandStatus.IDLE;
             _grabbedObject.SetAttackableLayer(_attackableMask);
-            _grabbedObject.Throw(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), _handAnchor.position), _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt);
+            _grabbedObject.Throw(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), _handAnchor.position), _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt, _chargeCnt);
             _chargeCnt = 0;
             _grabbedObject = null;
             InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);

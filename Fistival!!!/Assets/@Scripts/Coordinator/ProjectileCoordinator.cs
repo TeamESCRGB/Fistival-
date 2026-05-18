@@ -4,6 +4,7 @@ using Coordinator.Victims;
 using Data;
 using Manager;
 using UnityEngine;
+using Utils;
 
 namespace Coordinator
 {
@@ -17,6 +18,7 @@ namespace Coordinator
         protected Transform _attackRange;
         protected Transform _activateRange;
         protected CooldownComponentModule _explodeTimer;
+        protected float _explosionKnockBack;
 
         private void Awake()
         {
@@ -44,7 +46,7 @@ namespace Coordinator
             _baseSpeed = data.Speed;
             _rb2d.sharedMaterial = Managers.Instance.ResourceManager.Load<PhysicsMaterial2D>(data.Physics2DMaterialName);
             _skill.Init(attackableLayerMask, data.Damage);
-            
+            _explosionKnockBack = data.ExplosionKnockBack;
             if(data.Lifetime > 0)
             {
                 _explodeTimer = Managers.Instance.CooldownManager.GetCooldownModule(data.Lifetime);
@@ -80,7 +82,8 @@ namespace Coordinator
                 var enemy = enemies[i];
                 if (enemy.TryGetComponent<IAttackable>(out var target) && _skill.CanAttackTarget(target))
                 {
-                    Managers.Instance.AttackManager.RequestAttack(target, _skill, _skill.GetBaseDamage);
+                    Vector2 dir = VectorUtils.GetDirVec2(enemy.transform.position, transform.position);
+                    Managers.Instance.AttackManager.RequestAttack(target, _skill, _skill.GetBaseDamage,dir*_explosionKnockBack);//몹들간의 방향 계산해서 그 방향으로 데미지(계산식은 나중에 받고)
                 }
             }
 

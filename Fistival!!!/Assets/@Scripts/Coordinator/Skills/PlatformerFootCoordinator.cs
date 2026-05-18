@@ -15,16 +15,20 @@ namespace Coordinator.Skills
             _box = transform;
         }
 
-        public override bool Act(IAttackable target, int calculatedDamage)
+        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
         {
             if(target.CanAttack() == false)
             {
                 return false;
             }
             target.TakeDamage(calculatedDamage);
+            target.TakeKnockBack(knockback);
             return true;
         }
-
+        private void OnDisable()
+        {
+            ResetOnAttack();
+        }
 
         private void FixedUpdate()
         {
@@ -40,7 +44,7 @@ namespace Coordinator.Skills
                 var enemy = enemies[i];
                 if (enemy.TryGetComponent<IAttackable>(out var target) && CanAttackTarget(target))
                 {
-                    Managers.Instance.AttackManager.RequestAttack(target, this, _baseDamage);
+                    Managers.Instance.AttackManager.RequestAttack(target, this, _baseDamage, Vector2.down);
                     OnStepKill?.Invoke();
                 }
             }

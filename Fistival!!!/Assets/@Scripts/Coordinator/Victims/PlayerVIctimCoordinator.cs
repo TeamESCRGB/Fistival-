@@ -9,6 +9,7 @@ namespace Coordinator.Victims
 {
     public class PlayerVictimCoordinator : MonoBehaviour, IAttackable, IStunnable
     {
+        private IPushable _pushable;
         private IStunnable _internalTarget;
         private HPCoordinator _hpCoord;
         private CooldownComponentModule _invincibilityTimeCounter = null;
@@ -27,9 +28,10 @@ namespace Coordinator.Victims
             _invincibilityTimeCounter = Managers.Instance.CooldownManager.GetCooldownModule(invincibilityTime);
         }
 
-        private void OnModeChanged(IStunnable target)
+        private void OnModeChanged(ModeBase target)
         {
             _internalTarget = target;
+            _pushable = target.GetComponentInChildren<IPushable>();
         }
 
         private void OnDisable()
@@ -89,6 +91,11 @@ namespace Coordinator.Victims
         public void ReleaseStun()
         {
             _internalTarget?.ReleaseStun();
+        }
+
+        public void TakeKnockBack(Vector2 force)
+        {
+            _pushable?.PushTo(force);
         }
     }
 }
