@@ -1236,7 +1236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207408899}
   - component: {fileID: 207408901}
-  - component: {fileID: 207408900}
+  - component: {fileID: 207408902}
   m_Layer: 9
   m_Name: '@AttackBox'
   m_TagString: Untagged
@@ -1259,18 +1259,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2122006970}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &207408900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 207408898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3994fbed6e98f64689f41c8f6d03196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestSkill
 --- !u!212 &207408901
 SpriteRenderer:
   serializedVersion: 2
@@ -1330,6 +1318,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &207408902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207408898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edb6f3625c9dfb4195429bdd3a48268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Skills.BasicDamageSkill
 --- !u!1 &229517614
 GameObject:
   m_ObjectHideFlags: 0
@@ -3719,7 +3719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df70569e1c1e3d45ad00ea2c9f6df2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestMusic
-  active: 5
+  active: 3
   mod: {fileID: 1841974925}
   obc: {fileID: 1604905679}
   ren: {fileID: 1067254925}
@@ -4600,7 +4600,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1444081781}
   - component: {fileID: 1444081783}
-  - component: {fileID: 1444081782}
+  - component: {fileID: 1444081784}
   m_Layer: 9
   m_Name: '@AttackBox'
   m_TagString: Untagged
@@ -4623,18 +4623,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 718846912}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1444081782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1444081780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3994fbed6e98f64689f41c8f6d03196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestSkill
 --- !u!212 &1444081783
 SpriteRenderer:
   serializedVersion: 2
@@ -4694,6 +4682,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1444081784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444081780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edb6f3625c9dfb4195429bdd3a48268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Skills.BasicDamageSkill
 --- !u!1001 &1453820248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5199,9 +5199,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1590955300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3994fbed6e98f64689f41c8f6d03196, type: 3}
+  m_Script: {fileID: 11500000, guid: 0edb6f3625c9dfb4195429bdd3a48268, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestSkill
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Skills.BasicDamageSkill
 --- !u!1 &1604905673
 GameObject:
   m_ObjectHideFlags: 0
