@@ -45,6 +45,17 @@
       "AttackRadius": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
       "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile"
+    },
+    {
+      "IDX": 3,
+      "ExplodableLayerMask": 5128,
+      "Speed": 10,
+      "Damage": 1,
+      "ExplosionKnockBack": 4,
+      "Lifetime": 2,
+      "AttackRadius": 0.5,
+      "Physics2DMaterialName": "NoBounceNoFric",
+      "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile"
     }
   ]
 }
