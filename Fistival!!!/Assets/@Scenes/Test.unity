@@ -3442,7 +3442,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1023492558}
   - component: {fileID: 1023492560}
-  - component: {fileID: 1023492559}
   m_Layer: 9
   m_Name: '@AttackBox'
   m_TagString: Untagged
@@ -3465,18 +3464,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 166956666}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1023492559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023492557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3994fbed6e98f64689f41c8f6d03196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestSkill
 --- !u!212 &1023492560
 SpriteRenderer:
   serializedVersion: 2
@@ -3732,7 +3719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df70569e1c1e3d45ad00ea2c9f6df2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestMusic
-  active: 1
+  active: 5
   mod: {fileID: 1841974925}
   obc: {fileID: 1604905679}
   ren: {fileID: 1067254925}
