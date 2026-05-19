@@ -1874,7 +1874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 315704073}
   - component: {fileID: 315704075}
-  - component: {fileID: 315704074}
+  - component: {fileID: 315704076}
   m_Layer: 9
   m_Name: '@AttackBox'
   m_TagString: Untagged
@@ -1897,18 +1897,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1826867857}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &315704074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 315704072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3994fbed6e98f64689f41c8f6d03196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestSkill
 --- !u!212 &315704075
 SpriteRenderer:
   serializedVersion: 2
@@ -1968,6 +1956,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &315704076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315704072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edb6f3625c9dfb4195429bdd3a48268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Skills.BasicDamageSkill
 --- !u!1 &319915703
 GameObject:
   m_ObjectHideFlags: 0
@@ -3732,7 +3732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df70569e1c1e3d45ad00ea2c9f6df2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestMusic
-  active: 6
+  active: 1
   mod: {fileID: 1841974925}
   obc: {fileID: 1604905679}
   ren: {fileID: 1067254925}
