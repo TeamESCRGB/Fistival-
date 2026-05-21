@@ -25,6 +25,15 @@ namespace Coordinator.Hands
         protected override void OnUpdate()
         {
             base.OnUpdate();
+
+            if (_attackStatus == AttackStatus.PRESSED)
+            {
+                if (Time.timeAsDouble - _pressedTime >= _strongRdyThreshold)
+                {
+                    _attackStatus = AttackStatus.STRONG_RDY;
+                    OnAttackStatusChanged?.Invoke(AttackStatus.STRONG_RDY);
+                }
+            }
         }
 
         public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)

@@ -27,11 +27,16 @@ namespace Coordinator.Modes
             _movCoordinator.Init(data.MoveSpeed, data.JumpPower, _commonData.SlownessSensitivity, _commonData.MaxSlowness, GetComponentInParent<Rigidbody2D>());
             _inputCoordinator.SetJumpsMovementInputHandler(_movCoordinator);
             _inputCoordinator.SetHorizontalMovementInputHandler(_movCoordinator);
+
+            _hand.Init(GetComponentInParent<Rigidbody2D>(), data.Damage, data.AttackableLayers, data.PickableLayers, data.ForcePerCharge, data.ChargeTimeInterval, data.AttackCooldown);
+            _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
+            _hand.OnChargeRateChanged += OnChargeRateChanged;
+            _objectWeight = 0;
         }
 
         public override void DeInit()
         {
-
+            _hand.Drop();
             base.DeInit();
         }
 
@@ -55,17 +60,44 @@ namespace Coordinator.Modes
 
         public override void OnRMBEvent(bool pressed, Vector2 screenPos)
         {
-            throw new System.NotImplementedException();
+            if (_isStunned)
+            {
+                return;
+            }
+            if (pressed)
+            {
+                _hand.OnRMBPressed();
+            }
+            else
+            {
+                _hand.SetMousePos(screenPos);
+                _hand.OnRMBReleased();
+            }
         }
 
         public override void OnLMBEvent(bool pressed, Vector2 screenPos)
         {
-            throw new System.NotImplementedException();
+            if (_isStunned)
+            {
+                return;
+            }
+            if (pressed)
+            {
+                _hand.OnLMBPressed();
+            }
+            else
+            {
+                _hand.SetMousePos(screenPos);
+                _hand.OnLMBReleased();
+            }
         }
 
         public override void OnDropEvent(bool pressed)
         {
-            throw new System.NotImplementedException();
+            if (pressed && (_isStunned == false))
+            {
+                _hand.Drop();
+            }
         }
 
         protected override void OnStunEnd()
