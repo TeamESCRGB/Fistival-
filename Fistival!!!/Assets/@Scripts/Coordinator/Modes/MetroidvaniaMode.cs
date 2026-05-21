@@ -102,17 +102,36 @@ namespace Coordinator.Modes
 
         protected override void OnStunEnd()
         {
-            throw new System.NotImplementedException();
+            _isStunned = false;
+            _movCoordinator.UnlockMovement();
         }
 
         public override void StunFor(float time)
         {
-            throw new System.NotImplementedException();
+            if (time <= 0 || _stunCounter.GetRemainedTime() >= time)
+            {
+                return;
+            }
+
+            if (_stunCounter.IsCooldownEnded())
+            {
+                _movCoordinator.LockMovement();
+                _hand.Drop();
+                _hand.StopAttack();
+            }
+
+            _stunCounter.SetCooldownTime(time);
+            _stunCounter.StartCooldown();
+            _isStunned = true;
         }
 
         public override void ReleaseStun()
         {
-            throw new System.NotImplementedException();
+            if (_stunCounter is null || _stunCounter.IsCooldownEnded())
+            {
+                return;
+            }
+            _stunCounter.StopCooldown();
         }
     }
 }
