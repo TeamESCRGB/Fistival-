@@ -1,4 +1,5 @@
-﻿using Coordinator.Movements;
+﻿using Coordinator.Hands;
+using Coordinator.Movements;
 using Data;
 using Defines;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace Coordinator.Modes
 {
     public class MetroidvaniaMode : ModeBase
     {
+        private MetroidvaniaHand _hand;
         private PlatformerMovementCoordinator _movCoordinator;
         private float _objectWeight = 0;
         public override ModeTypes ModeType => ModeTypes.METROIDVANIA;
@@ -15,6 +17,7 @@ namespace Coordinator.Modes
         protected override void OnAwake()
         {
             base.OnAwake();
+            _hand = GetComponentInChildren<MetroidvaniaHand>();
             _movCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
         }
 
