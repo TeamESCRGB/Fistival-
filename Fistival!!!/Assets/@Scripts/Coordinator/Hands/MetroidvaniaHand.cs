@@ -1,10 +1,14 @@
-﻿using Defines;
+﻿using Coordinator.Chain;
+using Defines;
+using InputHandler;
 using System;
 using UnityEngine;
+using Utils;
+using static Utils.VectorUtils;
 
 namespace Coordinator.Hands
 {
-    public class MetroidvaniaHand : HandCoordinatorBase
+    public class MetroidvaniaHand : HandCoordinatorBase, IPointerMovementInputHandler
     {
         [SerializeField]
         private double _strongRdyThreshold = 0.5f;
@@ -17,9 +21,23 @@ namespace Coordinator.Hands
         public Action<AttackStatus> OnAttackStatusChanged;
         private int _baseDamage;
 
+        [SerializeField]
+        private float _baseMaxLength;
+
+        [SerializeField]
+        private float _totalMoveTime;
+
+        private ChainMorningStar _chain;
+
         protected override void OnAwake()
         {
             base.OnAwake();
+            _chain = transform.Find("@ChainMorningStar")?.GetComponent<ChainMorningStar>();
+
+#if UNITY_EDITOR
+            Debug.Assert(_chain != null, "@ChainMorningStar가 없거나 거기에 ChainMorningStar가 없습니다");
+#endif
+            _chain.transform.SetParent(null);
         }
 
         protected override void OnUpdate()
@@ -34,12 +52,14 @@ namespace Coordinator.Hands
                     OnAttackStatusChanged?.Invoke(AttackStatus.STRONG_RDY);
                 }
             }
+            _chain.SetRotation(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position));
         }
 
         public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn);
             ResetEvents();
+            _chain.Init(attackableFilter,parentRb2d);
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             _baseDamage = baseSmashDamage;
@@ -70,13 +90,24 @@ namespace Coordinator.Hands
                 return;
             }
 
+            float baseLength = _baseMaxLength;
+
             if (_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
             {
+                baseLength *= 2;
                 _attackStatus = AttackStatus.STRONG;
             }
+
+            _chain.Launch(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position),baseLength,_totalMoveTime);
+
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
             _cooldownModule.StartCooldown();
+        }
+
+        public void OnPointerMove(Vector2 screenPos)
+        {
+            SetMousePos(screenPos);
         }
     }
 }
