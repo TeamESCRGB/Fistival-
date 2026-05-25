@@ -2,6 +2,7 @@
 {
     public interface ICooldownComponentModuleBase
     {
+        public int Index { get; set; }
         public void InitCooldown(float cooldownTime, int index, float timeChangedCallInterval);
         public void DeinitCooldown();
         public void SetCooldownTime(float time);
