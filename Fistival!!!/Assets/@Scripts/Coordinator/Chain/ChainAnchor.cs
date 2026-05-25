@@ -1,4 +1,6 @@
-﻿using Defines;
+﻿using Coordinator.Victims;
+using Defines;
+using Manager;
 using UnityEngine;
 
 namespace Coordinator.Chain
@@ -20,10 +22,15 @@ namespace Coordinator.Chain
         [SerializeField]
         private LayerMask _groundMask;
         private LayerMask _interactableFilter;
+        private SkillCoordinatorBase _baseSkill;
+        private int _damage;
+
+        private Vector2 _dir;
 
 
         private void Awake()
         {
+            _baseSkill = GetComponent<SkillCoordinatorBase>();
             _rope = transform.parent.Find("@Chain");
             _rb2d = GetComponent<Rigidbody2D>();
             _initialPos = transform.localPosition;
@@ -42,11 +49,14 @@ namespace Coordinator.Chain
             _attackableMask= attackableMask;
             _rb2d.linearVelocity = Vector2.zero;
             _interactableFilter = _attackableMask | _objectMask | _groundMask |_chainPullPadMask;
+            _baseSkill.Init(attackableMask,0);
             Retrive();
         }
 
-        public void Launch(Vector2 dir, float len, float totalMovTime)
+        public void Launch(Vector2 dir, float len, float totalMovTime, int damage)
         {
+            _dir= dir;
+            _damage = damage;
             _rb2d.simulated = true;
             _rb2d.WakeUp();
             _status = ChainStatus.MOVING;
@@ -107,7 +117,7 @@ namespace Coordinator.Chain
             }
             else if((layer & _attackableMask) != 0)
             {
-                Debug.Log("attack");
+                Managers.Instance.AttackManager.RequestAttack(go.GetComponent<IAttackable>(), _baseSkill, _damage, _dir*_damage);
             }
             else if((layer & _chainPullPadMask) != 0)
             {

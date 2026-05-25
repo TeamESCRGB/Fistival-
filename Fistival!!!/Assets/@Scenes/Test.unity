@@ -3282,6 +3282,7 @@ GameObject:
   - component: {fileID: 842911067}
   - component: {fileID: 842911070}
   - component: {fileID: 842911069}
+  - component: {fileID: 842911071}
   m_Layer: 9
   m_Name: '@ChainAnchor'
   m_TagString: Untagged
@@ -3457,6 +3458,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &842911071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842911061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edb6f3625c9dfb4195429bdd3a48268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Skills.BasicDamageSkill
 --- !u!1 &843799886
 GameObject:
   m_ObjectHideFlags: 0
@@ -4430,10 +4443,7 @@ MonoBehaviour:
   _pickupBoxcastDistance: 2
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
-  _strongDamageMultiplier: 5
   _attackStatus: 1
-  _baseMaxLength: 5
-  _totalMoveTime: 0.03
 --- !u!1 &1067254924
 GameObject:
   m_ObjectHideFlags: 0
@@ -5038,8 +5048,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03000dd653068149bb0f7a2dbccd838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Chain.ChainMorningStar
-  _parentRb2d: {fileID: 0}
-  _rb2d: {fileID: 0}
+  _strongDamageMultiplier: 1.5
+  _baseMaxLength: 4
+  _totalMoveTime: 0.03
 --- !u!1 &1262662411
 GameObject:
   m_ObjectHideFlags: 0

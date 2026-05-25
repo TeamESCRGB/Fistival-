@@ -6,14 +6,14 @@ namespace Coordinator.Chain
     public class ChainMorningStar : MonoBehaviour
     {
         [SerializeField]
+        private float _strongDamageMultiplier;
+        [SerializeField]
         private float _baseMaxLength;
         [SerializeField]
         private float _totalMoveTime;
         private ChainAnchor _anchor;
         private Rigidbody2D _parentRb2d;
         private int _baseDamage;
-
-        private Vector2 _lastPos;
 
         private void Awake()
         {
@@ -52,11 +52,11 @@ namespace Coordinator.Chain
             if(status == AttackStatus.STRONG)
             {
                 len *= 2;
+                damage = (int)(damage * _strongDamageMultiplier);
             }
 
             SetRotation(dir);
-            _anchor.Launch(dir,len,_totalMoveTime);
-            _lastPos = _parentRb2d.position;
+            _anchor.Launch(dir,len,_totalMoveTime,damage);
         }
 
         public void Retrive()
