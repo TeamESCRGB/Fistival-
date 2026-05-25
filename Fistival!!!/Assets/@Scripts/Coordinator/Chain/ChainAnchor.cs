@@ -1,7 +1,5 @@
 ﻿using Defines;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using Utils;
 
 namespace Coordinator.Chain
 {
@@ -12,7 +10,6 @@ namespace Coordinator.Chain
         private float _ropeScaleY;
         private float _maxLen;
         private ChainStatus _status;
-        private Vector2 _returnDir;
         private Vector3 _initialPos;
         private Vector3 _initialScale;
         private LayerMask _attackableMask;
@@ -54,7 +51,6 @@ namespace Coordinator.Chain
             _rb2d.WakeUp();
             _status = ChainStatus.MOVING;
             Vector2 targetSpd = dir;
-            _returnDir = -dir;
             _maxLen = len;
             targetSpd.x = targetSpd.x / totalMovTime;
 
@@ -69,7 +65,6 @@ namespace Coordinator.Chain
             transform.localPosition = _initialPos;
             _rope.localScale = _initialScale;
             _maxLen = 0;
-            _returnDir = Vector2.zero;
             _rb2d.simulated = false;
         }
         private void FixedUpdate()
@@ -103,11 +98,21 @@ namespace Coordinator.Chain
                 return;
             }
 
-            /*
-             
-            여기에 대응 로직
-             
-             */
+            GameObject go = collision.gameObject;
+            int layer = 1 << go.layer;
+            
+            if((layer & _objectMask) != 0)
+            {
+                Debug.Log("obj");
+            }
+            else if((layer & _attackableMask) != 0)
+            {
+                Debug.Log("attack");
+            }
+            else if((layer & _chainPullPadMask) != 0)
+            {
+                Debug.Log("pull");
+            }
 
             _rb2d.linearVelocity = Vector2.zero;
             Retrive();

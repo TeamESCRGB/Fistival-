@@ -14,18 +14,9 @@ namespace Coordinator.Hands
         private double _strongRdyThreshold = 0.5f;
         [SerializeField]
         private double _strongAttackThreshold = 1;
-        [SerializeField]
-        private int _strongDamageMultiplier = 2;
         [SerializeField] private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
         public Action<AttackStatus> OnAttackStatusChanged;
-        private int _baseDamage;
-
-        [SerializeField]
-        private float _baseMaxLength;
-
-        [SerializeField]
-        private float _totalMoveTime;
 
         private ChainMorningStar _chain;
 
@@ -59,10 +50,9 @@ namespace Coordinator.Hands
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn);
             ResetEvents();
-            _chain.Init(attackableFilter,parentRb2d);
+            _chain.Init(attackableFilter,parentRb2d, baseSmashDamage);
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
-            _baseDamage = baseSmashDamage;
         }
 
         public void StopAttack()
@@ -90,15 +80,12 @@ namespace Coordinator.Hands
                 return;
             }
 
-            float baseLength = _baseMaxLength;
-
             if (_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
             {
-                baseLength *= 2;
                 _attackStatus = AttackStatus.STRONG;
             }
 
-            _chain.Launch(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position),baseLength,_totalMoveTime);
+            _chain.Launch(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position),_attackStatus);
 
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);

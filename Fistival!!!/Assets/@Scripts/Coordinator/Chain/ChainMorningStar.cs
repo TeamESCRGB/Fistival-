@@ -5,21 +5,25 @@ namespace Coordinator.Chain
 {
     public class ChainMorningStar : MonoBehaviour
     {
+        [SerializeField]
+        private float _baseMaxLength;
+        [SerializeField]
+        private float _totalMoveTime;
         private ChainAnchor _anchor;
-        [SerializeField]private Rigidbody2D _parentRb2d;
-        [SerializeField]private Rigidbody2D _rb2d;
+        private Rigidbody2D _parentRb2d;
+        private int _baseDamage;
 
         private Vector2 _lastPos;
 
         private void Awake()
         {
             _anchor = GetComponentInChildren<ChainAnchor>();
-            _rb2d = GetComponentInChildren<Rigidbody2D>();
         }
-        public void Init(LayerMask attackableMask, Rigidbody2D parentRb2d)
+        public void Init(LayerMask attackableMask, Rigidbody2D parentRb2d, int damage)
         {
             _parentRb2d = parentRb2d;
             _anchor.Init(attackableMask);
+            _baseDamage = damage;
         }
 
         private void FixedUpdate()
@@ -36,15 +40,22 @@ namespace Coordinator.Chain
             transform.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
         }
 
-        public void Launch(Vector2 dir, float len, float totalMoveTime)
+        public void Launch(Vector2 dir, AttackStatus status)
         {
             if(_anchor.GetStatus() != ChainStatus.OFF)
             {
                 return;
             }
-            
+
+            float len = _baseMaxLength;
+            int damage = _baseDamage;
+            if(status == AttackStatus.STRONG)
+            {
+                len *= 2;
+            }
+
             SetRotation(dir);
-            _anchor.Launch(dir,len,totalMoveTime);
+            _anchor.Launch(dir,len,_totalMoveTime);
             _lastPos = _parentRb2d.position;
         }
 
