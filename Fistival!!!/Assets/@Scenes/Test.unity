@@ -5329,7 +5329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Chain.ChainMorningStar
   _strongDamageMultiplier: 1.5
-  _baseMaxLength: 4
+  _baseMaxLength: 10
   _totalMoveTime: 0.03
   _pullTotalTime: 0.7
 --- !u!1 &1262662411
