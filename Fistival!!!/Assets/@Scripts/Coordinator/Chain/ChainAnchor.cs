@@ -1,7 +1,9 @@
-﻿using Coordinator.Victims;
+﻿using Coordinator.Movements;
+using Coordinator.Victims;
 using Defines;
 using Manager;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Coordinator.Chain
 {
@@ -24,12 +26,16 @@ namespace Coordinator.Chain
         private LayerMask _interactableFilter;
         private SkillCoordinatorBase _baseSkill;
         private int _damage;
-
+        private float _totalMoveTime;
+        [SerializeField]
+        private float _dampingThreshold = 0.001f;
+        private Transform _parentTransform;
         private Vector2 _dir;
 
 
         private void Awake()
         {
+            _parentTransform = transform.parent;
             _baseSkill = GetComponent<SkillCoordinatorBase>();
             _rope = transform.parent.Find("@Chain");
             _rb2d = GetComponent<Rigidbody2D>();
@@ -43,12 +49,14 @@ namespace Coordinator.Chain
             return _status;
         }
 
-        public void Init(LayerMask attackableMask)
+        public void Init(LayerMask attackableMask,float totalMoveTime)
         {
+            _totalMoveTime = totalMoveTime;
             _status = ChainStatus.OFF;
             _attackableMask= attackableMask;
             _rb2d.linearVelocity = Vector2.zero;
             _interactableFilter = _attackableMask | _objectMask | _groundMask |_chainPullPadMask;
+            _rb2d.includeLayers = _interactableFilter;
             _baseSkill.Init(attackableMask,0);
             Retrive();
         }
@@ -110,10 +118,15 @@ namespace Coordinator.Chain
 
             GameObject go = collision.gameObject;
             int layer = 1 << go.layer;
-            
+
             if((layer & _objectMask) != 0)
             {
-                Debug.Log("obj");
+                var pullComp = go.GetComponent<IChainPullable>();
+                Vector2 start = go.transform.position;
+                Vector2 end = _parentTransform.position;
+                Vector2 distance = end - start;
+                pullComp.Pull(distance, _totalMoveTime, _dampingThreshold);
+
             }
             else if((layer & _attackableMask) != 0)
             {

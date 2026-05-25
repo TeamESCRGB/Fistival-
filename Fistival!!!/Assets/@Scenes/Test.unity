@@ -3385,6 +3385,7 @@ MonoBehaviour:
   _groundMask:
     serializedVersion: 2
     m_Bits: 1032
+  _dampingThreshold: 0.001
 --- !u!50 &842911069
 Rigidbody2D:
   serializedVersion: 5
@@ -5051,6 +5052,7 @@ MonoBehaviour:
   _strongDamageMultiplier: 1.5
   _baseMaxLength: 4
   _totalMoveTime: 0.03
+  _pullTotalTime: 0.7
 --- !u!1 &1262662411
 GameObject:
   m_ObjectHideFlags: 0
@@ -6568,7 +6570,7 @@ Transform:
   m_GameObject: {fileID: 1604905673}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.7, y: 5.95252, z: -3.65}
+  m_LocalPosition: {x: -8.8, y: 11.38, z: -3.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6659,6 +6661,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ed00b0f5f8d0b4bac70376ecff6637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.ObjectCoordinator
+  _groundLayermask:
+    serializedVersion: 2
+    m_Bits: 1032
 --- !u!1 &1657331682
 GameObject:
   m_ObjectHideFlags: 0
@@ -8520,7 +8525,7 @@ Transform:
   m_GameObject: {fileID: 1999655212}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.25, y: 13.45, z: 0}
+  m_LocalPosition: {x: 0.23, y: 12.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8544,6 +8549,7 @@ MonoBehaviour:
   l:
     serializedVersion: 2
     m_Bits: 8
+  pullT: {fileID: 1604905675}
 --- !u!1 &2012054460
 GameObject:
   m_ObjectHideFlags: 0

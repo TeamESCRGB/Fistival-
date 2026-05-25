@@ -1,3 +1,5 @@
+using ComponentModule;
+using Coordinator.Movements;
 using Coordinator.Victims;
 using Data;
 using Manager;
@@ -7,7 +9,7 @@ using Utils;
 
 namespace Coordinator.Objects
 {
-    public class ObjectCoordinator : SkillCoordinatorBase
+    public class ObjectCoordinator : SkillCoordinatorBase, IChainPullable
     {
         //추가 예정인 것: 소리(날아가는거, 충돌, 파괴), 파티클(날아가는거, 충돌, 파괴), 애니메이션
         private ObjectData _data;
@@ -21,8 +23,16 @@ namespace Coordinator.Objects
         private int _chargeRate;
         private int _attackCnt;
 
+        private FixedCooldownComponentModule _pullGroundDisableCounter;
+        private Action _pullGroundDisableEndCallback;
+
+        protected float _gravityConstant;
+        [SerializeField]
+        protected LayerMask _groundLayermask;
+
         private void Awake()
         {
+            _pullGroundDisableEndCallback = OnGroundDisableEnd;
             _rb2d = gameObject.GetOrAddComponent<Rigidbody2D>();
             _col2d = gameObject.GetOrAddComponent<Collider2D>();
         }
@@ -36,6 +46,8 @@ namespace Coordinator.Objects
 #endif
                 return;
             }
+
+            _gravityConstant = Mathf.Abs(Physics2D.gravity.y);
 
             _chargeRate = 0;
             _attackCnt = 0;
@@ -75,6 +87,12 @@ namespace Coordinator.Objects
         private void OnDisable()
         {
             ResetOnAttack();
+            _rb2d.excludeLayers &= ~_groundLayermask;
+            if(Managers.Instance != null && _pullGroundDisableCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnFixedModule(_pullGroundDisableCounter);
+                _pullGroundDisableCounter = null;
+            }
         }
 
         public ObjectData GetSharedData()
@@ -187,6 +205,58 @@ namespace Coordinator.Objects
                 CallOnAttack(_attackCnt, _chargeRate);
             }
             return true;
+        }
+
+
+
+        private void OnGroundDisableEnd()
+        {
+            _rb2d.excludeLayers &= ~_groundLayermask;
+            if (Managers.Instance != null && _pullGroundDisableCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnFixedModule(_pullGroundDisableCounter);
+                _pullGroundDisableCounter = null;
+            }
+        }
+
+        public void Pull(Vector2 distance, float totalMoveTime, float dampingThreshold)
+        {
+            _isThrown = false;
+            if(_pullGroundDisableCounter is not null)
+            {
+                _pullGroundDisableCounter.StopCooldown();
+            }
+
+            _rb2d.excludeLayers |= _groundLayermask;
+            Vector2 dis = distance;
+            float t = totalMoveTime;
+
+            float d = _rb2d.linearDamping;
+            float dampingFactor = 1.0f;
+
+            if (d > dampingThreshold)
+            {
+                dampingFactor = (d * t) / (1.0f - Mathf.Exp(-d * t));
+            }
+
+            Vector2 targetSpd;
+            targetSpd.x = dis.x / t;
+
+            targetSpd.y = (dis.y / t) + (0.5f * _gravityConstant * t);
+
+            targetSpd *= dampingFactor;
+
+            Vector2 currentSpd = _rb2d.linearVelocity;
+            Vector2 impulseForce = targetSpd - currentSpd;
+
+            _rb2d.AddForce(impulseForce, ForceMode2D.Impulse);
+            Debug.Log(impulseForce);
+
+
+            _pullGroundDisableCounter = Managers.Instance.CooldownManager.GetFixedCooldownModule((1 + transform.localScale.x / 2) / _rb2d.linearVelocity.magnitude);
+
+            _pullGroundDisableCounter.OnCooldownEnded += _pullGroundDisableEndCallback;
+            _pullGroundDisableCounter.StartCooldown();
         }
     }
 }

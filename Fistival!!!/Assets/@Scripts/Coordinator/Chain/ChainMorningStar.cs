@@ -15,6 +15,9 @@ namespace Coordinator.Chain
         private Rigidbody2D _parentRb2d;
         private int _baseDamage;
 
+        [SerializeField]
+        private float _pullTotalTime=0.7f;
+
         private void Awake()
         {
             _anchor = GetComponentInChildren<ChainAnchor>();
@@ -22,7 +25,7 @@ namespace Coordinator.Chain
         public void Init(LayerMask attackableMask, Rigidbody2D parentRb2d, int damage)
         {
             _parentRb2d = parentRb2d;
-            _anchor.Init(attackableMask);
+            _anchor.Init(attackableMask, _pullTotalTime);
             _baseDamage = damage;
         }
 
