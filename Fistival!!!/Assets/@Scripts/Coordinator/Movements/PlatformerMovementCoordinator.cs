@@ -15,15 +15,15 @@ namespace Coordinator.Movements
         private float _platformIgnoreTime = 0.5f;
         
         [SerializeField]
-        private LayerMask _platformMask;
+        protected LayerMask _platformMask;
         [SerializeField]
-        private LayerMask _groundLayer;
+        protected LayerMask _groundLayer;
 
         private Transform _groundedCheckBox;
         
 
         private Collider2D _parentCol;
-        private Rigidbody2D _parentRb2d;
+        protected Rigidbody2D _parentRb2d;
         private Transform _parentTransform;
         private float _speed;
         private float _jumpPow;
@@ -52,6 +52,11 @@ namespace Coordinator.Movements
         private bool _isGrounded = false;
 
         private void Awake()
+        {
+            OnAwake();
+        }
+
+        protected virtual void OnAwake()
         {
             _platformEnableDelay = new WaitForSeconds(_platformIgnoreTime);
             _groundedCheckBox = transform.Find("@GroundedCheckBox");
