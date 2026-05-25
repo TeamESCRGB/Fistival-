@@ -66,7 +66,14 @@ namespace Coordinator.Movements
             Vector2 targetSpd;
             targetSpd.x = dis.x / t;
 
-            targetSpd.y = (dis.y / t) + (0.5f * _gravityConstant * t);
+            if (dis.y < 0)
+            {
+                targetSpd.y = (dis.y / t) - (0.5f * _gravityConstant * t);
+            }
+            else
+            {
+                targetSpd.y = (dis.y / t) + (0.5f * _gravityConstant * t);
+            }
 
             targetSpd *= dampingFactor;
 
@@ -74,8 +81,6 @@ namespace Coordinator.Movements
             Vector2 impulseForce = targetSpd - currentSpd;
 
             _parentRb2d.AddForce(impulseForce, ForceMode2D.Impulse);
-            Debug.Log(impulseForce);
-
 
             _pullGroundDisableCounter = Managers.Instance.CooldownManager.GetFixedCooldownModule((1 + transform.localScale.x / 2) / _parentRb2d.linearVelocity.magnitude);
 
