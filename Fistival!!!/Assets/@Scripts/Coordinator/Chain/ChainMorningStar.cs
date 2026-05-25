@@ -1,4 +1,5 @@
-﻿using Defines;
+﻿using Coordinator.Movements;
+using Defines;
 using UnityEngine;
 
 namespace Coordinator.Chain
@@ -22,10 +23,10 @@ namespace Coordinator.Chain
         {
             _anchor = GetComponentInChildren<ChainAnchor>();
         }
-        public void Init(LayerMask attackableMask, Rigidbody2D parentRb2d, int damage)
+        public void Init(LayerMask attackableMask, Rigidbody2D parentRb2d, int damage, IChainPullable player)
         {
             _parentRb2d = parentRb2d;
-            _anchor.Init(attackableMask, _pullTotalTime);
+            _anchor.Init(attackableMask, _pullTotalTime, player);
             _baseDamage = damage;
         }
 

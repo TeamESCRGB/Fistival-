@@ -31,6 +31,7 @@ namespace Coordinator.Chain
         private float _dampingThreshold = 0.001f;
         private Transform _parentTransform;
         private Vector2 _dir;
+        private IChainPullable _player;
 
 
         private void Awake()
@@ -49,8 +50,9 @@ namespace Coordinator.Chain
             return _status;
         }
 
-        public void Init(LayerMask attackableMask,float totalMoveTime)
+        public void Init(LayerMask attackableMask,float totalMoveTime, IChainPullable player)
         {
+            _player = player;
             _totalMoveTime = totalMoveTime;
             _status = ChainStatus.OFF;
             _attackableMask= attackableMask;
@@ -134,7 +136,10 @@ namespace Coordinator.Chain
             }
             else if((layer & _chainPullPadMask) != 0)
             {
-                Debug.Log("pull");
+                Vector2 start = _parentTransform.position;
+                Vector2 end = transform.position;
+                Vector2 distance = end - start;
+                _player.Pull(distance,_totalMoveTime,_dampingThreshold);
             }
 
             _rb2d.linearVelocity = Vector2.zero;

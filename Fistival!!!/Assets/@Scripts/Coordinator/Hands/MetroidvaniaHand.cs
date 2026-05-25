@@ -1,4 +1,5 @@
 ﻿using Coordinator.Chain;
+using Coordinator.Movements;
 using Defines;
 using InputHandler;
 using System;
@@ -50,7 +51,7 @@ namespace Coordinator.Hands
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn);
             ResetEvents();
-            _chain.Init(attackableFilter,parentRb2d, baseSmashDamage);
+            _chain.Init(attackableFilter,parentRb2d, baseSmashDamage, GetComponentInParent<IChainPullable>());
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
         }
