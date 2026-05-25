@@ -2,7 +2,7 @@ using System;
 
 namespace ComponentModule
 {
-    public class CooldownComponentModule : ICooldownComponentModuleBase
+    public class FixedCooldownComponentModule : ICooldownComponentModuleBase
     {
         private float _cooldownTime = 0;
         private float _accumulatedTime = 0;
