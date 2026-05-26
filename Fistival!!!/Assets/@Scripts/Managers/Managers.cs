@@ -63,8 +63,15 @@ namespace Manager
                 return;
             }
 
-            _sInstance._attackMgr.Clear();
-            _sInstance._rhythmMgr.Clear();
+            if(_sInstance._attackMgr != null)
+            {
+                _sInstance._attackMgr.Clear();
+            }
+            
+            if(_sInstance._rhythmMgr != null)
+            {
+                _sInstance._rhythmMgr.Clear();
+            }
 
             _sInstance._cooldownMgr = null;
             _sInstance._attackMgr = null;
