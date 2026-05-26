@@ -94,6 +94,7 @@ namespace Coordinator.Chain
             transform.localPosition = _initialPos;
             _rope.localScale = _initialScale;
             _maxLen = 0;
+            _rb2d.linearVelocity = Vector2.zero;
             _rb2d.simulated = false;
         }
         private void FixedUpdate()

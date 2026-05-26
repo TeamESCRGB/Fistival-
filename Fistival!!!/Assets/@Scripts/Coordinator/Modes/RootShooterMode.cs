@@ -40,6 +40,7 @@ namespace Coordinator.Modes
         public override void DeInit()
         {
             _hand.Drop();
+            _hand.StopAttack();
             _hand.DeInit();
             base.DeInit();
         }

@@ -43,6 +43,7 @@ namespace Coordinator.Modes
         public override void DeInit()
         {
             _parentrb2d.gravityScale = _gravityScale;
+            _shooterHand.Drop();
             base.DeInit();
         }
 
