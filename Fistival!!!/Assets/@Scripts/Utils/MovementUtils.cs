@@ -6,6 +6,7 @@ namespace Utils
     public static class MovementUtils
     {
         private const float _addSpeedThreshold = 0.001f;
+        private const float _dampingThreshold = 0.001f;
         public static float CalculateNewSpeed(float nowSpeed, float maxSpeed, float movDir, ref MovementState state)
         {
             float deficitSpeed = CalculateDeficitSpeed(nowSpeed,maxSpeed, movDir);
@@ -53,6 +54,38 @@ namespace Utils
             }
 
             return  movDir * deficitSpeed;
+        }
+
+        public static Vector2 CaculateThrowPower(Vector2 distance, float totalMoveTime, float linearDamping, float dampingThreshold, float gravityConstant, in Vector2 currentVelocity)
+        {
+            Vector2 dis = distance;
+            float t = totalMoveTime;
+
+            float d = linearDamping;
+            float dampingFactor = 1.0f;
+
+            if (d > _dampingThreshold)
+            {
+                dampingFactor = (d * t) / (1.0f - Mathf.Exp(-d * t));
+            }
+
+            Vector2 targetSpd;
+            targetSpd.x = dis.x / t;
+
+            if (dis.y < 0)
+            {
+                targetSpd.y = (dis.y / t) - (0.5f * gravityConstant * t);
+            }
+            else
+            {
+                targetSpd.y = (dis.y / t) + (0.5f * gravityConstant * t);
+            }
+
+            targetSpd *= dampingFactor;
+
+            Vector2 impulseForce = targetSpd - currentVelocity;
+
+            return impulseForce;
         }
     }
 }
