@@ -233,7 +233,7 @@ namespace Coordinator.Objects
 
             _rb2d.AddForce(impulseForce, ForceMode2D.Impulse);
 
-            _pullGroundDisableCounter = Managers.Instance.CooldownManager.GetFixedCooldownModule((1 + transform.localScale.x / 2) / _rb2d.linearVelocity.magnitude);
+            _pullGroundDisableCounter = Managers.Instance.CooldownManager.GetFixedCooldownModule(1 / _rb2d.linearVelocity.magnitude);
 
             _pullGroundDisableCounter.OnCooldownEnded += _pullGroundDisableEndCallback;
             _pullGroundDisableCounter.StartCooldown();
