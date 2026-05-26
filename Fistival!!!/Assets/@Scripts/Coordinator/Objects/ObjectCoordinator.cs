@@ -228,37 +228,12 @@ namespace Coordinator.Objects
             }
 
             _rb2d.excludeLayers |= _groundLayermask;
-            Vector2 dis = distance;
-            float t = totalMoveTime;
-
-            float d = _rb2d.linearDamping;
-            float dampingFactor = 1.0f;
-
-            if (d > dampingThreshold)
-            {
-                dampingFactor = (d * t) / (1.0f - Mathf.Exp(-d * t));
-            }
-
-            Vector2 targetSpd;
-            targetSpd.x = dis.x / t;
-
-            if (dis.y < 0)
-            {
-                targetSpd.y = (dis.y / t) - (0.5f * _gravityConstant * t);
-            }
-            else
-            {
-                targetSpd.y = (dis.y / t) + (0.5f * _gravityConstant * t);
-            }
-
-            targetSpd *= dampingFactor;
-
-            Vector2 currentSpd = _rb2d.linearVelocity;
-            Vector2 impulseForce = targetSpd - currentSpd;
+            
+            Vector2 impulseForce = MovementUtils.CaculateThrowPower(distance, totalMoveTime, _rb2d.linearDamping, dampingThreshold, _gravityConstant, _rb2d.linearVelocity) ;
 
             _rb2d.AddForce(impulseForce, ForceMode2D.Impulse);
 
-            _pullGroundDisableCounter = Managers.Instance.CooldownManager.GetFixedCooldownModule((1 + transform.localScale.x / 2) / _rb2d.linearVelocity.magnitude);
+            _pullGroundDisableCounter = Managers.Instance.CooldownManager.GetFixedCooldownModule(1 / _rb2d.linearVelocity.magnitude);
 
             _pullGroundDisableCounter.OnCooldownEnded += _pullGroundDisableEndCallback;
             _pullGroundDisableCounter.StartCooldown();

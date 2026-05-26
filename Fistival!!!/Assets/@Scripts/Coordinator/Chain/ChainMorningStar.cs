@@ -13,7 +13,7 @@ namespace Coordinator.Chain
         [SerializeField]
         private float _totalMoveTime;
         private ChainAnchor _anchor;
-        private Rigidbody2D _parentRb2d;
+        private Transform _parentTransform;
         private int _baseDamage;
 
         [SerializeField]
@@ -23,21 +23,21 @@ namespace Coordinator.Chain
         {
             _anchor = GetComponentInChildren<ChainAnchor>();
         }
-        public void Init(LayerMask attackableMask, Rigidbody2D parentRb2d, int damage, IChainPullable player)
+        public void Init(LayerMask attackableMask, Transform parentTransform, int damage, IChainPullable player)
         {
-            _parentRb2d = parentRb2d;
+            _parentTransform = parentTransform;
             _anchor.Init(attackableMask, _pullTotalTime, player);
             _baseDamage = damage;
         }
 
         private void FixedUpdate()
         {
-            transform.position = _parentRb2d.transform.position;
+            transform.position = _parentTransform.position;
         }
 
         public void SetRotation(Vector2 dir)
         {
-            if(_anchor.GetStatus() != ChainStatus.OFF)
+            if(_anchor.IsMoving())
             {
                 return;
             }
@@ -46,7 +46,7 @@ namespace Coordinator.Chain
 
         public void Launch(Vector2 dir, AttackStatus status)
         {
-            if(_anchor.GetStatus() != ChainStatus.OFF)
+            if(_anchor.IsMoving())
             {
                 return;
             }

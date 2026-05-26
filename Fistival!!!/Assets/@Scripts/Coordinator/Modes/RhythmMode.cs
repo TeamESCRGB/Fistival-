@@ -42,6 +42,7 @@ namespace Coordinator.Modes
         {
             //해제 로직
             _hand.Drop();
+            _hand.StopAttack();
             base.DeInit();
         }
 

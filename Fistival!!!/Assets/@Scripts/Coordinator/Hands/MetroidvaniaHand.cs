@@ -29,7 +29,11 @@ namespace Coordinator.Hands
 #if UNITY_EDITOR
             Debug.Assert(_chain != null, "@ChainMorningStar가 없거나 거기에 ChainMorningStar가 없습니다");
 #endif
-            _chain.transform.SetParent(null);
+        }
+
+        public void DeInit()
+        {
+            _chain.transform.SetParent(transform);
         }
 
         protected override void OnUpdate()
@@ -51,13 +55,15 @@ namespace Coordinator.Hands
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn);
             ResetEvents();
-            _chain.Init(attackableFilter,parentRb2d, baseSmashDamage, GetComponentInParent<IChainPullable>());
+            _chain.Init(attackableFilter,parentRb2d.transform, baseSmashDamage, GetComponentInParent<IChainPullable>());
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
+            _chain.transform.SetParent(null);
         }
 
         public void StopAttack()
         {
+            _chain.Retrive();
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
         }
