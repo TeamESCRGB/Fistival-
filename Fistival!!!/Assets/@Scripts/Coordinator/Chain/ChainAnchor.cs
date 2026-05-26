@@ -26,7 +26,6 @@ namespace Coordinator.Chain
         private LayerMask _chainPullPadMask;
         [SerializeField]
         private LayerMask _groundMask;
-        private LayerMask _interactableFilter;
         private SkillCoordinatorBase _baseSkill;
         private int _damage;
         private float _totalMoveTime;
@@ -65,11 +64,10 @@ namespace Coordinator.Chain
             _status = ChainStatus.OFF;
             _attackableMask= attackableMask;
             _rb2d.linearVelocity = Vector2.zero;
-            _interactableFilter = _attackableMask | _objectMask | _groundMask |_chainPullPadMask;
-            _rb2d.includeLayers = _interactableFilter;
+            _rb2d.includeLayers = _attackableMask | _objectMask | _groundMask | _chainPullPadMask;
+            _filter.layerMask   = _attackableMask | _objectMask | _groundMask | _chainPullPadMask;
             _baseSkill.Init(attackableMask,0);
             Retrive();
-            _filter.layerMask = _interactableFilter;
         }
 
         public void Launch(Vector2 dir, float len, float totalMovTime, int damage)
