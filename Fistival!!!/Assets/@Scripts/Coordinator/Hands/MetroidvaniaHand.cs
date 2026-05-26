@@ -55,7 +55,7 @@ namespace Coordinator.Hands
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn);
             ResetEvents();
-            _chain.Init(attackableFilter,parentRb2d, baseSmashDamage, GetComponentInParent<IChainPullable>());
+            _chain.Init(attackableFilter,parentRb2d.transform, baseSmashDamage, GetComponentInParent<IChainPullable>());
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             _chain.transform.SetParent(null);
