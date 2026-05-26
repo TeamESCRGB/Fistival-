@@ -1,6 +1,5 @@
 ﻿using Coordinator.Movements;
 using Coordinator.Victims;
-using Defines;
 using Manager;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +15,7 @@ namespace Coordinator.Chain
         private List<Collider2D> _detectedColliders = new List<Collider2D>(8);
         private float _ropeScaleY;
         private float _maxLen;
-        private ChainStatus _status;
+        private bool _isMoving;
         private Vector3 _initialPos;
         private Vector3 _initialScale;
         private LayerMask _attackableMask;
@@ -52,16 +51,16 @@ namespace Coordinator.Chain
             _filter.useTriggers = true;
         }
 
-        public ChainStatus GetStatus()
+        public bool IsMoving()
         {
-            return _status;
+            return _isMoving;
         }
 
         public void Init(LayerMask attackableMask,float totalMoveTime, IChainPullable player)
         {
             _player = player;
             _totalMoveTime = totalMoveTime;
-            _status = ChainStatus.OFF;
+            _isMoving = false;
             _attackableMask= attackableMask;
             _rb2d.linearVelocity = Vector2.zero;
             _rb2d.includeLayers = _attackableMask | _objectMask | _groundMask | _chainPullPadMask;
@@ -76,7 +75,7 @@ namespace Coordinator.Chain
             _damage = damage;
             _rb2d.simulated = true;
             _rb2d.WakeUp();
-            _status = ChainStatus.MOVING;
+            _isMoving = true;
             Vector2 targetSpd = dir;
             _maxLen = len;
             targetSpd.x = targetSpd.x / totalMovTime;
@@ -88,7 +87,7 @@ namespace Coordinator.Chain
 
         public void Retrive()
         {
-            _status = ChainStatus.OFF;
+            _isMoving = false;
             transform.localPosition = _initialPos;
             _rope.localScale = _initialScale;
             _maxLen = 0;
@@ -97,13 +96,8 @@ namespace Coordinator.Chain
         }
         private void FixedUpdate()
         {
-            if(_status == ChainStatus.OFF)
+            if(_isMoving == false)
             {
-                return;
-            }
-            else if(_status == ChainStatus.RETURN)
-            {
-                Retrive();
                 return;
             }
 
@@ -118,8 +112,7 @@ namespace Coordinator.Chain
 
             if(len >= _maxLen || cnt > 0)
             {
-                _status = ChainStatus.RETURN;
-                _rb2d.linearVelocity = Vector2.zero;
+                Retrive();
             }
         }
 

@@ -37,7 +37,7 @@ namespace Coordinator.Chain
 
         public void SetRotation(Vector2 dir)
         {
-            if(_anchor.GetStatus() != ChainStatus.OFF)
+            if(_anchor.IsMoving())
             {
                 return;
             }
@@ -46,7 +46,7 @@ namespace Coordinator.Chain
 
         public void Launch(Vector2 dir, AttackStatus status)
         {
-            if(_anchor.GetStatus() != ChainStatus.OFF)
+            if(_anchor.IsMoving())
             {
                 return;
             }
