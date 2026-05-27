@@ -4011,7 +4011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandCoordinator
   _pickupBoxcastSize: {x: 0.5, y: 2}
-  _pickupBoxcastDistance: 2
+  _pickupBoxcastDistance: 1
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _strongDamageMultiplier: 5
@@ -5296,7 +5296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.MetroidvaniaHand
   _pickupBoxcastSize: {x: 0.5, y: 2}
-  _pickupBoxcastDistance: 2
+  _pickupBoxcastDistance: 1
   _strongRdyThreshold: 0.5
   _strongAttackThreshold: 1
   _attackStatus: 1
