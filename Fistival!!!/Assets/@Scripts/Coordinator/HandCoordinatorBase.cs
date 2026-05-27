@@ -4,6 +4,7 @@ using Data;
 using Defines;
 using Manager;
 using System;
+using UnityEditor;
 using UnityEngine;
 using static Utils.VectorUtils;
 
@@ -28,6 +29,7 @@ namespace Coordinator
         protected float _pickupBoxcastDistance;
         protected LayerMask _pickableObjectMask;
         protected Transform _handAnchor;
+        protected (GameObject obj, TargetObjectHighlighter highlighter) _nowSelectedObject;
         #endregion
 
         #region AboutCharge
@@ -72,6 +74,7 @@ namespace Coordinator
             _forcePerCharge = forcePerCharge;
             _chargeTimeInterval = chargeTimeInterval;
             _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(attackCooldown, 0.1f);
+            _nowSelectedObject = (null, null);
         }
 
 
@@ -162,6 +165,46 @@ namespace Coordinator
         }
         #endregion
 
+        #region PickupOperations
+
+        private void UpdateSelectedObjectState()
+        {
+            var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, _pickableObjectMask);
+
+            if (hit.collider == null)
+            {
+                if (_nowSelectedObject.obj == null)
+                {
+                    return;
+                }
+
+                if (_nowSelectedObject.highlighter != null)
+                {
+                    _nowSelectedObject.highlighter.DeActivateShader();
+                }
+                _nowSelectedObject = (null, null);
+            }
+            else
+            {
+                if (hit.collider.gameObject == _nowSelectedObject.obj)
+                {
+                    return;
+                }
+
+                if (_nowSelectedObject.highlighter != null)
+                {
+                    _nowSelectedObject.highlighter.DeActivateShader();
+                }
+
+                _nowSelectedObject = (hit.collider.gameObject, hit.collider.gameObject.GetComponent<TargetObjectHighlighter>());
+                _nowSelectedObject.highlighter.ActivateShader();
+            }
+        }
+        private void FixedUpdate()
+        {
+            UpdateSelectedObjectState();
+        }
+        #endregion
 
         #region RMBOperations
 
@@ -177,15 +220,25 @@ namespace Coordinator
         }
         protected virtual void Pickup()
         {
+            UpdateSelectedObjectState();
             _status = HandStatus.IDLE;
-            var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, _pickableObjectMask);
-            if (hit.transform != null && hit.transform.gameObject.TryGetComponent<ObjectCoordinator>(out var comp))
+            if(_nowSelectedObject.obj != null)
             {
-                _grabbedObject = comp;
-                comp.PickUp(_handAnchor);
-                InvokeOnGrabbedObjectChanged(comp.GetSharedData());
+                _nowSelectedObject.highlighter.DeActivateShader();
+                _grabbedObject = _nowSelectedObject.obj.GetComponent<ObjectCoordinator>();
+                _grabbedObject.PickUp(_handAnchor);
+                InvokeOnGrabbedObjectChanged(_grabbedObject.GetSharedData());
                 _status = HandStatus.GRABBED;
+                _nowSelectedObject = (null, null);
             }
+            //var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, _pickableObjectMask);
+            //if (hit.transform != null && hit.transform.gameObject.TryGetComponent<ObjectCoordinator>(out var comp))
+            //{
+            //    _grabbedObject = comp;
+            //    comp.PickUp(_handAnchor);
+            //    InvokeOnGrabbedObjectChanged(comp.GetSharedData());
+            //    _status = HandStatus.GRABBED;
+            //}
         }
         public virtual void Drop()
         {
