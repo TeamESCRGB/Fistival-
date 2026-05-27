@@ -8,7 +8,7 @@ namespace Coordinator
         protected Material _on;
         [SerializeField]
         protected Material _off;
-        private Renderer _renderer;
+        protected Renderer _renderer;
         private void Awake()
         {
             _renderer = GetComponent<Renderer>();
