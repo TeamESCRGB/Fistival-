@@ -208,6 +208,13 @@ namespace Coordinator
 
         #region RMBOperations
 
+        public void StopCharging()
+        {
+            _status = HandStatus.IDLE;
+            _chargeCnt = 0;
+            InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
+        }
+
         protected virtual void Throw()
         {
             _status = HandStatus.IDLE;
