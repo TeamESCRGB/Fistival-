@@ -47,6 +47,9 @@ namespace Coordinator
             }
             _stunCounter = Managers.Instance.CooldownManager.GetCooldownModule(0);
             _stunCounter.OnCooldownEnded += _onStunEnd;
+
+            Managers.Instance.NewInputSystemManager.OnActionMapChanged -= OnInputActionMapChanged;
+            Managers.Instance.NewInputSystemManager.OnActionMapChanged += OnInputActionMapChanged;
         }
 
         public virtual void DeInit()
@@ -56,7 +59,13 @@ namespace Coordinator
                 Managers.Instance.CooldownManager.ReturnModule(_stunCounter);
                 _stunCounter = null;
             }
+            Managers.Instance.NewInputSystemManager.OnActionMapChanged -= OnInputActionMapChanged;
             gameObject.SetActive(false);
+        }
+
+        protected virtual void OnInputActionMapChanged(ActionMapTypes mapType)
+        {
+            Debug.Log($"{name}-{mapType}");
         }
 
         public CommonModeData GetSharedData()
