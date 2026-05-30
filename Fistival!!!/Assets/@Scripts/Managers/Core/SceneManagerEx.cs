@@ -29,8 +29,8 @@ namespace Manager.Core
 #endif
                 return;
             }
-            SceneManager.LoadScene(GetSceneName(name));
             Managers.Instance.ResetManagers();
+            SceneManager.LoadScene(GetSceneName(name));
         }
 
         void RefreshNowSceneInstance(Scene scene, LoadSceneMode mode)

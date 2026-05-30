@@ -1,4 +1,5 @@
 using InputHandler;
+using Manager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,24 @@ namespace Coordinator
         private IVerticalMovementInputHandler _verticalMovementHandler;
 
         private Vector2 _lastPos;
+
+        private void Awake()
+        {
+            Managers.Instance.NewInputSystemManager.Player_LMBInput += OnLMBEvent;
+            Managers.Instance.NewInputSystemManager.Player_RMBInput += OnRMBEvent;
+            Managers.Instance.NewInputSystemManager.Player_PointerMovementInput += OnPointerMove;
+
+
+            Managers.Instance.NewInputSystemManager.Player_LeftMovementInput += OnLeftMovementInputEvent;
+            Managers.Instance.NewInputSystemManager.Player_RightMovementInput += OnRightMovementInputEvent;
+            Managers.Instance.NewInputSystemManager.Player_UpMovementInput += OnUpMovementInputEvent;
+            Managers.Instance.NewInputSystemManager.Player_DownTrigger_for_bug_fix += OnDownMovementInputEvent;
+            Managers.Instance.NewInputSystemManager.Player_JumpInput += OnJumpMovementInputEvent;
+
+
+            Managers.Instance.NewInputSystemManager.Player_ReloadInput += OnReloadInputEvent;
+            Managers.Instance.NewInputSystemManager.Player_DropInput += OnDropInput;
+        }
 
         public void SetLMBInputHandler(ILMBInputHandler handler)
         {
