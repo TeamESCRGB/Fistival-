@@ -210,7 +210,7 @@ namespace Coordinator
 
         public void StopCharging()
         {
-            _status = HandStatus.IDLE;
+            _status = HandStatus.GRABBED;
             _chargeCnt = 0;
             InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
         }
