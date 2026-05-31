@@ -46,6 +46,16 @@ namespace Coordinator.Modes
             base.DeInit();
         }
 
+        protected override void OnInputActionMapChanged(ActionMapTypes mapType)
+        {
+            base.OnInputActionMapChanged(mapType);
+
+            if (mapType != ActionMapTypes.PLAYER)
+            {
+                _hand.ReleaseRhythmCharge();
+                _hand.StopCharging();
+            }
+        }
 
         private void OnGrabbedObjectChanged(ObjectData objData)
         {
