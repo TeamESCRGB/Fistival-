@@ -137,6 +137,9 @@ namespace Manager
 
         public void ResetManagers()
         {
+            _gameManager.UnPauseGame();
+            _gameManager.ChangeMode(0);
+            
             _rhythmMgr.Clear();
             _newInputSysMgr.Clear();
             _attackMgr.Clear();

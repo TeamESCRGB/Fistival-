@@ -93,7 +93,10 @@ namespace Manager.Contents
 
         private void Update()
         {
-            //나중에 GameContext라던지, GameManager라던지 게임 상태 관리해줄거 하나 만들면, 거기서 IsGamePaused하나 때와서 검사한다 이건
+            if(Managers.Instance.GameManager.IsGamePaused())
+            {
+                return;
+            }
             float dt = Time.deltaTime;
             for (int i = 0; i < _idx; i++)
             {
@@ -103,7 +106,10 @@ namespace Manager.Contents
 
         private void FixedUpdate()
         {
-            //나중에 GameContext라던지, GameManager라던지 게임 상태 관리해줄거 하나 만들면, 거기서 IsGamePaused하나 때와서 검사한다 이건
+            if (Managers.Instance.GameManager.IsGamePaused())
+            {
+                return;
+            }
             float dt = Time.fixedDeltaTime;
             for (int i = 0; i < _fixedIdx; i++)
             {

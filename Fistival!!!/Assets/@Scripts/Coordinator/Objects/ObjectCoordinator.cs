@@ -73,6 +73,11 @@ namespace Coordinator.Objects
                 return;
             }
 
+            if(Managers.Instance.GameManager.IsGamePaused())
+            {
+                return;
+            }
+
             if(_rb2d.linearVelocity.magnitude < _platformSpeedThreshold)
             {
                 _isThrown = false;

@@ -32,6 +32,10 @@ namespace Coordinator.Skills
 
         private void FixedUpdate()
         {
+            if(Managers.Instance.GameManager.IsGamePaused())
+            {
+                return;
+            }
             var enemies = Physics2D.OverlapBoxAll(_box.position, _box.localScale,0,_attackableLayers);
 
             if(enemies is null)

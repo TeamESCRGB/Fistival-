@@ -107,6 +107,10 @@ namespace Coordinator
 
         private void Update()
         {
+            if(Managers.Instance.GameManager.IsGamePaused())
+            {
+                return;
+            }
             OnUpdate();
         }
 
@@ -202,6 +206,10 @@ namespace Coordinator
         }
         private void FixedUpdate()
         {
+            if(Managers.Instance.GameManager.IsGamePaused())
+            {
+                return;
+            }
             UpdateSelectedObjectState();
         }
         #endregion

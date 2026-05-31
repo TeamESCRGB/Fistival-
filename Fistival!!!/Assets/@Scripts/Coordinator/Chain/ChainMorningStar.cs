@@ -1,5 +1,6 @@
 ﻿using Coordinator.Movements;
 using Defines;
+using Manager;
 using UnityEngine;
 
 namespace Coordinator.Chain
@@ -32,6 +33,10 @@ namespace Coordinator.Chain
 
         private void FixedUpdate()
         {
+            if (Managers.Instance.GameManager.IsGamePaused())
+            {
+                return;
+            }
             transform.position = _parentTransform.position;
         }
 

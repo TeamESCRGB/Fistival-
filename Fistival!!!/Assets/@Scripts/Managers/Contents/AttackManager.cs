@@ -41,6 +41,11 @@ namespace Manager.Contents
             {
                 return;
             }
+
+            if(Managers.Instance.GameManager.IsGamePaused())
+            {
+                return;
+            }
             
             //여기도 뭐 ispaused같은거 넣어야지
             while(_reqQueue.IsEmpty() == false)

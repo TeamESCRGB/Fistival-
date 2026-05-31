@@ -101,6 +101,11 @@ namespace Coordinator.Chain
                 return;
             }
 
+            if (Managers.Instance.GameManager.IsGamePaused())
+            {
+                return;
+            }
+
             Vector2 my = transform.position;
             Vector2 tart = _rope.position;
             float len = (my - tart).magnitude;
