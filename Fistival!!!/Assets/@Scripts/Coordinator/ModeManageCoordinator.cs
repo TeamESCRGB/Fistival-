@@ -45,6 +45,7 @@ namespace Coordinator
 
             _nowMode = _modes[type];
             _nowMode.Init(Managers.Instance.DataManager.CommonModeDataDict[(int)type]);
+            Managers.Instance.GameManager.ChangeMode(type);
             OnModeChanged?.Invoke(_nowMode);
             return true;
         }

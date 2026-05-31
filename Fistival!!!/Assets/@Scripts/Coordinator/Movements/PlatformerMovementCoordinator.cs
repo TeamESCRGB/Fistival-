@@ -83,6 +83,11 @@ namespace Coordinator.Movements
 
         private void FixedUpdate()
         {
+            if(Managers.Instance.GameManager.IsGamePaused())
+            {
+                return;
+            }
+
             _isGrounded = IsGrounded();
             if (_isGrounded)
             {

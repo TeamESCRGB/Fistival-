@@ -65,7 +65,10 @@ namespace Coordinator
 
         protected virtual void OnInputActionMapChanged(ActionMapTypes mapType)
         {
-            Debug.Log($"{name}-{mapType}");
+            if(mapType != ActionMapTypes.PLAYER)
+            {
+                _inputCoordinator.TriggerReleaseMovementInput();
+            }
         }
 
         public CommonModeData GetSharedData()

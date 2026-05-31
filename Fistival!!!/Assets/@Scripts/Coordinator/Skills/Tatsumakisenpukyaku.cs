@@ -78,6 +78,11 @@ namespace Coordinator.Skills
                 return;
             }
 
+            if(Managers.Instance.GameManager.IsGamePaused())
+            {
+                return;
+            }
+
             if(_rb2d.position.y >= _targetHeight)
             {
                 _rb2d.gravityScale=0;

@@ -4,6 +4,7 @@ using Coordinator.Movements;
 using Data;
 using Defines;
 using UnityEngine;
+using UnityEngine.XR;
 using Utils;
 
 namespace Coordinator.Modes
@@ -45,6 +46,17 @@ namespace Coordinator.Modes
             _parentrb2d.gravityScale = _gravityScale;
             _shooterHand.Drop();
             base.DeInit();
+        }
+
+        protected override void OnInputActionMapChanged(ActionMapTypes mapType)
+        {
+            base.OnInputActionMapChanged(mapType);
+
+            if (mapType != ActionMapTypes.PLAYER)
+            {
+                _shooterHand.OnLMBReleased();
+                _shooterHand.StopCharging();
+            }
         }
 
         public override void OnDropEvent(bool pressed)

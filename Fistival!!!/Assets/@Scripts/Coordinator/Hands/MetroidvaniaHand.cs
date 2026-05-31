@@ -33,6 +33,7 @@ namespace Coordinator.Hands
 
         public void DeInit()
         {
+            _chain.Retrive();
             _chain.transform.SetParent(transform);
         }
 
@@ -63,7 +64,6 @@ namespace Coordinator.Hands
 
         public void StopAttack()
         {
-            _chain.Retrive();
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
         }

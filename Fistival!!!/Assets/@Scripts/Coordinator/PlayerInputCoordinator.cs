@@ -96,6 +96,16 @@ namespace Coordinator
             _lastPos = Vector2.zero;
         }
 
+        public void TriggerReleaseMovementInput()
+        {
+            _isDownJumpTriggered = false;
+
+            _verticalMovementHandler?.OnUpMovementInputEvent(false);
+            _verticalMovementHandler?.OnDownMovementInputEvent(false);
+            _horizontalMovementHandler?.OnLeftMovementInputEvent(false);
+            _horizontalMovementHandler?.OnRightMovementInputEvent(false);
+        }
+
         public void OnReloadInputEvent(InputAction.CallbackContext callbackContext)
         {
             if (callbackContext.started)

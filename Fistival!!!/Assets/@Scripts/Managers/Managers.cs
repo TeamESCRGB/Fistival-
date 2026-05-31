@@ -17,10 +17,13 @@ namespace Manager
         private CooldownManager _cooldownMgr;
         private AttackManager _attackMgr;
         private RhythmModeManager _rhythmMgr;//나중에 특정 씬에서만 쓰는 매니저 Inject/Deinit가능하게 리펙토링 예정
+        private GameManager _gameManager = new GameManager();
         private NewInputSystemManager _newInputSysMgr;
+
         public CooldownManager CooldownManager { get { return Instance._cooldownMgr; } }
         public AttackManager AttackManager { get { return Instance._attackMgr; }  }
         public RhythmModeManager RhythmModeManager { get { return Instance._rhythmMgr; } }
+        public GameManager GameManager { get { return Instance._gameManager; } }
         public NewInputSystemManager NewInputSystemManager { get { return Instance._newInputSysMgr; } }
         #endregion
 
@@ -134,6 +137,9 @@ namespace Manager
 
         public void ResetManagers()
         {
+            _gameManager.UnPauseGame();
+            _gameManager.ChangeMode(0);
+            
             _rhythmMgr.Clear();
             _newInputSysMgr.Clear();
             _attackMgr.Clear();

@@ -36,6 +36,10 @@ namespace Coordinator
 
         private void FixedUpdate()
         {
+            if(Managers.Instance.GameManager.IsGamePaused())
+            {
+                return;
+            }
             OnFixedUpdate();
         }
 
