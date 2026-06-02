@@ -12,7 +12,7 @@ namespace Coordinator.Objects
     public class ObjectCoordinator : SkillCoordinatorBase, IChainPullable
     {
         //추가 예정인 것: 소리(날아가는거, 충돌, 파괴), 파티클(날아가는거, 충돌, 파괴), 애니메이션
-        private ObjectData _data;
+        protected ObjectData _data;
         private Rigidbody2D _rb2d;
         private Collider2D _col2d;
         private int _durability = 1;
@@ -20,21 +20,40 @@ namespace Coordinator.Objects
         private float _platformSpeedThreshold=1;
         private bool _isThrown = false;
 
-        private int _chargeRate;
-        private int _attackCnt;
+        protected int _chargeRate;
+        protected int _attackCnt;
 
         private FixedCooldownComponentModule _pullGroundDisableCounter;
         private Action _pullGroundDisableEndCallback;
 
-        protected float _gravityConstant;
+        private float _gravityConstant;
         [SerializeField]
         protected LayerMask _groundLayermask;
 
         private void Awake()
         {
+            OnAwake();
+        }
+
+        protected virtual void OnAwake()
+        {
             _pullGroundDisableEndCallback = OnGroundDisableEnd;
             _rb2d = gameObject.GetOrAddComponent<Rigidbody2D>();
             _col2d = gameObject.GetOrAddComponent<Collider2D>();
+        }
+        private void OnDisable()
+        {
+            OnDisabled();
+        }
+        protected virtual void OnDisabled()
+        {
+            ResetOnAttack();
+            _rb2d.excludeLayers &= ~_groundLayermask;
+            if (Managers.Instance != null && _pullGroundDisableCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnFixedModule(_pullGroundDisableCounter);
+                _pullGroundDisableCounter = null;
+            }
         }
 
         public virtual void Init(ObjectData data)
@@ -86,17 +105,6 @@ namespace Coordinator.Objects
             else
             {
                 _rb2d.excludeLayers |= _data.PlatformLayerMask;
-            }
-        }
-
-        private void OnDisable()
-        {
-            ResetOnAttack();
-            _rb2d.excludeLayers &= ~_groundLayermask;
-            if(Managers.Instance != null && _pullGroundDisableCounter is not null)
-            {
-                Managers.Instance.CooldownManager.ReturnFixedModule(_pullGroundDisableCounter);
-                _pullGroundDisableCounter = null;
             }
         }
 
