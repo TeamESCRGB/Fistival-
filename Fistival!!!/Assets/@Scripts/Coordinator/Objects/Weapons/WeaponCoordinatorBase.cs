@@ -18,6 +18,8 @@ namespace Coordinator.Objects.Weapons
             _weaponUseCnt = _maxWeaponUseCnt;
         }
 
+        public abstract void StopAttack();
+
         public bool CanUseWeapon()
         {
             return _weaponUseCnt > 0;
