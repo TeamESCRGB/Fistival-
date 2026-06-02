@@ -1,5 +1,6 @@
 using ComponentModule;
 using Coordinator.Objects;
+using Coordinator.Objects.Weapons;
 using Data;
 using Defines;
 using Manager;
@@ -19,6 +20,7 @@ namespace Coordinator
         protected LayerMask _attackableMask = 0;
         protected Rigidbody2D _parentRb2d;
         protected ObjectCoordinator _grabbedObject;
+        protected WeaponCoordinatorBase _weapon;
         protected CooldownComponentModule _cooldownModule;
         #endregion
 
@@ -68,6 +70,7 @@ namespace Coordinator
             _attackableMask = attackableMask;
             _status = HandStatus.IDLE;
             _grabbedObject = null;
+            _weapon = null;
             _parentRb2d = parentRb2d;
             _chargeTime = 0;
             _chargeCnt = 0;
@@ -214,6 +217,19 @@ namespace Coordinator
         }
         #endregion
 
+        #region WeaponOperations
+        protected bool CanUseWeapon()
+        {
+            return _weapon != null && _weapon.CanUseWeapon();
+        }
+
+        protected void RemoveWeapon()
+        {
+            _weapon = null;
+            //애니메이션 컨트롤러 복구
+        }
+        #endregion
+
         #region RMBOperations
 
         public void StopCharging()
@@ -230,6 +246,7 @@ namespace Coordinator
             _grabbedObject.Throw(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), _handAnchor.position), _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt, _chargeCnt);
             _chargeCnt = 0;
             _grabbedObject = null;
+            RemoveWeapon();
             InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
             InvokeOnGrabbedObjectChanged(null);
         }
@@ -245,6 +262,13 @@ namespace Coordinator
                 InvokeOnGrabbedObjectChanged(_grabbedObject.GetSharedData());
                 _status = HandStatus.GRABBED;
                 _nowSelectedObject = (null, null);
+
+                if(_grabbedObject.TryGetComponent<WeaponCoordinatorBase>(out var weapon) && weapon.CanUseWeapon())
+                {
+                    _weapon = weapon;
+                    //기존 애니메이션 컨틀롤러 백업
+                    //애니메이션 컨틀롤러 덮어쓰기
+                }
             }
             //var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, _pickableObjectMask);
             //if (hit.transform != null && hit.transform.gameObject.TryGetComponent<ObjectCoordinator>(out var comp))
@@ -262,6 +286,7 @@ namespace Coordinator
                 _status = HandStatus.IDLE;
                 _grabbedObject.Drop(_parentRb2d.linearVelocity);
                 _grabbedObject = null;
+                RemoveWeapon();
                 _chargeCnt = 0;
                 InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
                 InvokeOnGrabbedObjectChanged(null);
