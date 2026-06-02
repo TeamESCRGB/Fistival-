@@ -20,7 +20,7 @@ namespace Coordinator
         protected LayerMask _attackableMask = 0;
         protected Rigidbody2D _parentRb2d;
         protected ObjectCoordinator _grabbedObject;
-        protected WeaponCoordinatorBase _weapon;
+        [SerializeField]protected WeaponCoordinatorBase _weapon;
         protected CooldownComponentModule _cooldownModule;
         #endregion
 
@@ -319,8 +319,22 @@ namespace Coordinator
 
         #region LMBOperations
 
-        public abstract void OnLMBPressed();
-        public abstract void OnLMBReleased();
+        public virtual void OnLMBPressed()
+        {
+            _weapon.OnLMBPressed();
+            if(CanUseWeapon() == false)
+            {
+                RemoveWeapon();
+            }
+        }
+        public virtual void OnLMBReleased()
+        {
+            _weapon.OnLMBReleased();
+            if (CanUseWeapon() == false)
+            {
+                RemoveWeapon();
+            }
+        }
 
         #endregion
     }
