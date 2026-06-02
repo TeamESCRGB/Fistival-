@@ -11,6 +11,8 @@ namespace Coordinator.Objects.Weapons
         [SerializeField]
         protected string _animName;
 
+        [SerializeField]
+        private bool _hasInternalTimer=false;
 
         public override void Init(ObjectData data)
         {
@@ -40,6 +42,11 @@ namespace Coordinator.Objects.Weapons
         public virtual void StartCooldown()
         {
             
+        }
+
+        public bool HasInternalTimer()
+        {
+            return _hasInternalTimer;
         }
 
         public abstract void OnLMBReleased();
