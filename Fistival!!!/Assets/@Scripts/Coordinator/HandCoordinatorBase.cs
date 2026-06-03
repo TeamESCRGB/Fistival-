@@ -266,6 +266,7 @@ namespace Coordinator
                 if(_grabbedObject.TryGetComponent<WeaponCoordinatorBase>(out var weapon) && weapon.CanUseWeapon())
                 {
                     _weapon = weapon;
+                    _weapon.SetAttackableLayer(_attackableMask);
                     //기존 애니메이션 컨틀롤러 백업
                     //애니메이션 컨틀롤러 덮어쓰기
                 }
