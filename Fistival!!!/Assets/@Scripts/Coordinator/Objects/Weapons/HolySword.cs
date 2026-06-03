@@ -1,12 +1,14 @@
 using Coordinator.Skills;
+using Coordinator.Victims;
 using Data;
+using Manager;
 using UnityEngine;
 
 namespace Coordinator.Objects.Weapons
 {
     public class HolySword : WeaponCoordinatorBase
     {
-        private FistSkill _skill;
+        private Transform _attackBox;
         private bool _isPressed = false;
         [SerializeField]
         private int _damage;
@@ -14,18 +16,16 @@ namespace Coordinator.Objects.Weapons
         protected override void OnAwake()
         {
             base.OnAwake();
-            var go = transform.Find("@AttackBox");
-            _skill = go.GetComponent<FistSkill>();
+            _attackBox = transform.Find("@AttackBox");
 
 #if UNITY_EDITOR
-            Debug.Assert( _skill != null, $"{name} 의 자식중에 @AttackBoxㄸ는 FistSkill이 없음");
+            Debug.Assert(_attackBox != null, $"{name} 의 자식중에 @AttackBox가 없음");
 #endif
         }
         public override void Init(ObjectData data)
         {
             base.Init(data);
             _isPressed = false;
-            _skill.Init(0, _damage);
         }
 
         public override bool Drop(in Vector2 parentLinVelocity)
@@ -45,18 +45,43 @@ namespace Coordinator.Objects.Weapons
         public override void OnLMBPressed()
         {
             _isPressed = true;
+            _smashedEnemyCnt = 0;
         }
 
         public override void OnLMBReleased()
         {
-            if(_isPressed == false)
+            if (_isPressed == false)
             {
                 return;
             }
-            _skill.SetAttackableLayer(_attackableLayers);
-            _skill.Attack(Defines.AttackStatus.PRESSED, 0);
-            _weaponUseCnt--;
-            if(CanUseWeapon() == false)
+
+
+            var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.localScale, 0, _attackableLayers);
+
+
+            if (enemies is null)
+            {
+                return;
+            }
+
+            Vector2 knockback = new Vector2(_attackBox.forward.z * _damage, 0);
+
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                Collider2D enemy = enemies[i];
+                if (enemy.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
+                {
+                    continue;
+                }
+                Managers.Instance.AttackManager.RequestAttack(comp, this, _damage, knockback);
+            }
+
+
+            if (enemies.Length > 0)
+            {
+                _weaponUseCnt--;
+            }
+            if (CanUseWeapon() == false)
             {
                 StopAttack();
             }

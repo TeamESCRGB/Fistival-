@@ -47,6 +47,7 @@ namespace Coordinator.Objects.Weapons
         public override void OnLMBPressed()
         {
             _isPressed = true;
+            _smashedEnemyCnt = 0;
             ResetOnAttack();
         }
 
@@ -79,7 +80,10 @@ namespace Coordinator.Objects.Weapons
             }
 
 
-            _weaponUseCnt--;
+            if(enemies.Length > 0)
+            {
+                _weaponUseCnt--;
+            }
             if (CanUseWeapon() == false)
             {
                 StopAttack();

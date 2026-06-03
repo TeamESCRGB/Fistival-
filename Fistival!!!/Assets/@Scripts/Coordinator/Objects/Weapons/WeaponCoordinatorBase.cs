@@ -11,6 +11,8 @@ namespace Coordinator.Objects.Weapons
         [SerializeField]
         protected string _animName;
 
+        protected int _smashedEnemyCnt = 0;
+
         [SerializeField]
         private bool _hasInternalTimer=false;
 
