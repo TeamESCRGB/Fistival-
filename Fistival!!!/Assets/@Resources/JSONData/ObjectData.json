@@ -11,6 +11,20 @@
       "SpriteName": "BCK",
       "AnimControllerName": "BCK",
       "PhysicsMaterialName": "BCK"
+    },
+
+
+    {
+      "ObjectIndex": 1,
+      "Damage": 2,
+      "Durability": 1,
+      "AbrasableLayerMask": 0,
+      "Weight": 1,
+      "PlatformSpeedThreshold": 1,
+      "PlatformLayerMask": 1024,
+      "SpriteName": "HeavyMachineGun",
+      "AnimControllerName": "HeavyMachineGun",
+      "PhysicsMaterialName": "BCK"
     }
   ]
 }
