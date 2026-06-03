@@ -183,6 +183,10 @@ namespace Coordinator.Hands
 
         private void Attack()
         {
+            if(Physics2D.OverlapBoxAll(_normalSkill.transform.position, _normalSkill.transform.localScale, 0, _attackableMask).Length <= 0)
+            {
+                return;
+            }
             int objDmg = 0;
             if (_grabbedObject != null)
             {
