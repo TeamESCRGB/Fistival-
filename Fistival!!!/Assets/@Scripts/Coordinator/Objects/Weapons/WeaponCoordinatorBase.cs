@@ -32,18 +32,6 @@ namespace Coordinator.Objects.Weapons
             return _animName;
         }
 
-
-        //cooldown들은 자체적인 쿨타임 체계를 따르는 무기와의 로직을 공유해서 코드가 난잡해지는걸 막기 위해 넣었습니다.
-        public virtual bool IsCooldownEnd()
-        {
-            return true;
-        }
-
-        public virtual void StartCooldown()
-        {
-            
-        }
-
         public bool HasInternalTimer()
         {
             return _hasInternalTimer;
