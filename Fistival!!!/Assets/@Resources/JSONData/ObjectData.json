@@ -37,6 +37,18 @@
       "SpriteName": "HolySword",
       "AnimControllerName": "HolySword",
       "PhysicsMaterialName": "BCK"
+    },
+    {
+      "ObjectIndex": 3,
+      "Damage": 4,
+      "Durability": 1,
+      "AbrasableLayerMask": 0,
+      "Weight": 1,
+      "PlatformSpeedThreshold": 1,
+      "PlatformLayerMask": 1024,
+      "SpriteName": "Bycicle",
+      "AnimControllerName": "Bycicle",
+      "PhysicsMaterialName": "BCK"
     }
   ]
 }
