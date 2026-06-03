@@ -270,7 +270,7 @@ namespace Coordinator.Hands
                 if (_attackStatus == AttackStatus.WEAPON)
                 {
                     _cooldownModule.StartCooldown();
-                    _weapon.RegisterOnAttack(_onFistAttacked);
+                    _weapon.RegisterOnAttack(_onThrownObjectAttacked);
                 }
                 _attackStatus = AttackStatus.NO_PRESSED;
                 _pressedTime = 0;
