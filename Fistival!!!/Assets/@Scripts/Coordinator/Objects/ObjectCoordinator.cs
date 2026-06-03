@@ -13,12 +13,12 @@ namespace Coordinator.Objects
     {
         //추가 예정인 것: 소리(날아가는거, 충돌, 파괴), 파티클(날아가는거, 충돌, 파괴), 애니메이션
         protected ObjectData _data;
-        private Rigidbody2D _rb2d;
-        private Collider2D _col2d;
-        private int _durability = 1;
-        private int _abrasableLayerMask = 0;
-        private float _platformSpeedThreshold=1;
-        private bool _isThrown = false;
+        protected Rigidbody2D _rb2d;
+        protected Collider2D _col2d;
+        protected int _durability = 1;
+        protected int _abrasableLayerMask = 0;
+        protected float _platformSpeedThreshold=1;
+        protected bool _isThrown = false;
 
         protected int _chargeRate;
         protected int _attackCnt;
