@@ -175,10 +175,18 @@ namespace Coordinator.Hands
         {
             _grabbedObject.RegisterOnAttack(_onThrownObjectAttacked);
             base.Throw();
+            if (_attackStatus == AttackStatus.WEAPON)
+            {
+                _attackStatus = AttackStatus.NO_PRESSED;
+            }
         }
 
         private void Attack()
         {
+            if(Physics2D.OverlapBoxAll(_normalSkill.transform.position, _normalSkill.transform.localScale, 0, _attackableMask).Length <= 0)
+            {
+                return;
+            }
             int objDmg = 0;
             if (_grabbedObject != null)
             {
@@ -239,6 +247,15 @@ namespace Coordinator.Hands
             {
                 return;
             }
+
+            if(CanUseWeapon())
+            {
+                _pressedTime = 0;
+                _attackStatus = AttackStatus.WEAPON;
+                _cooldownModule.StopCooldown();
+                base.OnLMBPressed();
+                return;
+            }
             _attackStatus = AttackStatus.PRESSED;
             _pressedTime = Time.timeAsDouble;
             OnAttackStatusChanged?.Invoke(AttackStatus.PRESSED);
@@ -246,7 +263,26 @@ namespace Coordinator.Hands
 
         public override void OnLMBReleased()
         {
-            if (_isSkillActing || _cooldownModule.IsCooldownEnded() == false || _attackStatus == AttackStatus.NO_PRESSED)
+            if(_isSkillActing)
+            {
+                _attackStatus = AttackStatus.NO_PRESSED;
+                return;
+            }
+
+            if (CanUseWeapon())
+            {
+                if (_attackStatus == AttackStatus.WEAPON)
+                {
+                    _cooldownModule.StartCooldown();
+                    _weapon.RegisterOnAttack(_onThrownObjectAttacked);
+                }
+                _attackStatus = AttackStatus.NO_PRESSED;
+                _pressedTime = 0;
+                base.OnLMBReleased();
+                return;
+            }
+
+            if (_cooldownModule.IsCooldownEnded() == false || _attackStatus == AttackStatus.NO_PRESSED)
             {
                 _attackStatus = AttackStatus.NO_PRESSED;
                 return;
@@ -273,6 +309,14 @@ namespace Coordinator.Hands
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
             _cooldownModule.StartCooldown();
+        }
+        public override void Drop()
+        {
+            base.Drop();
+            if (_attackStatus == AttackStatus.WEAPON)
+            {
+                _attackStatus = AttackStatus.NO_PRESSED;
+            }
         }
     }
 }

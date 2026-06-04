@@ -56,6 +56,29 @@
       "AttackRadius": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
       "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile"
+    },
+
+    {
+      "IDX": 4,
+      "ExplodableLayerMask": 5128,
+      "Speed": 20,
+      "Damage": 2,
+      "ExplosionKnockBack": 4,
+      "Lifetime": 2,
+      "AttackRadius": 0.5,
+      "Physics2DMaterialName": "NoBounceNoFric",
+      "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile"
+    },
+    {
+      "IDX": 5,
+      "ExplodableLayerMask": 5128,
+      "Speed": 0.1,
+      "Damage": 2,
+      "ExplosionKnockBack": 4,
+      "Lifetime": 0.1,
+      "AttackRadius": 1,
+      "Physics2DMaterialName": "NoBounceNoFric",
+      "ProjectilePrefabName": "NoGrav_1b1_Explodable_CircleProjectile"
     }
   ]
 }

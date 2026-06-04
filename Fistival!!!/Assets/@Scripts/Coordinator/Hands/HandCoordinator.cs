@@ -134,6 +134,20 @@ namespace Coordinator.Hands
 
         public override void OnLMBPressed()
         {
+            if(CanUseWeapon())
+            {
+                if(_weapon.HasInternalTimer() || _cooldownModule.IsCooldownEnded())
+                {
+                    _pressedTime = 0;
+                    _attackStatus = AttackStatus.WEAPON;
+                    _cooldownModule.StopCooldown();
+                    base.OnLMBPressed();
+                }
+
+                return;
+            }
+
+
             if(_cooldownModule.IsCooldownEnded() == false)
             {
                 return;
@@ -145,7 +159,19 @@ namespace Coordinator.Hands
 
         public override void OnLMBReleased()
         {
-            if(_cooldownModule.IsCooldownEnded() == false || _attackStatus == AttackStatus.NO_PRESSED)
+            if(CanUseWeapon())
+            {
+                if(_attackStatus == AttackStatus.WEAPON && _weapon.HasInternalTimer() == false)
+                {
+                    _cooldownModule.StartCooldown();
+                }
+                _attackStatus = AttackStatus.NO_PRESSED;
+                _pressedTime = 0;
+                base.OnLMBReleased();
+                return;
+            }
+
+            if(_cooldownModule.IsCooldownEnded() == false || (_attackStatus & (AttackStatus.NO_PRESSED | AttackStatus.WEAPON)) != 0)
             {
                 _attackStatus = AttackStatus.NO_PRESSED;
                 return;
@@ -159,6 +185,25 @@ namespace Coordinator.Hands
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
             _cooldownModule.StartCooldown();
+        }
+
+
+        public override void Drop()
+        {
+            base.Drop();
+            if(_attackStatus == AttackStatus.WEAPON)
+            {
+                _attackStatus = AttackStatus.NO_PRESSED;
+            }
+        }
+
+        protected override void Throw()
+        {
+            base.Throw();
+            if (_attackStatus == AttackStatus.WEAPON)
+            {
+                _attackStatus = AttackStatus.NO_PRESSED;
+            }
         }
     }
 }

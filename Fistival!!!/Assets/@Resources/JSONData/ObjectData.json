@@ -11,6 +11,44 @@
       "SpriteName": "BCK",
       "AnimControllerName": "BCK",
       "PhysicsMaterialName": "BCK"
+    },
+
+
+    {
+      "ObjectIndex": 1,
+      "Damage": 2,
+      "Durability": 1,
+      "AbrasableLayerMask": 0,
+      "Weight": 1,
+      "PlatformSpeedThreshold": 1,
+      "PlatformLayerMask": 1024,
+      "SpriteName": "HeavyMachineGun",
+      "AnimControllerName": "HeavyMachineGun",
+      "PhysicsMaterialName": "BCK"
+    },
+    {
+      "ObjectIndex": 2,
+      "Damage": 4,
+      "Durability": 1,
+      "AbrasableLayerMask": 0,
+      "Weight": 1,
+      "PlatformSpeedThreshold": 1,
+      "PlatformLayerMask": 1024,
+      "SpriteName": "HolySword",
+      "AnimControllerName": "HolySword",
+      "PhysicsMaterialName": "BCK"
+    },
+    {
+      "ObjectIndex": 3,
+      "Damage": 4,
+      "Durability": 1,
+      "AbrasableLayerMask": 0,
+      "Weight": 1,
+      "PlatformSpeedThreshold": 1,
+      "PlatformLayerMask": 1024,
+      "SpriteName": "Bycicle",
+      "AnimControllerName": "Bycicle",
+      "PhysicsMaterialName": "BCK"
     }
   ]
 }
