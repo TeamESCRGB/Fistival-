@@ -2,6 +2,6 @@
 {
     public class GameSaveData
     {
-        SaveFile[] SaveData { get; set; } = new SaveFile[7];
+        public SaveFile[] SaveData { get; set; } = new SaveFile[7];
     }
 }

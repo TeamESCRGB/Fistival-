@@ -14,6 +14,8 @@ namespace Manager.Contents
         private string _settingDataPath;
         private GameSaveData[] _gameData;
         private GameSetting _setting;
+        private int _selectedGameFile=0;
+        private int _selectedSaveFile=0;
 
         public void Init()
         {
@@ -68,5 +70,43 @@ namespace Manager.Contents
             }
         }
 
+        public bool SelectGameFile(int idx)
+        {
+            if(idx < 0 || _gameData.Length <= idx)
+            {
+                return false;
+            }
+
+            if (_gameData[idx] is null)
+            {
+                _gameData[idx] = new GameSaveData();
+            }
+
+            _selectedGameFile = idx;
+
+            return true;
+        }
+
+        public bool SelectSaveFile(int idx)
+        {
+            if (_gameData[_selectedGameFile] is null)
+            {
+                return false;
+            }
+
+            if(idx < 0 || _gameData[_selectedGameFile].SaveData.Length <= idx)
+            {
+                return false;
+            }
+
+            if (_gameData[_selectedGameFile].SaveData[idx] is null)
+            {
+                _gameData[_selectedGameFile].SaveData[idx] = new SaveFile();
+            }
+
+            _selectedSaveFile = idx;
+
+            return true;
+        }
     }
 }
