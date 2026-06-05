@@ -56,6 +56,11 @@ namespace Manager
         private void OnApplicationQuit()
         {
             _isDisposed = true;
+
+            if(_sInstance._saveMGR is not null)
+            {
+                _sInstance._saveMGR.SaveSettings();
+            }
         }
 
         private void OnDestroy()

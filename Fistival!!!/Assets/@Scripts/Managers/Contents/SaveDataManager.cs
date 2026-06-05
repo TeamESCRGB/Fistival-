@@ -108,5 +108,12 @@ namespace Manager.Contents
 
             return true;
         }
+
+        public GameSetting GetGameSettingRef()
+        {
+            return _setting;
+        }
+
+
     }
 }
