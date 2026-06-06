@@ -14,5 +14,20 @@ namespace Utils
 
             return collection.Count <= 0;
         }
+
+        public static void DeepCopy<T>(this IList<T> source, IList<T> dest)
+        {
+            if(dest is null)
+            {
+                return;
+            }
+
+            dest.Clear();
+
+            for(int i = 0; i  < source.Count; i++)
+            {
+                dest.Add(source[i]);
+            }
+        }
     }
 }
