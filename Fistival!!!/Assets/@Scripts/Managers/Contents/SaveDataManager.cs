@@ -1,9 +1,6 @@
 ﻿using Data.NonLodable;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using UnityEngine;
 
 namespace Manager.Contents
@@ -40,6 +37,8 @@ namespace Manager.Contents
             raw = File.ReadAllText(_saveDataPath);
             _gameData = JsonConvert.DeserializeObject<GameSaveData[]>(raw);
 
+            SelectGameFile(0);
+            SelectSaveFile(0);
         }
 
         public void SaveSettings()
@@ -114,6 +113,19 @@ namespace Manager.Contents
             return _setting;
         }
 
+        public int GetSelectedFileIDX()
+        {
+            return _selectedGameFile;
+        }
 
+        public int GetSelectedSaveIDX()
+        {
+            return _selectedSaveFile;
+        }
+
+        public SaveFile GetSaveFileData()
+        {
+            return _gameData[_selectedGameFile].SaveData[_selectedSaveFile]; //null이 나오는 경우는 없도록 함. 선택할 때 null이면 값을 생성해주니까
+        }
     }
 }
