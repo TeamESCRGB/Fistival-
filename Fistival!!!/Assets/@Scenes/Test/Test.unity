@@ -11723,6 +11723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e986b4a39bb48f41b318ae54cc39929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestSaveFile
+  sn: 4
   a: 841d0000030000009a0000000c00000005000000
   ab: 841d0000030000009a0000000c00000005000000
   vo: 0
