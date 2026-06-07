@@ -19,24 +19,28 @@ MonoBehaviour:
     m_Address: ProjectileData
     m_ReadOnly: 0
     m_SerializedLabels:
+    - StaticLoaded
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6c8b62e3c06fd67489e4f4ed455faf0d
     m_Address: PatternData
     m_ReadOnly: 0
     m_SerializedLabels:
+    - StaticLoaded
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 94d661bf455219f43ae4cd2515845244
     m_Address: CommonModeData
     m_ReadOnly: 0
     m_SerializedLabels:
+    - StaticLoaded
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e6658c29b3fbd4f4fae28280fd638c18
     m_Address: ObjectData
     m_ReadOnly: 0
     m_SerializedLabels:
+    - StaticLoaded
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
