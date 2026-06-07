@@ -162,6 +162,12 @@ namespace Manager.Core
                 int loadedCnt = 0;
                 int targetCnt = handle.Result.Count;
 
+                if(targetCnt <= 0)
+                {
+                    callback?.Invoke("", 0, 0);
+                    return;
+                }
+
                 foreach (var result in handle.Result)
                 {
                     LoadAsync<UnityEngine.Object>(result.PrimaryKey, (obj) =>
