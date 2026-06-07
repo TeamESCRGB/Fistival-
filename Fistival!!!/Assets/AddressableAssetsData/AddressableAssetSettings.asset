@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: b24eaeb5f76778844850176db7d3c569
   m_currentHash:
     serializedVersion: 2
-    Hash: 87251aaa9ad2a4b7da73f0368edc3827
+    Hash: 55283f357bd2c06e3c3a2337c3435464
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
     m_Id: 
   m_RemoteCatalogLoadPath:
     m_Id: 
-  m_ContentStateBuildPathProfileVariableName: 
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
@@ -112,6 +112,11 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - TestPreload
+    - TitleSceneLoaded
+    - MainSceneLoaded
+    - LobbySceneLoaded
+    - StaticLoaded
+    - GameSceneBasicLoaded
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 589972af66090ac4188aef085f5cccb5, type: 2}

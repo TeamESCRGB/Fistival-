@@ -8,7 +8,7 @@ namespace UI.Scene
         protected readonly static Vector2 _referenceSolution = new Vector2(1920,1080);
         public override bool Init()
         {
-            if(base.Init())
+            if(base.Init() == false)
             {
                 return false;
             }

@@ -1147,6 +1147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27bb71633c159134e89b018abb93a499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.ShooterHand
+  _weapon: {fileID: 0}
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
 --- !u!1 &170154462
@@ -4568,6 +4569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c52c91ba5727c419cddc6b631c5256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.WWEHandCoordinator
+  _weapon: {fileID: 0}
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
   _strongDamageMultiplier: 2
@@ -4715,6 +4717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e48c5bac9f02014f877f0bf900a5c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.RhythmHandCoordinator
+  _weapon: {fileID: 0}
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
   _strongRdyThreshold: 0.5
@@ -5071,6 +5074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b410be2a4ee44444daea5d015ea9c8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandCoordinator
+  _weapon: {fileID: 0}
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 1
   _strongRdyThreshold: 0.5
@@ -6698,6 +6702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94f5aa4ebb04584ca81b1c7c580b81b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.MetroidvaniaHand
+  _weapon: {fileID: 0}
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 1
   _strongRdyThreshold: 0.5
@@ -6819,6 +6824,9 @@ MonoBehaviour:
   - {fileID: 1666057192}
   - {fileID: 331738035}
   - {fileID: 1356867884}
+  machinegun: []
+  sw: []
+  bccccc: []
   ren: {fileID: 1067254925}
 --- !u!114 &1067254928
 MonoBehaviour:
@@ -11315,6 +11323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdbbb5919cced7d4d9e328a2097e5618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Hands.RootShooterHand
+  _weapon: {fileID: 0}
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 0
   _gunStatus: 0
@@ -11574,6 +11583,7 @@ GameObject:
   - component: {fileID: 1894924815}
   - component: {fileID: 1894924814}
   - component: {fileID: 1894924813}
+  - component: {fileID: 1894924816}
   m_Layer: 13
   m_Name: Square (1)
   m_TagString: Untagged
@@ -11701,6 +11711,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1894924816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894924812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e986b4a39bb48f41b318ae54cc39929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestSaveFile
+  sn: 4
+  a: 841d0000030000009a0000000c00000005000000
+  ab: 841d0000030000009a0000000c00000005000000
+  vo: 0
 --- !u!1 &1901669408
 GameObject:
   m_ObjectHideFlags: 0
@@ -13014,6 +13040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b410be2a4ee44444daea5d015ea9c8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandCoordinator
+  _weapon: {fileID: 0}
   _pickupBoxcastSize: {x: 0.5, y: 2}
   _pickupBoxcastDistance: 2
   _strongRdyThreshold: 0.5
