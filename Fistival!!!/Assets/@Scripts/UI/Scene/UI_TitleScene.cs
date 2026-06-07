@@ -89,6 +89,7 @@ namespace UI.Scene
             Managers.Instance.UIManager.Init();
             GetButton((int)Buttons.StartButton).gameObject.SetActive(true);
             GetButton((int)Buttons.StartButton).GetComponentInChildren<TextMeshProUGUI>().DOFade(0, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutCubic).Play();
+            AudioListener.volume = Managers.Instance.SaveDataManager.GetGameSettingRef().Volume;
         }
 
 
