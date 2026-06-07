@@ -125,7 +125,7 @@ namespace Manager.Core
 
         public void ClosePopupUI()
         {
-            if (IsPopupUIOn)
+            if (IsPopupUIOn == false)
             {
                 return;
             }
