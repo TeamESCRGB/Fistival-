@@ -39,6 +39,7 @@ namespace UI.Scene
             BindObject(typeof(Objects));
             BindText(typeof(Texts));
 
+            GetButton((int)Buttons.StartButton).gameObject.BindUIEvent(OnStartButtonPressed);
             GetButton((int)Buttons.StartButton).gameObject.SetActive(false);
 
             GetText((int)Texts.LoadingLabelName).text = "StaticLoaded";
@@ -91,5 +92,25 @@ namespace UI.Scene
         }
 
 
+        private void OnStartButtonPressed(PointerEventData data)
+        {
+            if (_loadedCnt < 2)
+            {
+                return;
+            }
+
+
+            Managers.Instance.ResourceManager.LoadAsyncAllIn("MainScene", (_, now, end) =>
+            {
+                if (now < end)
+                {
+                    return;
+                }
+                Managers.Instance.SceneManagerEx.LoadScene(Defines.SceneType.MainScene);
+                Managers.Instance.ResourceManager.ReleaseIn("TitleScene");
+
+            });
+
+        }
     }
 }
