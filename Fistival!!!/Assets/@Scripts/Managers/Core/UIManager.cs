@@ -132,7 +132,11 @@ namespace Manager.Core
 
             UIPopupBase popup = _uiPopupStack.Pop();
 
-            Managers.Instance.ResourceManager.Destroy(popup.gameObject);
+            if(popup != null)
+            {
+                Managers.Instance.ResourceManager.Destroy(popup.gameObject);
+            }
+
             popup = null;
             _order--;
 
