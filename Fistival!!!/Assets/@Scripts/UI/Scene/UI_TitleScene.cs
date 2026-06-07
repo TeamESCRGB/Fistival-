@@ -2,7 +2,9 @@ using DG.Tweening;
 using Manager;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utils;
 
 namespace UI.Scene
 {
@@ -71,15 +73,22 @@ namespace UI.Scene
             {
                 _loadedCnt++;
                 GetText((int)Texts.LoadingAssetName).text = "load complete";
-                if (_loadedCnt == 2)
+                if(_loadedCnt == 2)
                 {
-                    GetButton((int)Buttons.StartButton).gameObject.SetActive(true);
-                    GetButton((int)Buttons.StartButton).GetComponentInChildren<TextMeshProUGUI>().DOFade(0, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutCubic).Play();
+                    InitAfterLoad();
                 }
             }
             
         }
 
+        private void InitAfterLoad()
+        {
+            Managers.Instance.DataManager.Init();
+            Managers.Instance.GlobalSoundManager.Init();
+            Managers.Instance.UIManager.Init();
+            GetButton((int)Buttons.StartButton).gameObject.SetActive(true);
+            GetButton((int)Buttons.StartButton).GetComponentInChildren<TextMeshProUGUI>().DOFade(0, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutCubic).Play();
+        }
 
 
     }
