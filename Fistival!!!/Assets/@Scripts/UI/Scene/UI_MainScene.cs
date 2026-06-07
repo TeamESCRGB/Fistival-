@@ -7,14 +7,22 @@ namespace UI.Scene
 {
     public class UI_MainScene : UISceneBase
     {
+        enum Buttons
+        {
+            NewGame,
+            LoadGame,
+            Setting,
+            QuitGame
+        }
         public override bool Init()
         {
             if (base.Init() == false)
             {
                 return false;
             }
-            //bind objects
-            Debug.Log($"{name} init completed");
+
+            BindButton(typeof(Buttons));
+
             return true;
         }
     }
