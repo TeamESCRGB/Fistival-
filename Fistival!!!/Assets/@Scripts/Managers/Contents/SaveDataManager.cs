@@ -38,8 +38,19 @@ namespace Manager.Contents
             raw = File.ReadAllText(_saveDataPath);
             _gameData = JsonConvert.DeserializeObject<GameSaveData[]>(raw);
 
-            SelectGameFile(0);
-            SelectSaveFile(0);
+
+            if (_gameData[0] is null)
+            {
+                _gameData[0] = new GameSaveData();
+            }
+            _selectedGameFile = 0;
+
+            if (_gameData[_selectedGameFile].SaveData[0] is null)
+            {
+                _gameData[_selectedGameFile].SaveData[0] = new SaveFile();
+            }
+
+            _selectedSaveFile = 0;
         }
 
         public void SaveSettings()
