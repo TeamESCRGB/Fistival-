@@ -179,5 +179,15 @@ namespace Manager.Contents
         {
             _gameData[_selectedGameFile].SaveData[_selectedSaveFile].ClearAllData();
         }
+
+        public int GetGameSlotCnt()
+        {
+            return _gameData.Length;
+        }
+
+        public int GetSelectedSaveSlotCnt()
+        {
+            return _gameData[_selectedGameFile].SaveData.Length;
+        }
     }
 }
