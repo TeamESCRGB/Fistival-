@@ -1,5 +1,6 @@
 using Defines;
 using Manager;
+using Manager.Contents;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,7 +25,7 @@ namespace UI.Popup
             PageNowText
         }
 
-        private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
+        [SerializeField]private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
         private int _selectedIdx = 0;
         private int _max = 0;
 
@@ -128,6 +129,23 @@ namespace UI.Popup
         private void OnOverwriteYes()
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            if (Managers.Instance.SaveDataManager.SelectSaveFile(_selectedIdx) == false)
+            {
+                return;
+            }
+
+            var saveData = Managers.Instance.SaveDataManager.GetSaveFileData();
+            var clearDict = Managers.Instance.GameManager.GetClearedMapDictRef();
+            
+            foreach(var val in clearDict)
+            {
+                saveData.StageSaveDatas[val.Key].IsCleared = val.Value;
+            }
+
+            saveData.TotalPlayTime = Managers.Instance.GameManager.GetTotalPlayTime();
+            Managers.Instance.SaveDataManager.SaveSaveData();
+
+            RefreshButtonState();
         }
 
         private void OnLoadYes()
