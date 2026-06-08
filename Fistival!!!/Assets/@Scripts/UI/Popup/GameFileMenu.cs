@@ -21,6 +21,10 @@ namespace UI.Popup
             GameSlotButton6 = 5
         }
 
+        enum Text
+        {
+            InfoText
+        }
 
         private Dictionary<GameObject, int> _slotToIdxConverter = new Dictionary<GameObject, int>();
         [SerializeField]private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
@@ -32,12 +36,24 @@ namespace UI.Popup
                 return false;
             }
 
+            BindText(typeof(Text));
             BindButton(typeof(Buttons));
             RefreshButtonState();
 
             return true;
         }
-        
+
+        protected override void Start()
+        {
+            base.Start();
+            GetText((int)Text.InfoText).text = _nowMode == SaveFileAccessMode.LOAD ? "LOAD GAME" : "NEW GAME";
+        }
+
+        public void SetMenuType(SaveFileAccessMode mode)
+        {
+            _nowMode = mode;
+        }
+
         public void RefreshButtonState()
         {
             if(_init == false)
