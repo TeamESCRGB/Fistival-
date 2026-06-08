@@ -1,4 +1,5 @@
 using Coordinator;
+using System.Collections.Generic;
 using Defines;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace Manager.Contents
 
         private double _timeCheckOffset = 0;
         private double _totalPlayTime = 0;
+
+        private Dictionary<int,bool> _clearedMap = new Dictionary<int, bool>(16);
 
 
         public void ChangeMode(ModeTypes nowMode)
@@ -75,6 +78,16 @@ namespace Manager.Contents
         {
             _totalPlayTime = totalPlayTime;
             _timeCheckOffset = Time.unscaledTimeAsDouble;
+        }
+
+        public IDictionary<int,bool> GetClearedMapDictRef()
+        {
+            return _clearedMap;
+        }
+
+        public void ClearClearedMapDict()
+        {
+            _clearedMap.Clear();
         }
     }
 }
