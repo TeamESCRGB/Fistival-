@@ -9,5 +9,14 @@ namespace Data.NonLodable
         public double ClearTimeWithPause { get; set; } = 0;
         public int TotalGainedDamage { get; set; } = 0;
         public List<int> CollectedCollections { get; set; }= new List<int>(4);
+
+        public void ClearAllData()
+        {
+            IsCleared = false;
+            ClearTimeWithOutPause = 0;
+            ClearTimeWithPause = 0;
+            TotalGainedDamage = 0;
+            CollectedCollections.Clear();
+        }
     }
 }
