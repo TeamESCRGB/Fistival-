@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7281c06dc6b1bd047a8df558a30cc651
+    m_Address: BasicPopupAlert
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8187b2db08f5ff446ba6f1b9038f24bd
     m_Address: BasicConfirmBox
     m_ReadOnly: 0
