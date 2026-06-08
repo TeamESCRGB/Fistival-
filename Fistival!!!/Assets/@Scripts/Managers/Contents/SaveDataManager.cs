@@ -1,5 +1,6 @@
 ﻿using Data.NonLodable;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -37,8 +38,19 @@ namespace Manager.Contents
             raw = File.ReadAllText(_saveDataPath);
             _gameData = JsonConvert.DeserializeObject<GameSaveData[]>(raw);
 
-            SelectGameFile(0);
-            SelectSaveFile(0);
+
+            if (_gameData[0] is null)
+            {
+                _gameData[0] = new GameSaveData();
+            }
+            _selectedGameFile = 0;
+
+            if (_gameData[_selectedGameFile].SaveData[0] is null)
+            {
+                _gameData[_selectedGameFile].SaveData[0] = new SaveFile();
+            }
+
+            _selectedSaveFile = 0;
         }
 
         public void SaveSettings()
@@ -82,7 +94,8 @@ namespace Manager.Contents
             }
 
             _selectedGameFile = idx;
-
+            _gameData[idx].IsEmpty = false;
+            
             return true;
         }
 
@@ -102,6 +115,8 @@ namespace Manager.Contents
             {
                 _gameData[_selectedGameFile].SaveData[idx] = new SaveFile();
             }
+
+            _gameData[_selectedGameFile].SaveData[idx].IsEmpty = false;
 
             _selectedSaveFile = idx;
 
@@ -126,6 +141,53 @@ namespace Manager.Contents
         public SaveFile GetSaveFileData()
         {
             return _gameData[_selectedGameFile].SaveData[_selectedSaveFile]; //null이 나오는 경우는 없도록 함. 선택할 때 null이면 값을 생성해주니까
+        }
+
+
+        public bool IsGameFileEmpty(int idx)
+        {
+            if(idx < 0 || idx >= _gameData.Length)
+            {
+                return false;
+            }
+
+            return _gameData[idx] is null || _gameData[idx].IsEmpty;
+        }
+
+        public bool IsSaveFileEmpty(int idx)
+        {
+            if (_gameData[_selectedGameFile] is null)
+            {
+                return false;
+            }
+
+            if (idx < 0 || _gameData[_selectedGameFile].SaveData.Length <= idx)
+            {
+                return false;
+            }
+
+            return _gameData[_selectedGameFile].SaveData[idx] is null || _gameData[_selectedGameFile].SaveData[idx].IsEmpty;
+        }
+
+
+        public void ClearSelectedGameFile()
+        {
+            _gameData[_selectedGameFile].ClearAllData();
+        }
+
+        public void ClearSelectedSaveFile()
+        {
+            _gameData[_selectedGameFile].SaveData[_selectedSaveFile].ClearAllData();
+        }
+
+        public int GetGameSlotCnt()
+        {
+            return _gameData.Length;
+        }
+
+        public int GetSelectedSaveSlotCnt()
+        {
+            return _gameData[_selectedGameFile].SaveData.Length;
         }
     }
 }

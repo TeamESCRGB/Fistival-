@@ -101,14 +101,14 @@ namespace UI.Scene
             }
 
 
-            Managers.Instance.ResourceManager.LoadAsyncAllIn("MainScene", (_, now, end) =>
+            Managers.Instance.ResourceManager.LoadAsyncAllIn("MainSceneLoaded", (_, now, end) =>
             {
                 if (now < end)
                 {
                     return;
                 }
                 Managers.Instance.SceneManagerEx.LoadScene(Defines.SceneType.MainScene);
-                Managers.Instance.ResourceManager.ReleaseIn("TitleScene");
+                Managers.Instance.ResourceManager.ReleaseIn("TitleSceneLoaded");
 
             });
 
