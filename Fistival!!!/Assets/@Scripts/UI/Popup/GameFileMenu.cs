@@ -18,7 +18,8 @@ namespace UI.Popup
             GameSlotButton3 = 2,
             GameSlotButton4 = 3,
             GameSlotButton5 = 4,
-            GameSlotButton6 = 5
+            GameSlotButton6 = 5,
+            ExitGameFileMenu
         }
 
         enum Text
@@ -38,6 +39,13 @@ namespace UI.Popup
 
             BindText(typeof(Text));
             BindButton(typeof(Buttons));
+            GetButton((int)Buttons.GameSlotButton1).gameObject.BindUIEvent(OnFileClicked);
+            GetButton((int)Buttons.GameSlotButton2).gameObject.BindUIEvent(OnFileClicked);
+            GetButton((int)Buttons.GameSlotButton3).gameObject.BindUIEvent(OnFileClicked);
+            GetButton((int)Buttons.GameSlotButton4).gameObject.BindUIEvent(OnFileClicked);
+            GetButton((int)Buttons.GameSlotButton5).gameObject.BindUIEvent(OnFileClicked);
+            GetButton((int)Buttons.GameSlotButton6).gameObject.BindUIEvent(OnFileClicked);
+            GetButton((int)Buttons.ExitGameFileMenu).gameObject.BindUIEvent(OnExitButton);
             RefreshButtonState();
 
             return true;
@@ -64,7 +72,6 @@ namespace UI.Popup
             {
                 var buttonGameObject = GetButton(i).gameObject;
                 _slotToIdxConverter[buttonGameObject] = i;
-                buttonGameObject.BindUIEvent(OnFileClicked);
 
                 if (Managers.Instance.SaveDataManager.IsGameFileEmpty(i))
                 {
@@ -139,5 +146,9 @@ namespace UI.Popup
             Managers.Instance.UIManager.ClosePopupUI();
         }
 
+        private void OnExitButton(PointerEventData data)
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+        }
     }
 }
