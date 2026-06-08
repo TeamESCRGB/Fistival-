@@ -114,6 +114,8 @@ namespace UI.Popup
         private void OnLoadYes()
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.SaveDataManager.SelectGameFile(_selectedIdx);
+            //세이브파일 선택 팝업 띄우기
         }
 
         private void OnConfirmNo()
