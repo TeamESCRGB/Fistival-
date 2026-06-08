@@ -36,12 +36,12 @@ namespace UI.Scene
 
         private void OnNewGame(PointerEventData data)
         {
-            Debug.Log("new game clicked");
+            Managers.Instance.UIManager.ShowPopupUI<GameFileMenu>("GameFileMenu").SetMenuType(Defines.SaveFileAccessMode.OVERWRITE);
         }
 
         private void OnLoadGame(PointerEventData data)
         {
-            Debug.Log("load game clicked");
+            Managers.Instance.UIManager.ShowPopupUI<GameFileMenu>("GameFileMenu").SetMenuType(Defines.SaveFileAccessMode.LOAD);
         }
 
         private void OnSetting(PointerEventData data)
