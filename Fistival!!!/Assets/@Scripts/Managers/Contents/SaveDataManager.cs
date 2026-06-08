@@ -1,5 +1,6 @@
 ﻿using Data.NonLodable;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -126,6 +127,32 @@ namespace Manager.Contents
         public SaveFile GetSaveFileData()
         {
             return _gameData[_selectedGameFile].SaveData[_selectedSaveFile]; //null이 나오는 경우는 없도록 함. 선택할 때 null이면 값을 생성해주니까
+        }
+
+
+        public bool IsGameFileEmpty(int idx)
+        {
+            if(idx < 0 || idx >= _gameData.Length)
+            {
+                return false;
+            }
+
+            return _gameData[idx] is null;
+        }
+
+        public bool IsSaveFileEmpty(int idx)
+        {
+            if (_gameData[_selectedGameFile] is null)
+            {
+                return false;
+            }
+
+            if (idx < 0 || _gameData[_selectedGameFile].SaveData.Length <= idx)
+            {
+                return false;
+            }
+
+            return _gameData[_selectedGameFile].SaveData[idx] is null;
         }
     }
 }
