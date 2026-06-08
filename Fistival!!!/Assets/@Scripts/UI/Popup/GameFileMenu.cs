@@ -24,6 +24,7 @@ namespace UI.Popup
 
         private Dictionary<GameObject, int> _slotToIdxConverter = new Dictionary<GameObject, int>();
         private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
+        private int _selectedIdx = 0;
         public override bool Init()
         {
             if(base.Init() == false)
@@ -63,15 +64,43 @@ namespace UI.Popup
 
         private void OnFileClicked(PointerEventData data)
         {
-            if(_slotToIdxConverter.TryGetValue(data.pointerClick,out var idx) == false)
+            if(_slotToIdxConverter.TryGetValue(data.pointerClick,out _selectedIdx) == false)
             {
                 return;
             }
 
+            if(_nowMode == SaveFileAccessMode.LOAD)
+            {
+                if(Managers.Instance.SaveDataManager.IsGameFileEmpty(_selectedIdx))
+                {
+                    Managers.Instance.UIManager.ShowPopupUI<BasicPopupAlert>("BasicPopupAlert").SetText("game file empty");
+                }
+                else
+                {
+                    Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLoadYes, OnConfirmNo);
+                }
+            }
+            else if(_nowMode == SaveFileAccessMode.OVERWRITE)
+            {
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo);
+            }
+        }
 
-            Debug.Log(idx);
+        private void OnOverwriteYes()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+            
 
-            //덮어쓰기 로직
+        }
+
+        private void OnLoadYes()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+        }
+
+        private void OnConfirmNo()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
         }
 
     }
