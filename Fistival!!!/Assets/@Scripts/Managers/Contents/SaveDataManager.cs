@@ -95,7 +95,7 @@ namespace Manager.Contents
 
             _selectedGameFile = idx;
             _gameData[idx].IsEmpty = false;
-
+            
             return true;
         }
 

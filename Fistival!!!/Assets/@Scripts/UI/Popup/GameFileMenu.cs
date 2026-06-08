@@ -23,7 +23,7 @@ namespace UI.Popup
 
 
         private Dictionary<GameObject, int> _slotToIdxConverter = new Dictionary<GameObject, int>();
-        private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
+        [SerializeField]private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
         private int _selectedIdx = 0;
         public override bool Init()
         {
@@ -89,8 +89,26 @@ namespace UI.Popup
         private void OnOverwriteYes()
         {
             Managers.Instance.UIManager.ClosePopupUI();
-            
+            if (Managers.Instance.SaveDataManager.SelectGameFile(_selectedIdx) == false)
+            {
+                return;
+            }
 
+            Managers.Instance.SaveDataManager.ClearSelectedGameFile();
+            Managers.Instance.SaveDataManager.SelectGameFile(_selectedIdx);
+            Managers.Instance.SaveDataManager.SelectSaveFile(0);
+            Managers.Instance.SaveDataManager.SaveSaveData();
+
+            Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
+            {
+                if(now == end)
+                {
+                    Managers.Instance.ResourceManager.ReleaseIn("MainSceneLoaded");
+                    Managers.Instance.SceneManagerEx.LoadScene(SceneType.LobbyScene);
+                }
+            });
+            //컷씬만화 띄우고, 로비화면으로 넘어가도록 하기.
+            //지금은 바로 로비화면으로 넘어가도록 한다.
         }
 
         private void OnLoadYes()
