@@ -10,6 +10,10 @@ namespace Manager.Contents
         private ModeTypes _nowMode;
         private float _timeScale;
 
+        private double _timeCheckOffset = 0;
+        private double _totalPlayTime = 0;
+
+
         public void ChangeMode(ModeTypes nowMode)
         {
             _nowMode = nowMode;
@@ -60,6 +64,17 @@ namespace Manager.Contents
                 AudioListener.volume = value;
                 Managers.Instance.SaveDataManager.GetGameSettingRef().Volume = value;
             }
+        }
+
+        public double GetTotalPlayTime()
+        {
+            return _totalPlayTime + (Time.unscaledTimeAsDouble - _timeCheckOffset);
+        }
+
+        public void InitTotalPlayTimeChecker(double  totalPlayTime)
+        {
+            _totalPlayTime = totalPlayTime;
+            _timeCheckOffset = Time.unscaledTimeAsDouble;
         }
     }
 }
