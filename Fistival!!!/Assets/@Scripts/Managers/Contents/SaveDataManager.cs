@@ -83,6 +83,7 @@ namespace Manager.Contents
             }
 
             _selectedGameFile = idx;
+            _gameData[idx].IsEmpty = false;
 
             return true;
         }
@@ -103,6 +104,8 @@ namespace Manager.Contents
             {
                 _gameData[_selectedGameFile].SaveData[idx] = new SaveFile();
             }
+
+            _gameData[_selectedGameFile].SaveData[idx].IsEmpty = false;
 
             _selectedSaveFile = idx;
 
@@ -137,7 +140,7 @@ namespace Manager.Contents
                 return false;
             }
 
-            return _gameData[idx] is null;
+            return _gameData[idx] is null || _gameData[idx].IsEmpty;
         }
 
         public bool IsSaveFileEmpty(int idx)
@@ -152,7 +155,18 @@ namespace Manager.Contents
                 return false;
             }
 
-            return _gameData[_selectedGameFile].SaveData[idx] is null;
+            return _gameData[_selectedGameFile].SaveData[idx] is null || _gameData[_selectedGameFile].SaveData[idx].IsEmpty;
+        }
+
+
+        public void ClearSelectedGameFile()
+        {
+            _gameData[_selectedGameFile].ClearAllData();
+        }
+
+        public void ClearSelectedSaveFile()
+        {
+            _gameData[_selectedGameFile].SaveData[_selectedSaveFile].ClearAllData();
         }
     }
 }
