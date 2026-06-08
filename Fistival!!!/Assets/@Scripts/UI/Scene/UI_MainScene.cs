@@ -46,7 +46,7 @@ namespace UI.Scene
 
         private void OnSetting(PointerEventData data)
         {
-            Debug.Log("setting clicked");
+            Managers.Instance.UIManager.ShowPopupUI<SettingMenu>("SettingMenu");
         }
 
         private void OnQuitGame(PointerEventData data)
