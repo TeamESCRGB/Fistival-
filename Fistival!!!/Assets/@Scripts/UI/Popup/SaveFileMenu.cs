@@ -35,7 +35,7 @@ namespace UI.Popup
             {
                 return false;
             }
-            _max = Managers.Instance.SaveDataManager.GetGameSlotCnt();
+            _max = Managers.Instance.SaveDataManager.GetSelectedSaveSlotCnt();
             BindText(typeof(Text));
             BindButton(typeof(Buttons));
             GetButton((int)Buttons.SelectButton).gameObject.BindUIEvent(OnFileClicked);
@@ -95,7 +95,7 @@ namespace UI.Popup
             {
                 return;
             }
-            if (Managers.Instance.SaveDataManager.IsGameFileEmpty(_selectedIdx))
+            if (Managers.Instance.SaveDataManager.IsSaveFileEmpty(_selectedIdx))
             {
                 GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "EMPTY";
                 //여기에 이미지 보여주고 그런 로직 추가하기
@@ -151,6 +151,40 @@ namespace UI.Popup
         private void OnLoadYes()
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            if (Managers.Instance.SaveDataManager.SelectSaveFile(_selectedIdx) == false)
+            {
+                return;
+            }
+
+            var nowSceneType = Managers.Instance.SceneManagerEx.CurrentScene.NowSceneType;
+            var saveData = Managers.Instance.SaveDataManager.GetSaveFileData();
+            var clearDict = Managers.Instance.GameManager.GetClearedMapDictRef();
+
+            clearDict.Clear();
+            
+            foreach(var val in saveData.StageSaveDatas)
+            {
+                clearDict[val.Key] = val.Value.IsCleared;
+            }
+
+            Managers.Instance.GameManager.InitTotalPlayTimeChecker(saveData.TotalPlayTime);
+
+            if(nowSceneType == SceneType.MainScene)
+            {
+                Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
+                {
+                    if (now == end)
+                    {
+                        Managers.Instance.ResourceManager.ReleaseIn("MainSceneLoaded");
+                        Managers.Instance.SceneManagerEx.LoadScene(SceneType.LobbyScene);
+                    }
+                });
+            }
+            else if(nowSceneType == SceneType.LobbyScene)
+            {
+                Debug.Log("로비씬에서 로드함 -- 자리표시자");
+            }
+
         }
 
         private void OnConfirmNo()
