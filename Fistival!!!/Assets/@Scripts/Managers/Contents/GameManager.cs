@@ -48,5 +48,18 @@ namespace Manager.Contents
                 Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.PLAYER);
             }
         }
+
+        public float Volume
+        {
+            get
+            {
+                return Managers.Instance.SaveDataManager.GetGameSettingRef().Volume;
+            }
+            set
+            {
+                AudioListener.volume = value;
+                Managers.Instance.SaveDataManager.GetGameSettingRef().Volume = value;
+            }
+        }
     }
 }
