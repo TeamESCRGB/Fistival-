@@ -1,9 +1,6 @@
 using Defines;
 using Manager;
-using System.Collections.Generic;
 using TMPro;
-using UI.Popup;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
 
@@ -13,40 +10,36 @@ namespace UI.Popup
     {
         enum Buttons
         {
-            GameSlotButton1 = 0,
-            GameSlotButton2 = 1,
-            GameSlotButton3 = 2,
-            GameSlotButton4 = 3,
-            GameSlotButton5 = 4,
-            GameSlotButton6 = 5,
+            SelectButton,
+            LeftButton,
+            RightButton,
             ExitGameFileMenu
         }
 
         enum Text
         {
-            InfoText
+            InfoText,
+            PageMaxText,
+            PageNowText
         }
 
-        private Dictionary<GameObject, int> _slotToIdxConverter = new Dictionary<GameObject, int>();
-        [SerializeField]private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
+        private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
         private int _selectedIdx = 0;
+        private int _max=0;
         public override bool Init()
         {
             if(base.Init() == false)
             {
                 return false;
             }
-
+            _max = Managers.Instance.SaveDataManager.GetGameSlotCnt();
             BindText(typeof(Text));
             BindButton(typeof(Buttons));
-            GetButton((int)Buttons.GameSlotButton1).gameObject.BindUIEvent(OnFileClicked);
-            GetButton((int)Buttons.GameSlotButton2).gameObject.BindUIEvent(OnFileClicked);
-            GetButton((int)Buttons.GameSlotButton3).gameObject.BindUIEvent(OnFileClicked);
-            GetButton((int)Buttons.GameSlotButton4).gameObject.BindUIEvent(OnFileClicked);
-            GetButton((int)Buttons.GameSlotButton5).gameObject.BindUIEvent(OnFileClicked);
-            GetButton((int)Buttons.GameSlotButton6).gameObject.BindUIEvent(OnFileClicked);
+            GetButton((int)Buttons.SelectButton).gameObject.BindUIEvent(OnFileClicked);
             GetButton((int)Buttons.ExitGameFileMenu).gameObject.BindUIEvent(OnExitButton);
-            RefreshButtonState();
+            GetButton((int)Buttons.LeftButton).gameObject.BindUIEvent(OnLeftButton);
+            GetButton((int)Buttons.RightButton).gameObject.BindUIEvent(OnRightButton);
+            GetText((int)Text.PageMaxText).text = _max.ToString();
 
             return true;
         }
@@ -55,6 +48,37 @@ namespace UI.Popup
         {
             base.Start();
             GetText((int)Text.InfoText).text = _nowMode == SaveFileAccessMode.LOAD ? "LOAD GAME" : "NEW GAME";
+            RefreshMoveButtonState();
+            RefreshButtonState();
+        }
+
+        private void OnLeftButton(PointerEventData data)
+        {
+            if(_selectedIdx > 0)
+            {
+                _selectedIdx--;
+            }
+
+            RefreshButtonState();
+            RefreshMoveButtonState();
+        }
+
+        private void OnRightButton(PointerEventData data)
+        {
+            if (_selectedIdx < _max - 1)
+            {
+                _selectedIdx++;
+            }
+
+            RefreshButtonState();
+            RefreshMoveButtonState();
+        }
+
+        private void RefreshMoveButtonState()
+        {
+            GetText((int)Text.PageNowText).text = (_selectedIdx + 1).ToString();
+            GetButton((int)Buttons.LeftButton).gameObject.SetActive(_selectedIdx > 0);
+            GetButton((int)Buttons.RightButton).gameObject.SetActive(_selectedIdx < _max - 1);
         }
 
         public void SetMenuType(SaveFileAccessMode mode)
@@ -68,30 +92,18 @@ namespace UI.Popup
             {
                 return;
             }
-            for (int i = 0; i < 6; i++)
+            if (Managers.Instance.SaveDataManager.IsGameFileEmpty(_selectedIdx))
             {
-                var buttonGameObject = GetButton(i).gameObject;
-                _slotToIdxConverter[buttonGameObject] = i;
-
-                if (Managers.Instance.SaveDataManager.IsGameFileEmpty(i))
-                {
-                    buttonGameObject.GetComponentInChildren<TextMeshProUGUI>().text = "EMPTY";
-                }
-                else
-                {
-                    buttonGameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Saved";
-                }
-
+                GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "EMPTY";
+            }
+            else
+            {
+                GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "Saved";
             }
         }
 
         private void OnFileClicked(PointerEventData data)
         {
-            if(_slotToIdxConverter.TryGetValue(data.pointerClick,out _selectedIdx) == false)
-            {
-                return;
-            }
-
             if(_nowMode == SaveFileAccessMode.LOAD)
             {
                 if(Managers.Instance.SaveDataManager.IsGameFileEmpty(_selectedIdx))
