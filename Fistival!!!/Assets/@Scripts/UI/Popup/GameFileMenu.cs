@@ -150,7 +150,7 @@ namespace UI.Popup
         {
             Managers.Instance.UIManager.ClosePopupUI();
             Managers.Instance.SaveDataManager.SelectGameFile(_selectedIdx);
-            //세이브파일 선택 팝업 띄우기
+            Managers.Instance.UIManager.ShowPopupUI<SaveFileMenu>("SaveFileMenu").SetMenuType(SaveFileAccessMode.LOAD);
         }
 
         private void OnConfirmNo()
