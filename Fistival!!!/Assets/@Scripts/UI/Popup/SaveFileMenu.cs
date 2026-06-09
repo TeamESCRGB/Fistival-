@@ -39,7 +39,10 @@ namespace UI.Popup
             }
             _max = Managers.Instance.SaveDataManager.GetSelectedSaveSlotCnt();
 
-            Managers.Instance.SaveDataManager.SelectSaveFile(0);
+            if(Managers.Instance.SaveDataManager.IsSaveFileEmpty(0) == false)
+            {
+                Managers.Instance.SaveDataManager.SelectSaveFile(0);
+            }
 
             BindText(typeof(Text));
             BindButton(typeof(Buttons));
