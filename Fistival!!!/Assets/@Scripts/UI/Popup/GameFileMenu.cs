@@ -32,7 +32,25 @@ namespace UI.Popup
             {
                 return false;
             }
+
+            bool skip = true;
             _max = Managers.Instance.SaveDataManager.GetSelectedSaveSlotCnt();
+
+            for(int i = 0; i < _max; i++)
+            {
+                if(Managers.Instance.SaveDataManager.IsSaveFileEmpty(i) == false)
+                {
+                    skip = false;
+                    break;
+                }
+            }
+
+            if(skip)
+            {
+                OnOverwriteYes();
+                return true;
+            }
+
             BindText(typeof(Text));
             BindButton(typeof(Buttons));
             GetButton((int)Buttons.SelectButton).gameObject.BindUIEvent(OnFileClicked);
@@ -102,7 +120,6 @@ namespace UI.Popup
         private void OnOverwriteYes()
         {
             Managers.Instance.UIManager.ClosePopupUI();
-
             Managers.Instance.GameManager.ClearClearedMapDict();
 
             Managers.Instance.SaveDataManager.ClearAllSaveFile();
@@ -123,7 +140,6 @@ namespace UI.Popup
                 }
             });
         }
-
         private void OnConfirmNo()
         {
             Managers.Instance.UIManager.ClosePopupUI();
