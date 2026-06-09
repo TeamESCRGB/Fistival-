@@ -1,4 +1,4 @@
-using Defines;
+﻿using Defines;
 using Manager;
 using TMPro;
 using UnityEngine.EventSystems;
@@ -23,16 +23,16 @@ namespace UI.Popup
             PageNowText
         }
 
-        private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
         private int _selectedIdx = 0;
-        private int _max=0;
+        private int _max = 0;
+
         public override bool Init()
         {
-            if(base.Init() == false)
+            if (base.Init() == false)
             {
                 return false;
             }
-            _max = Managers.Instance.SaveDataManager.GetGameSlotCnt();
+            _max = Managers.Instance.SaveDataManager.GetSelectedSaveSlotCnt();
             BindText(typeof(Text));
             BindButton(typeof(Buttons));
             GetButton((int)Buttons.SelectButton).gameObject.BindUIEvent(OnFileClicked);
@@ -41,20 +41,15 @@ namespace UI.Popup
             GetButton((int)Buttons.RightButton).gameObject.BindUIEvent(OnRightButton);
             GetText((int)Text.PageMaxText).text = _max.ToString();
 
-            return true;
-        }
-
-        protected override void Start()
-        {
-            base.Start();
-            GetText((int)Text.InfoText).text = _nowMode == SaveFileAccessMode.LOAD ? "LOAD GAME" : "NEW GAME";
-            RefreshMoveButtonState();
             RefreshButtonState();
+            RefreshMoveButtonState();
+
+            return true;
         }
 
         private void OnLeftButton(PointerEventData data)
         {
-            if(_selectedIdx > 0)
+            if (_selectedIdx > 0)
             {
                 _selectedIdx--;
             }
@@ -81,76 +76,52 @@ namespace UI.Popup
             GetButton((int)Buttons.RightButton).gameObject.SetActive(_selectedIdx < _max - 1);
         }
 
-        public void SetMenuType(SaveFileAccessMode mode)
-        {
-            _nowMode = mode;
-        }
-
         public void RefreshButtonState()
         {
-            if(_init == false)
+            if (_init == false)
             {
                 return;
             }
-            if (Managers.Instance.SaveDataManager.IsGameFileEmpty(_selectedIdx))
+            if (Managers.Instance.SaveDataManager.IsSaveFileEmpty(_selectedIdx))
             {
                 GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "EMPTY";
+                //여기에 이미지 보여주고 그런 로직 추가하기
             }
             else
             {
                 GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "Saved";
+                //여기에 이미지 보여주고 그런 로직 추가하기
             }
         }
 
         private void OnFileClicked(PointerEventData data)
         {
-            if(_nowMode == SaveFileAccessMode.LOAD)
-            {
-                if(Managers.Instance.SaveDataManager.IsGameFileEmpty(_selectedIdx))
-                {
-                    Managers.Instance.UIManager.ShowPopupUI<BasicPopupAlert>("BasicPopupAlert").SetText("game file empty");
-                }
-                else
-                {
-                    Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLoadYes, OnConfirmNo);
-                }
-            }
-            else if(_nowMode == SaveFileAccessMode.OVERWRITE)
-            {
-                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo);
-            }
+            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo);
         }
 
         private void OnOverwriteYes()
         {
             Managers.Instance.UIManager.ClosePopupUI();
-            if (Managers.Instance.SaveDataManager.SelectGameFile(_selectedIdx) == false)
-            {
-                return;
-            }
 
-            Managers.Instance.SaveDataManager.ClearSelectedGameFile();
-            Managers.Instance.SaveDataManager.SelectGameFile(_selectedIdx);
+            Managers.Instance.GameManager.ClearClearedMapDict();
+
+            Managers.Instance.SaveDataManager.ClearAllSaveFile();
+
             Managers.Instance.SaveDataManager.SelectSaveFile(0);
+
             Managers.Instance.SaveDataManager.SaveSaveData();
+
+            Managers.Instance.GameManager.InitTotalPlayTimeChecker(0);
 
             Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
             {
-                if(now == end)
+                if (now == end)
                 {
                     Managers.Instance.ResourceManager.ReleaseIn("MainSceneLoaded");
                     Managers.Instance.SceneManagerEx.LoadScene(SceneType.LobbyScene);
+                    //여기에 컷씬 보여주고 그런거 추가
                 }
             });
-            //컷씬만화 띄우고, 로비화면으로 넘어가도록 하기.
-            //지금은 바로 로비화면으로 넘어가도록 한다.
-        }
-
-        private void OnLoadYes()
-        {
-            Managers.Instance.UIManager.ClosePopupUI();
-            Managers.Instance.SaveDataManager.SelectGameFile(_selectedIdx);
-            Managers.Instance.UIManager.ShowPopupUI<SaveFileMenu>("SaveFileMenu").SetMenuType(SaveFileAccessMode.LOAD);
         }
 
         private void OnConfirmNo()

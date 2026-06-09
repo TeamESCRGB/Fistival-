@@ -36,12 +36,12 @@ namespace UI.Scene
 
         private void OnNewGame(PointerEventData data)
         {
-            Managers.Instance.UIManager.ShowPopupUI<GameFileMenu>("GameFileMenu").SetMenuType(Defines.SaveFileAccessMode.OVERWRITE);
+            Managers.Instance.UIManager.ShowPopupUI<GameFileMenu>("GameFileMenu");
         }
 
         private void OnLoadGame(PointerEventData data)
         {
-            Managers.Instance.UIManager.ShowPopupUI<GameFileMenu>("GameFileMenu").SetMenuType(Defines.SaveFileAccessMode.LOAD);
+            Managers.Instance.UIManager.ShowPopupUI<SaveFileMenu>("SaveFileMenu").SetMenuType(Defines.SaveFileAccessMode.LOAD);
         }
 
         private void OnSetting(PointerEventData data)
