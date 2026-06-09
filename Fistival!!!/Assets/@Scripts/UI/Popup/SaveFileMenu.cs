@@ -22,10 +22,12 @@ namespace UI.Popup
         {
             InfoText,
             PageMaxText,
-            PageNowText
+            PageNowText,
+            NowSlotName,
+            PlayTime
         }
 
-        [SerializeField]private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
+        private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
         private int _selectedIdx = 0;
         private int _max = 0;
 
@@ -36,6 +38,9 @@ namespace UI.Popup
                 return false;
             }
             _max = Managers.Instance.SaveDataManager.GetSelectedSaveSlotCnt();
+
+            Managers.Instance.SaveDataManager.SelectSaveFile(0);
+
             BindText(typeof(Text));
             BindButton(typeof(Buttons));
             GetButton((int)Buttons.SelectButton).gameObject.BindUIEvent(OnFileClicked);
@@ -43,6 +48,9 @@ namespace UI.Popup
             GetButton((int)Buttons.LeftButton).gameObject.BindUIEvent(OnLeftButton);
             GetButton((int)Buttons.RightButton).gameObject.BindUIEvent(OnRightButton);
             GetText((int)Text.PageMaxText).text = _max.ToString();
+
+            RefreshButtonState();
+            RefreshMoveButtonState();
 
             return true;
         }
@@ -98,13 +106,28 @@ namespace UI.Popup
             if (Managers.Instance.SaveDataManager.IsSaveFileEmpty(_selectedIdx))
             {
                 GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "EMPTY";
-                //여기에 이미지 보여주고 그런 로직 추가하기
+                UpdateImages(-1);
             }
             else
             {
                 GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "Saved";
-                //여기에 이미지 보여주고 그런 로직 추가하기
+                UpdateImages(_selectedIdx);
             }
+        }
+
+        private void UpdateImages(int idx)
+        {
+            GetText((int)Text.NowSlotName).text = $"Slot{_selectedIdx}";
+
+            if (idx < 0)
+            {
+                GetText((int)Text.PlayTime).text = TimeUtils.SecToTimeStr(0);
+                return;
+            }
+
+            var save = Managers.Instance.SaveDataManager.GetSaveFileData();
+
+            GetText((int)Text.PlayTime).text = TimeUtils.SecToTimeStr(save.TotalPlayTime);
         }
 
         private void OnFileClicked(PointerEventData data)

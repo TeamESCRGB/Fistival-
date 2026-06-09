@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: UI
   m_GUID: 0ebd16c14e01edc44bcecaa27c97ff11
   m_SerializeEntries:
+  - m_GUID: 17e71decaa0d5a24ab06b30336b01a55
+    m_Address: GameFileMenu
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainSceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3e654531cb60481489695e3f7bfe9544
     m_Address: SettingMenu
     m_ReadOnly: 0
@@ -34,7 +40,7 @@ MonoBehaviour:
     - StaticLoaded
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a173255044ae87c49b4ceb830683b1f1
+  - m_GUID: ee88a186103307241bf0d10094efdf31
     m_Address: SaveFileMenu
     m_ReadOnly: 0
     m_SerializedLabels:
