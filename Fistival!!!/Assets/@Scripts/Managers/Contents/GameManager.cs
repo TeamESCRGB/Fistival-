@@ -56,16 +56,42 @@ namespace Manager.Contents
             }
         }
 
-        public float Volume
+        public float MasterVolume
         {
             get
             {
-                return Managers.Instance.SaveDataManager.GetGameSettingRef().Volume;
+                return Managers.Instance.SaveDataManager.GetGameSettingRef().MasterVolume;
             }
             set
             {
                 AudioListener.volume = value;
-                Managers.Instance.SaveDataManager.GetGameSettingRef().Volume = value;
+                Managers.Instance.SaveDataManager.GetGameSettingRef().MasterVolume = value;
+            }
+        }
+
+        public float SFXVolume
+        {
+            get
+            {
+                return Managers.Instance.SaveDataManager.GetGameSettingRef().SFXVolume;
+            }
+            set
+            {
+                AudioListener.volume = value;
+                Managers.Instance.SaveDataManager.GetGameSettingRef().SFXVolume = value;
+            }
+        }
+
+        public float BGMVolume
+        {
+            get
+            {
+                return Managers.Instance.SaveDataManager.GetGameSettingRef().BGMVolume;
+            }
+            set
+            {
+                AudioListener.volume = value;
+                Managers.Instance.SaveDataManager.GetGameSettingRef().BGMVolume = value;
             }
         }
 

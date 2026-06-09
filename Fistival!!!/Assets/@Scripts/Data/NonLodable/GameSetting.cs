@@ -1,9 +1,9 @@
-﻿using System;
-
-namespace Data.NonLodable
+﻿namespace Data.NonLodable
 {
     public class GameSetting
     {
-        public float Volume { get; set; } = 1;
+        public float MasterVolume { get; set; } = 0.5f;
+        public float SFXVolume { get; set; } = 1;
+        public float BGMVolume { get; set; } = 1;
     }
 }

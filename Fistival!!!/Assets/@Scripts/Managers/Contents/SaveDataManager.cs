@@ -10,9 +10,8 @@ namespace Manager.Contents
     {
         private string _saveDataPath;
         private string _settingDataPath;
-        private GameSaveData[] _gameData;
+        private SaveFile[] _saveDatas;
         private GameSetting _setting;
-        private int _selectedGameFile=0;
         private int _selectedSaveFile=0;
 
         public void Init()
@@ -28,7 +27,7 @@ namespace Manager.Contents
 
             if (File.Exists(_saveDataPath) == false)
             {
-                _gameData = new GameSaveData[6];
+                _saveDatas = new SaveFile[7];
                 SaveSaveData();
             }
 
@@ -36,18 +35,12 @@ namespace Manager.Contents
             _setting = JsonConvert.DeserializeObject<GameSetting>(raw);
 
             raw = File.ReadAllText(_saveDataPath);
-            _gameData = JsonConvert.DeserializeObject<GameSaveData[]>(raw);
+            _saveDatas = JsonConvert.DeserializeObject<SaveFile[]>(raw);
 
 
-            if (_gameData[0] is null)
+            if (_saveDatas[0] is null)
             {
-                _gameData[0] = new GameSaveData();
-            }
-            _selectedGameFile = 0;
-
-            if (_gameData[_selectedGameFile].SaveData[0] is null)
-            {
-                _gameData[_selectedGameFile].SaveData[0] = new SaveFile();
+                _saveDatas[0] = new SaveFile();
             }
 
             _selectedSaveFile = 0;
@@ -70,7 +63,7 @@ namespace Manager.Contents
         public void SaveSaveData()
         {
             string path = _saveDataPath + ".tmp";
-            File.WriteAllText(path, JsonConvert.SerializeObject(_gameData));
+            File.WriteAllText(path, JsonConvert.SerializeObject(_saveDatas));
             if (File.Exists(_saveDataPath))
             {
                 File.Replace(path, _saveDataPath, _saveDataPath + ".backup");
@@ -81,42 +74,20 @@ namespace Manager.Contents
             }
         }
 
-        public bool SelectGameFile(int idx)
-        {
-            if(idx < 0 || _gameData.Length <= idx)
-            {
-                return false;
-            }
-
-            if (_gameData[idx] is null)
-            {
-                _gameData[idx] = new GameSaveData();
-            }
-
-            _selectedGameFile = idx;
-            _gameData[idx].IsEmpty = false;
-            
-            return true;
-        }
-
         public bool SelectSaveFile(int idx)
         {
-            if (_gameData[_selectedGameFile] is null)
+
+            if(idx < 0 || _saveDatas.Length <= idx)
             {
                 return false;
             }
 
-            if(idx < 0 || _gameData[_selectedGameFile].SaveData.Length <= idx)
+            if (_saveDatas[idx] is null)
             {
-                return false;
+                _saveDatas[idx] = new SaveFile();
             }
 
-            if (_gameData[_selectedGameFile].SaveData[idx] is null)
-            {
-                _gameData[_selectedGameFile].SaveData[idx] = new SaveFile();
-            }
-
-            _gameData[_selectedGameFile].SaveData[idx].IsEmpty = false;
+            _saveDatas[idx].IsEmpty = false;
 
             _selectedSaveFile = idx;
 
@@ -128,11 +99,6 @@ namespace Manager.Contents
             return _setting;
         }
 
-        public int GetSelectedFileIDX()
-        {
-            return _selectedGameFile;
-        }
-
         public int GetSelectedSaveIDX()
         {
             return _selectedSaveFile;
@@ -140,54 +106,35 @@ namespace Manager.Contents
 
         public SaveFile GetSaveFileData()
         {
-            return _gameData[_selectedGameFile].SaveData[_selectedSaveFile]; //null이 나오는 경우는 없도록 함. 선택할 때 null이면 값을 생성해주니까
-        }
-
-
-        public bool IsGameFileEmpty(int idx)
-        {
-            if(idx < 0 || idx >= _gameData.Length)
-            {
-                return false;
-            }
-
-            return _gameData[idx] is null || _gameData[idx].IsEmpty;
+            return _saveDatas[_selectedSaveFile]; //null이 나오는 경우는 없도록 함. 선택할 때 null이면 값을 생성해주니까
         }
 
         public bool IsSaveFileEmpty(int idx)
         {
-            if (_gameData[_selectedGameFile] is null)
+            if (idx < 0 || _saveDatas.Length <= idx)
             {
                 return false;
             }
 
-            if (idx < 0 || _gameData[_selectedGameFile].SaveData.Length <= idx)
-            {
-                return false;
-            }
-
-            return _gameData[_selectedGameFile].SaveData[idx] is null || _gameData[_selectedGameFile].SaveData[idx].IsEmpty;
-        }
-
-
-        public void ClearSelectedGameFile()
-        {
-            _gameData[_selectedGameFile].ClearAllData();
+            return _saveDatas[idx] is null || _saveDatas[idx].IsEmpty;
         }
 
         public void ClearSelectedSaveFile()
         {
-            _gameData[_selectedGameFile].SaveData[_selectedSaveFile].ClearAllData();
+            _saveDatas[_selectedSaveFile].ClearAllData();
         }
 
-        public int GetGameSlotCnt()
+        public void ClearAllSaveFile()
         {
-            return _gameData.Length;
+            foreach(var save in _saveDatas)
+            {
+                save?.ClearAllData();
+            }
         }
 
         public int GetSelectedSaveSlotCnt()
         {
-            return _gameData[_selectedGameFile].SaveData.Length;
+            return _saveDatas.Length;
         }
     }
 }

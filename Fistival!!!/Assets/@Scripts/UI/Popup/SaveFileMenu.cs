@@ -1,6 +1,7 @@
 using Defines;
 using Manager;
 using Manager.Contents;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,10 +23,23 @@ namespace UI.Popup
         {
             InfoText,
             PageMaxText,
-            PageNowText
+            PageNowText,
+            NowSlotName,
+            PlayTime
         }
 
-        [SerializeField]private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
+        enum Images
+        {
+            Stage1=0,
+            Stage2=1,
+            Stage3=2,
+            Stage4=3,
+            Stage5=4,
+            Stage6=5,
+            Stage7=6
+        }
+
+        private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
         private int _selectedIdx = 0;
         private int _max = 0;
 
@@ -36,13 +50,23 @@ namespace UI.Popup
                 return false;
             }
             _max = Managers.Instance.SaveDataManager.GetSelectedSaveSlotCnt();
+
+            if(Managers.Instance.SaveDataManager.IsSaveFileEmpty(0) == false)
+            {
+                Managers.Instance.SaveDataManager.SelectSaveFile(0);
+            }
+
             BindText(typeof(Text));
             BindButton(typeof(Buttons));
+            BindImage(typeof(Images));
             GetButton((int)Buttons.SelectButton).gameObject.BindUIEvent(OnFileClicked);
             GetButton((int)Buttons.ExitGameFileMenu).gameObject.BindUIEvent(OnExitButton);
             GetButton((int)Buttons.LeftButton).gameObject.BindUIEvent(OnLeftButton);
             GetButton((int)Buttons.RightButton).gameObject.BindUIEvent(OnRightButton);
             GetText((int)Text.PageMaxText).text = _max.ToString();
+
+            RefreshButtonState();
+            RefreshMoveButtonState();
 
             return true;
         }
@@ -98,12 +122,45 @@ namespace UI.Popup
             if (Managers.Instance.SaveDataManager.IsSaveFileEmpty(_selectedIdx))
             {
                 GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "EMPTY";
-                //여기에 이미지 보여주고 그런 로직 추가하기
+                UpdateImages(-1);
             }
             else
             {
                 GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "Saved";
-                //여기에 이미지 보여주고 그런 로직 추가하기
+                UpdateImages(_selectedIdx);
+            }
+        }
+
+        private void UpdateImages(int idx)
+        {
+            GetText((int)Text.NowSlotName).text = $"Slot{_selectedIdx}";
+
+            if (idx < 0)
+            {
+                GetText((int)Text.PlayTime).text = TimeUtils.SecToTimeStr(0);
+
+                foreach(int e in Enum.GetValues(typeof(Images)))
+                {
+                    GetImage(e).sprite = Managers.Instance.ResourceManager.Load<Sprite>("StageClearDataLocked");
+                }
+
+                return;
+            }
+
+            var save = Managers.Instance.SaveDataManager.GetSaveFileData();
+
+            GetText((int)Text.PlayTime).text = TimeUtils.SecToTimeStr(save.TotalPlayTime);
+
+            foreach (int e in Enum.GetValues(typeof(Images)))
+            {
+                if(save.StageSaveDatas.TryGetValue(e,out var value) && value.IsCleared)
+                {
+                    GetImage(e).sprite = Managers.Instance.ResourceManager.Load<Sprite>($"Stage_{e+1}_Cleared");
+                }
+                else
+                {
+                    GetImage(e).sprite = Managers.Instance.ResourceManager.Load<Sprite>($"StageClearDataLocked");
+                }
             }
         }
 
