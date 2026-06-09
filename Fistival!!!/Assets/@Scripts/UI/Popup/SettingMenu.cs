@@ -10,11 +10,15 @@ namespace UI.Popup
     {
         enum Sliders
         {
-            VolumeSlider
+            VolumeSlider,
+            BGMVolumeSlider,
+            SFXVolumeSlider
         }
         enum Texts
         {
-            SettingVolumeValueText
+            SettingVolumeValueText,
+            SettingBGMValueText,
+            SettingSFXValueText
         }
         enum Buttons
         {
@@ -32,9 +36,16 @@ namespace UI.Popup
             BindButton(typeof(Buttons));
 
             GetButton((int)Buttons.SettingExitButton).gameObject.BindUIEvent(OnExit);
-            Get<Slider>((int)Sliders.VolumeSlider).onValueChanged.AddListener(OnSliderValueChanged);
+
+            Get<Slider>((int)Sliders.VolumeSlider).onValueChanged.AddListener(OnMasterVolume);
             Get<Slider>((int)Sliders.VolumeSlider).value = Managers.Instance.GameManager.MasterVolume;
-            
+
+            Get<Slider>((int)Sliders.BGMVolumeSlider).onValueChanged.AddListener(OnBGMVolume);
+            Get<Slider>((int)Sliders.BGMVolumeSlider).value = Managers.Instance.GameManager.BGMVolume;
+
+            Get<Slider>((int)Sliders.SFXVolumeSlider).onValueChanged.AddListener(OnSFXVolume);
+            Get<Slider>((int)Sliders.SFXVolumeSlider).value = Managers.Instance.GameManager.SFXVolume;
+
             return true;
         }
 
@@ -43,11 +54,28 @@ namespace UI.Popup
             Managers.Instance.UIManager.ClosePopupUI();;
         }
 
-        private void OnSliderValueChanged(float value)
+        private void OnSliderValueChanged(float value, int idx)
         {
             int volume = Mathf.FloorToInt(value * 100);
-            GetText((int)Texts.SettingVolumeValueText).text = volume.ToString();
+            GetText(idx).text = volume.ToString();
+        }
+
+        private void OnMasterVolume(float value)
+        {
             Managers.Instance.GameManager.MasterVolume = value;
+            OnSliderValueChanged(value, (int)Texts.SettingVolumeValueText);
+        }
+
+        private void OnBGMVolume(float value)
+        {
+            Managers.Instance.GameManager.BGMVolume = value;
+            OnSliderValueChanged(value, (int)Texts.SettingBGMValueText);
+        }
+
+        private void OnSFXVolume(float value)
+        {
+            Managers.Instance.GameManager.SFXVolume = value;
+            OnSliderValueChanged(value, (int)Texts.SettingSFXValueText);
         }
 
         private void OnDisable()
