@@ -1,6 +1,7 @@
 using Defines;
 using Manager;
 using Manager.Contents;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -27,6 +28,17 @@ namespace UI.Popup
             PlayTime
         }
 
+        enum Images
+        {
+            Stage1=0,
+            Stage2=1,
+            Stage3=2,
+            Stage4=3,
+            Stage5=4,
+            Stage6=5,
+            Stage7=6
+        }
+
         private SaveFileAccessMode _nowMode = SaveFileAccessMode.LOAD;
         private int _selectedIdx = 0;
         private int _max = 0;
@@ -46,6 +58,7 @@ namespace UI.Popup
 
             BindText(typeof(Text));
             BindButton(typeof(Buttons));
+            BindImage(typeof(Images));
             GetButton((int)Buttons.SelectButton).gameObject.BindUIEvent(OnFileClicked);
             GetButton((int)Buttons.ExitGameFileMenu).gameObject.BindUIEvent(OnExitButton);
             GetButton((int)Buttons.LeftButton).gameObject.BindUIEvent(OnLeftButton);
@@ -125,12 +138,30 @@ namespace UI.Popup
             if (idx < 0)
             {
                 GetText((int)Text.PlayTime).text = TimeUtils.SecToTimeStr(0);
+
+                foreach(int e in Enum.GetValues(typeof(Images)))
+                {
+                    GetImage(e).sprite = Managers.Instance.ResourceManager.Load<Sprite>("StageClearDataLocked");
+                }
+
                 return;
             }
 
             var save = Managers.Instance.SaveDataManager.GetSaveFileData();
 
             GetText((int)Text.PlayTime).text = TimeUtils.SecToTimeStr(save.TotalPlayTime);
+
+            foreach (int e in Enum.GetValues(typeof(Images)))
+            {
+                if(save.StageSaveDatas.TryGetValue(e,out var value) && value.IsCleared)
+                {
+                    GetImage(e).sprite = Managers.Instance.ResourceManager.Load<Sprite>($"Stage_{e+1}_Cleared");
+                }
+                else
+                {
+                    GetImage(e).sprite = Managers.Instance.ResourceManager.Load<Sprite>($"StageClearDataLocked");
+                }
+            }
         }
 
         private void OnFileClicked(PointerEventData data)
