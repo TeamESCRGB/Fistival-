@@ -33,7 +33,7 @@ namespace UI.Popup
 
             GetButton((int)Buttons.SettingExitButton).gameObject.BindUIEvent(OnExit);
             Get<Slider>((int)Sliders.VolumeSlider).onValueChanged.AddListener(OnSliderValueChanged);
-            Get<Slider>((int)Sliders.VolumeSlider).value = Managers.Instance.GameManager.Volume;
+            Get<Slider>((int)Sliders.VolumeSlider).value = Managers.Instance.GameManager.MasterVolume;
             
             return true;
         }
@@ -47,7 +47,7 @@ namespace UI.Popup
         {
             int volume = Mathf.FloorToInt(value * 100);
             GetText((int)Texts.SettingVolumeValueText).text = volume.ToString();
-            Managers.Instance.GameManager.Volume = value;
+            Managers.Instance.GameManager.MasterVolume = value;
         }
 
         private void OnDisable()
