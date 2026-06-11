@@ -1,4 +1,6 @@
+using Defines;
 using Manager;
+using UI.Transition;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -51,7 +53,14 @@ namespace UI.Popup
 
         private void OnExit(PointerEventData data)
         {
-            Managers.Instance.UIManager.ClosePopupUI();;
+            if (Managers.Instance.SceneManagerEx.CurrentScene.NowSceneType == SceneType.MainScene)
+            {
+                GetComponentInParent<BookFlipController>().FlipToFirst();
+            }
+            else
+            {
+                Managers.Instance.UIManager.ClosePopupUI();
+            }
         }
 
         private void OnSliderValueChanged(float value, int idx)

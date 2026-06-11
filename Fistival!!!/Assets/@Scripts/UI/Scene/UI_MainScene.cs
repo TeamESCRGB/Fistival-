@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UI.Popup;
+using UI.Transition;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -18,13 +19,14 @@ namespace UI.Scene
             Setting,
             QuitGame
         }
+        private BookFlipController _bfc;
         public override bool Init()
         {
             if (base.Init() == false)
             {
                 return false;
             }
-
+            _bfc = GetComponent<BookFlipController>();
             BindButton(typeof(Buttons));
             GetButton((int)Buttons.NewGame).gameObject.BindUIEvent(OnNewGame);
             GetButton((int)Buttons.LoadGame).gameObject.BindUIEvent(OnLoadGame);
@@ -36,17 +38,22 @@ namespace UI.Scene
 
         private void OnNewGame(PointerEventData data)
         {
-            Managers.Instance.UIManager.ShowPopupUI<GameFileMenu>("GameFileMenu");
+            //Managers.Instance.UIManager.ShowPopupUI<GameFileMenu>("GameFileMenu");
+            _bfc.FlipTo(0);
         }
 
         private void OnLoadGame(PointerEventData data)
         {
-            Managers.Instance.UIManager.ShowPopupUI<SaveFileMenu>("SaveFileMenu").SetMenuType(Defines.SaveFileAccessMode.LOAD);
+            //Managers.Instance.UIManager.ShowPopupUI<SaveFileMenu>("SaveFileMenu").SetMenuType(Defines.SaveFileAccessMode.LOAD);
+            _bfc.FlipTo(1);
+            GetComponentInChildren<SaveFileMenu>().SetMenuType(Defines.SaveFileAccessMode.LOAD);
         }
 
         private void OnSetting(PointerEventData data)
         {
-            Managers.Instance.UIManager.ShowPopupUI<SettingMenu>("SettingMenu");
+            //Managers.Instance.UIManager.ShowPopupUI<SettingMenu>("SettingMenu");
+            _bfc.FlipTo(2);
+            GetComponentInChildren<SettingMenu>();
         }
 
         private void OnQuitGame(PointerEventData data)
