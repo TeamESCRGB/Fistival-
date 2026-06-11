@@ -3,6 +3,7 @@ using Manager;
 using Manager.Contents;
 using System;
 using TMPro;
+using UI.Transition;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -251,7 +252,14 @@ namespace UI.Popup
 
         private void OnExitButton(PointerEventData data)
         {
-            Managers.Instance.UIManager.ClosePopupUI();
+            if (Managers.Instance.SceneManagerEx.CurrentScene.NowSceneType == SceneType.MainScene)
+            {
+                GetComponentInParent<BookFlipController>().FlipToFirst();
+            }
+            else
+            {
+                Managers.Instance.UIManager.ClosePopupUI();
+            }
         }
     }
 }
