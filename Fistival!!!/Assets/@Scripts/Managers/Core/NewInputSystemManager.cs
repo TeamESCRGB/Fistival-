@@ -20,6 +20,8 @@ namespace Manager.Core
         public event Action<InputAction.CallbackContext> Player_DiagnosticsInput;
         public event Action<InputAction.CallbackContext> Player_UpMovementInput;
         public event Action<InputAction.CallbackContext> Player_ReloadInput;
+        public event Action<InputAction.CallbackContext> Player_InteractionInput;
+        public event Action<InputAction.CallbackContext> Player_ESCInput;
         public event Action<InputAction.CallbackContext> UI_Navigate;
         public event Action<InputAction.CallbackContext> UI_Submit;
         public event Action<InputAction.CallbackContext> UI_Cancel;
@@ -59,6 +61,8 @@ namespace Manager.Core
             Player_DiagnosticsInput = null;
             Player_UpMovementInput = null;
             Player_ReloadInput = null;
+            Player_InteractionInput = null;
+            Player_ESCInput = null;
             UI_Navigate = null;
             UI_Submit = null;
             UI_Cancel = null;
@@ -125,6 +129,16 @@ namespace Manager.Core
         public void OnPlayer_ReloadInput(InputAction.CallbackContext ctx)
         {
             Player_ReloadInput?.Invoke(ctx);
+        }
+
+        public void OnPlayer_InteractionInput(InputAction.CallbackContext ctx)
+        {
+            Player_InteractionInput?.Invoke(ctx);
+        }
+
+        public void OnPlayer_ESCInput(InputAction.CallbackContext ctx)
+        {
+            Player_ESCInput?.Invoke(ctx);
         }
 
         #endregion

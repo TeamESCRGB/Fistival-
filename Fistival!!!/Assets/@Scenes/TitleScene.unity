@@ -303,7 +303,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.010925293, y: 0}
+  m_AnchoredPosition: {x: 0.010864258, y: 0}
   m_SizeDelta: {x: 0.25195312, y: 0.1418457}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &160488772
@@ -1868,7 +1868,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0.021911621, y: 0}
+  m_AnchoredPosition: {x: 0.021850586, y: 0}
   m_SizeDelta: {x: 600, y: 1000}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1440115103
@@ -2169,6 +2169,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1443306227}
+        m_TargetAssemblyTypeName: Manager.Core.NewInputSystemManager, Assembly-CSharp
+        m_MethodName: OnPlayer_InteractionInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 83f0ebb1-4fb5-4946-9344-cf375fd4f298
+    m_ActionName: 'Player/InteractionInput[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1443306227}
+        m_TargetAssemblyTypeName: Manager.Core.NewInputSystemManager, Assembly-CSharp
+        m_MethodName: OnPlayer_ESCInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f37e9476-0e61-4ba5-be2e-c67e2cc88d4a
+    m_ActionName: 'Player/ESCInput[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -2884,7 +2916,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25.996883, y: -49.987812}
+  m_AnchoredPosition: {x: 25.996826, y: -49.987793}
   m_SizeDelta: {x: 600, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1993492458
