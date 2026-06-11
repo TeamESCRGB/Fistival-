@@ -18,6 +18,9 @@ namespace Coordinator
         private IHorizontalMovementInputHandler _horizontalMovementHandler;
         private IVerticalMovementInputHandler _verticalMovementHandler;
 
+        private IInteractionInputHandler _interactionHandler;
+        private IESCInputHandler _escHandler;
+
         private Vector2 _lastPos;
 
         private void Awake()
@@ -36,6 +39,9 @@ namespace Coordinator
 
             Managers.Instance.NewInputSystemManager.Player_ReloadInput += OnReloadInputEvent;
             Managers.Instance.NewInputSystemManager.Player_DropInput += OnDropInput;
+
+            Managers.Instance.NewInputSystemManager.Player_InteractionInput += OnInteractionInputEvent;
+            Managers.Instance.NewInputSystemManager.Player_ESCInput += OnESCInputEvent;
         }
 
         public void SetLMBInputHandler(ILMBInputHandler handler)
@@ -63,6 +69,16 @@ namespace Coordinator
         }
 
 
+        public void SetInteractionInputHandler(IInteractionInputHandler handler)
+        {
+            _interactionHandler = handler;
+        }
+
+        public void SetESCInputHandler(IESCInputHandler handler)
+        {
+            _escHandler = handler;
+        }
+
         #region Movement
         public void SetJumpsMovementInputHandler(IJumpsMovementInputHandler handler)
         {
@@ -81,6 +97,7 @@ namespace Coordinator
         #endregion
 
 
+
         public void Init()
         {
             _jumpsHandler = null;
@@ -93,6 +110,10 @@ namespace Coordinator
             _rmbHandler = null;
             _pointerHandler = null;
             _dropHandler = null;
+
+            _interactionHandler = null;
+            _escHandler = null;
+
             _lastPos = Vector2.zero;
         }
 
@@ -104,6 +125,25 @@ namespace Coordinator
             _verticalMovementHandler?.OnDownMovementInputEvent(false);
             _horizontalMovementHandler?.OnLeftMovementInputEvent(false);
             _horizontalMovementHandler?.OnRightMovementInputEvent(false);
+        }
+
+        public void OnInteractionInputEvent(InputAction.CallbackContext callbackContext)
+        {
+            if(callbackContext.started)
+            {
+                return;
+            }
+            _interactionHandler?.OnInteractionInputEvent(callbackContext.control.IsPressed());
+        }
+
+        public void OnESCInputEvent(InputAction.CallbackContext callbackContext)
+        {
+            if(callbackContext.started)
+            {
+                return;
+            }
+
+            _escHandler?.OnESCInputEvent(callbackContext.control.IsPressed());
         }
 
         public void OnReloadInputEvent(InputAction.CallbackContext callbackContext)
