@@ -28,6 +28,8 @@ namespace UI.Scene
         [SerializeField]
         private int _loadedCnt = 0;
 
+        private bool _isOpeningEnd = false;
+
         public override bool Init()
         {
             if(base.Init() == false)
@@ -89,13 +91,20 @@ namespace UI.Scene
             Managers.Instance.UIManager.Init();
             GetButton((int)Buttons.StartButton).gameObject.SetActive(true);
             GetButton((int)Buttons.StartButton).GetComponentInChildren<TextMeshProUGUI>().DOFade(0, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutCubic).Play();
+            GetObject((int)Objects.LoadProgressBar).SetActive(false);
+            GetText((int)Texts.LoadingLabelName).gameObject.SetActive(false);
+            GetText((int)Texts.LoadingAssetName).gameObject.SetActive(false);
             AudioListener.volume = Managers.Instance.GameManager.MasterVolume;
         }
 
+        public void OnOpeningEnd()
+        {
+            _isOpeningEnd  = true;
+        }
 
         private void OnStartButtonPressed(PointerEventData data)
         {
-            if (_loadedCnt < 2)
+            if (_loadedCnt < 2 || _isOpeningEnd == false)
             {
                 return;
             }
