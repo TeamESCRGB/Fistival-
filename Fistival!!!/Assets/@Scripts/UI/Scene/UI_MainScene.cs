@@ -1,4 +1,5 @@
-﻿using Manager;
+﻿using DG.Tweening;
+using Manager;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,6 +33,12 @@ namespace UI.Scene
             GetButton((int)Buttons.LoadGame).gameObject.BindUIEvent(OnLoadGame);
             GetButton((int)Buttons.Setting).gameObject.BindUIEvent(OnSetting);
             GetButton((int)Buttons.QuitGame).gameObject.BindUIEvent(OnQuitGame);
+
+            GetButton((int)Buttons.NewGame).GetComponent<RectTransform>().DOAnchorPosX(50,1).SetDelay(0.25f).SetEase(Ease.OutBack);
+            GetButton((int)Buttons.LoadGame).GetComponent<RectTransform>().DOAnchorPosX(50, 1).SetDelay(0.5f).SetEase(Ease.OutBack);
+            GetButton((int)Buttons.Setting).GetComponent<RectTransform>().DOAnchorPosX(50, 1).SetDelay(0.75f).SetEase(Ease.OutBack);
+            GetButton((int)Buttons.QuitGame).GetComponent<RectTransform>().DOAnchorPosX(50, 1).SetDelay(1).SetEase(Ease.OutBack);
+
 
             return true;
         }
