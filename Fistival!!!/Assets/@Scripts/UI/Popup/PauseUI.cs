@@ -33,6 +33,7 @@ namespace UI.Popup
             GetButton((int)Buttons.TO_MAIN).gameObject.BindUIEvent(OnToMain);
             GetButton((int)Buttons.TO_LOBBY).gameObject.BindUIEvent(OnToLobby);
             GetButton((int)Buttons.SETTING).gameObject.BindUIEvent(OnSetting);
+            GetButton((int)Buttons.QUIT_GAME).gameObject.BindUIEvent(OnQuitGame);
             GetButton((int)Buttons.RESUME).gameObject.BindUIEvent(OnResume);
 
             return true;
@@ -40,12 +41,17 @@ namespace UI.Popup
 
         private void OnToMain(PointerEventData _)
         {
-            Debug.Log("메인 클릭");
+            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnMainMenuYes, OnConfirmNo);
         }
 
         private void OnToLobby(PointerEventData _)
         {
-            Debug.Log("로비 클릭");
+            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLobbyYes, OnConfirmNo);
+        }
+
+        private void OnQuitGame(PointerEventData _)
+        {
+            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnQuitGameYes, OnConfirmNo);
         }
 
         private void OnSetting(PointerEventData _)
@@ -86,6 +92,24 @@ namespace UI.Popup
             }
             Managers.Instance.GameManager.UnPauseGame();
             Managers.Instance.UIManager.ClosePopupUI();
+        }
+
+        private void OnQuitGameYes()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+            Debug.Log("게임종료");
+        }
+
+        private void OnMainMenuYes()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+            Debug.Log("메인메뉴");
+        }
+
+        private void OnLobbyYes()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+            Debug.Log("로비");
         }
 
 
