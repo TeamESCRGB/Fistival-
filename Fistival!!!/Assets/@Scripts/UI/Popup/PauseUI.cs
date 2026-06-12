@@ -74,6 +74,11 @@ namespace UI.Popup
 
         private void OnESCInput(InputAction.CallbackContext ctx)
         {
+            if(ctx.started || ctx.control.IsPressed() == false)
+            {
+                return;
+            }
+
             if(Managers.Instance.UIManager.CompareTopPopup(this) == false)
             {
                 Debug.Log("fal");
