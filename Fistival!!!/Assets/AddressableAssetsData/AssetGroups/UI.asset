@@ -40,6 +40,13 @@ MonoBehaviour:
     - StaticLoaded
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e7486a4817dd21642a9ad03c4a4f7cb8
+    m_Address: PauseUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ee88a186103307241bf0d10094efdf31
     m_Address: SaveFileMenu
     m_ReadOnly: 0
