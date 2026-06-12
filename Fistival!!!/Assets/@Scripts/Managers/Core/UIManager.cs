@@ -160,5 +160,15 @@ namespace Manager.Core
             CloseAllPopupUI();
             _uiScene = null;
         }
+
+        public bool CompareTopPopup(UIPopupBase popup)
+        {
+            if(IsPopupUIOn == false)
+            {
+                return false;
+            }
+
+            return _uiPopupStack.Peek() == popup;
+        }
     }
 }

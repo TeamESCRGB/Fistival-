@@ -74,9 +74,15 @@ namespace UI.Popup
 
         private void OnESCInput(InputAction.CallbackContext ctx)
         {
+            if(Managers.Instance.UIManager.CompareTopPopup(this) == false)
+            {
+                Debug.Log("fal");
+                return;
+            }
             Managers.Instance.GameManager.UnPauseGame();
             Managers.Instance.UIManager.ClosePopupUI();
         }
+
 
         private void OnConfirmNo()
         {
