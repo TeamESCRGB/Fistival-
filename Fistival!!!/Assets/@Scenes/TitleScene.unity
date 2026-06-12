@@ -2201,6 +2201,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f37e9476-0e61-4ba5-be2e-c67e2cc88d4a
     m_ActionName: 'Player/ESCInput[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1443306227}
+        m_TargetAssemblyTypeName: Manager.Core.NewInputSystemManager, Assembly-CSharp
+        m_MethodName: OnUI_ESCInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bf833943-71cf-4f0e-9eed-896839ab8894
+    m_ActionName: 'UI/ESCInput[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player

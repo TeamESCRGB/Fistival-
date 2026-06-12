@@ -32,6 +32,7 @@ namespace Manager.Core
         public event Action<InputAction.CallbackContext> UI_ScrollWheel;
         public event Action<InputAction.CallbackContext> UI_TrackedDevicePosition;
         public event Action<InputAction.CallbackContext> UI_TrackedDeviceOrientation;
+        public event Action<InputAction.CallbackContext> UI_ESCInput;
 
         private void Awake()
         {
@@ -73,6 +74,7 @@ namespace Manager.Core
             UI_ScrollWheel = null;
             UI_TrackedDevicePosition = null;
             UI_TrackedDeviceOrientation = null;
+            UI_ESCInput = null;
         }
 
         #region Player
@@ -192,6 +194,11 @@ namespace Manager.Core
         public void OnUI_TrackedDeviceOrientation(InputAction.CallbackContext ctx)
         {
             UI_TrackedDeviceOrientation?.Invoke(ctx);
+        }
+
+        public void OnUI_ESCInput(InputAction.CallbackContext ctx)
+        {
+            UI_ESCInput?.Invoke(ctx);
         }
 
         #endregion
