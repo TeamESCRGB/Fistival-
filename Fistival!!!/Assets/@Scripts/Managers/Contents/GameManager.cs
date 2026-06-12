@@ -2,6 +2,7 @@ using Coordinator;
 using System.Collections.Generic;
 using Defines;
 using UnityEngine;
+using UI.Popup;
 
 namespace Manager.Contents
 {
@@ -39,6 +40,7 @@ namespace Manager.Contents
                     Managers.Instance.RhythmModeManager.PausePattern();
                 }
                 Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.UI);
+                Managers.Instance.UIManager.ShowPopupUI<PauseUI>("PauseUI");
             }
         }
 
