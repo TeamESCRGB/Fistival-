@@ -125,7 +125,7 @@ namespace Coordinator.Movements
                 _keyStatus |= MovementKeyStatus.LEFT;
                 _nextXDir = Directions.LEFT;
             }
-            else
+            else if((_keyStatus & MovementKeyStatus.LEFT) == MovementKeyStatus.LEFT)
             {
                 _keyStatus &= ~MovementKeyStatus.LEFT;
                 RestoreHorizontalMovementState();
@@ -143,7 +143,7 @@ namespace Coordinator.Movements
                 _keyStatus |= MovementKeyStatus.RIGHT;
                 _nextXDir = Directions.RIGHT;
             }
-            else
+            else if((_keyStatus & MovementKeyStatus.RIGHT) == MovementKeyStatus.RIGHT)
             {
                 _keyStatus &= ~MovementKeyStatus.RIGHT;
                 RestoreHorizontalMovementState();
@@ -161,7 +161,7 @@ namespace Coordinator.Movements
                 _keyStatus |= MovementKeyStatus.DOWN;
                 _nextYDir = Directions.DOWN;
             }
-            else
+            else if((_keyStatus & MovementKeyStatus.DOWN) == MovementKeyStatus.DOWN)
             {
                 _keyStatus &= ~MovementKeyStatus.DOWN;
                 RestoreVerticalMovementState();
@@ -179,7 +179,7 @@ namespace Coordinator.Movements
                 _keyStatus |= MovementKeyStatus.UP;
                 _nextYDir = Directions.UP;
             }
-            else
+            else if((_keyStatus & MovementKeyStatus.UP) == MovementKeyStatus.UP)
             {
                 _keyStatus &= ~MovementKeyStatus.UP;
                 RestoreVerticalMovementState();

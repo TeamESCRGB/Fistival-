@@ -237,7 +237,7 @@ namespace Coordinator.Movements
                 _nextDir = Directions.LEFT;
                 _parentTransform.eulerAngles = _leftRotation;
             }
-            else
+            else if((_keyStatus & MovementKeyStatus.LEFT) == MovementKeyStatus.LEFT)
             {
                 _keyStatus &= ~MovementKeyStatus.LEFT;
                 RestoreMovementState();
@@ -256,7 +256,7 @@ namespace Coordinator.Movements
                 _nextDir = Directions.RIGHT;
                 _parentTransform.eulerAngles = Vector3.zero;
             }
-            else
+            else if((_keyStatus & MovementKeyStatus.RIGHT) == MovementKeyStatus.RIGHT)
             {
                 _keyStatus &= ~MovementKeyStatus.RIGHT;
                 RestoreMovementState();

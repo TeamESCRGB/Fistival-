@@ -9,7 +9,7 @@ using System;
 
 namespace Coordinator
 {
-    public abstract class ModeBase : MonoBehaviour,ILMBInputHandler, IRMBInputHandler, IDropInputHandler, IStunnable
+    public abstract class ModeBase : MonoBehaviour,ILMBInputHandler, IRMBInputHandler, IDropInputHandler, IStunnable, IESCInputHandler
     {
         protected PlayerInputCoordinator _inputCoordinator;
         protected CommonModeData _commonData;
@@ -39,6 +39,7 @@ namespace Coordinator
             _inputCoordinator.SetDropInputHandler(this);
             _inputCoordinator.SetRMBInputHandler(this);
             _inputCoordinator.SetLMBInputHandler(this);
+            _inputCoordinator.SetESCInputHandler(this);
             _isStunned = false;
             if(_stunCounter is not null)
             {
@@ -85,5 +86,10 @@ namespace Coordinator
 
         public abstract void StunFor(float time);
         public abstract void ReleaseStun();
+
+        public void OnESCInputEvent(bool pressed)
+        {
+            Managers.Instance.GameManager.PauseGame();
+        }
     }
 }

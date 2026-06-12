@@ -25,6 +25,7 @@ MonoBehaviour:
     m_Address: TestSong_cut
     m_ReadOnly: 0
     m_SerializedLabels:
+    - StaticLoaded
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0

@@ -1,0 +1,193 @@
+﻿using Defines;
+using Manager;
+using System.Collections;
+using UI.Transition;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using Utils;
+
+namespace UI.Popup
+{
+    public class PauseUI : UIPopupBase
+    {
+        enum Buttons
+        {
+            TO_MAIN,
+            TO_LOBBY,
+            SETTING,
+            QUIT_GAME,
+            RESUME
+        }
+        [SerializeField]
+        private string[] _gameScenes = new string[] { "GameSceneBasicLoaded" };
+        private bool _isMainSceneChangeTriggered = false;
+
+        public override bool Init()
+        {
+            if (base.Init() == false)
+            {
+                return false;
+            }
+
+            BindButton(typeof(Buttons));
+
+            if(Managers.Instance.SceneManagerEx.CurrentScene.NowSceneType != Defines.SceneType.GameScene)
+            {
+                GetButton((int)Buttons.TO_LOBBY).gameObject.SetActive(false);
+            }
+
+            GetButton((int)Buttons.TO_MAIN).gameObject.BindUIEvent(OnToMain);
+            GetButton((int)Buttons.TO_LOBBY).gameObject.BindUIEvent(OnToLobby);
+            GetButton((int)Buttons.SETTING).gameObject.BindUIEvent(OnSetting);
+            GetButton((int)Buttons.QUIT_GAME).gameObject.BindUIEvent(OnQuitGame);
+            GetButton((int)Buttons.RESUME).gameObject.BindUIEvent(OnResume);
+
+            return true;
+        }
+
+        private void OnToMain(PointerEventData _)
+        {
+            if(_isMainSceneChangeTriggered == false)
+            {
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnMainMenuYes, OnConfirmNo);
+            }
+        }
+
+        private void OnToLobby(PointerEventData _)
+        {
+            if(_isMainSceneChangeTriggered == false)
+            {
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLobbyYes, OnConfirmNo);
+            }
+        }
+
+        private void OnQuitGame(PointerEventData _)
+        {
+            if(_isMainSceneChangeTriggered == false)
+            {
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnQuitGameYes, OnConfirmNo);
+            }
+        }
+
+        private void OnSetting(PointerEventData _)
+        {
+            if(_isMainSceneChangeTriggered == false)
+            {
+                Managers.Instance.UIManager.ShowPopupUI<SettingMenu>("SettingMenu");
+            }
+        }
+
+        private void OnResume(PointerEventData _)
+        {
+            if(_isMainSceneChangeTriggered == false)
+            {
+                Managers.Instance.GameManager.UnPauseGame();
+                Managers.Instance.UIManager.ClosePopupUI();
+            }
+        }
+
+
+        protected override void Start()
+        {
+            base.Start();
+            Managers.Instance.NewInputSystemManager.UI_ESCInput -= OnESCInput;
+            Managers.Instance.NewInputSystemManager.UI_ESCInput += OnESCInput;
+        }
+
+        private void OnDisable()
+        {
+            Managers.Instance.NewInputSystemManager.UI_ESCInput -= OnESCInput;
+        }
+
+        private void OnESCInput(InputAction.CallbackContext ctx)
+        {
+            if(_isMainSceneChangeTriggered || ctx.started || ctx.control.IsPressed() == false)
+            {
+                return;
+            }
+
+            if(Managers.Instance.UIManager.CompareTopPopup(this) == false)
+            {
+                Debug.Log("fal");
+                return;
+            }
+            Managers.Instance.GameManager.UnPauseGame();
+            Managers.Instance.UIManager.ClosePopupUI();
+        }
+
+        private void OnQuitGameYes()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
+
+        private void OnMainMenuYes()
+        {
+            _isMainSceneChangeTriggered = true;
+            StartCoroutine(LoadMainScene());
+        }
+
+        private IEnumerator LoadMainScene()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+            GetComponentInChildren<BookFlip>().Close(1);
+            yield return new WaitForSecondsRealtime(1);
+
+            var nowScene = Managers.Instance.SceneManagerEx.CurrentScene.NowSceneType;
+
+            Managers.Instance.ResourceManager.LoadAsyncAllIn("MainSceneLoaded", (_, now, end) =>
+            {
+                if (now < end)
+                {
+                    return;
+                }
+
+                if (nowScene == Defines.SceneType.LobbyScene)
+                {
+                    Managers.Instance.ResourceManager.ReleaseIn("LobbySceneLoaded");
+                }
+                else if (nowScene == Defines.SceneType.GameScene)
+                {
+                    foreach (var key in _gameScenes)
+                    {
+                        Managers.Instance.ResourceManager.ReleaseIn(key);
+                    }
+                }
+
+                Managers.Instance.SceneManagerEx.LoadScene(SceneType.MainScene);
+            });
+        }
+
+        private void OnLobbyYes()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+            var nowScene = Managers.Instance.SceneManagerEx.CurrentScene.NowSceneType;
+
+            Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
+            {
+                if (now < end)
+                {
+                    return;
+                }
+
+                foreach (var key in _gameScenes)
+                {
+                    Managers.Instance.ResourceManager.ReleaseIn(key);
+                }
+
+                Managers.Instance.SceneManagerEx.LoadScene(SceneType.LobbyScene);
+            });
+        }
+
+
+        private void OnConfirmNo()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+        }
+    }
+}
