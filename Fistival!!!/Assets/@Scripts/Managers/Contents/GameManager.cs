@@ -58,6 +58,12 @@ namespace Manager.Contents
             }
         }
 
+        public void InitPauseState()
+        {
+            Time.timeScale = 1;
+            _isPaused = false;
+        }
+
         public float MasterVolume
         {
             get
