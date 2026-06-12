@@ -96,6 +96,30 @@ namespace Manager.Core
             _pauseTimes[(int)channel] += AudioSettings.dspTime - _pauseStartedTimes[(int)channel];
         }
 
+        public void PauseAll()
+        {
+            foreach(int a in System.Enum.GetValues(typeof(SoundChannel)))
+            {
+                if(a<0)
+                {
+                    return;
+                }
+                Pause((SoundChannel)a);
+            }
+        }
+
+        public void UnPauseAll()
+        {
+            foreach (int a in System.Enum.GetValues(typeof(SoundChannel)))
+            {
+                if (a < 0)
+                {
+                    return;
+                }
+                UnPause((SoundChannel)a);
+            }
+        }
+
         public double GetDSPTime(SoundChannel channel)
         {
             var source = GetSource(channel);

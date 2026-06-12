@@ -39,6 +39,10 @@ namespace Manager.Contents
                 {
                     Managers.Instance.RhythmModeManager.PausePattern();
                 }
+                else
+                {
+                    Managers.Instance.GlobalSoundManager.PauseAll();
+                }
                 Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.UI);
                 Managers.Instance.UIManager.ShowPopupUI<PauseUI>("PauseUI");
             }
@@ -53,6 +57,10 @@ namespace Manager.Contents
                 if (_nowMode == ModeTypes.RHYTHM)
                 {
                     Managers.Instance.RhythmModeManager.UnPausePattern();
+                }
+                else
+                {
+                    Managers.Instance.GlobalSoundManager.UnPauseAll();
                 }
                 Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.PLAYER);
             }
