@@ -1,4 +1,5 @@
-﻿using Manager;
+﻿using Defines;
+using Manager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -16,6 +17,9 @@ namespace UI.Popup
             QUIT_GAME,
             RESUME
         }
+        [SerializeField]
+        private string[] _gameScenes = new string[] { "GameSceneBasicLoaded" };
+
         public override bool Init()
         {
             if (base.Init() == false)
@@ -97,19 +101,61 @@ namespace UI.Popup
         private void OnQuitGameYes()
         {
             Managers.Instance.UIManager.ClosePopupUI();
-            Debug.Log("게임종료");
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
 
         private void OnMainMenuYes()
         {
             Managers.Instance.UIManager.ClosePopupUI();
-            Debug.Log("메인메뉴");
+
+            var nowScene = Managers.Instance.SceneManagerEx.CurrentScene.NowSceneType;
+
+            Managers.Instance.ResourceManager.LoadAsyncAllIn("MainSceneLoaded", (_, now, end) =>
+            {
+                if(now < end)
+                {
+                    return;
+                }
+
+                if (nowScene == Defines.SceneType.LobbyScene)
+                {
+                    Managers.Instance.ResourceManager.ReleaseIn("LobbySceneLoaded");
+                }
+                else if (nowScene == Defines.SceneType.GameScene)
+                {
+                    foreach (var key in _gameScenes)
+                    {
+                        Managers.Instance.ResourceManager.ReleaseIn(key);
+                    }
+                }
+
+                Managers.Instance.SceneManagerEx.LoadScene(SceneType.MainScene);
+            });
         }
 
         private void OnLobbyYes()
         {
             Managers.Instance.UIManager.ClosePopupUI();
-            Debug.Log("로비");
+            var nowScene = Managers.Instance.SceneManagerEx.CurrentScene.NowSceneType;
+
+            Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
+            {
+                if (now < end)
+                {
+                    return;
+                }
+
+                foreach (var key in _gameScenes)
+                {
+                    Managers.Instance.ResourceManager.ReleaseIn(key);
+                }
+
+                Managers.Instance.SceneManagerEx.LoadScene(SceneType.LobbyScene);
+            });
         }
 
 
