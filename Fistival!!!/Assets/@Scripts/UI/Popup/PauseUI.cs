@@ -1,5 +1,7 @@
 ﻿using Defines;
 using Manager;
+using System.Collections;
+using UI.Transition;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -19,6 +21,7 @@ namespace UI.Popup
         }
         [SerializeField]
         private string[] _gameScenes = new string[] { "GameSceneBasicLoaded" };
+        private bool _isMainSceneChangeTriggered = false;
 
         public override bool Init()
         {
@@ -45,28 +48,43 @@ namespace UI.Popup
 
         private void OnToMain(PointerEventData _)
         {
-            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnMainMenuYes, OnConfirmNo);
+            if(_isMainSceneChangeTriggered == false)
+            {
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnMainMenuYes, OnConfirmNo);
+            }
         }
 
         private void OnToLobby(PointerEventData _)
         {
-            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLobbyYes, OnConfirmNo);
+            if(_isMainSceneChangeTriggered == false)
+            {
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLobbyYes, OnConfirmNo);
+            }
         }
 
         private void OnQuitGame(PointerEventData _)
         {
-            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnQuitGameYes, OnConfirmNo);
+            if(_isMainSceneChangeTriggered == false)
+            {
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnQuitGameYes, OnConfirmNo);
+            }
         }
 
         private void OnSetting(PointerEventData _)
         {
-            Managers.Instance.UIManager.ShowPopupUI<SettingMenu>("SettingMenu");
+            if(_isMainSceneChangeTriggered == false)
+            {
+                Managers.Instance.UIManager.ShowPopupUI<SettingMenu>("SettingMenu");
+            }
         }
 
         private void OnResume(PointerEventData _)
         {
-            Managers.Instance.GameManager.UnPauseGame();
-            Managers.Instance.UIManager.ClosePopupUI();
+            if(_isMainSceneChangeTriggered == false)
+            {
+                Managers.Instance.GameManager.UnPauseGame();
+                Managers.Instance.UIManager.ClosePopupUI();
+            }
         }
 
 
@@ -84,7 +102,7 @@ namespace UI.Popup
 
         private void OnESCInput(InputAction.CallbackContext ctx)
         {
-            if(ctx.started || ctx.control.IsPressed() == false)
+            if(_isMainSceneChangeTriggered || ctx.started || ctx.control.IsPressed() == false)
             {
                 return;
             }
@@ -110,13 +128,21 @@ namespace UI.Popup
 
         private void OnMainMenuYes()
         {
+            _isMainSceneChangeTriggered = true;
+            StartCoroutine(LoadMainScene());
+        }
+
+        private IEnumerator LoadMainScene()
+        {
             Managers.Instance.UIManager.ClosePopupUI();
+            GetComponentInChildren<BookFlip>().Close(1);
+            yield return new WaitForSecondsRealtime(1);
 
             var nowScene = Managers.Instance.SceneManagerEx.CurrentScene.NowSceneType;
 
             Managers.Instance.ResourceManager.LoadAsyncAllIn("MainSceneLoaded", (_, now, end) =>
             {
-                if(now < end)
+                if (now < end)
                 {
                     return;
                 }
