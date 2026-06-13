@@ -1,4 +1,6 @@
+using Coordinator;
 using Defines;
+using Manager;
 using UnityEngine;
 
 namespace Scenes
@@ -11,7 +13,20 @@ namespace Scenes
         {
             base.Init();
 
+            Managers.Instance.GameManager.InitPauseState();
+            Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.PLAYER);
+            
             Debug.Log($"{name} init complete");
+        }
+
+        private void Start()
+        {
+            var modeManageCoord = FindAnyObjectByType<ModeManageCoordinator>();
+            if(modeManageCoord != null)
+            {
+                modeManageCoord.UnlockMode(ModeTypes.FISTIVAL);
+                modeManageCoord.ChangeMode(ModeTypes.FISTIVAL);
+            }
         }
     }
 }
