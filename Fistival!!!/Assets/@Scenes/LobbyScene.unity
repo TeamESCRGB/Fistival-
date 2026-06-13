@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 648897460}
   - component: {fileID: 648897463}
   - component: {fileID: 648897462}
+  - component: {fileID: 648897464}
   m_Layer: 15
   m_Name: Door
   m_TagString: Untagged
@@ -485,6 +486,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &648897464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648897459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98b5083df777a5a4eb8e02abc1d133b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Interactables.ShopInteractor
+  _on: {fileID: 2100000, guid: 8e85619147060c94c875b1717e3f02ff, type: 2}
+  _off: {fileID: 2100000, guid: 5958b4c145eb2204896413f5059f4cd3, type: 2}
 --- !u!1 &722759813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,6 +1235,7 @@ GameObject:
   - component: {fileID: 1806734766}
   - component: {fileID: 1806734769}
   - component: {fileID: 1806734768}
+  - component: {fileID: 1806734770}
   m_Layer: 15
   m_Name: Door
   m_TagString: Untagged
@@ -1347,6 +1363,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1806734770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806734765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e57d3aa436bf1fb4285083b213af8c5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Interactables.BusStopInteractor
+  _on: {fileID: 2100000, guid: 8e85619147060c94c875b1717e3f02ff, type: 2}
+  _off: {fileID: 2100000, guid: 5958b4c145eb2204896413f5059f4cd3, type: 2}
 --- !u!1 &1946803006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1358,6 +1388,7 @@ GameObject:
   - component: {fileID: 1946803007}
   - component: {fileID: 1946803010}
   - component: {fileID: 1946803009}
+  - component: {fileID: 1946803011}
   m_Layer: 15
   m_Name: Door
   m_TagString: Untagged
@@ -1485,6 +1516,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1946803011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946803006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe8c988527920e4183b71f61a5c0573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Interactables.HomeInteractor
+  _on: {fileID: 2100000, guid: 8e85619147060c94c875b1717e3f02ff, type: 2}
+  _off: {fileID: 2100000, guid: 5958b4c145eb2204896413f5059f4cd3, type: 2}
 --- !u!1 &2064667705
 GameObject:
   m_ObjectHideFlags: 0
