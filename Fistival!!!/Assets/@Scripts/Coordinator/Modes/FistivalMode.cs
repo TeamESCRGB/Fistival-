@@ -146,7 +146,7 @@ namespace Coordinator.Modes
 
         public override void OnInteractionInputEvent(bool pressed)
         {
-            if (pressed)
+            if (pressed && _isStunned == false)
             {
                 _hand.Interact();
             }
