@@ -55,9 +55,20 @@ namespace UI.Popup
 
         private void UpdateUIState()
         {
-            GetText((int)Texts.BestTimeCounter).text = TimeUtils.SecToTimeStr(Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[_stageIdx].ClearTimeWithOutPause);
+            var stageData = Managers.Instance.DataManager.StageDataDict[_stageIdx];
+            var save = Managers.Instance.SaveDataManager.GetSaveFileData();
+            GetText((int)Texts.BestTimeCounter).text = TimeUtils.SecToTimeStr(save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause);
 
-            var collectionList = Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[_stageIdx].CollectedCollections;
+            if (save.StageSaveDatas[_stageIdx].IsCleared)
+            {
+                GetImage((int)Images.StagePreviewImg).sprite = Managers.Instance.ResourceManager.Load<Sprite>(stageData.MapClearedIMG);
+            }
+            else
+            {
+                GetImage((int)Images.StagePreviewImg).sprite = Managers.Instance.ResourceManager.Load<Sprite>(stageData.MapLockedIMG);
+            }
+
+            var collectionList = save.StageSaveDatas[_stageIdx].CollectedCollections;
             //GetImage((int)Images.Collection1).sprite; 이거 나중에 수집품 시스템 정리되면 그 때 세이브데이터에서 클리어 데이터 긁어와서 넣도록.
         }
 
