@@ -1,9 +1,11 @@
+using Data;
 using Manager;
 using UI.Popup;
+using UnityEditor.Overlays;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using Utils;
 
 namespace UI.Popup
@@ -23,6 +25,31 @@ namespace UI.Popup
             Exit
         }
 
+        enum Images
+        {
+            Stage1_ClearedMark,
+            Stage2_ClearedMark,
+            Stage3_ClearedMark,
+            Stage4_ClearedMark,
+            Stage5_ClearedMark,
+            Stage6_ClearedMark,
+            Stage7_ClearedMark
+        }
+
+        private void UpdateButton(int idx, ref int clearCnt)
+        {
+            var saveData = Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[idx];//클리어 정보 띄울거 생각해서 일단 남겨둠
+            var stageData = Managers.Instance.DataManager.StageDataDict[idx];
+            if (Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[idx].IsCleared)
+            {
+                GetButton(idx).GetComponent<Image>().sprite = Managers.Instance.ResourceManager.Load<Sprite>(stageData.MapClearedIMG);
+                clearCnt++;
+            }
+            else
+            {
+                GetButton(idx).GetComponent<Image>().sprite = Managers.Instance.ResourceManager.Load<Sprite>(stageData.MapLockedIMG);
+            }
+        }
 
         public override bool Init()
         {
@@ -30,24 +57,17 @@ namespace UI.Popup
             {
                 return false;
             }
-
+            BindImage(typeof(Images));
             BindButton(typeof(Buttons));
             int clearCnt = 0;
-            foreach(int i in System.Enum.GetValues(typeof(Buttons)))
-            {
-                var saveData = Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[i];
-                var stageData = Managers.Instance.DataManager.StageDataDict[i];
 
-                if(saveData.IsCleared)
-                {
-                    GetButton(i).GetComponent<Image>().sprite = Managers.Instance.ResourceManager.Load<Sprite>(stageData.MapClearedIMG);
-                    clearCnt++;
-                }
-                else
-                {
-                    GetButton(i).GetComponent<Image>().sprite = Managers.Instance.ResourceManager.Load<Sprite>(stageData.MapLockedIMG);
-                }
-            }
+            UpdateButton((int)Buttons.Stage1, ref clearCnt);
+            UpdateButton((int)Buttons.Stage2, ref clearCnt);
+            UpdateButton((int)Buttons.Stage3, ref clearCnt);
+            UpdateButton((int)Buttons.Stage4, ref clearCnt);
+            UpdateButton((int)Buttons.Stage5, ref clearCnt);
+            UpdateButton((int)Buttons.Stage6, ref clearCnt);
+            UpdateButton((int)Buttons.Stage7, ref clearCnt);
 
             if(clearCnt < 6)
             {
@@ -68,7 +88,14 @@ namespace UI.Popup
             GetButton((int)Buttons.Stage7).gameObject.BindUIEvent(OnStage7Pressed);
             GetButton((int)Buttons.Stage7_Locker).gameObject.BindUIEvent(OnStage7LockedPressed);
 
-
+            var stageClearedData = Managers.Instance.GameManager.GetClearedMapDictRef();
+            GetImage((int)Images.Stage1_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage1]);
+            GetImage((int)Images.Stage2_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage2]);
+            GetImage((int)Images.Stage3_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage3]);
+            GetImage((int)Images.Stage4_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage4]);
+            GetImage((int)Images.Stage5_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage5]);
+            GetImage((int)Images.Stage6_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage6]);
+            GetImage((int)Images.Stage7_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage7]);
 
             return true;
         }
