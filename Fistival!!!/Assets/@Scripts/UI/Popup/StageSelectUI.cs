@@ -59,7 +59,7 @@ namespace UI.Popup
             GetButton((int)Buttons.PrevStage).gameObject.BindUIEvent(OnPrev);
             GetButton((int)Buttons.StageStart).gameObject.BindUIEvent(OnGameStart);
 
-            //UpdateUIState();
+            UpdateUIState();
 
             return true;
         }

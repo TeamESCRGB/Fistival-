@@ -1,8 +1,6 @@
 using Data;
 using Manager;
 using UI.Popup;
-using UnityEditor.Overlays;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -40,15 +38,7 @@ namespace UI.Popup
         {
             var saveData = Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[idx];//클리어 정보 띄울거 생각해서 일단 남겨둠
             var stageData = Managers.Instance.DataManager.StageDataDict[idx];
-            if (Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[idx].IsCleared)
-            {
-                GetButton(idx).GetComponent<Image>().sprite = Managers.Instance.ResourceManager.Load<Sprite>(stageData.MapClearedIMG);
-                clearCnt++;
-            }
-            else
-            {
-                GetButton(idx).GetComponent<Image>().sprite = Managers.Instance.ResourceManager.Load<Sprite>(stageData.MapLockedIMG);
-            }
+            clearCnt++;
         }
 
         public override bool Init()
@@ -102,37 +92,37 @@ namespace UI.Popup
 
         private void OnStage1Pressed(PointerEventData _)
         {
-            Debug.Log("s1");
+            Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(0);
         }
 
         private void OnStage2Pressed(PointerEventData _)
         {
-            Debug.Log("s2");
+            Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(1);
         }
 
         private void OnStage3Pressed(PointerEventData _)
         {
-            Debug.Log("s3");
+            Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(2);
         }
 
         private void OnStage4Pressed(PointerEventData _)
         {
-            Debug.Log("s4");
+            Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(3);
         }
 
         private void OnStage5Pressed(PointerEventData _)
         {
-            Debug.Log("s5");
+            Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(4);
         }
 
         private void OnStage6Pressed(PointerEventData _)
         {
-            Debug.Log("s6");
+            Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(5);
         }
 
         private void OnStage7Pressed(PointerEventData _)
         {
-            Debug.Log("s7");
+            Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(6);
         }
 
         private void OnStage7LockedPressed(PointerEventData _)
