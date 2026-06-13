@@ -147,5 +147,13 @@ namespace Coordinator.Modes
             }
             _stunCounter.StopCooldown();
         }
+
+        public override void OnInteractionInputEvent(bool pressed)
+        {
+            if (pressed)
+            {
+                _hand.Interact();
+            }
+        }
     }
 }

@@ -3,9 +3,9 @@ using Coordinator.Objects;
 using Coordinator.Objects.Weapons;
 using Data;
 using Defines;
+using InputHandler;
 using Manager;
 using System;
-using UnityEditor;
 using UnityEngine;
 using static Utils.VectorUtils;
 
@@ -32,6 +32,12 @@ namespace Coordinator
         protected LayerMask _pickableObjectMask;
         protected Transform _handAnchor;
         protected (GameObject obj, TargetObjectHighlighter highlighter) _nowSelectedObject;
+        #endregion
+
+        #region AboutInteract
+        [SerializeField]
+        private LayerMask _interactableMask;
+        private (GameObject obj, InteractableObjectCoordinator coord) _nowSelectedInteractable;
         #endregion
 
         #region AboutCharge
@@ -78,6 +84,7 @@ namespace Coordinator
             _chargeTimeInterval = chargeTimeInterval;
             _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(attackCooldown, 0.1f);
             _nowSelectedObject = (null, null);
+            _nowSelectedInteractable = (null, null);
         }
 
 
@@ -214,6 +221,10 @@ namespace Coordinator
             _nowSelectedObject = UpdateSelectedObjectState<TargetObjectHighlighter>(_pickableObjectMask,_nowSelectedObject);
         }
 
+        private void UpdateInteractableObjectState()
+        {
+            _nowSelectedInteractable = UpdateSelectedObjectState<InteractableObjectCoordinator>(_interactableMask, _nowSelectedInteractable);
+        }
 
         private void FixedUpdate()
         {
@@ -222,8 +233,25 @@ namespace Coordinator
                 return;
             }
             UpdateTargetObjectState();
+            UpdateInteractableObjectState();
         }
         #endregion
+
+        #region Interact
+
+        public void Interact()
+        {
+            UpdateInteractableObjectState();
+
+            if(_nowSelectedInteractable.obj != null)
+            {
+                _nowSelectedInteractable.coord.Interact();
+                _nowSelectedInteractable = (null, null);
+            }
+        }
+
+        #endregion
+
 
         #region WeaponOperations
         protected bool CanUseWeapon()
