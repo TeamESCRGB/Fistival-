@@ -119,6 +119,12 @@ namespace UI.Popup
 
             GetObject((int)Objects.RightSide).GetComponent<RectTransform>().DOAnchorPosX(25, 0.5f) // 오른쪽으로 100만큼 이동 (수치 조절 가능)
                 .SetEase(Ease.OutQuad).onComplete += InternalLoadFunc;
+
+
+            GetButton((int)Buttons.NextStage).GetComponent<RectTransform>().DOAnchorPosX(25, 0.25f) 
+                .SetEase(Ease.OutQuad);
+            GetButton((int)Buttons.PrevStage).GetComponent<RectTransform>().DOAnchorPosX(-25, 0.25f)
+                .SetEase(Ease.OutQuad);
         }
 
         private void InternalLoadFunc()
