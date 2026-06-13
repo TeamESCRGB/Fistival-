@@ -40,11 +40,23 @@ MonoBehaviour:
     - StaticLoaded
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d1ceb69629698a4fa0b864998ca0fb9
+    m_Address: BusstopUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7486a4817dd21642a9ad03c4a4f7cb8
     m_Address: PauseUI
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameSceneBasicLoaded
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e95ab8d3f3cdff0448888370bdae8546
+    m_Address: StageSelectUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
     - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ee88a186103307241bf0d10094efdf31

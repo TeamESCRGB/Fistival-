@@ -17,6 +17,7 @@ namespace Manager.Core
         public Dictionary<int,CommonModeData> CommonModeDataDict { get;private set; }
         public Dictionary<string,PatternData> PatternDataDict { get; private set; }
         public Dictionary<int,ProjectileData> ProjectileDataDict { get; private set; }
+        public Dictionary<int,StageData> StageDataDict { get; private set; }
 
         public void Init()
         {
@@ -24,6 +25,7 @@ namespace Manager.Core
             CommonModeDataDict = LoadJson<CommonModeDataLoader, int, CommonModeData>("CommonModeData").MakeDict();
             PatternDataDict = LoadJson<PatternDataLoader, string, PatternData>("PatternData").MakeDict();
             ProjectileDataDict = LoadJson<ProjectileDataLoader, int, ProjectileData>("ProjectileData").MakeDict();
+            StageDataDict = LoadJson<StageDataLoader, int, StageData>("StageData").MakeDict();
         }
 
         //솔직히, 이게 어떻게 가능한건지 아직 모르겠다

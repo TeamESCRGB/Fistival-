@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Manager;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using UI.Popup;
 using UnityEngine;
 
 namespace Coordinator.Interactables
@@ -9,7 +11,7 @@ namespace Coordinator.Interactables
     {
         public override void Interact()
         {
-            Debug.Log("busstop interact");
+            Managers.Instance.UIManager.ShowPopupUI<BusstopUI>();
         }
     }
 }
