@@ -174,46 +174,54 @@ namespace Coordinator
 
         #region PickupOperations
 
-        private void UpdateSelectedObjectState()
+        private (GameObject, TH) UpdateSelectedObjectState<TH>(LayerMask targetObjectMask,(GameObject obj,TH highlighter) result) where TH : TargetObjectHighlighter
         {
-            var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, _pickableObjectMask);
+            var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, targetObjectMask);
 
             if (hit.collider == null)
             {
-                if (_nowSelectedObject.obj == null)
+                if (result.obj == null)
                 {
-                    return;
+                    return result;
                 }
 
-                if (_nowSelectedObject.highlighter != null)
+                if (result.highlighter != null)
                 {
-                    _nowSelectedObject.highlighter.DeActivateShader();
+                    result.highlighter.DeActivateShader();
                 }
-                _nowSelectedObject = (null, null);
+                return (null, null);
             }
             else
             {
-                if (hit.collider.gameObject == _nowSelectedObject.obj)
+                if (hit.collider.gameObject == result.obj)
                 {
-                    return;
+                    return result;
                 }
 
-                if (_nowSelectedObject.highlighter != null)
+                if (result.highlighter != null)
                 {
-                    _nowSelectedObject.highlighter.DeActivateShader();
+                    result.highlighter.DeActivateShader();
                 }
 
-                _nowSelectedObject = (hit.collider.gameObject, hit.collider.gameObject.GetComponent<TargetObjectHighlighter>());
-                _nowSelectedObject.highlighter.ActivateShader();
+                var highlighter = hit.collider.gameObject.GetComponent<TH>();
+                highlighter.ActivateShader();
+                return (hit.collider.gameObject, highlighter);
             }
         }
+
+        private void UpdateTargetObjectState()
+        {
+            _nowSelectedObject = UpdateSelectedObjectState<TargetObjectHighlighter>(_pickableObjectMask,_nowSelectedObject);
+        }
+
+
         private void FixedUpdate()
         {
             if(Managers.Instance.GameManager.IsGamePaused())
             {
                 return;
             }
-            UpdateSelectedObjectState();
+            UpdateTargetObjectState();
         }
         #endregion
 
@@ -252,7 +260,7 @@ namespace Coordinator
         }
         protected virtual void Pickup()
         {
-            UpdateSelectedObjectState();
+            UpdateTargetObjectState();
             _status = HandStatus.IDLE;
             if(_nowSelectedObject.obj != null)
             {
