@@ -1,3 +1,5 @@
+using Defines;
+using DG.Tweening;
 using Manager;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -31,8 +33,15 @@ namespace UI.Popup
             BestTimeCounter
         }
 
+        enum Objects
+        {
+            LeftSide,
+            RightSide
+        }
+
         private const int _stageCnt = 7;
-        [SerializeField]private int _stageIdx = 0;
+        private int _stageIdx = 0;//이거 나중에 StageManager만들면 거기에 넣어줘야됨
+
 
         public override bool Init()
         {
@@ -41,14 +50,16 @@ namespace UI.Popup
                 return false;
             }
 
+            BindObject(typeof(Objects));
             BindButton(typeof(Buttons));
             BindImage(typeof(Images));
             BindText(typeof(Texts));
             GetButton((int)Buttons.Exit).gameObject.BindUIEvent(OnExitButton);
             GetButton((int)Buttons.NextStage).gameObject.BindUIEvent(OnNext);
             GetButton((int)Buttons.PrevStage).gameObject.BindUIEvent(OnPrev);
+            GetButton((int)Buttons.StageStart).gameObject.BindUIEvent(OnGameStart);
 
-            UpdateUIState();
+            //UpdateUIState();
 
             return true;
         }
@@ -91,6 +102,44 @@ namespace UI.Popup
         public void SetInitialStageIdx(int idx)
         {
             _stageIdx = idx;
+        }
+
+        private void OnGameStart(PointerEventData _)
+        {
+            GetObject((int)Objects.LeftSide).transform.DOLocalRotate(new Vector3(0, 0, 5), 0.5f)
+                .SetEase(Ease.OutQuad);
+
+            GetObject((int)Objects.LeftSide).GetComponent<RectTransform>().DOAnchorPosX(-25, 0.5f) // 왼쪽으로 100만큼 이동 (수치 조절 가능)
+                .SetEase(Ease.OutQuad);
+
+
+            // 2. 오른쪽 티켓: 오른쪽으로 회전하며 + 오른쪽(+X)으로 이동
+            GetObject((int)Objects.RightSide).transform.DOLocalRotate(new Vector3(0, 0, -5), 0.5f)
+                .SetEase(Ease.OutQuad);
+
+            GetObject((int)Objects.RightSide).GetComponent<RectTransform>().DOAnchorPosX(25, 0.5f) // 오른쪽으로 100만큼 이동 (수치 조절 가능)
+                .SetEase(Ease.OutQuad).onComplete += InternalLoadFunc;
+        }
+
+        private void InternalLoadFunc()
+        {
+            Managers.Instance.ResourceManager.LoadAsyncAllIn("GameSceneBasicLoaded", (_, gameNow, gameMax) =>
+            {
+                if (gameNow < gameMax)
+                {
+                    return;
+                }
+
+                Managers.Instance.ResourceManager.LoadAsyncAllIn(string.Format("Stage{0}Loaded_0", _stageIdx), (_, now, max) =>
+                {
+                    if (now == max)
+                    {
+                        Managers.Instance.ResourceManager.ReleaseIn("LobbySceneLoaded");
+                        Managers.Instance.SceneManagerEx.LoadScene(SceneType.GameScene);
+                    }
+                });
+
+            });
         }
 
         private void OnExitButton(PointerEventData _)
