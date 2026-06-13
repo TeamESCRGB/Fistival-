@@ -36,12 +36,13 @@ namespace UI.Popup
         enum Objects
         {
             LeftSide,
-            RightSide
+            RightSide,
+            Locker
         }
 
         private const int _stageCnt = 7;
         private int _stageIdx = 0;//이거 나중에 StageManager만들면 거기에 넣어줘야됨
-
+        private bool _isLocked;
 
         public override bool Init()
         {
@@ -77,6 +78,27 @@ namespace UI.Popup
             else
             {
                 GetImage((int)Images.StagePreviewImg).sprite = Managers.Instance.ResourceManager.Load<Sprite>(stageData.MapLockedIMG);
+            }
+
+            if(_stageIdx == 6)
+            {
+                var clearDict = Managers.Instance.GameManager.GetClearedMapDictRef();
+
+                int cnt = 0;
+
+                for (int i = 0; i < 6; i++)
+                {
+                    if (clearDict[i])
+                    {
+                        cnt++;
+                    }
+                }
+
+                GetObject((int)Objects.Locker).SetActive(cnt < 6);
+            }
+            else
+            {
+                GetObject((int)Objects.Locker).SetActive(false);
             }
 
             var collectionList = save.StageSaveDatas[_stageIdx].CollectedCollections;
@@ -121,9 +143,9 @@ namespace UI.Popup
                 .SetEase(Ease.OutQuad).onComplete += InternalLoadFunc;
 
 
-            GetButton((int)Buttons.NextStage).GetComponent<RectTransform>().DOAnchorPosX(25, 0.25f) 
+            GetButton((int)Buttons.NextStage).GetComponent<RectTransform>().DOAnchorPosX(100, 0.25f) 
                 .SetEase(Ease.OutQuad);
-            GetButton((int)Buttons.PrevStage).GetComponent<RectTransform>().DOAnchorPosX(-25, 0.25f)
+            GetButton((int)Buttons.PrevStage).GetComponent<RectTransform>().DOAnchorPosX(-100, 0.25f)
                 .SetEase(Ease.OutQuad);
         }
 
