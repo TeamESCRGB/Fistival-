@@ -42,5 +42,32 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackgroundBackLayer
+    uniqueID: 135228045
+    locked: 0
+  - name: BackgroundLayer
+    uniqueID: 3856436109
+    locked: 0
+  - name: BackgroundInfoLayer
+    uniqueID: 3288182963
+    locked: 0
+  - name: GameObjectBackLayer
+    uniqueID: 116100855
+    locked: 0
+  - name: GameObjectLayer
+    uniqueID: 2060096907
+    locked: 0
+  - name: GameObjectInfoLayer
+    uniqueID: 2599001347
+    locked: 0
+  - name: ForegroundBackLayer
+    uniqueID: 739357589
+    locked: 0
+  - name: ForegroundLayer
+    uniqueID: 724905479
+    locked: 0
+  - name: ForegroundInfoLayer
+    uniqueID: 3111197543
+    locked: 0
   m_RenderingLayers:
   - Default
