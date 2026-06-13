@@ -31,7 +31,8 @@ namespace UI.Popup
             BestTimeCounter
         }
 
-        private int _stageIdx = 0;
+        private const int _stageCnt = 7;
+        [SerializeField]private int _stageIdx = 0;
 
         public override bool Init()
         {
@@ -43,7 +44,9 @@ namespace UI.Popup
             BindButton(typeof(Buttons));
             BindImage(typeof(Images));
             BindText(typeof(Texts));
-
+            GetButton((int)Buttons.Exit).gameObject.BindUIEvent(OnExitButton);
+            GetButton((int)Buttons.NextStage).gameObject.BindUIEvent(OnNext);
+            GetButton((int)Buttons.PrevStage).gameObject.BindUIEvent(OnPrev);
 
             UpdateUIState();
 
@@ -53,10 +56,25 @@ namespace UI.Popup
         private void UpdateUIState()
         {
             GetText((int)Texts.BestTimeCounter).text = TimeUtils.SecToTimeStr(Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[_stageIdx].ClearTimeWithOutPause);
-            GetButton((int)Buttons.Exit).gameObject.BindUIEvent(OnExitButton);
 
             var collectionList = Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[_stageIdx].CollectedCollections;
             //GetImage((int)Images.Collection1).sprite; 이거 나중에 수집품 시스템 정리되면 그 때 세이브데이터에서 클리어 데이터 긁어와서 넣도록.
+        }
+
+        private void OnNext(PointerEventData _)
+        {
+            _stageIdx = (_stageIdx + 1) % _stageCnt;
+            UpdateUIState();
+        }
+
+        private void OnPrev(PointerEventData _)
+        {
+            _stageIdx--;
+            if(_stageIdx < 0)
+            {
+                _stageIdx = _stageCnt - 1;
+            }
+            UpdateUIState();
         }
 
         public void SetInitialStageIdx(int idx)
