@@ -53,6 +53,12 @@ MonoBehaviour:
     - GameSceneBasicLoaded
     - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e95ab8d3f3cdff0448888370bdae8546
+    m_Address: StageSelectUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ee88a186103307241bf0d10094efdf31
     m_Address: SaveFileMenu
     m_ReadOnly: 0
