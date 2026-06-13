@@ -22,6 +22,12 @@ MonoBehaviour:
     - StaticLoaded
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b50578c7854b3e42b5d70024d09b8f3
+    m_Address: StageData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6c8b62e3c06fd67489e4f4ed455faf0d
     m_Address: PatternData
     m_ReadOnly: 0
