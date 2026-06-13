@@ -38,7 +38,10 @@ namespace UI.Popup
         {
             var saveData = Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[idx];//클리어 정보 띄울거 생각해서 일단 남겨둠
             var stageData = Managers.Instance.DataManager.StageDataDict[idx];
-            clearCnt++;
+            if(saveData.IsCleared)
+            {
+                clearCnt++;
+            }
         }
 
         public override bool Init()
