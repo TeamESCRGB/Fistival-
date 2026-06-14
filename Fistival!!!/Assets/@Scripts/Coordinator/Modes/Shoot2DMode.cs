@@ -32,13 +32,13 @@ namespace Coordinator.Modes
         {
             base.Init(data);
             _isLMBPressed = false;
-            _movementCoord.Init(data.MoveSpeed, _parentrb2d);
+            _movementCoord.Init(_playerData.MoveSpeed, _parentrb2d);
             _gravityScale = _parentrb2d.gravityScale;
             _parentrb2d.gravityScale = 0;
             _inputCoordinator.SetHorizontalMovementInputHandler(_movementCoord);
             _inputCoordinator.SetVerticalMovementInputHandler(_movementCoord);
 
-            _shooterHand.Init(_projectileIdx,GetComponentInParent<Rigidbody2D>() ,data.AttackableLayers, data.PickableLayers, data.AttackCooldown, data.ForcePerCharge, data.ChargeTimeInterval, data.AttackCooldown);
+            _shooterHand.Init(_projectileIdx,GetComponentInParent<Rigidbody2D>() ,_playerData.AttackableLayers, _playerData.PickableLayers, _playerData.AttackCooldown, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown);
         }
 
         public override void DeInit()

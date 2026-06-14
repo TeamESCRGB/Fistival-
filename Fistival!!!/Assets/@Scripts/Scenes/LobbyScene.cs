@@ -21,12 +21,17 @@ namespace Scenes
 
         private void Start()
         {
-            var modeManageCoord = FindAnyObjectByType<ModeManageCoordinator>();
-            if(modeManageCoord != null)
+            var player = FindAnyObjectByType<PlayerCoordinator>();
+            if(player != null)
             {
-                modeManageCoord.UnlockMode(ModeTypes.FISTIVAL);
-                modeManageCoord.ChangeMode(ModeTypes.FISTIVAL);
+                player.Init();
             }
+            //var modeManageCoord = FindAnyObjectByType<ModeManageCoordinator>();
+            //if(modeManageCoord != null)
+            //{
+            //    modeManageCoord.UnlockMode(ModeTypes.FISTIVAL);
+            //    modeManageCoord.ChangeMode(ModeTypes.FISTIVAL);
+            //}
         }
     }
 }

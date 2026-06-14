@@ -1407,6 +1407,7 @@ GameObject:
   - component: {fileID: 8653024735172191346}
   - component: {fileID: 58966813629889268}
   - component: {fileID: 9111735477399199852}
+  - component: {fileID: 4081866623314227234}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -1575,6 +1576,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1655929675fb44393c937602cde08d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.PlayerInputCoordinator
+--- !u!114 &4081866623314227234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2704959369080764193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f92e8202eeba4554584e6f2bc023a463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.PlayerCoordinator
 --- !u!1 &2750377712436482545
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,42 @@
+﻿namespace Data
+{
+    public class PlayerData
+    {
+        public PlayerData(PlayerData original)
+        {
+            MaxHP = original.MaxHP;
+            Damage = original.Damage;
+            AttackCooldown = original.AttackCooldown;
+            AttackableLayers = original.AttackableLayers;
+
+            PickableLayers = original.PickableLayers;
+
+            ForcePerCharge = original.ForcePerCharge;
+            ChargeTimeInterval = original.ChargeTimeInterval;
+
+            MoveSpeed = original.MoveSpeed;
+            SlownessSensitivity = original.SlownessSensitivity;
+            MaxSlowness = original.MaxSlowness;
+            JumpPower = original.JumpPower;
+            InvincibilityTime = original.InvincibilityTime;
+        }
+
+        public PlayerData() { }
+
+        public int MaxHP { get; set; }
+        public int Damage { get; set; }
+        public float AttackCooldown { get; set; }
+        public int AttackableLayers { get; set; }
+
+        public int PickableLayers { get; set; }
+
+        public float ForcePerCharge { get; set; }
+        public float ChargeTimeInterval { get; set; }
+
+        public float MoveSpeed { get; set; }
+        public float SlownessSensitivity { get; set; }
+        public float MaxSlowness { get; set; }
+        public float JumpPower { get; set; }
+        public float InvincibilityTime { get; set; }
+    }
+}
