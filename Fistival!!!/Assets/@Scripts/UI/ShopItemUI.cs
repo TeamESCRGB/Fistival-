@@ -25,6 +25,7 @@ namespace UI
         {
             _isPurchased = true;
             _purchased.SetActive(true);
+            transform.Find("Price").gameObject.SetActive(false);
         }
 
         public void SetItem(ItemData data)
