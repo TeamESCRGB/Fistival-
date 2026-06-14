@@ -13,7 +13,7 @@ namespace Coordinator
     {
         protected PlayerInputCoordinator _inputCoordinator;
         protected CommonModeData _commonData;
-
+        protected PlayerData _playerData;
         protected CooldownComponentModule _stunCounter;
         protected Action _onStunEnd;
         protected bool _isStunned;
@@ -34,6 +34,7 @@ namespace Coordinator
         public virtual void Init(CommonModeData data)
         {
             gameObject.SetActive(true);
+            _playerData = GetComponentInParent<PlayerCoordinator>().GetPlayerData();
             _inputCoordinator.Init();
             _commonData = data;
             _inputCoordinator.SetDropInputHandler(this);
