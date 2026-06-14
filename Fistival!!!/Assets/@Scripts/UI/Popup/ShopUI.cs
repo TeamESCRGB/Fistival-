@@ -113,7 +113,16 @@ namespace UI.Popup
 
         private void OnPurchase(PointerEventData _)
         {
-            
+            var data = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData;
+            if(data.Money < _selectedItem.Price)
+            {
+                return;
+            }
+            data.Money -= _selectedItem.Price;
+            data.PurchasedItems.Add(_selectedItem.Idx);
+            Get<ShopItemUI>(_selectedItem.Idx).SetPurchased();
+            _selectedItem = null;
+            UpdateItemData();
         }
 
         private void OnCancel(PointerEventData _)
