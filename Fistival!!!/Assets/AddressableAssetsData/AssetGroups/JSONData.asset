@@ -48,6 +48,12 @@ MonoBehaviour:
     - StaticLoaded
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc1efe257639e554bbc32294027b155f
+    m_Address: ItemData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e6658c29b3fbd4f4fae28280fd638c18
     m_Address: ObjectData
     m_ReadOnly: 0
