@@ -45,7 +45,7 @@ namespace UI.Popup
         }
         private void OnSaveButton(PointerEventData _)
         {
-
+            Managers.Instance.UIManager.ShowPopupUI<SaveFileMenu>("SaveFileMenu").SetMenuType(Defines.SaveFileAccessMode.OVERWRITE);
         }
         private void OnDataButton(PointerEventData _)
         {
