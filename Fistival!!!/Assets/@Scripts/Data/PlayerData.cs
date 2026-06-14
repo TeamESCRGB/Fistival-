@@ -4,6 +4,7 @@
     {
         public PlayerData(PlayerData original)
         {
+            MaxHP = original.MaxHP;
             Damage = original.Damage;
             AttackCooldown = original.AttackCooldown;
             AttackableLayers = original.AttackableLayers;
@@ -22,6 +23,7 @@
 
         public PlayerData() { }
 
+        public int MaxHP { get; set; }
         public int Damage { get; set; }
         public float AttackCooldown { get; set; }
         public int AttackableLayers { get; set; }

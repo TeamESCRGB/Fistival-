@@ -1,3 +1,4 @@
+using Coordinator.Victims;
 using Data;
 using Manager;
 using UnityEngine;
@@ -14,7 +15,20 @@ namespace Coordinator
             var modeMgr = GetComponentInChildren<ModeManageCoordinator>();
             modeMgr.UnlockMode(Defines.ModeTypes.FISTIVAL);
             modeMgr.ChangeMode(Defines.ModeTypes.FISTIVAL);
-            //체력 초기화 코드 작성
+
+            var hitbox = transform.Find("@Hitbox");
+            PlayerVictimCoordinator victim = null;
+#if UNITY_EDITOR
+            Debug.Assert(hitbox != null,"@Hitbox가 없습니다.");
+#endif
+            if(hitbox != null)
+            {
+                victim = hitbox.GetComponent<PlayerVictimCoordinator>();
+            }
+#if UNITY_EDITOR
+            Debug.Assert(victim != null, "@Hitbox에 PlayerVictimCoordinator가 없습니다.");
+#endif
+            victim.Init(_data.MaxHP, _data.MaxHP, _data.InvincibilityTime);
 
             InitEquipments();
         }
