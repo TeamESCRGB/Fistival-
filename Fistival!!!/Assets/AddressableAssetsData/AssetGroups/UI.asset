@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 42bc0622092d48446a2ea0d5010b36cd
+    m_Address: ShopUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7281c06dc6b1bd047a8df558a30cc651
     m_Address: BasicPopupAlert
     m_ReadOnly: 0
