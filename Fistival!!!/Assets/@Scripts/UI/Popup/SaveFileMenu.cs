@@ -197,6 +197,10 @@ namespace UI.Popup
             
             foreach(var val in clearDict)
             {
+                if(saveData.StageSaveDatas.ContainsKey(val.Key) == false)
+                {
+                    saveData.StageSaveDatas[val.Key] = new Data.NonLodable.StageSaveFile();
+                }
                 saveData.StageSaveDatas[val.Key].IsCleared = val.Value;
             }
 
