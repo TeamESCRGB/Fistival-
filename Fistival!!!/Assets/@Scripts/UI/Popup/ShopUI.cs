@@ -39,7 +39,8 @@ namespace UI.Popup
 
         enum Text
         {
-            SelectedItemPrice
+            SelectedItemPrice,
+            Money
         }
 
         enum Objects
@@ -82,6 +83,7 @@ namespace UI.Popup
             GetButton((int)Buttons.Purchase).gameObject.BindUIEvent(OnPurchase);
             GetButton((int)Buttons.Cancel).gameObject.BindUIEvent(OnCancel);
             GetButton((int)Buttons.Exit).gameObject.BindUIEvent(OnExitButton);
+            GetText((int)Text.Money).text = $"x {Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.Money}";
 
             UpdateItemData();
 
@@ -122,6 +124,7 @@ namespace UI.Popup
             data.PurchasedItems.Add(_selectedItem.Idx);
             Get<ShopItemUI>(_selectedItem.Idx).SetPurchased();
             _selectedItem = null;
+            GetText((int)Text.Money).text = $"x {data.Money}";
             UpdateItemData();
         }
 

@@ -31,7 +31,7 @@ MonoBehaviour:
     m_Address: ShopUI
     m_ReadOnly: 0
     m_SerializedLabels:
-    - LobbySceneLoaded
+    - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7281c06dc6b1bd047a8df558a30cc651
     m_Address: BasicPopupAlert
