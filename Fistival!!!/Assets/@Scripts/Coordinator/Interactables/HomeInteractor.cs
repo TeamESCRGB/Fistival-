@@ -1,4 +1,6 @@
 ﻿using Coordinator;
+using Manager;
+using UI.Popup;
 using UnityEngine;
 
 namespace Coordinator.Interactables
@@ -7,7 +9,7 @@ namespace Coordinator.Interactables
     {
         public override void Interact()
         {
-            Debug.Log("Home Interact");
+            Managers.Instance.UIManager.ShowPopupUI<HomeUI>("HomeUI");
         }
     }
 }

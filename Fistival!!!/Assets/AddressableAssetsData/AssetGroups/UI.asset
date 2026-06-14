@@ -52,6 +52,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b2e14e581afc8c245a86e7ee5c87c360
+    m_Address: HomeUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7486a4817dd21642a9ad03c4a4f7cb8
     m_Address: PauseUI
     m_ReadOnly: 0

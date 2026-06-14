@@ -32,6 +32,7 @@ namespace UI.Popup
             var clearedMapDict = Managers.Instance.GameManager.GetClearedMapDictRef();
             /*
              캐릭터 업데이트하는 코드 작성 필요
+            이미지는 StageData의 HomeIMG보여주면 되는데, 그걸 어떻게 해야되나
              */
 
 
