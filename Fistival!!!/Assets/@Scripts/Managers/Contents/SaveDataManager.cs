@@ -136,5 +136,15 @@ namespace Manager.Contents
         {
             return _saveDatas.Length;
         }
+
+        public SaveFile GetSaveFile(int saveIdx)
+        {
+            if(saveIdx < 0 || _saveDatas.Length <= saveIdx)
+            {
+                return null;
+            }
+
+            return _saveDatas[saveIdx];
+        }
     }
 }
