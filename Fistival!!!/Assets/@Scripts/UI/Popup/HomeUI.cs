@@ -49,7 +49,7 @@ namespace UI.Popup
         }
         private void OnDataButton(PointerEventData _)
         {
-
+            Managers.Instance.UIManager.ShowPopupUI<DataUI>("DataUI");
         }
 
         private void OnExitButton(PointerEventData _)
