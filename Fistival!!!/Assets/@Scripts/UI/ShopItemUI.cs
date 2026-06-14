@@ -11,12 +11,20 @@ namespace UI
         private Image _itemImage;
         private TMP_Text _priceText;
         private ItemData _data;
-
+        private GameObject _purchased;
+        private bool _isPurchased;
 
         private void Awake()
         {
+            _purchased = transform.Find("PurchasedPanel").gameObject;
             _itemImage = GetComponent<Image>();
             _priceText = GetComponentInChildren<TMP_Text>();
+        }
+
+        public void SetPurchased()
+        {
+            _isPurchased = true;
+            _purchased.SetActive(true);
         }
 
         public void SetItem(ItemData data)
@@ -34,6 +42,10 @@ namespace UI
 
         public ItemData GetData()
         {
+            if(_isPurchased)
+            {
+                return null;
+            }
             return _data;
         }
     }

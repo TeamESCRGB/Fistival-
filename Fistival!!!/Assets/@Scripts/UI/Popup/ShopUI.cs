@@ -66,7 +66,10 @@ namespace UI.Popup
 
             foreach(int idx in System.Enum.GetValues(typeof(Items)))
             {
-                Get<ShopItemUI>(idx).gameObject.SetActive(true);
+                if (Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.PurchasedItems.Contains(idx))
+                {
+                    Get<ShopItemUI>(idx).SetPurchased();
+                }
                 Get<ShopItemUI>(idx).gameObject.BindUIEvent(OnButton);
                 ItemData item = null;
                 if(Managers.Instance.DataManager.ItemDataDIct.TryGetValue(idx, out item) == false)
@@ -89,7 +92,7 @@ namespace UI.Popup
         {
             if(_selectedItem is null)
             {
-                GetObject((int)Objects.QueueCard).SetActive(false);
+                GetObject((int)Objects.QueueCard).SetActive(false);Debug.Log("null");
                 return;
             }
             GetObject((int)Objects.QueueCard).SetActive(true);
@@ -110,7 +113,7 @@ namespace UI.Popup
 
         private void OnPurchase(PointerEventData _)
         {
-
+            
         }
 
         private void OnCancel(PointerEventData _)
