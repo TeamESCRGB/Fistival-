@@ -14,6 +14,17 @@ namespace UI.Popup
             SaveButton,
             ExitButton
         }
+        enum Images
+        {
+            Stage1=0,
+            Stage2=1,
+            Stage3=2,
+            Stage4=3,
+            Stage5=4,
+            Stage6=5,
+            Stage7=6
+        }
+
         public override bool Init()
         {
             if(base.Init() == false)
@@ -22,6 +33,7 @@ namespace UI.Popup
             }
 
             BindButton(typeof(Buttons));
+            BindImage(typeof(Images));
 
             GetButton((int)Buttons.ExitButton).gameObject.BindUIEvent(OnExitButton);
             GetButton((int)Buttons.EquipmentButton).gameObject.BindUIEvent(OnEquipmentButton);
@@ -29,12 +41,18 @@ namespace UI.Popup
             GetButton((int)Buttons.SaveButton).gameObject.BindUIEvent(OnSaveButton);
 
 
-            var clearedMapDict = Managers.Instance.GameManager.GetClearedMapDictRef();
-            /*
-             캐릭터 업데이트하는 코드 작성 필요
-            이미지는 StageData의 HomeIMG보여주면 되는데, 그걸 어떻게 해야되나
-             */
-
+            foreach(var data in Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas)
+            {
+                if(data.Value.IsCleared)
+                {
+                    //이거 이미지 로드할까 생각해봤는데, 그냥 직접 배치해두고 껐다켰다하는게 더 좋을듯
+                    GetImage(data.Key).gameObject.SetActive(true);
+                }
+                else
+                {
+                    GetImage(data.Key).gameObject.SetActive(false);
+                }
+            }
 
             return true;
         }
