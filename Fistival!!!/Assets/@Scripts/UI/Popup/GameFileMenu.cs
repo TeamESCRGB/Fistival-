@@ -146,7 +146,7 @@ namespace UI.Popup
                 return;
             }
 
-            var save = Managers.Instance.SaveDataManager.GetSaveFileData();
+            var save = Managers.Instance.SaveDataManager.GetSaveFile(_selectedIdx);//이거는 이 함수 호출부에서 파일이 있는지 검사하기에 문제x
 
             GetText((int)Text.PlayTime).text = TimeUtils.SecToTimeStr(save.TotalPlayTime);
 

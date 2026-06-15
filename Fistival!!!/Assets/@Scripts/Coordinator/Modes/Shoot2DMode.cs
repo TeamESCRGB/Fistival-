@@ -38,6 +38,8 @@ namespace Coordinator.Modes
             _inputCoordinator.SetHorizontalMovementInputHandler(_movementCoord);
             _inputCoordinator.SetVerticalMovementInputHandler(_movementCoord);
 
+            GetComponentInParent<Rigidbody2D>().transform.eulerAngles = Vector3.zero;
+
             _shooterHand.Init(_projectileIdx,GetComponentInParent<Rigidbody2D>() ,_playerData.AttackableLayers, _playerData.PickableLayers, _playerData.AttackCooldown, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown);
         }
 
