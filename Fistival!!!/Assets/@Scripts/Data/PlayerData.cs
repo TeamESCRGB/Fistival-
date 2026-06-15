@@ -24,6 +24,8 @@
         public PlayerData() { }
 
         public int MaxHP { get; set; }
+        public int MaxChargeCnt { get; set; }
+        public int MaxLife { get; set; }
         public int Damage { get; set; }
         public float AttackCooldown { get; set; }
         public int AttackableLayers { get; set; }

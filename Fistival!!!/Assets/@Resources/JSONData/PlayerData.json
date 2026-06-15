@@ -1,6 +1,8 @@
 {
   "playerData": {
     "MaxHP": 20,
+    "MaxLife": 5,
+    "MaxChargeCnt": 2,
     "Damage": 2,
     "AttackCooldown": 1.25,
     "AttackableLayers": 4096,
