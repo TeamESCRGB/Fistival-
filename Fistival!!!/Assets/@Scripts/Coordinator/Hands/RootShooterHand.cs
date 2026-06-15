@@ -1,6 +1,7 @@
 ﻿using ComponentModule;
 using Coordinator.Movements;
 using Coordinator.Victims;
+using Data;
 using Defines;
 using InputHandler;
 using Manager;
@@ -134,6 +135,11 @@ namespace Coordinator.Hands
                 _cooldownModule.StopCooldown();
                 OnReload?.Invoke();
             });//나중에 gc상태 보고 따로 뺴두든지 한다
+        }
+
+        public override void UpdateUpdatedData(PlayerData data)
+        {
+            base.UpdateUpdatedData(data);
         }
 
         protected override void OnUpdate()

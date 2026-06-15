@@ -41,6 +41,7 @@ namespace Coordinator.Modes
             GetComponentInParent<Rigidbody2D>().transform.eulerAngles = Vector3.zero;
 
             _shooterHand.Init(_projectileIdx,GetComponentInParent<Rigidbody2D>() ,_playerData.AttackableLayers, _playerData.PickableLayers, _playerData.AttackCooldown, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown);
+            _shooterHand.SetMaxCharge(_playerData.MaxChargeCnt);
         }
 
         public override void DeInit()
@@ -48,6 +49,11 @@ namespace Coordinator.Modes
             _parentrb2d.gravityScale = _gravityScale;
             _shooterHand.Drop();
             base.DeInit();
+        }
+
+        public override void UpdateUpdatedPlayerData()
+        {
+            _shooterHand.UpdateUpdatedData(_playerData);
         }
 
         protected override void OnInputActionMapChanged(ActionMapTypes mapType)

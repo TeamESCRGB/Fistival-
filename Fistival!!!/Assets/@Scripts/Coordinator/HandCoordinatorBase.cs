@@ -87,6 +87,11 @@ namespace Coordinator
             _nowSelectedInteractable = (null, null);
         }
 
+        public virtual void UpdateUpdatedData(PlayerData data)
+        {
+            SetMaxCharge(data.MaxChargeCnt);
+
+        }
 
         public void SetMousePos(in Vector2 mousePos)
         {

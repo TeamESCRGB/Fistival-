@@ -1,8 +1,9 @@
 using Coordinator.Victims;
+using Data;
 using Defines;
 using Manager;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 namespace Coordinator.Hands
 {
@@ -46,7 +47,11 @@ namespace Coordinator.Hands
 #endif
         }
 
-
+        public override void UpdateUpdatedData(PlayerData data)
+        {
+            base.UpdateUpdatedData(data);
+            _baseSmashDamage = data.Damage;
+        }
 
         protected override void OnUpdate()
         {

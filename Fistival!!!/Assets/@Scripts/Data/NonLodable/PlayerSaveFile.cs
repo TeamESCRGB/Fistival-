@@ -6,16 +6,16 @@ namespace Data.NonLodable
     {
         public int Money { get; set; } = 0;
         public List<int> PurchasedItems { get; set; } = new List<int>();
-        public int[] EquippedItems { get; set; } = new int[3];
+        public int[] EquippedItems { get; set; } = new int[3] { -1,-1,-1};
         public List<int> UnlockedTrainingStage { get; set; } = new List<int>();
 
         public void ClearAllData()
         {
             Money = 0;
             PurchasedItems.Clear();
-            EquippedItems[0] = 0;
-            EquippedItems[1] = 0;
-            EquippedItems[2] = 0;
+            EquippedItems[0] = -1;
+            EquippedItems[1] = -1;
+            EquippedItems[2] = -1;
             UnlockedTrainingStage.Clear();
         }
     }

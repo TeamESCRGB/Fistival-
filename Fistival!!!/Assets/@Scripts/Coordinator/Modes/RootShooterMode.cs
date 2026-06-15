@@ -34,6 +34,7 @@ namespace Coordinator.Modes
             _hand.Init(GetComponentInParent<Rigidbody2D>(), _playerData.Damage, _playerData.AttackableLayers, _playerData.PickableLayers, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown);
             _hand.OnChargeRateChanged += OnChargeRateChanged;
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
+            _hand.SetMaxCharge(_playerData.MaxChargeCnt);
             _objectWeight = 0;
         }
 
@@ -43,6 +44,11 @@ namespace Coordinator.Modes
             _hand.StopAttack();
             _hand.DeInit();
             base.DeInit();
+        }
+
+        public override void UpdateUpdatedPlayerData()
+        {
+            _hand.UpdateUpdatedData(_playerData);
         }
 
         protected override void OnInputActionMapChanged(ActionMapTypes mapType)

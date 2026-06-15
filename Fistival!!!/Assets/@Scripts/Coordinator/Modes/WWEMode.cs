@@ -32,6 +32,7 @@ namespace Coordinator.Modes
 
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
             _hand.OnChargeRateChanged += OnChargeRateChanged;
+            _hand.SetMaxCharge(_playerData.MaxChargeCnt);
             _inputCoordinator.SetJumpsMovementInputHandler(_movCoordinator);//좌우이동은 여기에서 처리해야 할 추가적인 일이 있어서 대기
             _inputCoordinator.SetHorizontalMovementInputHandler(this);
             _inputCoordinator.SetVerticalMovementInputHandler(this);
@@ -43,6 +44,11 @@ namespace Coordinator.Modes
             _hand.Drop();
             _hand.StopAttack();
             base.DeInit();
+        }
+
+        public override void UpdateUpdatedPlayerData()
+        {
+            _hand.UpdateUpdatedData(_playerData);
         }
 
         protected override void OnInputActionMapChanged(ActionMapTypes mapType)

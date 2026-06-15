@@ -36,6 +36,7 @@ namespace Coordinator.Modes
 
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
             _hand.OnChargeRateChanged += OnChargeRateChanged;
+            _hand.SetMaxCharge(_playerData.MaxChargeCnt);
         }
 
         public override void DeInit()
@@ -44,6 +45,11 @@ namespace Coordinator.Modes
             _hand.Drop();
             _hand.StopAttack();
             base.DeInit();
+        }
+
+        public override void UpdateUpdatedPlayerData()
+        {
+            _hand.UpdateUpdatedData(_playerData);
         }
 
         protected override void OnInputActionMapChanged(ActionMapTypes mapType)

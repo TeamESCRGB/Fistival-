@@ -1,5 +1,6 @@
 ﻿using Coordinator.Chain;
 using Coordinator.Movements;
+using Data;
 using Defines;
 using InputHandler;
 using System;
@@ -35,6 +36,11 @@ namespace Coordinator.Hands
         {
             _chain.Retrive();
             _chain.transform.SetParent(transform);
+        }
+
+        public override void UpdateUpdatedData(PlayerData data)
+        {
+            base.UpdateUpdatedData(data);
         }
 
         protected override void OnUpdate()
