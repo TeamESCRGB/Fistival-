@@ -45,8 +45,10 @@ namespace UI.Popup
 
         enum Objects
         {
-            QueueCard
+            QueueCard,
+            ItemInfoUI
         }
+
 
         private ItemData _selectedItem = null;
 
@@ -78,6 +80,8 @@ namespace UI.Popup
                     item = null;
                 }
                 Get<ShopItemUI>(idx).SetItem(item);
+                Get<ShopItemUI>(idx).gameObject.BindUIEvent(OnButtonHover,Defines.UIEventType.POINTER_ENTER);
+                Get<ShopItemUI>(idx).gameObject.BindUIEvent(OnButtonExit, Defines.UIEventType.POINTER_EXIT);
             }
 
             GetButton((int)Buttons.Purchase).gameObject.BindUIEvent(OnPurchase);
@@ -86,6 +90,9 @@ namespace UI.Popup
             GetText((int)Text.Money).text = $"x {Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.Money}";
 
             UpdateItemData();
+
+            GetObject((int)Objects.ItemInfoUI).gameObject.SetActive(false);
+            GetObject((int)Objects.ItemInfoUI).GetComponent<ItemInfoUI>().Init();
 
             return true;
         }
@@ -100,6 +107,44 @@ namespace UI.Popup
             GetObject((int)Objects.QueueCard).SetActive(true);
             GetImage((int)Images.ItemPreview).sprite = Managers.Instance.ResourceManager.Load<Sprite>(_selectedItem.Image);
             GetText((int)Text.SelectedItemPrice).text = $"x {_selectedItem.Price}";
+        }
+
+        private void OnButtonHover(PointerEventData data)
+        {
+            if(data.pointerEnter == null || data.pointerEnter.TryGetComponent<ShopItemUI>(out var item) == false)
+            {
+                GetObject((int)Objects.ItemInfoUI).SetActive(false);
+                return;
+            }
+
+            var itemData = item.GetData();
+
+            GetObject((int)Objects.ItemInfoUI).SetActive(true);
+            GetObject((int)Objects.ItemInfoUI).GetComponent<ItemInfoUI>().SetName(itemData.Name).SetDescription(itemData.Description);
+
+            var infoRect = GetObject((int)Objects.ItemInfoUI).GetComponent<RectTransform>();
+            var buttonRect = data.pointerEnter.GetComponent<RectTransform>();
+
+            Canvas canvas = GetComponentInParent<Canvas>();
+            float scale = canvas.scaleFactor;
+            Vector3 pos = data.pointerEnter.transform.position;
+
+            if (pos.y > Screen.height/2)
+            {
+                pos.y -= (infoRect.rect.height + buttonRect.rect.height) * scale;
+            }
+
+            if (pos.x < Screen.width / 2)
+            {
+                pos.x += (infoRect.rect.width) * scale;
+            }
+
+            infoRect.position = pos;
+        }
+
+        private void OnButtonExit(PointerEventData data)
+        {
+            GetObject((int)Objects.ItemInfoUI).SetActive(false);
         }
 
         private void OnButton(PointerEventData data)
