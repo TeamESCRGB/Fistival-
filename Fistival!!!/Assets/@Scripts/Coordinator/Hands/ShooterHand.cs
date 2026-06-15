@@ -1,5 +1,6 @@
 ﻿using ComponentModule;
 using Coordinator;
+using Data;
 using Defines;
 using Manager;
 using UnityEngine;
@@ -39,6 +40,11 @@ namespace Coordinator.Hands
                 Debug.LogError($"@AttackBox 가 {gameObject.name}의 자식중에 없습니다.");
             }
 #endif
+        }
+
+        public override void UpdateUpdatedData(PlayerData data)
+        {
+            base.UpdateUpdatedData(data);
         }
 
         protected override void OnUpdate()

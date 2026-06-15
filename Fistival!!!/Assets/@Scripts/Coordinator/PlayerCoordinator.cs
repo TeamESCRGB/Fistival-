@@ -8,13 +8,14 @@ namespace Coordinator
 
     public class PlayerCoordinator : MonoBehaviour
     {
+        private ModeManageCoordinator _modeMgr;
         private PlayerData _data;
         public void Init()
         {
             _data = new PlayerData(Managers.Instance.DataManager.PlayerData);
-            var modeMgr = GetComponentInChildren<ModeManageCoordinator>();
-            modeMgr.UnlockMode(Defines.ModeTypes.FISTIVAL);
-            modeMgr.ChangeMode(Defines.ModeTypes.FISTIVAL);
+            _modeMgr = GetComponentInChildren<ModeManageCoordinator>();
+            _modeMgr.UnlockMode(Defines.ModeTypes.FISTIVAL);
+            _modeMgr.ChangeMode(Defines.ModeTypes.FISTIVAL);
 
             var hitbox = transform.Find("@Hitbox");
             PlayerVictimCoordinator victim = null;
@@ -30,7 +31,6 @@ namespace Coordinator
 #endif
             victim.Init(_data.MaxHP, _data.MaxHP, _data.InvincibilityTime);
 
-            InitEquipments();
         }
 
         public PlayerData GetPlayerData()
@@ -38,9 +38,18 @@ namespace Coordinator
             return _data;
         }
 
-        public void InitEquipments()
+        public void UpdateUpdatedDatas()
         {
-            //여기에 플레이어 상태 초기화 코드 및 효과 적용 작성
+            ModeBase mode = null;
+            if(_modeMgr != null)
+            {
+                mode = _modeMgr.GetNowMode();
+            }
+
+            if(mode != null)
+            {
+                mode.UpdateUpdatedPlayerData();
+            }
         }
     }
 }

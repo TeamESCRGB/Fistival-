@@ -66,6 +66,8 @@ namespace Coordinator
             gameObject.SetActive(false);
         }
 
+        public abstract void UpdateUpdatedPlayerData();
+
         protected virtual void OnInputActionMapChanged(ActionMapTypes mapType)
         {
             if(mapType != ActionMapTypes.PLAYER)

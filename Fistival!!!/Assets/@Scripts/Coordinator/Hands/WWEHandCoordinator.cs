@@ -1,6 +1,7 @@
 using Coordinator.Movements;
 using Coordinator.Skills;
 using Coordinator.Victims;
+using Data;
 using Defines;
 using Manager;
 using System;
@@ -70,6 +71,12 @@ namespace Coordinator.Hands
             {
                 _tatsumakisenpukyaku.OnAttackEnd += OnAttackSuccess;
             }
+        }
+
+        public override void UpdateUpdatedData(PlayerData data)
+        {
+            base.UpdateUpdatedData(data);
+            _baseSmashDamage = data.Damage;
         }
 
         protected override void OnUpdate()
