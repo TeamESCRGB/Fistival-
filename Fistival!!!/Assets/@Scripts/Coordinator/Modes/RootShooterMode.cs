@@ -34,6 +34,7 @@ namespace Coordinator.Modes
             _hand.Init(GetComponentInParent<Rigidbody2D>(), _playerData.Damage, _playerData.AttackableLayers, _playerData.PickableLayers, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown);
             _hand.OnChargeRateChanged += OnChargeRateChanged;
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
+            _hand.SetMaxCharge(_playerData.MaxChargeCnt);
             _objectWeight = 0;
         }
 

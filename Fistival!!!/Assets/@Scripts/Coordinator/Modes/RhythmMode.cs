@@ -36,6 +36,7 @@ namespace Coordinator.Modes
 
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
             _hand.OnChargeRateChanged += OnChargeRateChanged;
+            _hand.SetMaxCharge(_playerData.MaxChargeCnt);
         }
 
         public override void DeInit()
