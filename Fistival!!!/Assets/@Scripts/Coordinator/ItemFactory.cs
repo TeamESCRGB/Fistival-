@@ -6,20 +6,20 @@ namespace Coordinator
 {
     public class ItemFactory
     {
-        private List<ItemBase> _items = new List<ItemBase>();
+        private Dictionary<int,ItemBase> _items = new Dictionary<int,ItemBase>();
 
         public ItemFactory()
         {
-
+            _items[-9999] = new Assets._Scripts.TestScripts.TestItem();
         }
 
         public ItemBase GetItem(int idx)
         {
-            if(idx < 0 || idx >= _items.Count)
+            if(_items.TryGetValue(idx,out var data))
             {
-                return null;
+                return data;
             }
-            return _items[idx];
+            return null;
         }
     }
 }
