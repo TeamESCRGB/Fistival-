@@ -5,6 +5,8 @@
         public PlayerData(PlayerData original)
         {
             MaxHP = original.MaxHP;
+            MaxChargeCnt = original.MaxChargeCnt;
+            MaxLife = original.MaxLife;
             Damage = original.Damage;
             AttackCooldown = original.AttackCooldown;
             AttackableLayers = original.AttackableLayers;
