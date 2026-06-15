@@ -8,6 +8,7 @@ namespace Coordinator
 
     public class PlayerCoordinator : MonoBehaviour
     {
+        private ItemFactory _itemFactory = new ItemFactory();
         private ModeManageCoordinator _modeMgr;
         private PlayerData _data;
         public void Init()
@@ -31,6 +32,16 @@ namespace Coordinator
 #endif
             victim.Init(_data.MaxHP, _data.MaxHP, _data.InvincibilityTime);
 
+        }
+
+        public void EquipItem(int slot, int item)
+        {
+            var save = Managers.Instance.SaveDataManager.GetSaveFileData();
+
+            _itemFactory.GetItem(save.PlayerSaveData.EquippedItems[slot])?.OnUnEquip(this);
+            _itemFactory.GetItem(item)?.OnEquip(this);
+
+            save.PlayerSaveData.EquippedItems[slot] = item;
         }
 
         public PlayerData GetPlayerData()
