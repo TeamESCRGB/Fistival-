@@ -32,6 +32,11 @@ namespace Coordinator
 #endif
             victim.Init(_data.MaxHP, _data.MaxHP, _data.InvincibilityTime);
 
+            var save = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.EquippedItems;
+            EquipItem(0, save[0]);
+            EquipItem(1, save[2]);
+            EquipItem(2, save[1]);
+
         }
 
         public void EquipItem(int slot, int item)
