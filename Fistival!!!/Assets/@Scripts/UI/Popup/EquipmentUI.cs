@@ -54,6 +54,16 @@ namespace UI.Popup
             ui.gameObject.BindUIEvent(OnHoverExit,Defines.UIEventType.POINTER_EXIT);
         }
 
+        private void SetupEquipmentButton(EquipmentSlotUI slot, int itemIdx)
+        {
+            ItemData item;
+            if(Managers.Instance.DataManager.ItemDataDIct.TryGetValue(itemIdx, out item) == false)
+            {
+                item = null;
+            }
+            SetupItemButton(slot,item,OnEquipmentSlotClicked);
+        }
+
         public override bool Init()
         {
             if(base.Init() == false)
@@ -72,10 +82,9 @@ namespace UI.Popup
             _player = FindAnyObjectByType<PlayerCoordinator>();
 
             var save = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData;
-
-            SetupItemButton(Get<EquipmentSlotUI>((int)Equipments.EquippedItem1), Managers.Instance.DataManager.ItemDataDIct[save.EquippedItems[0]], OnEquipmentSlotClicked);
-            SetupItemButton(Get<EquipmentSlotUI>((int)Equipments.EquippedItem2), Managers.Instance.DataManager.ItemDataDIct[save.EquippedItems[1]], OnEquipmentSlotClicked);
-            SetupItemButton(Get<EquipmentSlotUI>((int)Equipments.EquippedItem3), Managers.Instance.DataManager.ItemDataDIct[save.EquippedItems[2]], OnEquipmentSlotClicked);
+            SetupEquipmentButton(Get<EquipmentSlotUI>((int)Equipments.EquippedItem1), save.EquippedItems[0]);
+            SetupEquipmentButton(Get<EquipmentSlotUI>((int)Equipments.EquippedItem2), save.EquippedItems[1]);
+            SetupEquipmentButton(Get<EquipmentSlotUI>((int)Equipments.EquippedItem3), save.EquippedItems[2]);
 
             Get<EquipmentSlotUI>((int)Equipments.EquippedItem1).SetIDX(0);
             Get<EquipmentSlotUI>((int)Equipments.EquippedItem2).SetIDX(1);
