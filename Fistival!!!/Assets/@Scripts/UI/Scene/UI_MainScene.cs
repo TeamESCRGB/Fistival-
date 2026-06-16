@@ -46,6 +46,7 @@ namespace UI.Scene
         private void OnNewGame(PointerEventData data)
         {
             //Managers.Instance.UIManager.ShowPopupUI<GameFileMenu>("GameFileMenu");
+            GetComponentInChildren<GameFileMenu>().Open();
             _bfc.FlipTo(0);
         }
 

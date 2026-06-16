@@ -48,25 +48,8 @@ namespace UI.Popup
                 return false;
             }
 
-            bool skip = true;
+
             _max = Managers.Instance.SaveDataManager.GetSelectedSaveSlotCnt();
-
-            for(int i = 0; i < _max; i++)
-            {
-                if(Managers.Instance.SaveDataManager.IsSaveFileEmpty(i) == false)
-                {
-                    skip = false;
-                    break;
-                }
-            }
-
-            if(skip)
-            {
-                OnOverwriteYes();
-                return true;
-            }
-
-            Managers.Instance.SaveDataManager.SelectSaveFile(0);
             BindText(typeof(Text));
             BindButton(typeof(Buttons));
             BindImage(typeof(Images));
@@ -80,6 +63,25 @@ namespace UI.Popup
             RefreshMoveButtonState();
 
             return true;
+        }
+
+        public void Open()
+        {
+            bool skip = true;
+
+            for (int i = 0; i < _max; i++)
+            {
+                if (Managers.Instance.SaveDataManager.IsSaveFileEmpty(i) == false)
+                {
+                    skip = false;
+                    break;
+                }
+            }
+
+            if (skip)
+            {
+                OnOverwriteYes();
+            }
         }
 
         private void OnLeftButton(PointerEventData data)
