@@ -1,6 +1,7 @@
 using Manager;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using Utils;
 
 namespace UI.Popup
@@ -25,6 +26,8 @@ namespace UI.Popup
             Stage7=6
         }
 
+        private bool _canPause = true;
+
         public override bool Init()
         {
             if(base.Init() == false)
@@ -40,8 +43,10 @@ namespace UI.Popup
             GetButton((int)Buttons.DataButton).gameObject.BindUIEvent(OnDataButton);
             GetButton((int)Buttons.SaveButton).gameObject.BindUIEvent(OnSaveButton);
 
+            Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
+            Managers.Instance.NewInputSystemManager.UI_ESCInput += PauseOpenBind;
 
-            foreach(var data in Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas)
+            foreach (var data in Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas)
             {
                 if(data.Value.IsCleared)
                 {
@@ -55,6 +60,31 @@ namespace UI.Popup
             }
 
             return true;
+        }
+
+        private void OnDisable()
+        {
+            Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
+        }
+
+        private void PauseOpenBind(InputAction.CallbackContext ctx)
+        {
+            if(ctx.performed == false || _canPause == false)
+            {
+                return;
+            }
+
+            Managers.Instance.GameManager.PauseGame();
+            _canPause = false;
+        }
+
+        private void LateUpdate()
+        {
+            if(_canPause)
+            {
+                return;
+            }
+            _canPause = Managers.Instance.GameManager.IsGamePaused() == false;
         }
 
         private void OnEquipmentButton(PointerEventData _)
