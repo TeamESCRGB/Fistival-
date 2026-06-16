@@ -33,6 +33,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67744c8f21acc1c448b9d1f372d4fd5d
+    m_Address: EquipmentUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7281c06dc6b1bd047a8df558a30cc651
     m_Address: BasicPopupAlert
     m_ReadOnly: 0

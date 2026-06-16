@@ -59,7 +59,7 @@ namespace UI.Popup
 
         private void OnEquipmentButton(PointerEventData _)
         {
-
+            Managers.Instance.UIManager.ShowPopupUI<EquipmentUI>("EquipmentUI");
         }
         private void OnSaveButton(PointerEventData _)
         {
