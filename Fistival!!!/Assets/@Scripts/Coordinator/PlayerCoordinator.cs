@@ -34,8 +34,8 @@ namespace Coordinator
 
             var save = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.EquippedItems;
             EquipItem(0, save[0]);
-            EquipItem(1, save[2]);
-            EquipItem(2, save[1]);
+            EquipItem(1, save[1]);
+            EquipItem(2, save[2]);
 
         }
 
