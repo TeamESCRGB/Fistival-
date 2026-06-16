@@ -9,6 +9,14 @@ namespace Data.NonLodable
         public PlayerSaveFile PlayerSaveData { get; set; } = new PlayerSaveFile();
         public Dictionary<int, StageSaveFile> StageSaveDatas { get; set; } = new Dictionary<int, StageSaveFile>();
 
+        public SaveFile()
+        {
+            for(int i = 0; i < 7; i++)
+            {
+                StageSaveDatas[i] = new StageSaveFile();
+            }
+        }
+
         public void ClearAllData()
         {
             IsEmpty = true;
