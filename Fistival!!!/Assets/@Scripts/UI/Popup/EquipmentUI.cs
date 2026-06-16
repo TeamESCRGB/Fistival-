@@ -1,3 +1,4 @@
+using Coordinator;
 using Data;
 using Manager;
 using System;
@@ -42,6 +43,9 @@ namespace UI.Popup
         {
             ItemInfoUI
         }
+
+        private PlayerCoordinator _player;
+
         private void SetupItemButton(ItemSlotUI ui,ItemData item, Action<PointerEventData> clickCallback)
         {
             ui.SetItem(item);
@@ -65,13 +69,19 @@ namespace UI.Popup
             GetObject((int)Objects.ItemInfoUI).GetComponent<ItemInfoUI>().Init();
             GetButton((int)Buttons.ExitButton).gameObject.BindUIEvent(OnExitButton);
 
+            _player = FindAnyObjectByType<PlayerCoordinator>();
+
             var save = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData;
 
             SetupItemButton(Get<EquipmentSlotUI>((int)Equipments.EquippedItem1), Managers.Instance.DataManager.ItemDataDIct[save.EquippedItems[0]], OnEquipmentSlotClicked);
             SetupItemButton(Get<EquipmentSlotUI>((int)Equipments.EquippedItem2), Managers.Instance.DataManager.ItemDataDIct[save.EquippedItems[1]], OnEquipmentSlotClicked);
             SetupItemButton(Get<EquipmentSlotUI>((int)Equipments.EquippedItem3), Managers.Instance.DataManager.ItemDataDIct[save.EquippedItems[2]], OnEquipmentSlotClicked);
-            
-            foreach(var data in Managers.Instance.DataManager.ItemDataDIct.Values)
+
+            Get<EquipmentSlotUI>((int)Equipments.EquippedItem1).SetIDX(0);
+            Get<EquipmentSlotUI>((int)Equipments.EquippedItem2).SetIDX(1);
+            Get<EquipmentSlotUI>((int)Equipments.EquippedItem3).SetIDX(2);
+
+            foreach (var data in Managers.Instance.DataManager.ItemDataDIct.Values)
             {
                 SetupItemButton(Get<ItemSlotUI>(data.Idx), data, OnItemClicked);
             }
@@ -81,7 +91,18 @@ namespace UI.Popup
 
         private void OnEquipmentSlotClicked(PointerEventData data)
         {
-            Debug.Log(data.pointerClick.GetComponent<ItemSlotUI>().GetData().Name);
+            if(data.pointerClick.TryGetComponent<EquipmentSlotUI>(out var comp) == false || comp.GetData() is null)
+            {
+                Debug.Log("emp");
+                return;
+            }
+
+            if(_player != null)
+            {
+                _player.EquipItem(comp.GetIDX(), -1);
+            }
+            
+            comp.SetItem(null);
         }
 
         private void OnItemClicked(PointerEventData data)
@@ -91,7 +112,7 @@ namespace UI.Popup
 
         private void OnHover(PointerEventData data)
         {
-            if (data.pointerEnter == null || data.pointerEnter.TryGetComponent<ItemSlotUI>(out var item) == false)
+            if (data.pointerEnter == null || data.pointerEnter.TryGetComponent<ItemSlotUI>(out var item) == false || item.GetData() is null)
             {
                 GetObject((int)Objects.ItemInfoUI).SetActive(false);
                 return;
