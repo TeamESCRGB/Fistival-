@@ -91,12 +91,40 @@ namespace UI.Popup
 
         private void OnHover(PointerEventData data)
         {
+            if (data.pointerEnter == null || data.pointerEnter.TryGetComponent<ItemSlotUI>(out var item) == false)
+            {
+                GetObject((int)Objects.ItemInfoUI).SetActive(false);
+                return;
+            }
 
+            var itemData = item.GetData();
+
+            GetObject((int)Objects.ItemInfoUI).SetActive(true);
+            GetObject((int)Objects.ItemInfoUI).GetComponent<ItemInfoUI>().SetName(itemData.Name).SetDescription(itemData.Description);
+
+            var infoRect = GetObject((int)Objects.ItemInfoUI).GetComponent<RectTransform>();
+            var buttonRect = data.pointerEnter.GetComponent<RectTransform>();
+
+            Canvas canvas = GetComponentInParent<Canvas>();
+            float scale = canvas.scaleFactor;
+            Vector3 pos = data.pointerEnter.transform.position;
+
+            if (pos.y > Screen.height / 2)
+            {
+                pos.y -= (infoRect.rect.height + buttonRect.rect.height) * scale;
+            }
+
+            if (pos.x < Screen.width / 2)
+            {
+                pos.x += (buttonRect.rect.width) * scale;
+            }
+
+            infoRect.position = pos;
         }
 
         private void OnHoverExit(PointerEventData data)
         {
-
+            GetObject((int)Objects.ItemInfoUI).SetActive(false);
         }
 
         private void OnExitButton(PointerEventData _)
