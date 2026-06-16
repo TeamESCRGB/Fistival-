@@ -1,4 +1,5 @@
 using Defines;
+using Manager;
 using UnityEngine;
 
 namespace Scenes
@@ -10,8 +11,13 @@ namespace Scenes
         protected override void Init()
         {
             base.Init();
-
+            
             Debug.Log($"{name} init complete");
+        }
+
+        private void Start()
+        {
+            Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.UI);
         }
     }
 }
