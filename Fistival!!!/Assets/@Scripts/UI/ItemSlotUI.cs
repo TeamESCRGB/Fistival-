@@ -23,7 +23,7 @@ namespace UI
                 transform.parent.gameObject.SetActive(false);
                 return;
             }
-
+            _itemImage.sprite = Managers.Instance.ResourceManager.Load<Sprite>(data.Image);
             _data = data;
         }
 
