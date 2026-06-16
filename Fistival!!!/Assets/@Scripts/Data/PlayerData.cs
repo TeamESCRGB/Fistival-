@@ -29,6 +29,7 @@
         public int MaxChargeCnt { get; set; }
         public int MaxLife { get; set; }
         public int Damage { get; set; }
+        public int StrongAttackDamage { get; set; }
         public float AttackCooldown { get; set; }
         public int AttackableLayers { get; set; }
 
