@@ -8,6 +8,7 @@
             MaxChargeCnt = original.MaxChargeCnt;
             MaxLife = original.MaxLife;
             Damage = original.Damage;
+            StrongAttackDamage = original.StrongAttackDamage;
             AttackCooldown = original.AttackCooldown;
             AttackableLayers = original.AttackableLayers;
 
@@ -29,6 +30,7 @@
         public int MaxChargeCnt { get; set; }
         public int MaxLife { get; set; }
         public int Damage { get; set; }
+        public int StrongAttackDamage { get; set; }
         public float AttackCooldown { get; set; }
         public int AttackableLayers { get; set; }
 

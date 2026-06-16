@@ -29,7 +29,7 @@ namespace Coordinator.Modes
             _inputCoordinator.SetHorizontalMovementInputHandler(_movCoordinator);
             _inputCoordinator.SetPointerMovementInputHandler(_hand);
 
-            _hand.Init(GetComponentInParent<Rigidbody2D>(), _playerData.Damage, _playerData.AttackableLayers, _playerData.PickableLayers, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown);
+            _hand.Init(GetComponentInParent<Rigidbody2D>(), _playerData.Damage,_playerData.StrongAttackDamage ,_playerData.AttackableLayers, _playerData.PickableLayers, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown);
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
             _hand.OnChargeRateChanged += OnChargeRateChanged;
             _hand.SetMaxCharge(_playerData.MaxChargeCnt);

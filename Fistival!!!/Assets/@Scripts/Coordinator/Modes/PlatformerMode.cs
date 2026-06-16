@@ -16,7 +16,7 @@ namespace Coordinator.Modes
         {
             base.Init(data);
 
-            int strongDamage = _playerData.Damage * _hand.GetStrongAttackDamageMultiplier();//여기에 공격력 증가치도 나중에 인자 받아서 넣어두기 TODO
+            int strongDamage = _playerData.Damage + _playerData.StrongAttackDamage;
 
             _footCoord.Init(_stepAttackableMask, strongDamage);
         }

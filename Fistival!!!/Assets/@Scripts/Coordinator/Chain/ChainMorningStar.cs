@@ -7,8 +7,7 @@ namespace Coordinator.Chain
 {
     public class ChainMorningStar : MonoBehaviour
     {
-        [SerializeField]
-        private float _strongDamageMultiplier;
+        protected int _strongAttackDamage;
         [SerializeField]
         private float _baseMaxLength;
         [SerializeField]
@@ -24,11 +23,12 @@ namespace Coordinator.Chain
         {
             _anchor = GetComponentInChildren<ChainAnchor>();
         }
-        public void Init(LayerMask attackableMask, Transform parentTransform, int damage, IChainPullable player)
+        public void Init(LayerMask attackableMask, Transform parentTransform, int damage,int strongAttackDamage ,IChainPullable player)
         {
             _parentTransform = parentTransform;
             _anchor.Init(attackableMask, _pullTotalTime, player);
             _baseDamage = damage;
+            _strongAttackDamage = strongAttackDamage;
         }
 
         private void FixedUpdate()
@@ -49,6 +49,16 @@ namespace Coordinator.Chain
             transform.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
         }
 
+        public void SetDamage(int damage)
+        {
+            _baseDamage = damage;
+        }
+
+        public void SetStrongDamage(int damage)
+        {
+            _strongAttackDamage = damage;
+        }
+
         public void Launch(Vector2 dir, AttackStatus status)
         {
             if(_anchor.IsMoving())
@@ -61,7 +71,7 @@ namespace Coordinator.Chain
             if(status == AttackStatus.STRONG)
             {
                 len *= 2;
-                damage = (int)(damage * _strongDamageMultiplier);
+                damage += _strongAttackDamage;
             }
 
             SetRotation(dir);

@@ -41,6 +41,8 @@ namespace Coordinator.Hands
         public override void UpdateUpdatedData(PlayerData data)
         {
             base.UpdateUpdatedData(data);
+            _chain.SetDamage(data.Damage);
+            _chain.SetStrongDamage(data.StrongAttackDamage);
         }
 
         protected override void OnUpdate()
@@ -58,11 +60,11 @@ namespace Coordinator.Hands
             _chain.SetRotation(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position));
         }
 
-        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
+        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn);
             ResetEvents();
-            _chain.Init(attackableFilter,parentRb2d.transform, baseSmashDamage, GetComponentInParent<IChainPullable>());
+            _chain.Init(attackableFilter,parentRb2d.transform, baseSmashDamage,strongAttackDamage ,GetComponentInParent<IChainPullable>());
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             _chain.transform.SetParent(null);

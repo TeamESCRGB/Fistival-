@@ -12,8 +12,7 @@ namespace Coordinator.Hands
 {
     public class WWEHandCoordinator : HandCoordinatorBase
     {
-        [SerializeField]
-        private int _strongDamageMultiplier = 2;
+        private int _strongDamage;
         [SerializeField]
         private double _strongRdyThreshold = 0.5f;
         [SerializeField]
@@ -77,6 +76,7 @@ namespace Coordinator.Hands
         {
             base.UpdateUpdatedData(data);
             _baseSmashDamage = data.Damage;
+            _strongDamage = data.StrongAttackDamage;
         }
 
         protected override void OnUpdate()
@@ -104,7 +104,7 @@ namespace Coordinator.Hands
             }
         }
 
-        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
+        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn);
             _attackStatus = AttackStatus.NO_PRESSED;
@@ -115,10 +115,11 @@ namespace Coordinator.Hands
             ResetEvents();
             _isSkillActing = false;
             _baseSmashDamage = baseSmashDamage;
+            _strongDamage = strongDamage;
             _normalSkill.Init(attackableFilter,baseSmashDamage);
             _hadouken.Init(attackableFilter, -1);
             var attackable = transform.parent.parent.parent.Find("@Hitbox").GetComponent<IAttackable>();
-            _syouryuuken.Init(attackableFilter, baseSmashDamage * _strongDamageMultiplier, GetComponentInParent<IPushable>(), attackable);
+            _syouryuuken.Init(attackableFilter, baseSmashDamage + _strongDamage, GetComponentInParent<IPushable>(), attackable);
             _tatsumakisenpukyaku.Init(attackableFilter,baseSmashDamage, parentRb2d, attackable);
             if (_normalSkill != null)
             {
@@ -208,7 +209,7 @@ namespace Coordinator.Hands
                 }
             }
 
-            _normalSkill.Attack(_attackStatus, objDmg);
+            _normalSkill.Attack(_attackStatus, objDmg, _strongDamage);
             OnAttackSuccess();
         }
 

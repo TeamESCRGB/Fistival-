@@ -8,17 +8,14 @@ namespace Coordinator.Skills
 {
     public class FistSkill : SkillCoordinatorBase
     {
-        [SerializeField]
-        public int _strongDamageMultiplier=2;
-
-        public void Attack(AttackStatus attackStatus, int objectDmg)
+        public void Attack(AttackStatus attackStatus, int objectDmg, int strongAttackDamage)
         {
             var enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0, _attackableLayers);
 
             int totalDmg = _baseDamage;
             if (attackStatus == AttackStatus.STRONG)
             {
-                totalDmg *= _strongDamageMultiplier;
+                totalDmg += strongAttackDamage;
             }
 
             totalDmg += objectDmg;
