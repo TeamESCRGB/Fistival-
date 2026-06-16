@@ -12,6 +12,7 @@ namespace Scenes
         {
             base.Init();
             Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.UI);
+            Managers.Instance.UIManager.DIsableAutoUIActionMapChange();
             Debug.Log($"{name} init complete");
         }
     }
