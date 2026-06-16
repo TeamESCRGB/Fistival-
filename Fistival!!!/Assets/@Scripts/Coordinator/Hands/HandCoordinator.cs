@@ -15,8 +15,6 @@ namespace Coordinator.Hands
         private double _strongRdyThreshold = 0.5f;
         [SerializeField]
         private double _strongAttackThreshold = 1;
-        [SerializeField]
-        private int _strongDamageMultiplier = 2;
         [SerializeField]private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
         public Action<AttackStatus> OnAttackStatusChanged;
@@ -24,6 +22,7 @@ namespace Coordinator.Hands
 
         protected Transform _attackBox;
         protected int _baseSmashDamage;
+        protected int _strongAttackDamage;
         protected SkillCoordinatorBase _skillBase;
 
         protected override void OnAwake()
@@ -51,6 +50,7 @@ namespace Coordinator.Hands
         {
             base.UpdateUpdatedData(data);
             _baseSmashDamage = data.Damage;
+            _strongAttackDamage = data.StrongAttackDamage;
         }
 
         protected override void OnUpdate()
@@ -68,20 +68,16 @@ namespace Coordinator.Hands
             }
         }
 
-        public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
+        public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask,forcePerCharge, chargeTimeInterval,attackCooldwn);
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             ResetEvents();
             _baseSmashDamage = baseSmashDamage;
+            _strongAttackDamage = strongAttackDamage;
 
             _skillBase.Init(_attackableMask,_baseSmashDamage);
-        }
-
-        public int GetStrongAttackDamageMultiplier()
-        {
-            return _strongDamageMultiplier;
         }
 
         public virtual void Attack()
@@ -108,7 +104,7 @@ namespace Coordinator.Hands
 
                 if(_attackStatus == AttackStatus.STRONG)
                 {
-                    totalDmg *= _strongDamageMultiplier;
+                    totalDmg += _strongAttackDamage;
                 }
 
                 if (_grabbedObject != null)
