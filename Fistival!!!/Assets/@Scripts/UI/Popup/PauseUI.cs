@@ -112,8 +112,9 @@ namespace UI.Popup
                 Debug.Log("fal");
                 return;
             }
-            Managers.Instance.GameManager.UnPauseGame();
+            
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GameManager.UnPauseGame();
         }
 
         private void OnQuitGameYes()
