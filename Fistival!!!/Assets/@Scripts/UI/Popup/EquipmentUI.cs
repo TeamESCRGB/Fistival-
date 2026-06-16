@@ -103,6 +103,7 @@ namespace UI.Popup
             }
             
             comp.SetItem(null);
+            GetObject((int)Objects.ItemInfoUI).SetActive(false);
         }
 
         private void OnItemClicked(PointerEventData data)
