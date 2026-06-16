@@ -108,7 +108,44 @@ namespace UI.Popup
 
         private void OnItemClicked(PointerEventData data)
         {
-            Debug.Log(data.pointerClick.GetComponent<ItemSlotUI>().GetData().Name);
+            if (data.pointerClick.TryGetComponent<ItemSlotUI>(out var comp) == false || comp.GetData() is null)
+            {
+                Debug.Log("emp");
+                return;
+            }
+
+            var item = comp.GetData();
+            int slotIdx = -1;
+
+            for(int i = 2; i >= 0; i--)
+            {
+                var slot = Get<EquipmentSlotUI>(i);
+                
+                if(slotIdx < 0)
+                {
+                    if(slot.GetData() is null)
+                    {
+                        slotIdx = i;
+                    }
+                }
+
+                if (slot.GetData()?.Idx == item.Idx)
+                {
+                    return;
+                }
+
+            }
+
+            if(slotIdx < 0)
+            {
+                return;
+            }
+
+            if (_player != null)
+            {
+                _player.EquipItem(slotIdx, item.Idx);
+                Get<EquipmentSlotUI>(slotIdx).SetItem(item);
+            }
         }
 
         private void OnHover(PointerEventData data)
