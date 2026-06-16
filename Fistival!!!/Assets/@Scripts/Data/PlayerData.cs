@@ -8,6 +8,7 @@
             MaxChargeCnt = original.MaxChargeCnt;
             MaxLife = original.MaxLife;
             Damage = original.Damage;
+            StrongAttackDamage = original.StrongAttackDamage;
             AttackCooldown = original.AttackCooldown;
             AttackableLayers = original.AttackableLayers;
 
