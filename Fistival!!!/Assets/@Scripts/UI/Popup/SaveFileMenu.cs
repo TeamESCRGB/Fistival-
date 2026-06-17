@@ -175,12 +175,12 @@ namespace UI.Popup
                 }
                 else
                 {
-                    Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLoadYes, OnConfirmNo);
+                    Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLoadYes, OnConfirmNo).SetText("start with this save file?");
                 }
             }
             else if (_nowMode == SaveFileAccessMode.OVERWRITE)
             {
-                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo);
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo).SetText("overwrite this save file?");
             }
         }
 
