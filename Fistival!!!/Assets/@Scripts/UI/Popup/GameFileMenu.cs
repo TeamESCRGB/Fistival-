@@ -134,7 +134,7 @@ namespace UI.Popup
 
         private void UpdateImages(int idx)
         {
-            GetText((int)Text.NowSlotName).text = $"Slot{_selectedIdx}";
+            GetText((int)Text.NowSlotName).text = $"SaveSlot #{_selectedIdx+1}";
 
             if(idx < 0)
             {
@@ -167,14 +167,12 @@ namespace UI.Popup
 
         private void OnFileClicked(PointerEventData data)
         {
-            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo);
+            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo).SetText("Start new game and delete save files?");
         }
 
         private void OnOverwriteYes()
         {
             Managers.Instance.UIManager.ClosePopupUI();
-            Managers.Instance.GameManager.ClearClearedMapDict();
-
             Managers.Instance.SaveDataManager.ClearAllSaveFile();
 
             Managers.Instance.SaveDataManager.SelectSaveFile(0);
@@ -182,6 +180,13 @@ namespace UI.Popup
             Managers.Instance.SaveDataManager.SaveSaveData();
 
             Managers.Instance.GameManager.InitTotalPlayTimeChecker(0);
+
+            var clearedMapDict = Managers.Instance.GameManager.GetClearedMapDictRef();
+
+            for(int i = 0; i < 7; i++)
+            {
+                clearedMapDict[i] = false;
+            }
 
             Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
             {

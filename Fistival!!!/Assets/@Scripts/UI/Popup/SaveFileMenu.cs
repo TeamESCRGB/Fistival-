@@ -75,7 +75,7 @@ namespace UI.Popup
         protected override void Start()
         {
             base.Start();
-            GetText((int)Text.InfoText).text = _nowMode == SaveFileAccessMode.LOAD ? "LOAD SAVE" : "SAVE";
+            GetText((int)Text.InfoText).text = _nowMode == SaveFileAccessMode.LOAD ? "LOAD" : "SAVE";
             RefreshMoveButtonState();
             RefreshButtonState();
         }
@@ -134,7 +134,7 @@ namespace UI.Popup
 
         private void UpdateImages(int idx)
         {
-            GetText((int)Text.NowSlotName).text = $"Slot{_selectedIdx}";
+            GetText((int)Text.NowSlotName).text = $"SaveSlot #{_selectedIdx + 1}";
 
             if (idx < 0)
             {
@@ -175,12 +175,12 @@ namespace UI.Popup
                 }
                 else
                 {
-                    Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLoadYes, OnConfirmNo);
+                    Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLoadYes, OnConfirmNo).SetText("start with this save file?");
                 }
             }
             else if (_nowMode == SaveFileAccessMode.OVERWRITE)
             {
-                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo);
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo).SetText("overwrite this save file?");
             }
         }
 

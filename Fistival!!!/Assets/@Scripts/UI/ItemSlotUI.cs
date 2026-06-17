@@ -12,8 +12,9 @@ namespace UI
 
         private void Awake()
         {
-            _itemImage = GetComponent<Image>();
+            _itemImage = transform.parent.GetComponent<Image>();
         }
+
 
         public virtual void SetItem(ItemData data)
         {

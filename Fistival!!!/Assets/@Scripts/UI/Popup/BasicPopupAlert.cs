@@ -18,7 +18,7 @@ namespace UI.Popup
             BasicPopupAlertText
         }
 
-        private string _text;
+        private string _text="";
 
         public override bool Init()
         {
@@ -30,16 +30,9 @@ namespace UI.Popup
             BindText(typeof(Text));
             BindButton(typeof(Buttons));
             GetButton((int)Buttons.Yes).gameObject.BindUIEvent(OnYes);
-            Debug.Log(_bindedObjects[typeof(TMP_Text)] == null);
+            GetText((int)Text.BasicPopupAlertText).text = _text;
             return true;
         }
-
-        protected override void Start()
-        {
-            base.Start();
-            GetText((int)Text.BasicPopupAlertText).text = _text;
-        }
-
         public void SetText(string text)
         {
             _text = text;

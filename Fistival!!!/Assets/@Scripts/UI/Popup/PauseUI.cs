@@ -50,7 +50,7 @@ namespace UI.Popup
         {
             if(_isMainSceneChangeTriggered == false)
             {
-                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnMainMenuYes, OnConfirmNo);
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnMainMenuYes, OnConfirmNo).SetText("return to main? unsaved data will be discarded!");
             }
         }
 
@@ -58,7 +58,7 @@ namespace UI.Popup
         {
             if(_isMainSceneChangeTriggered == false)
             {
-                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLobbyYes, OnConfirmNo);
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLobbyYes, OnConfirmNo).SetText("return to lobby? progress will be discarded");
             }
         }
 
@@ -66,7 +66,7 @@ namespace UI.Popup
         {
             if(_isMainSceneChangeTriggered == false)
             {
-                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnQuitGameYes, OnConfirmNo);
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnQuitGameYes, OnConfirmNo).SetText("quit game? unsaved data will be discarded!");
             }
         }
 

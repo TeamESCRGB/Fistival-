@@ -13,9 +13,14 @@ namespace UI.Popup
             No
         }
 
+        enum Texts
+        {
+            Content
+        }
+
         private Action _onYes;
         private Action _onNo;
-
+        private string _text="";
 
         public override bool Init()
         {
@@ -24,19 +29,26 @@ namespace UI.Popup
                 return false;
             }
 
-
+            BindText(typeof(Texts));
             BindButton(typeof(Buttons));
             GetButton((int)Buttons.Yes).gameObject.BindUIEvent(OnYes);
             GetButton((int)Buttons.No).gameObject.BindUIEvent(OnNo);
-            
+            GetText((int)Texts.Content).text = _text;
 
             return true;
         }
 
-        public void SetCallback(Action onYes, Action onNo)
+        public BasicConfirmBox SetCallback(Action onYes, Action onNo)
         {
             _onYes = onYes;
             _onNo = onNo;
+            return this;
+        }
+
+        public BasicConfirmBox SetText(string text)
+        {
+            _text = text;
+            return this;
         }
 
         private void OnYes(PointerEventData data)
