@@ -183,6 +183,18 @@ namespace UI.Popup
 
             Managers.Instance.GameManager.InitTotalPlayTimeChecker(0);
 
+            var saveData = Managers.Instance.SaveDataManager.GetSaveFileData();
+            var clearDict = Managers.Instance.GameManager.GetClearedMapDictRef();
+
+            foreach (var val in clearDict)
+            {
+                if (saveData.StageSaveDatas.ContainsKey(val.Key) == false)
+                {
+                    saveData.StageSaveDatas[val.Key] = new Data.NonLodable.StageSaveFile();
+                }
+                saveData.StageSaveDatas[val.Key].IsCleared = val.Value;
+            }
+
             Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
             {
                 if (now == end)
