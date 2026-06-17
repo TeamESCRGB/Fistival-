@@ -173,8 +173,6 @@ namespace UI.Popup
         private void OnOverwriteYes()
         {
             Managers.Instance.UIManager.ClosePopupUI();
-            Managers.Instance.GameManager.ClearClearedMapDict();
-
             Managers.Instance.SaveDataManager.ClearAllSaveFile();
 
             Managers.Instance.SaveDataManager.SelectSaveFile(0);
@@ -183,16 +181,11 @@ namespace UI.Popup
 
             Managers.Instance.GameManager.InitTotalPlayTimeChecker(0);
 
-            var saveData = Managers.Instance.SaveDataManager.GetSaveFileData();
-            var clearDict = Managers.Instance.GameManager.GetClearedMapDictRef();
+            var clearedMapDict = Managers.Instance.GameManager.GetClearedMapDictRef();
 
-            foreach (var val in clearDict)
+            for(int i = 0; i < 7; i++)
             {
-                if (saveData.StageSaveDatas.ContainsKey(val.Key) == false)
-                {
-                    saveData.StageSaveDatas[val.Key] = new Data.NonLodable.StageSaveFile();
-                }
-                saveData.StageSaveDatas[val.Key].IsCleared = val.Value;
+                clearedMapDict[i] = false;
             }
 
             Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
