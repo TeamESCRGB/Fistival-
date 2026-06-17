@@ -129,11 +129,11 @@ namespace Coordinator
 
         public void OnInteractionInputEvent(InputAction.CallbackContext callbackContext)
         {
-            if(callbackContext.started)
+            if(callbackContext.performed == false)
             {
-                return;
+                return;//test
             }
-            _interactionHandler?.OnInteractionInputEvent(callbackContext.control.IsPressed());
+            _interactionHandler?.OnInteractionInputEvent(true);//이거ㅓㅓㅓ는 inputsystem솟버그때문에, 일단 상호작용키가 누르는 상황만 단발성으로 감지된다는 전제 하에 해둔겁니다. 만약 그게 아니게되는 상황이 온다면 코드를 고쳐야 합니다.
         }
 
         public void OnESCInputEvent(InputAction.CallbackContext callbackContext)

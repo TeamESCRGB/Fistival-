@@ -14,6 +14,7 @@ namespace Manager.Core
         private UISceneBase _uiScene = null;
         private Stack<UIPopupBase> _uiPopupStack = new Stack<UIPopupBase>();
         private GameObject _uiRoot;
+        private bool _isActionMapAutoChangeDisabled = false;
         public bool IsPopupUIOn { get { return _uiPopupStack.IsEmpty() == false; } }
         public void Init()
         {
@@ -25,6 +26,12 @@ namespace Manager.Core
                     _uiRoot = new GameObject { name = "@UI_Root" };
                 }
             }
+            _isActionMapAutoChangeDisabled = false;
+        }
+
+        public void DIsableAutoUIActionMapChange()
+        {
+            _isActionMapAutoChangeDisabled = true;
         }
 
         public void SetCanvas(GameObject go, Vector2 referenceResolution, bool sort = true, int sortOrder = 0)
@@ -120,6 +127,11 @@ namespace Manager.Core
 
             go.transform.SetParent(parent,worldPositionStays);
 
+            if(_isActionMapAutoChangeDisabled == false)
+            {
+                Managers.Instance.NewInputSystemManager.SwitchActionMap(Defines.ActionMapTypes.UI);
+            }
+
             return popup;
         }
 
@@ -140,6 +152,10 @@ namespace Manager.Core
             popup = null;
             _order--;
 
+            if(IsPopupUIOn == false && _isActionMapAutoChangeDisabled == false)
+            {
+                Managers.Instance.NewInputSystemManager.SwitchActionMap(Defines.ActionMapTypes.PLAYER);
+            }
         }
 
         public void CloseAllPopupUI()
@@ -159,6 +175,7 @@ namespace Manager.Core
         {
             CloseAllPopupUI();
             _uiScene = null;
+            _isActionMapAutoChangeDisabled = false;
         }
 
         public bool CompareTopPopup(UIPopupBase popup)

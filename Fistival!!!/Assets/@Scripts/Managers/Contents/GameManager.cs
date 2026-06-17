@@ -43,7 +43,7 @@ namespace Manager.Contents
                 {
                     Managers.Instance.GlobalSoundManager.PauseAll();
                 }
-                Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.UI);
+                //Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.UI);
                 Managers.Instance.UIManager.ShowPopupUI<PauseUI>("PauseUI");
             }
         }
@@ -62,7 +62,7 @@ namespace Manager.Contents
                 {
                     Managers.Instance.GlobalSoundManager.UnPauseAll();
                 }
-                Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.PLAYER);
+                //Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.PLAYER);
             }
         }
 

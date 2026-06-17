@@ -3,6 +3,7 @@ using Manager;
 using UI.Popup;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Utils;
 
@@ -34,6 +35,8 @@ namespace UI.Popup
             Stage7_ClearedMark
         }
 
+
+        private bool _canPause = true;
         private void UpdateButton(int idx, ref int clearCnt)
         {
             var saveData = Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[idx];//클리어 정보 띄울거 생각해서 일단 남겨둠
@@ -90,7 +93,34 @@ namespace UI.Popup
             GetImage((int)Images.Stage6_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage6]);
             GetImage((int)Images.Stage7_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage7]);
 
+            Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
+            Managers.Instance.NewInputSystemManager.UI_ESCInput += PauseOpenBind;
+
             return true;
+        }
+        private void OnDisable()
+        {
+            Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
+        }
+
+        private void PauseOpenBind(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed == false || _canPause == false)
+            {
+                return;
+            }
+
+            Managers.Instance.GameManager.PauseGame();
+            _canPause = false;
+        }
+
+        private void LateUpdate()
+        {
+            if (_canPause)
+            {
+                return;
+            }
+            _canPause = Managers.Instance.GameManager.IsGamePaused() == false;
         }
 
         private void OnStage1Pressed(PointerEventData _)

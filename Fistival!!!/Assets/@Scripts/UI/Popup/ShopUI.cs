@@ -3,6 +3,7 @@ using Manager;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using Utils;
 
 namespace UI.Popup
@@ -51,7 +52,7 @@ namespace UI.Popup
 
 
         private ItemData _selectedItem = null;
-
+        private bool _canPause = true;
         public override bool Init()
         {
             if(base.Init() == false)
@@ -94,7 +95,34 @@ namespace UI.Popup
             GetObject((int)Objects.ItemInfoUI).gameObject.SetActive(false);
             GetObject((int)Objects.ItemInfoUI).GetComponent<ItemInfoUI>().Init();
 
+            Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
+            Managers.Instance.NewInputSystemManager.UI_ESCInput += PauseOpenBind;
             return true;
+        }
+
+        private void OnDisable()
+        {
+            Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
+        }
+
+        private void PauseOpenBind(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed == false || _canPause == false)
+            {
+                return;
+            }
+
+            Managers.Instance.GameManager.PauseGame();
+            _canPause = false;
+        }
+
+        private void LateUpdate()
+        {
+            if (_canPause)
+            {
+                return;
+            }
+            _canPause = Managers.Instance.GameManager.IsGamePaused() == false;
         }
 
         private void UpdateItemData()
