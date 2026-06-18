@@ -43,6 +43,11 @@ namespace Coordinator.Victims
             _invincibilityTimeCounter = null;
         }
 
+        public void SetMaxHP(int maxHP)
+        {
+            _hpCoord.SetMaxHP(maxHP);
+        }
+
         public bool CanAttack()
         {
             if (_invincibilityTimeCounter is null)
