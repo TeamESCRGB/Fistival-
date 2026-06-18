@@ -14,6 +14,7 @@
 /[Uu]ser[Ss]ettings/
 /Assets/@Scripts/TestScripts
 /Assets/@Resources/TestResources
+/Assets/@Resources/Font
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
