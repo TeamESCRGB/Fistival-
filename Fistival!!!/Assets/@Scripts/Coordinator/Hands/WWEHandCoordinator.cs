@@ -75,6 +75,11 @@ namespace Coordinator.Hands
             _strongDamage = data.StrongAttackDamage;
             _strongAttackThreshold = data.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
+
+            //일반스킬, 승룡권, 아따따뚜겐의 공격력을 다시 설정해줘야 한다. 해결
+            _normalSkill.SetBaseDamage(data.Damage);
+            _syouryuuken.SetBaseDamage(data.Damage + data.StrongAttackDamage);
+            _tatsumakisenpukyaku.SetBaseDamage(data.Damage);
         }
 
         protected override void OnUpdate()
