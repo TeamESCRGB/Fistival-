@@ -50,6 +50,8 @@ namespace Coordinator
         public event Action<ObjectData> OnGrabbedObjectChanged;
         #endregion
 
+        protected int _throwAttackAdditionalDamage = 0;
+
         #region Events
 
         protected void ResetEvents()
@@ -70,7 +72,7 @@ namespace Coordinator
 
         #endregion
 
-        protected void InitCommonDatas(Rigidbody2D parentRb2d, LayerMask attackableMask,LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldown)
+        protected void InitCommonDatas(Rigidbody2D parentRb2d, LayerMask attackableMask,LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldown, int throwAttackAdditionalDamage)
         {
             _pickableObjectMask = pickableObjectMask;
             _attackableMask = attackableMask;
@@ -85,10 +87,12 @@ namespace Coordinator
             _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(attackCooldown, 0.1f);
             _nowSelectedObject = (null, null);
             _nowSelectedInteractable = (null, null);
+            _throwAttackAdditionalDamage = throwAttackAdditionalDamage;
         }
 
         public virtual void UpdateUpdatedData(PlayerData data)
         {
+            _throwAttackAdditionalDamage = data.ThrowAttackAdditionalDamage;
             SetMaxCharge(data.MaxChargeCnt);
 
         }
@@ -284,6 +288,7 @@ namespace Coordinator
         {
             _status = HandStatus.IDLE;
             _grabbedObject.SetAttackableLayer(_attackableMask);
+            _grabbedObject.SetAdditionalDamage(_throwAttackAdditionalDamage);
             _grabbedObject.Throw(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), _handAnchor.position), _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt, _chargeCnt);
             _chargeCnt = 0;
             _grabbedObject = null;

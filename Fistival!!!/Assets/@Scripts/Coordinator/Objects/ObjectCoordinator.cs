@@ -30,6 +30,8 @@ namespace Coordinator.Objects
         [SerializeField]
         protected LayerMask _groundLayermask;
 
+        protected int _additionalDamage = 0;
+
         private void Awake()
         {
             OnAwake();
@@ -82,7 +84,13 @@ namespace Coordinator.Objects
             _durability = data.Durability;
             _abrasableLayerMask = data.AbrasableLayerMask;
             _isThrown = false;
+            _additionalDamage = 0;
             base.Init(0, data.Damage);
+        }
+
+        public void SetAdditionalDamage(int damage)
+        {
+            _additionalDamage = damage;
         }
 
         private void FixedUpdate()
@@ -192,7 +200,7 @@ namespace Coordinator.Objects
             }
             else if (((1 << col.gameObject.layer) & _attackableLayers) != 0)
             {
-                Managers.Instance.AttackManager.RequestAttack(comp, this, (int)(_baseDamage * _rb2d.linearVelocity.magnitude), _rb2d.linearVelocity);
+                Managers.Instance.AttackManager.RequestAttack(comp, this, (int)(_baseDamage * _rb2d.linearVelocity.magnitude) + _additionalDamage, _rb2d.linearVelocity);
                 _durability--;
             }
 

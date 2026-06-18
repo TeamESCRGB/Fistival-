@@ -14,9 +14,9 @@ namespace Coordinator.Hands
         protected bool _isLMBPressed;
         protected Transform _attackBox;
         protected int _projectileIdx;
-        public void Init(int projectileIdx,Rigidbody2D parentrb2d , LayerMask attackableMask, LayerMask pickableObjectMask,float cooldownTime, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
+        public void Init(int projectileIdx,Rigidbody2D parentrb2d , LayerMask attackableMask, LayerMask pickableObjectMask,float cooldownTime, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage)
         {
-            InitCommonDatas(parentrb2d, attackableMask, pickableObjectMask, forcePerCharge, chargeTimeInterval,attackCooldwn);
+            InitCommonDatas(parentrb2d, attackableMask, pickableObjectMask, forcePerCharge, chargeTimeInterval,attackCooldwn, throwAdditionalDamage);
             ResetEvents();
             _isLMBPressed = false;
             _projectileIdx = projectileIdx;
