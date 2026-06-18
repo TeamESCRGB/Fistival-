@@ -92,6 +92,7 @@ namespace Coordinator
 
         public virtual void UpdateUpdatedData(PlayerData data)
         {
+            _chargeTimeInterval = data.ChargeTimeInterval;
             _throwAttackAdditionalDamage = data.ThrowAttackAdditionalDamage;
             SetMaxCharge(data.MaxChargeCnt);
 
