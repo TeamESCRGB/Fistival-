@@ -68,9 +68,9 @@ namespace Coordinator.Hands
             }
         }
 
-        public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
+        public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage)
         {
-            InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask,forcePerCharge, chargeTimeInterval,attackCooldwn);
+            InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask,forcePerCharge, chargeTimeInterval,attackCooldwn, throwAdditionalDamage);
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             ResetEvents();

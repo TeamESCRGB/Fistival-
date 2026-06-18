@@ -60,9 +60,9 @@ namespace Coordinator.Hands
             _chain.SetRotation(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position));
         }
 
-        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn)
+        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage)
         {
-            InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn);
+            InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn, throwAdditionalDamage);
             ResetEvents();
             _chain.Init(attackableFilter,parentRb2d.transform, baseSmashDamage,strongAttackDamage ,GetComponentInParent<IChainPullable>());
             _attackStatus = AttackStatus.NO_PRESSED;

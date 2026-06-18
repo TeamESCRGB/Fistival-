@@ -5,7 +5,7 @@
     "MaxChargeCnt": 2,
     "Damage": 2,
     "StrongAttackDamage": 9999,
-    "ThrowAttackAdditionalDamage": 10,
+    "ThrowAttackAdditionalDamage": 100000,
     "AttackCooldown": 1.25,
     "AttackableLayers": 4096,
     "PickableLayers": 64,
