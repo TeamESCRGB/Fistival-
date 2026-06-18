@@ -123,8 +123,13 @@ namespace UI.Popup
                 return;
             }
 
+
+
+
             var item = comp.GetData();
             int slotIdx = -1;
+            int emptyCnt = 0;
+            bool isEquipmentLocked = false;
 
             for(int i = 2; i >= 0; i--)
             {
@@ -138,6 +143,15 @@ namespace UI.Popup
                     }
                 }
 
+                if(slot.GetData() is null)
+                {
+                    emptyCnt++;
+                }
+                else if(isEquipmentLocked == false)
+                {
+                    isEquipmentLocked = slot.GetData().Idx == 10;
+                }
+
                 if (slot.GetData()?.Idx == item.Idx)
                 {
                     return;
@@ -147,6 +161,17 @@ namespace UI.Popup
 
             if(slotIdx < 0)
             {
+                return;
+            }
+
+            if(item.Idx == 10 && emptyCnt < 3)
+            {
+                Managers.Instance.UIManager.ShowPopupUI<BasicPopupAlert>("BasicPopupAlert").SetText("모든 것을 가지려면 모든 것을 잃어야 하는 법. 모든 착용품을 해제해라.");
+                return;
+            }
+            else if(isEquipmentLocked)
+            {
+                Managers.Instance.UIManager.ShowPopupUI<BasicPopupAlert>("BasicPopupAlert").SetText("마지막처럼은 혼자서만 쓸 수 있다. 이걸 빼던지 다른걸 포기하던지 선택해라.");
                 return;
             }
 
