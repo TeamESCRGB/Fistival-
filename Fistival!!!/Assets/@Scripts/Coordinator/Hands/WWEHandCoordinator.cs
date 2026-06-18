@@ -13,14 +13,11 @@ namespace Coordinator.Hands
     public class WWEHandCoordinator : HandCoordinatorBase
     {
         private int _strongDamage;
-        [SerializeField]
         private double _strongRdyThreshold = 0.5f;
-        [SerializeField]
         private double _strongAttackThreshold = 1;
         [SerializeField] private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
         public Action<AttackStatus> OnAttackStatusChanged;
-        private int _baseSmashDamage;
 
         [SerializeField]
         private float _comboThreshold=0.5f;
@@ -75,8 +72,9 @@ namespace Coordinator.Hands
         public override void UpdateUpdatedData(PlayerData data)
         {
             base.UpdateUpdatedData(data);
-            _baseSmashDamage = data.Damage;
             _strongDamage = data.StrongAttackDamage;
+            _strongAttackThreshold = data.StrongAttackThreshold;
+            _strongRdyThreshold = _strongAttackThreshold / 2;
         }
 
         protected override void OnUpdate()
@@ -104,9 +102,11 @@ namespace Coordinator.Hands
             }
         }
 
-        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage)
+        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold)
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn, throwAdditionalDamage);
+            _strongAttackThreshold = strongAttackThreshold;
+            _strongRdyThreshold = _strongAttackThreshold / 2;
             _attackStatus = AttackStatus.NO_PRESSED;
             _skillType = WWESkillTypes.NORMAL;
             _pressedTime = 0;
@@ -114,7 +114,6 @@ namespace Coordinator.Hands
             _energy = 0;
             ResetEvents();
             _isSkillActing = false;
-            _baseSmashDamage = baseSmashDamage;
             _strongDamage = strongDamage;
             _normalSkill.Init(attackableFilter,baseSmashDamage);
             _hadouken.Init(attackableFilter, -1);

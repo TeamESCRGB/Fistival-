@@ -11,7 +11,7 @@
     "PickableLayers": 64,
     "ForcePerCharge": 10,
     "ChargeTimeInterval": 1,
-    "StrongAttackThreshold": 1,
+    "StrongAttackThreshold": 0.5,
     "SlownessSensitivity": 0.01,
     "MaxSlowness": 0.5,
     "MoveSpeed": 10,

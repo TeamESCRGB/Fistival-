@@ -28,7 +28,7 @@ namespace Coordinator.Modes
         {
             base.Init(data);
             _movCoordinator.Init(_playerData.MoveSpeed, _playerData.JumpPower, _playerData.SlownessSensitivity, _playerData.MaxSlowness, GetComponentInParent<Rigidbody2D>());
-            _hand.Init(GetComponentInParent<Rigidbody2D>(), _playerData.Damage,_playerData.StrongAttackDamage ,_playerData.AttackableLayers, _playerData.PickableLayers, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown, _playerData.ThrowAttackAdditionalDamage);
+            _hand.Init(GetComponentInParent<Rigidbody2D>(), _playerData.Damage,_playerData.StrongAttackDamage ,_playerData.AttackableLayers, _playerData.PickableLayers, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown, _playerData.ThrowAttackAdditionalDamage, _playerData.StrongAttackThreshold);
 
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
             _hand.OnChargeRateChanged += OnChargeRateChanged;

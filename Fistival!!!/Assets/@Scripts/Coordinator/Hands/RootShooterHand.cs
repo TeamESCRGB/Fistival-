@@ -15,9 +15,7 @@ namespace Coordinator.Hands
         [SerializeField]private GunStatus _gunStatus;
 
         #region 강공_상태_조정
-        [SerializeField]
         private double _strongRdyThreshold = 0.5f;
-        [SerializeField]
         private double _strongAttackThreshold = 1;
         private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
@@ -104,10 +102,12 @@ namespace Coordinator.Hands
             _reloadCooldown = null;
         }
 
-        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage)
+        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold)
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn, throwAdditionalDamage);
             ResetEvents();
+            _strongAttackThreshold = strongAttackThreshold;
+            _strongRdyThreshold = _strongAttackThreshold / 2;
             _baseSmashDamage = baseSmashDamage;
             _bulletCnt = _maxBulletCnt;
             _lastShootTime = 0;
@@ -140,6 +140,8 @@ namespace Coordinator.Hands
         public override void UpdateUpdatedData(PlayerData data)
         {
             base.UpdateUpdatedData(data);
+            _strongAttackThreshold = data.StrongAttackThreshold;
+            _strongRdyThreshold = _strongAttackThreshold / 2;
         }
 
         protected override void OnUpdate()

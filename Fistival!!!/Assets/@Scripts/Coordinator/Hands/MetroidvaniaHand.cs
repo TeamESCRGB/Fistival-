@@ -12,9 +12,7 @@ namespace Coordinator.Hands
 {
     public class MetroidvaniaHand : HandCoordinatorBase, IPointerMovementInputHandler
     {
-        [SerializeField]
         private double _strongRdyThreshold = 0.5f;
-        [SerializeField]
         private double _strongAttackThreshold = 1;
         [SerializeField] private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
@@ -43,6 +41,8 @@ namespace Coordinator.Hands
             base.UpdateUpdatedData(data);
             _chain.SetDamage(data.Damage);
             _chain.SetStrongDamage(data.StrongAttackDamage);
+            _strongAttackThreshold = data.StrongAttackThreshold;
+            _strongRdyThreshold = _strongAttackThreshold / 2;
         }
 
         protected override void OnUpdate()
@@ -60,10 +60,12 @@ namespace Coordinator.Hands
             _chain.SetRotation(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position));
         }
 
-        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage)
+        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold)
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn, throwAdditionalDamage);
             ResetEvents();
+            _strongAttackThreshold = strongAttackThreshold;
+            _strongRdyThreshold = _strongAttackThreshold / 2;
             _chain.Init(attackableFilter,parentRb2d.transform, baseSmashDamage,strongAttackDamage ,GetComponentInParent<IChainPullable>());
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;

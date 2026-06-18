@@ -21,9 +21,9 @@ namespace Coordinator.Hands
 
         private int _parryReflectionDamage;
 
-        public override void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask,float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage)
+        public override void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask,float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage,float strongAttackThreshold)
         {
-            base.Init(parentRb2d, baseSmashDamage,strongAttackDamage ,attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval,attackCooldwn, throwAdditionalDamage);
+            base.Init(parentRb2d, baseSmashDamage,strongAttackDamage ,attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval,attackCooldwn, throwAdditionalDamage, strongAttackThreshold);
             _endIdx = -1;
             _judgeType = _missMask;
             _noteType = NoteTypes.NO_ACTION;

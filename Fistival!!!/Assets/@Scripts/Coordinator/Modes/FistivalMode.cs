@@ -28,7 +28,7 @@ namespace Coordinator.Modes
             _movCoordinator.Init(_playerData.MoveSpeed, _playerData.JumpPower, _playerData.SlownessSensitivity, _playerData.MaxSlowness,GetComponentInParent<Rigidbody2D>());
             _inputCoordinator.SetJumpsMovementInputHandler(_movCoordinator);
             _inputCoordinator.SetHorizontalMovementInputHandler(_movCoordinator);
-            _hand.Init(GetComponentInParent<Rigidbody2D>(), _playerData.Damage,_playerData.StrongAttackDamage ,_playerData.AttackableLayers, _playerData.PickableLayers, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown, _playerData.ThrowAttackAdditionalDamage);//아니 이거 데이터에 추가해야되네
+            _hand.Init(GetComponentInParent<Rigidbody2D>(), _playerData.Damage,_playerData.StrongAttackDamage ,_playerData.AttackableLayers, _playerData.PickableLayers, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown, _playerData.ThrowAttackAdditionalDamage, _playerData.StrongAttackThreshold);//아니 이거 데이터에 추가해야되네
             _hand.OnGrabbedObjectChanged+=OnGrabbedObjectChanged;
             _hand.OnChargeRateChanged += OnChargeRateChanged;
             _hand.SetMaxCharge(_playerData.MaxChargeCnt);

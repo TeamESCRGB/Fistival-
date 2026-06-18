@@ -11,9 +11,7 @@ namespace Coordinator.Hands
     {
 
         [Header("HandCoordinator Field")]
-        [SerializeField]
         private double _strongRdyThreshold = 0.5f;
-        [SerializeField]
         private double _strongAttackThreshold = 1;
         [SerializeField]private AttackStatus _attackStatus = AttackStatus.NO_PRESSED;
         private double _pressedTime = 0;
@@ -51,6 +49,8 @@ namespace Coordinator.Hands
             base.UpdateUpdatedData(data);
             _baseSmashDamage = data.Damage;
             _strongAttackDamage = data.StrongAttackDamage;
+            _strongAttackThreshold = data.StrongAttackThreshold;
+            _strongRdyThreshold = _strongAttackThreshold / 2;
         }
 
         protected override void OnUpdate()
@@ -68,9 +68,11 @@ namespace Coordinator.Hands
             }
         }
 
-        public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage)
+        public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold)
         {
             InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask,forcePerCharge, chargeTimeInterval,attackCooldwn, throwAdditionalDamage);
+            _strongAttackThreshold = strongAttackThreshold;
+            _strongRdyThreshold = _strongAttackThreshold / 2;
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             ResetEvents();
