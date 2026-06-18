@@ -701,7 +701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOAD GAME
+  m_text: "\uC774\uC5B4\uC11C \uD558\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 267157b82a733324e8972d350ce0410a, type: 2}
   m_sharedMaterial: {fileID: 7577096264003107097, guid: 267157b82a733324e8972d350ce0410a, type: 2}
@@ -1544,7 +1544,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NEW GAME
+  m_text: "\uC0C8 \uAC8C\uC784 \uC2DC\uC791"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 267157b82a733324e8972d350ce0410a, type: 2}
   m_sharedMaterial: {fileID: 7577096264003107097, guid: 267157b82a733324e8972d350ce0410a, type: 2}
@@ -2322,7 +2322,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SETTING
+  m_text: "\uC124\uC815"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 267157b82a733324e8972d350ce0410a, type: 2}
   m_sharedMaterial: {fileID: 7577096264003107097, guid: 267157b82a733324e8972d350ce0410a, type: 2}
@@ -2580,7 +2580,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: QUIT GAME
+  m_text: "\uAC8C\uC784 \uC885\uB8CC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 267157b82a733324e8972d350ce0410a, type: 2}
   m_sharedMaterial: {fileID: 7577096264003107097, guid: 267157b82a733324e8972d350ce0410a, type: 2}
