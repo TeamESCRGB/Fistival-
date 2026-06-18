@@ -167,7 +167,7 @@ namespace UI.Popup
 
         private void OnFileClicked(PointerEventData data)
         {
-            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo).SetText("Start new game and delete save files?");
+            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo).SetText("모든 세이브 파일들을 지우고 새 게임을 시작하시겠습니까?");
         }
 
         private void OnOverwriteYes()

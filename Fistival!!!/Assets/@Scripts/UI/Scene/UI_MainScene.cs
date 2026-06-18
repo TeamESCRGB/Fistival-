@@ -66,7 +66,7 @@ namespace UI.Scene
 
         private void OnQuitGame(PointerEventData data)
         {
-            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(QuitGame,CloseConfirm).SetText("Quit game?");
+            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(QuitGame,CloseConfirm).SetText("게임을 종료하시겠습니까?");
         }
 
         private void QuitGame()

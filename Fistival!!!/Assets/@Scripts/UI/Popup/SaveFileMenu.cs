@@ -122,12 +122,12 @@ namespace UI.Popup
             }
             if (Managers.Instance.SaveDataManager.IsSaveFileEmpty(_selectedIdx))
             {
-                GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "EMPTY";
+                GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "플레이 기록 없음";
                 UpdateImages(-1);
             }
             else
             {
-                GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "Saved";
+                GetButton((int)Buttons.SelectButton).GetComponentInChildren<TextMeshProUGUI>().text = "SELECT!!!";
                 UpdateImages(_selectedIdx);
             }
         }
@@ -171,16 +171,16 @@ namespace UI.Popup
             {
                 if (Managers.Instance.SaveDataManager.IsSaveFileEmpty(_selectedIdx))
                 {
-                    Managers.Instance.UIManager.ShowPopupUI<BasicPopupAlert>("BasicPopupAlert").SetText("save file empty");
+                    Managers.Instance.UIManager.ShowPopupUI<BasicPopupAlert>("BasicPopupAlert").SetText("로드 가능한 세이브 정보가 없습니다.");
                 }
                 else
                 {
-                    Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLoadYes, OnConfirmNo).SetText("start with this save file?");
+                    Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLoadYes, OnConfirmNo).SetText("이 세이브 파일로 시작하시겠습니까?");
                 }
             }
             else if (_nowMode == SaveFileAccessMode.OVERWRITE)
             {
-                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo).SetText("overwrite this save file?");
+                Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnOverwriteYes, OnConfirmNo).SetText("이 세이브 파일에 덮어쓰시겠습니까?");
             }
         }
 
