@@ -35,6 +35,24 @@ namespace Coordinator
             _hpModule.Init(hp, maxHP);
         }
 
+        public void SetMaxHP(int maxHP)
+        {
+            int old = _hpModule.GetHP();
+            if(old > maxHP)
+            {
+                OnHPChanged?.Invoke(old, maxHP, maxHP - old);
+            }
+
+            _hpModule.Init(Math.Clamp(old, 0, maxHP), maxHP);
+            bool isDeadOld = _isDead;
+            _isDead = _hpModule.IsDead();
+
+            if(isDeadOld == false && _isDead)
+            {
+                OnDead?.Invoke();
+            }
+        }
+
         public int GetHP()
         {
             return _hpModule.GetHP();
