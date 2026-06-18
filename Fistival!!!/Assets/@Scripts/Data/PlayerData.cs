@@ -9,6 +9,7 @@
             MaxLife = original.MaxLife;
             Damage = original.Damage;
             StrongAttackDamage = original.StrongAttackDamage;
+            ThrowAttackAdditionalDamage = original.ThrowAttackAdditionalDamage;
             AttackCooldown = original.AttackCooldown;
             AttackableLayers = original.AttackableLayers;
 
@@ -16,6 +17,7 @@
 
             ForcePerCharge = original.ForcePerCharge;
             ChargeTimeInterval = original.ChargeTimeInterval;
+            StrongAttackThreshold = original.StrongAttackThreshold;
 
             MoveSpeed = original.MoveSpeed;
             SlownessSensitivity = original.SlownessSensitivity;
@@ -31,6 +33,7 @@
         public int MaxLife { get; set; }
         public int Damage { get; set; }
         public int StrongAttackDamage { get; set; }
+        public int ThrowAttackAdditionalDamage { get; set; }
         public float AttackCooldown { get; set; }
         public int AttackableLayers { get; set; }
 
@@ -38,6 +41,8 @@
 
         public float ForcePerCharge { get; set; }
         public float ChargeTimeInterval { get; set; }
+
+        public float StrongAttackThreshold { get; set; }
 
         public float MoveSpeed { get; set; }
         public float SlownessSensitivity { get; set; }
