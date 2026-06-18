@@ -52,6 +52,10 @@ namespace Coordinator
         }
 
         public int GetBaseDamage => _baseDamage;
+        public virtual void SetBaseDamage(int damage)
+        {
+            _baseDamage = damage;
+        }
 
         public abstract bool Act(IAttackable target, int calculatedDamage, Vector2 knockback);
     }

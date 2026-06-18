@@ -140,6 +140,8 @@ namespace Coordinator.Hands
         public override void UpdateUpdatedData(PlayerData data)
         {
             base.UpdateUpdatedData(data);
+            //일반데미지 업데이트 로직 해줘야됨 해결
+            _baseSmashDamage = data.Damage;
             _strongAttackThreshold = data.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
         }
