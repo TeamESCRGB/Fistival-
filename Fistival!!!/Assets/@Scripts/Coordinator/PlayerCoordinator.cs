@@ -34,17 +34,20 @@ namespace Coordinator
             _victim.Init(_data.MaxHP, _data.MaxHP, _data.InvincibilityTime);
 
             var save = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.EquippedItems;
-            EquipItem(0, save[0]);
-            EquipItem(1, save[1]);
-            EquipItem(2, save[2]);
+            EquipItem(0, save[0],true);
+            EquipItem(1, save[1],true);
+            EquipItem(2, save[2],true);
 
         }
 
-        public void EquipItem(int slot, int item)
+        public void EquipItem(int slot, int item, bool init=false)
         {
             var save = Managers.Instance.SaveDataManager.GetSaveFileData();
 
-            _itemFactory.GetItem(save.PlayerSaveData.EquippedItems[slot])?.OnUnEquip(this);
+            if(init==false)
+            {
+                _itemFactory.GetItem(save.PlayerSaveData.EquippedItems[slot])?.OnUnEquip(this);
+            }
             _itemFactory.GetItem(item)?.OnEquip(this);
 
             save.PlayerSaveData.EquippedItems[slot] = item;
@@ -72,6 +75,8 @@ namespace Coordinator
             {
                 _victim.SetMaxHP(_data.MaxHP);
             }
+
+            Debug.Log(_data.MaxLife);
         }
     }
 }
