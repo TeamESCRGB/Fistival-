@@ -11,6 +11,7 @@ namespace Coordinator
         private ItemFactory _itemFactory = new ItemFactory();
         private ModeManageCoordinator _modeMgr;
         private PlayerData _data;
+        private PlayerVictimCoordinator _victim;
         public void Init()
         {
             _data = new PlayerData(Managers.Instance.DataManager.PlayerData);
@@ -19,18 +20,18 @@ namespace Coordinator
             _modeMgr.ChangeMode(Defines.ModeTypes.FISTIVAL);
 
             var hitbox = transform.Find("@Hitbox");
-            PlayerVictimCoordinator victim = null;
+            _victim = null;
 #if UNITY_EDITOR
             Debug.Assert(hitbox != null,"@Hitbox가 없습니다.");
 #endif
             if(hitbox != null)
             {
-                victim = hitbox.GetComponent<PlayerVictimCoordinator>();
+                _victim = hitbox.GetComponent<PlayerVictimCoordinator>();
             }
 #if UNITY_EDITOR
-            Debug.Assert(victim != null, "@Hitbox에 PlayerVictimCoordinator가 없습니다.");
+            Debug.Assert(_victim != null, "@Hitbox에 PlayerVictimCoordinator가 없습니다.");
 #endif
-            victim.Init(_data.MaxHP, _data.MaxHP, _data.InvincibilityTime);
+            _victim.Init(_data.MaxHP, _data.MaxHP, _data.InvincibilityTime);
 
             var save = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.EquippedItems;
             EquipItem(0, save[0]);
@@ -65,6 +66,11 @@ namespace Coordinator
             if(mode != null)
             {
                 mode.UpdateUpdatedPlayerData();
+            }
+
+            if(_victim != null)
+            {
+                _victim.SetMaxHP(_data.MaxHP);
             }
         }
     }
