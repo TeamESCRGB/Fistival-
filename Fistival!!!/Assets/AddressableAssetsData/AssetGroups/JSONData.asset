@@ -34,6 +34,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56cb99c83d6ea0b41aa9794d2100649d
+    m_Address: CollectionData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6c8b62e3c06fd67489e4f4ed455faf0d
     m_Address: PatternData
     m_ReadOnly: 0

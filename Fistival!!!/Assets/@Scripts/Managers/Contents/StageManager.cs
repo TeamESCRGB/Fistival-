@@ -40,9 +40,27 @@ namespace Manager.Contents
             _collection.Add(collectionIdx);
         }
 
-        public void TrySyncToPlayerData()
+        public void TrySyncToPlayerData(bool isCleared)
         {
+            if(isCleared)
+            {
+                var save = Managers.Instance.SaveDataManager.GetSaveFileData();
+                int money = 0;
+                for(int i = 0; i < _collection.Count; i++)
+                {
+                    money += Managers.Instance.DataManager.CollectionDataDict[_collection[i]].Money;
+                }
 
+                save.PlayerSaveData.Money += money;
+                save.StageSaveDatas[_stageIdx].CollectedCollections.AddRange(_collection);
+                Managers.Instance.GameManager.GetClearedMapDictRef()[_stageIdx] = true;
+
+                if(_scaledTimeStart < save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause)
+                {
+                    save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause = _scaledTimeStart;
+                    save.StageSaveDatas[_stageIdx].ClearTimeWithPause = _unscaledTimeStart;
+                }
+            }
         }
 
 
