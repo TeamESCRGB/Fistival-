@@ -13,8 +13,7 @@ namespace Manager.Contents
 
         private double _scaledTimeStart = 0;
         private double _unscaledTimeStart = 0;
-        private int _collectedMoney = 0;
-
+        private List<int> _collection = new List<int>(5);
         private Dictionary<string, (StageSectionCoordinatorBase chunk, string allocatedResources)> _spawnedChunks = new Dictionary<string, (StageSectionCoordinatorBase chunk, string allocatedResources)>();
 
         public void Init()
@@ -23,7 +22,6 @@ namespace Manager.Contents
             _data = null;
             _scaledTimeStart = 0;
             _unscaledTimeStart = 0;
-            _collectedMoney = 0;
             
             foreach(var chunk in _spawnedChunks.Values)
             {
@@ -33,8 +31,13 @@ namespace Manager.Contents
                 }
                 Managers.Instance.ResourceManager.ReleaseIn(chunk.allocatedResources);
             }
-
+            _collection.Clear();
             _spawnedChunks.Clear();
+        }
+
+        public void CollectCollection(int collectionIdx)
+        {
+            _collection.Add(collectionIdx);
         }
 
         public void TrySyncToPlayerData()
