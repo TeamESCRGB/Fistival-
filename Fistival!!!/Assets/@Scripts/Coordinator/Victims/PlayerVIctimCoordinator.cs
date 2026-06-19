@@ -72,6 +72,7 @@ namespace Coordinator.Victims
                 return;
             }
             _hpCoord.SubtractHP(damage);
+            Managers.Instance.StageManager.TakeDamage(damage);//이벤트로 하려고 했는데, 체력 까인거 이펙트 띄우는건 더 밑에 HPCoord에서 할거기도 하고, 이건 딱 거기서밖에 안쓸거같아서 일단 이렇게 함
         }
 
         public void StartInvincibleTime()

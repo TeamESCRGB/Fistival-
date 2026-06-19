@@ -158,15 +158,20 @@ namespace UI.Popup
                     return;
                 }
 
-                Managers.Instance.ResourceManager.LoadAsyncAllIn(string.Format("Stage{0}Loaded_0", _stageIdx), (_, now, max) =>
+                Managers.Instance.StageManager.Init();
+                Managers.Instance.StageManager.SetStageIDX(_stageIdx);
+
+                string loadKey = Managers.Instance.StageManager.GetStageData()?.FirstStageLoadedDatasName;
+                loadKey = loadKey is null ? "" : loadKey;
+
+                Managers.Instance.ResourceManager.LoadAsyncAllIn(loadKey, (_, now, max) =>
                 {
-                    if (now == max)
+                    if(now==max)
                     {
                         Managers.Instance.ResourceManager.ReleaseIn("LobbySceneLoaded");
                         Managers.Instance.SceneManagerEx.LoadScene(SceneType.GameScene);
                     }
                 });
-
             });
         }
 
