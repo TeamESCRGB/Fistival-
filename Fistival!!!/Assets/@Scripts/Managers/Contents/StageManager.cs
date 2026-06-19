@@ -1,6 +1,7 @@
 using Coordinator.Stages;
 using Data;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Manager.Contents
@@ -12,7 +13,9 @@ namespace Manager.Contents
 
         private double _scaledTimeStart = 0;
         private double _unscaledTimeStart = 0;
-        private int _collectedMoney = 0; 
+        private int _collectedMoney = 0;
+
+        private Dictionary<string, (StageSectionCoordinatorBase chunk, string allocatedResources)> _spawnedChunks = new Dictionary<string, (StageSectionCoordinatorBase chunk, string allocatedResources)>();
 
         public void Init()
         {
@@ -21,6 +24,17 @@ namespace Manager.Contents
             _scaledTimeStart = 0;
             _unscaledTimeStart = 0;
             _collectedMoney = 0;
+            
+            foreach(var chunk in _spawnedChunks.Values)
+            {
+                if(chunk.chunk != null)
+                {
+                    chunk.chunk.DeInitChunk();
+                }
+                Managers.Instance.ResourceManager.ReleaseIn(chunk.allocatedResources);
+            }
+
+            _spawnedChunks.Clear();
         }
 
         public void TrySyncToPlayerData()
@@ -36,7 +50,7 @@ namespace Manager.Contents
 
         }
 
-        public StageSectionCoordinatorBase TrySpawnChunk(string key, Vector3 spawnPos)
+        public StageSectionCoordinatorBase TrySpawnChunk(string key,string resourceKey ,Vector3 spawnPos)
         {
             var chunk = Managers.Instance.ResourceManager.Instantiate(key);
             if(chunk == null)
@@ -56,9 +70,10 @@ namespace Manager.Contents
 
             section.InitChunk();
 
+            _spawnedChunks[key] = (section, resourceKey);
+
             return section;
         }
-
 
         public StageData GetStageData()
         {
