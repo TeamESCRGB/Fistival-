@@ -1,3 +1,4 @@
+using Data;
 using Manager.Contents;
 using Manager.Core;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace Manager
         private GameManager _gameManager = new GameManager();
         private NewInputSystemManager _newInputSysMgr;
         private SaveDataManager _saveMGR = new SaveDataManager();
+        private StageManager _stageMgr = new StageManager();
 
         public CooldownManager CooldownManager { get { return Instance._cooldownMgr; } }
         public AttackManager AttackManager { get { return Instance._attackMgr; }  }
@@ -27,6 +29,7 @@ namespace Manager
         public GameManager GameManager { get { return Instance._gameManager; } }
         public NewInputSystemManager NewInputSystemManager { get { return Instance._newInputSysMgr; } }
         public SaveDataManager SaveDataManager {  get { return Instance._saveMGR; } }
+        public StageManager StageManager { get { return Instance._stageMgr; } }
         #endregion
 
 
