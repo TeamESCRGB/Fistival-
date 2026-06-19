@@ -1,4 +1,6 @@
+using Coordinator.Stages;
 using Data;
+using System;
 using UnityEngine;
 
 namespace Manager.Contents
@@ -10,7 +12,7 @@ namespace Manager.Contents
 
         private double _scaledTimeStart = 0;
         private double _unscaledTimeStart = 0;
-        private int _collectedMoney = 0;
+        private int _collectedMoney = 0; 
 
         public void Init()
         {
@@ -32,6 +34,29 @@ namespace Manager.Contents
             _scaledTimeStart = _unscaledTimeStart = Time.timeAsDouble;
 
 
+        }
+
+        public StageSectionCoordinatorBase TrySpawnChunk(string key, Vector3 spawnPos)
+        {
+            var chunk = Managers.Instance.ResourceManager.Instantiate(key);
+            if(chunk == null)
+            {
+                return null;
+            }
+
+            chunk.transform.position = spawnPos;
+
+            StageSectionCoordinatorBase section = chunk.GetComponent<StageSectionCoordinatorBase>();
+
+            if(section == null)
+            {
+                Managers.Instance.ResourceManager.Destroy(chunk);
+                return null;
+            }
+
+            section.InitChunk();
+
+            return section;
         }
 
 
