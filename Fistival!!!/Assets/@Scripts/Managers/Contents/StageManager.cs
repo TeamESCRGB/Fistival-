@@ -43,6 +43,11 @@ namespace Manager.Contents
             _collection.Add(collectionIdx);
         }
 
+        public bool IsCollected(int collectionIdx)
+        {
+            return _collection.Contains(collectionIdx) || Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[_stageIdx].CollectedCollections.Contains(collectionIdx);
+        }
+
         public void TrySyncToPlayerData(bool isCleared)
         {
             if(isCleared)
