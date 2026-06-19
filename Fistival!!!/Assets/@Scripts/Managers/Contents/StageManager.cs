@@ -16,6 +16,8 @@ namespace Manager.Contents
         private List<int> _collection = new List<int>(5);
         private Dictionary<string, (StageSectionCoordinatorBase chunk, string allocatedResources)> _spawnedChunks = new Dictionary<string, (StageSectionCoordinatorBase chunk, string allocatedResources)>();
 
+        private int _totalTakenDamage = 0;
+
         public void Init()
         {
             _stageIdx = -1;
@@ -31,6 +33,7 @@ namespace Manager.Contents
                 }
                 Managers.Instance.ResourceManager.ReleaseIn(chunk.allocatedResources);
             }
+            _totalTakenDamage = 0;
             _collection.Clear();
             _spawnedChunks.Clear();
         }
@@ -51,6 +54,7 @@ namespace Manager.Contents
                     money += Managers.Instance.DataManager.CollectionDataDict[_collection[i]].Money;
                 }
 
+                save.StageSaveDatas[_stageIdx].TotalGainedDamage = _totalTakenDamage;
                 save.PlayerSaveData.Money += money;
                 save.StageSaveDatas[_stageIdx].CollectedCollections.AddRange(_collection);
                 Managers.Instance.GameManager.GetClearedMapDictRef()[_stageIdx] = true;
@@ -63,6 +67,10 @@ namespace Manager.Contents
             }
         }
 
+        public void TakeDamage(int damage)
+        {
+            _totalTakenDamage += damage;
+        }
 
         public void StartStage()
         {
