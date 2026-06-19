@@ -75,6 +75,18 @@ namespace Manager.Contents
             return section;
         }
 
+        public void TryUnloadChunk(string key)
+        {
+            if(_spawnedChunks.TryGetValue(key,out var chunk) ==false)
+            {
+                return;
+            }
+            _spawnedChunks.Remove(key);
+            chunk.chunk.DeInitChunk();
+            Managers.Instance.ResourceManager.Destroy(chunk.chunk.gameObject);
+            Managers.Instance.ResourceManager.ReleaseIn(chunk.allocatedResources);
+        }
+
         public StageData GetStageData()
         {
             return _data;
