@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using Manager;
+using Data.NonLodable;
 
 namespace Coordinator.Stages
 {
@@ -11,30 +12,42 @@ namespace Coordinator.Stages
         private Transform _removeField;
         [SerializeField]
         private LayerMask _removeTargetLayerMask;
+        [SerializeField]
+        private SpawnPointStruct[] _spawnPoints;
 
         private void Awake()
         {
 #if UNITY_EDITOR
             Debug.Assert(_removeField != null, $"{name}에 @RemoveField가 없습니다.");
 #endif
+            if(_spawnPoints is null)
+            {
+                _spawnPoints = new SpawnPointStruct[0];
+            }
         }
 
         public virtual void InitChunk()
         {
             Debug.Log($"InitChunk of {gameObject.name}");
+            ClearAllObjects();
         }
 
         public virtual void DeInitChunk()
         {
             Debug.Log($"DeinitChunk of {gameObject.name}");
+            ClearAllObjects();
         }
-
+        [ContextMenu("a")]
         public virtual void ClearAllObjects()
         {
             var result = Physics2D.OverlapBoxAll(_removeField.position, _removeField.lossyScale, 0, _removeTargetLayerMask);
 
             foreach(var obj in result)
             {
+                if(obj.gameObject.CompareTag("Collection"))
+                {
+                    continue;
+                }
                 Managers.Instance.ResourceManager.Destroy(obj.gameObject, true);
             }
         }
