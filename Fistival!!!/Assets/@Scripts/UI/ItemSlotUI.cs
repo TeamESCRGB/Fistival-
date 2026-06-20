@@ -8,7 +8,7 @@ namespace UI
     public class ItemSlotUI : MonoBehaviour
     {
         protected Image _itemImage;
-        protected ItemData _data;
+        protected EquipmentData _data;
 
         private void Awake()
         {
@@ -16,7 +16,7 @@ namespace UI
         }
 
 
-        public virtual void SetItem(ItemData data)
+        public virtual void SetItem(EquipmentData data)
         {
             if (data is null || Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.PurchasedItems.Contains(data.Idx) == false)
             {
@@ -28,7 +28,7 @@ namespace UI
             _data = data;
         }
 
-        public ItemData GetData()
+        public EquipmentData GetData()
         {
             return _data;
         }

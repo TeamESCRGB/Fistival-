@@ -1,15 +1,16 @@
-﻿namespace Coordinator
-{
-    public abstract class ItemBase
-    {
-        public virtual void OnEquip(PlayerCoordinator player)
-        {
-            player.UpdateUpdatedDatas();
-        }
+﻿using UnityEngine;
 
-        public virtual void OnUnEquip(PlayerCoordinator player)
+namespace Coordinator
+{
+    public abstract class ItemBase : MonoBehaviour
+    {
+        [SerializeField]
+        protected LayerMask _activateTargetLayer;
+        protected abstract void InternalCollisionHandler(Collider2D collision);
+
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            player.UpdateUpdatedDatas();
+            InternalCollisionHandler(collision);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Data
 {
-    public class ItemData
+    public class EquipmentData
     {
         public int Idx { get; set; }
         public int Price { get; set; }

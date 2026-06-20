@@ -1,7 +1,7 @@
 
-namespace Coordinator.Items
+namespace Coordinator.Equipments
 {
-    public class Chupa : ItemBase
+    public class Chupa : Equipment
     {
         private const int _attackDmgAdd = 1;
         public override void OnEquip(PlayerCoordinator player)

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Coordinator.Items
+namespace Coordinator.Equipments
 {
-    public class Aissyang : ItemBase
+    public class Aissyang : Equipment
     {
         private const int _strongDmg = 1;
         public override void OnEquip(PlayerCoordinator player)

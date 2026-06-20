@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Coordinator.Items
+namespace Coordinator.Equipments
 {
-    public class LikeTheLast : ItemBase
+    public class LikeTheLast : Equipment
     {
         //감소
         private int _oldMaxHP = 5;

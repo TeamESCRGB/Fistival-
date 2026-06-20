@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Coordinator.Items
+namespace Coordinator.Equipments
 {
-    public class NitrogenCider : ItemBase
+    public class NitrogenCider : Equipment
     {
         private const float _accel = 2;
         private float _oldCharge = 1;

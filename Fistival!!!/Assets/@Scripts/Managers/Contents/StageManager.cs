@@ -40,12 +40,16 @@ namespace Manager.Contents
 
         public void CollectCollection(int collectionIdx)
         {
-            _collection.Add(collectionIdx);
+            if(Managers.Instance.DataManager.CollectionDataDict.ContainsKey(collectionIdx) && _collection.Contains(collectionIdx) == false)
+            {
+                _collection.Add(collectionIdx);
+            }
         }
 
-        public bool IsCollected(int collectionIdx)
+        public bool CanCollect(int collectionIdx)
         {
-            return _collection.Contains(collectionIdx) || Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[_stageIdx].CollectedCollections.Contains(collectionIdx);
+            return Managers.Instance.DataManager.CollectionDataDict.ContainsKey(collectionIdx) && _collection.Contains(collectionIdx) == false
+                 && Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[_stageIdx].CollectedCollections.Contains(collectionIdx) == false;
         }
 
         public void TrySyncToPlayerData(bool isCleared)

@@ -8,7 +8,7 @@ namespace Coordinator
 
     public class PlayerCoordinator : MonoBehaviour
     {
-        private ItemFactory _itemFactory = new ItemFactory();
+        private EquipmentFactory _itemFactory = new EquipmentFactory();
         private ModeManageCoordinator _modeMgr;
         private PlayerData _data;
         private PlayerVictimCoordinator _victim;
@@ -46,9 +46,9 @@ namespace Coordinator
 
             if(init==false)
             {
-                _itemFactory.GetItem(save.PlayerSaveData.EquippedItems[slot])?.OnUnEquip(this);
+                _itemFactory.GetEquipment(save.PlayerSaveData.EquippedItems[slot])?.OnUnEquip(this);
             }
-            _itemFactory.GetItem(item)?.OnEquip(this);
+            _itemFactory.GetEquipment(item)?.OnEquip(this);
 
             save.PlayerSaveData.EquippedItems[slot] = item;
         }
