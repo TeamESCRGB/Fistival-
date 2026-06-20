@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: StageChunks
   m_GUID: 717f1801c421aa44f80ad319bad87b34
-  m_SerializeEntries:
-  - m_GUID: 23e00c1d8f1b65348b16a7ecf277d19b
-    m_Address: stage_0_chunk_0
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
   m_SchemaSet:
