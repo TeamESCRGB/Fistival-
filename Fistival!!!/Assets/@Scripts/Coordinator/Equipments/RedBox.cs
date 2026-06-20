@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Coordinator.Items
+namespace Coordinator.Equipments
 {
-    public class RedBox : ItemBase
+    public class RedBox : Equipment
     {
     }
 }

@@ -1,21 +1,22 @@
-﻿using System;
+﻿using Coordinator;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Coordinator.Items
+namespace Coordinator.Equipments
 {
-    public class Makta500 :ItemBase
+    public class Agalitol : Equipment
     {
-        private const int _hpAdd = 1;
+        private const int _throwDmg = 1;
         public override void OnEquip(PlayerCoordinator player)
         {
-            player.GetPlayerData().MaxHP += _hpAdd;
+            player.GetPlayerData().ThrowAttackAdditionalDamage += _throwDmg;
             base.OnEquip(player);
         }
 
         public override void OnUnEquip(PlayerCoordinator player)
         {
-            player.GetPlayerData().MaxHP -= _hpAdd;
+            player.GetPlayerData().ThrowAttackAdditionalDamage -= _throwDmg;
             base.OnUnEquip(player);
         }
     }

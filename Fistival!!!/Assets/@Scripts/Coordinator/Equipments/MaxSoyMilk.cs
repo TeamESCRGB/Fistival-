@@ -1,22 +1,21 @@
-﻿using Coordinator;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Coordinator.Items
+namespace Coordinator.Equipments
 {
-    public class Agalitol : ItemBase
+    public class MaxSoyMilk : Equipment
     {
-        private const int _throwDmg = 1;
+        private const int _life = 2;
         public override void OnEquip(PlayerCoordinator player)
         {
-            player.GetPlayerData().ThrowAttackAdditionalDamage += _throwDmg;
+            player.GetPlayerData().MaxLife += _life;
             base.OnEquip(player);
         }
 
         public override void OnUnEquip(PlayerCoordinator player)
         {
-            player.GetPlayerData().ThrowAttackAdditionalDamage -= _throwDmg;
+            player.GetPlayerData().MaxLife -= _life;
             base.OnUnEquip(player);
         }
     }

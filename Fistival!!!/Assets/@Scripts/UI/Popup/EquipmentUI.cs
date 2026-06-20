@@ -46,7 +46,7 @@ namespace UI.Popup
 
         private PlayerCoordinator _player;
 
-        private void SetupItemButton(ItemSlotUI ui,ItemData item, Action<PointerEventData> clickCallback)
+        private void SetupItemButton(ItemSlotUI ui,EquipmentData item, Action<PointerEventData> clickCallback)
         {
             ui.SetItem(item);
             ui.gameObject.BindUIEvent(clickCallback);
@@ -56,8 +56,8 @@ namespace UI.Popup
 
         private void SetupEquipmentButton(EquipmentSlotUI slot, int itemIdx)
         {
-            ItemData item;
-            if(Managers.Instance.DataManager.ItemDataDIct.TryGetValue(itemIdx, out item) == false)
+            EquipmentData item;
+            if(Managers.Instance.DataManager.EquipmentDataDict.TryGetValue(itemIdx, out item) == false)
             {
                 item = null;
             }
@@ -90,7 +90,7 @@ namespace UI.Popup
             Get<EquipmentSlotUI>((int)Equipments.EquippedItem2).SetIDX(1);
             Get<EquipmentSlotUI>((int)Equipments.EquippedItem3).SetIDX(2);
 
-            foreach (var data in Managers.Instance.DataManager.ItemDataDIct.Values)
+            foreach (var data in Managers.Instance.DataManager.EquipmentDataDict.Values)
             {
                 SetupItemButton(Get<ItemSlotUI>(data.Idx), data, OnItemClicked);
             }

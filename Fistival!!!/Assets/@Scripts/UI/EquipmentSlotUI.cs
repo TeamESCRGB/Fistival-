@@ -9,7 +9,7 @@ namespace UI
     {
         private int _idx = 0;
 
-        public override void SetItem(ItemData data)
+        public override void SetItem(EquipmentData data)
         {
             if (data is null)
             {

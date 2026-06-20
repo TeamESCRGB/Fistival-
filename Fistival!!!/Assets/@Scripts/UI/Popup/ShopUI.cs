@@ -51,7 +51,7 @@ namespace UI.Popup
         }
 
 
-        private ItemData _selectedItem = null;
+        private EquipmentData _selectedItem = null;
         private bool _canPause = true;
         public override bool Init()
         {
@@ -75,8 +75,8 @@ namespace UI.Popup
                     Get<ShopItemUI>(idx).SetPurchased();
                 }
                 Get<ShopItemUI>(idx).gameObject.BindUIEvent(OnButton);
-                ItemData item = null;
-                if(Managers.Instance.DataManager.ItemDataDIct.TryGetValue(idx, out item) == false)
+                EquipmentData item = null;
+                if(Managers.Instance.DataManager.EquipmentDataDict.TryGetValue(idx, out item) == false)
                 {
                     item = null;
                 }

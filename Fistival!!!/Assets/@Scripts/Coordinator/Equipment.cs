@@ -1,6 +1,6 @@
 ﻿namespace Coordinator
 {
-    public abstract class ItemBase
+    public abstract class Equipment
     {
         public virtual void OnEquip(PlayerCoordinator player)
         {
