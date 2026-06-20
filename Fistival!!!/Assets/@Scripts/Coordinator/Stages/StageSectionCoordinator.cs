@@ -65,7 +65,7 @@ namespace Coordinator.Stages
         {
             for(int i = 0; i < _mobSpawnPoints.Length; i++)
             {
-                var go = Managers.Instance.ResourceManager.Instantiate(_mobSpawnPoints[0].PrefabName,null,false,true);
+                var go = Managers.Instance.ResourceManager.Instantiate(_mobSpawnPoints[i].PrefabName,null,false,true);
                 if(go != null)
                 {
                     go.transform.position = _mobSpawnPoints[i].SpawnPoint.position;
@@ -88,7 +88,7 @@ namespace Coordinator.Stages
 
             for (int i = 0; i < _itemSpawnPoints.Length; i++)
             {
-                var go = Managers.Instance.ResourceManager.Instantiate(_itemSpawnPoints[0].PrefabName, null, false, true);
+                var go = Managers.Instance.ResourceManager.Instantiate(_itemSpawnPoints[i].PrefabName, null, false, true);
                 if (go != null)
                 {
                     go.transform.position = _itemSpawnPoints[i].SpawnPoint.position;
@@ -102,7 +102,7 @@ namespace Coordinator.Stages
                     continue;
                 }
 
-                var go = Managers.Instance.ResourceManager.Instantiate(_objectSpawnPoints[0].PrefabName, null, false, true);
+                var go = Managers.Instance.ResourceManager.Instantiate(_objectSpawnPoints[i].PrefabName, null, false, true);
                 if (go == null)
                 {
                     continue;
