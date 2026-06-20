@@ -104,6 +104,16 @@ namespace Manager.Contents
 
         private void Respawn()
         {
+            var player = GameObject.FindAnyObjectByType<PlayerCoordinator>();
+
+            player.GetComponentInChildren<PlayerVictimCoordinator>().Respawn();
+
+            player.transform.position = _checkpointPos;
+
+            foreach(var chunk in _spawnedChunks.Values)
+            {
+                chunk.chunk.InitChunk();
+            }
 
         }
 
