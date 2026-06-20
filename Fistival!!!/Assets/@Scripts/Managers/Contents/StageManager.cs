@@ -14,7 +14,7 @@ namespace Manager.Contents
         private double _scaledTimeStart = 0;
         private double _unscaledTimeStart = 0;
         private List<int> _collection = new List<int>(5);
-        private Dictionary<string, (StageSectionCoordinatorBase chunk, string allocatedResources)> _spawnedChunks = new Dictionary<string, (StageSectionCoordinatorBase chunk, string allocatedResources)>();
+        private Dictionary<string, (StageSectionCoordinator chunk, string allocatedResources)> _spawnedChunks = new Dictionary<string, (StageSectionCoordinator chunk, string allocatedResources)>();
 
         private int _totalTakenDamage = 0;
 
@@ -88,7 +88,7 @@ namespace Manager.Contents
 
         }
 
-        public StageSectionCoordinatorBase TrySpawnChunk(string key,string resourceKey ,Vector3 spawnPos)
+        public StageSectionCoordinator TrySpawnChunk(string key,string resourceKey ,Vector3 spawnPos)
         {
             var chunk = Managers.Instance.ResourceManager.Instantiate(key);
             if(chunk == null)
@@ -98,7 +98,7 @@ namespace Manager.Contents
 
             chunk.transform.position = spawnPos;
 
-            StageSectionCoordinatorBase section = chunk.GetComponent<StageSectionCoordinatorBase>();
+            StageSectionCoordinator section = chunk.GetComponent<StageSectionCoordinator>();
 
             if(section == null)
             {

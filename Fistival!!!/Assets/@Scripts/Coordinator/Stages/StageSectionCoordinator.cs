@@ -7,7 +7,7 @@ using Coordinator.Objects;
 
 namespace Coordinator.Stages
 {
-    public class StageSectionCoordinatorBase : MonoBehaviour
+    public class StageSectionCoordinator : MonoBehaviour
     {
         [SerializeField]
         private Transform _removeField;
