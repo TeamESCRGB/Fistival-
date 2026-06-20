@@ -102,7 +102,7 @@ namespace Manager.Contents
 
         private void OnFail()
         {
-            Debug.Log("실패")
+            Debug.Log("실패");
         }
 
         public void OnClear()
