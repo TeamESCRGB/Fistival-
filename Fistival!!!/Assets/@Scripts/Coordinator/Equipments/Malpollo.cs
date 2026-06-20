@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Coordinator.Items
+namespace Coordinator.Equipments
 {
-    public class Malpollo : ItemBase
+    public class Malpollo : Equipment
     {
         private const int _damage = 2;
         private const int _hp = 2;

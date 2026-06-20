@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Coordinator.Items
+namespace Coordinator.Equipments
 {
-    public class Twenty : ItemBase
+    public class Twenty : Equipment
     {
         private const int _chargeMax = 1;
         public override void OnEquip(PlayerCoordinator player)

@@ -10,7 +10,7 @@ namespace UI
     {
         private Image _itemImage;
         private TMP_Text _priceText;
-        private ItemData _data;
+        private EquipmentData _data;
         private GameObject _purchased;
         private bool _isPurchased;
 
@@ -28,7 +28,7 @@ namespace UI
             transform.Find("Price").gameObject.SetActive(false);
         }
 
-        public void SetItem(ItemData data)
+        public void SetItem(EquipmentData data)
         {
             if(data is null)
             {
@@ -41,7 +41,7 @@ namespace UI
             _priceText.text = $"x {data.Price}";
         }
 
-        public ItemData GetData()
+        public EquipmentData GetData()
         {
             if(_isPurchased)
             {

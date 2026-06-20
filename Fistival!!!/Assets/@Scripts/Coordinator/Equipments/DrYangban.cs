@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Coordinator.Items
+namespace Coordinator.Equipments
 {
-    public class DrYangban : ItemBase
+    public class DrYangban : Equipment
     {
         private const float _accel = 2;
         private float _oldStrongThreshold = 1;
