@@ -19,6 +19,8 @@ namespace Coordinator.Stages
         private SpawnPointStruct[] _objectSpawnPoints;
         [SerializeField]
         private SpawnPointStruct[] _mobSpawnPoints;
+        [SerializeField]
+        private SpawnPointStruct[] _bossSpawnPoints;
 
         private void Awake()
         {
@@ -38,6 +40,11 @@ namespace Coordinator.Stages
             if (_itemSpawnPoints is null)
             {
                 _itemSpawnPoints = new SpawnPointStruct[0];
+            }
+
+            if (_bossSpawnPoints is null)
+            {
+                _bossSpawnPoints = new SpawnPointStruct[0];
             }
         }
 
@@ -62,6 +69,20 @@ namespace Coordinator.Stages
                 if(go != null)
                 {
                     go.transform.position = _mobSpawnPoints[i].SpawnPoint.position;
+                }
+            }
+
+            for (int i = 0; i < _bossSpawnPoints.Length; i++)
+            {
+                if (Managers.Instance.StageManager.IsBossCleared(_bossSpawnPoints[i].PrefabName))
+                {
+                    continue;
+                }
+
+                var go = Managers.Instance.ResourceManager.Instantiate(_bossSpawnPoints[i].PrefabName, null, false, true);
+                if (go != null)
+                {
+                    go.transform.position = _bossSpawnPoints[i].SpawnPoint.position;
                 }
             }
 
