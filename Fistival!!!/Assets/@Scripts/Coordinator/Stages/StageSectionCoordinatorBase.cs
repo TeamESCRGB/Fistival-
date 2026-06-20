@@ -14,7 +14,6 @@ namespace Coordinator.Stages
         private LayerMask _removeTargetLayerMask;
         [SerializeField]
         private SpawnPointStruct[] _spawnPoints;
-        private IReadOnlyList<int> _collectedCollection = null;
 
         private void Awake()
         {
@@ -27,21 +26,23 @@ namespace Coordinator.Stages
             }
         }
 
-        public virtual void InitChunk(IReadOnlyList<int> collectedCollection)
+        public virtual void InitChunk()
         {
             Debug.Log($"InitChunk of {gameObject.name}");
-            _collectedCollection = collectedCollection;
             ClearAllObjects();
-            SpawnObjects();
+            InitObjects();
         }
 
         public virtual void DeInitChunk()
         {
             Debug.Log($"DeinitChunk of {gameObject.name}");
-            _collectedCollection = null;
             ClearAllObjects();
         }
 
+        public virtual void InitObjects()
+        {
+
+        }
 
         public virtual void ClearAllObjects()
         {
