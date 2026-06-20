@@ -54,6 +54,11 @@ namespace ComponentModule
             }
         }
 
+        public void Respawn()
+        {
+            _hp = _maxHP;
+        }
+
         public bool IsDead()
         {
             return _hp <= 0;
