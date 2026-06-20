@@ -1,4 +1,6 @@
+using Coordinator;
 using Coordinator.Stages;
+using Coordinator.Victims;
 using Data;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,9 @@ namespace Manager.Contents
 
         private int _life = 0;
 
+        [SerializeField]
+        private Vector3 _checkpointPos = Vector3.zero;
+
         public void Init()
         {
             _stageIdx = -1;
@@ -36,6 +41,7 @@ namespace Manager.Contents
                 }
                 Managers.Instance.ResourceManager.ReleaseIn(chunk.allocatedResources);
             }
+            _checkpointPos = Vector3.zero;
             _life = 0;
             _totalTakenDamage = 0;
             _collection.Clear();
@@ -80,9 +86,9 @@ namespace Manager.Contents
             }
         }
 
-        public void SaveCheckpoint()
+        public void SaveCheckpoint(Vector3 checkpointPos)
         {
-                
+            _checkpointPos = checkpointPos;
         }
 
         public void OnDead()
@@ -98,7 +104,17 @@ namespace Manager.Contents
 
         private void Respawn()
         {
-            Debug.Log("리스폰");
+            var player = GameObject.FindAnyObjectByType<PlayerCoordinator>();
+
+            player.GetComponentInChildren<PlayerVictimCoordinator>().Respawn();
+
+            player.transform.position = _checkpointPos;
+
+            foreach(var chunk in _spawnedChunks.Values)
+            {
+                chunk.chunk.InitChunk();
+            }
+
         }
 
         private void OnFail()
