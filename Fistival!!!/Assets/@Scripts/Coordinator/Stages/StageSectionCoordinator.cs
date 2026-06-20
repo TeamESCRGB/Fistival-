@@ -19,6 +19,8 @@ namespace Coordinator.Stages
         private SpawnPointStruct[] _objectSpawnPoints;
         [SerializeField]
         private SpawnPointStruct[] _mobSpawnPoints;
+        [SerializeField]
+        private SpawnPointStruct[] _bossSpawnPoints;
 
         private void Awake()
         {
@@ -39,6 +41,11 @@ namespace Coordinator.Stages
             {
                 _itemSpawnPoints = new SpawnPointStruct[0];
             }
+
+            if (_bossSpawnPoints is null)
+            {
+                _bossSpawnPoints = new SpawnPointStruct[0];
+            }
         }
 
         public virtual void InitChunk()
@@ -58,16 +65,30 @@ namespace Coordinator.Stages
         {
             for(int i = 0; i < _mobSpawnPoints.Length; i++)
             {
-                var go = Managers.Instance.ResourceManager.Instantiate(_mobSpawnPoints[0].PrefabName,null,false,true);
+                var go = Managers.Instance.ResourceManager.Instantiate(_mobSpawnPoints[i].PrefabName,null,false,true);
                 if(go != null)
                 {
                     go.transform.position = _mobSpawnPoints[i].SpawnPoint.position;
                 }
             }
 
+            for (int i = 0; i < _bossSpawnPoints.Length; i++)
+            {
+                if (Managers.Instance.StageManager.IsBossCleared(_bossSpawnPoints[i].PrefabName))
+                {
+                    continue;
+                }
+
+                var go = Managers.Instance.ResourceManager.Instantiate(_bossSpawnPoints[i].PrefabName, null, false, true);
+                if (go != null)
+                {
+                    go.transform.position = _bossSpawnPoints[i].SpawnPoint.position;
+                }
+            }
+
             for (int i = 0; i < _itemSpawnPoints.Length; i++)
             {
-                var go = Managers.Instance.ResourceManager.Instantiate(_itemSpawnPoints[0].PrefabName, null, false, true);
+                var go = Managers.Instance.ResourceManager.Instantiate(_itemSpawnPoints[i].PrefabName, null, false, true);
                 if (go != null)
                 {
                     go.transform.position = _itemSpawnPoints[i].SpawnPoint.position;
@@ -81,7 +102,7 @@ namespace Coordinator.Stages
                     continue;
                 }
 
-                var go = Managers.Instance.ResourceManager.Instantiate(_objectSpawnPoints[0].PrefabName, null, false, true);
+                var go = Managers.Instance.ResourceManager.Instantiate(_objectSpawnPoints[i].PrefabName, null, false, true);
                 if (go == null)
                 {
                     continue;

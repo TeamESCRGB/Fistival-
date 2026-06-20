@@ -19,6 +19,8 @@ namespace Manager.Contents
         private List<int> _collection = new List<int>(5);
         private Dictionary<string, (StageSectionCoordinator chunk, string allocatedResources)> _spawnedChunks = new Dictionary<string, (StageSectionCoordinator chunk, string allocatedResources)>();
 
+        private HashSet<string> _clearedBossList = new HashSet<string>(4);
+
         private int _totalTakenDamage = 0;
 
         private int _life = 0;
@@ -46,6 +48,7 @@ namespace Manager.Contents
             _totalTakenDamage = 0;
             _collection.Clear();
             _spawnedChunks.Clear();
+            _clearedBossList.Clear();
         }
 
         public void CollectCollection(int collectionIdx)
@@ -129,6 +132,16 @@ namespace Manager.Contents
             Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnSaveYes, OnSaveNo).SetText("현 시점의 세이브를 저장하시겠습니까?");
         }
 
+
+        public void ClearBoss(string bossPrefabName)
+        {
+            _clearedBossList.Add(bossPrefabName);
+        }
+
+        public bool IsBossCleared(string bossPrefabName)
+        {
+            return _clearedBossList.Contains(bossPrefabName);
+        }
 
 
         private void OnSaveYes()
