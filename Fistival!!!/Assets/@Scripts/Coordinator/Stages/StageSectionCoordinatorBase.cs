@@ -14,6 +14,7 @@ namespace Coordinator.Stages
         private LayerMask _removeTargetLayerMask;
         [SerializeField]
         private SpawnPointStruct[] _spawnPoints;
+        private IReadOnlyList<int> _collectedCollection = null;
 
         private void Awake()
         {
@@ -26,18 +27,22 @@ namespace Coordinator.Stages
             }
         }
 
-        public virtual void InitChunk()
+        public virtual void InitChunk(IReadOnlyList<int> collectedCollection)
         {
             Debug.Log($"InitChunk of {gameObject.name}");
+            _collectedCollection = collectedCollection;
             ClearAllObjects();
+            SpawnObjects();
         }
 
         public virtual void DeInitChunk()
         {
             Debug.Log($"DeinitChunk of {gameObject.name}");
+            _collectedCollection = null;
             ClearAllObjects();
         }
-        [ContextMenu("a")]
+
+
         public virtual void ClearAllObjects()
         {
             var result = Physics2D.OverlapBoxAll(_removeField.position, _removeField.lossyScale, 0, _removeTargetLayerMask);

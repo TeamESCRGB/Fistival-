@@ -102,7 +102,7 @@ namespace Manager.Contents
                 return null;
             }
 
-            section.InitChunk();
+            section.InitChunk(Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[_stageIdx].CollectedCollections);
 
             _spawnedChunks[key] = (section, resourceKey);
 

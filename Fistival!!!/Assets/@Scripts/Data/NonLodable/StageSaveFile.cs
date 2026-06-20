@@ -8,7 +8,7 @@ namespace Data.NonLodable
         public double ClearTimeWithOutPause { get; set; } = 0;
         public double ClearTimeWithPause { get; set; } = 0;
         public int TotalGainedDamage { get; set; } = 0;
-        public List<int> CollectedCollections { get; set; }= new List<int>(4);
+        public List<int> CollectedCollections { get; set; }= new List<int>(5);
 
         public void ClearAllData()
         {
