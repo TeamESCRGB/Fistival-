@@ -102,7 +102,15 @@ namespace Manager.Contents
 
         private void OnFail()
         {
-            Debug.Log("실패");
+            //컷씬 넣어줘야됨
+            Init();
+            Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded",(_, now, max)=>{
+                if(now==max)
+                {
+                    Managers.Instance.ResourceManager.ReleaseIn("GameSceneBasicLoaded");
+                    Managers.Instance.SceneManagerEx.LoadScene(Defines.SceneType.LobbyScene);
+                }
+            });
         }
 
         public void OnClear()
