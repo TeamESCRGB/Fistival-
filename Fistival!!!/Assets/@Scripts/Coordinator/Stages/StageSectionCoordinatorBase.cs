@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using Manager;
 using Data.NonLodable;
+using Coordinator.Objects;
 
 namespace Coordinator.Stages
 {
@@ -13,16 +14,30 @@ namespace Coordinator.Stages
         [SerializeField]
         private LayerMask _removeTargetLayerMask;
         [SerializeField]
-        private SpawnPointStruct[] _spawnPoints;
+        private SpawnPointStruct[] _itemSpawnPoints;
+        [SerializeField]
+        private SpawnPointStruct[] _objectSpawnPoints;
+        [SerializeField]
+        private SpawnPointStruct[] _mobSpawnPoints;
 
         private void Awake()
         {
 #if UNITY_EDITOR
             Debug.Assert(_removeField != null, $"{name}에 @RemoveField가 없습니다.");
 #endif
-            if(_spawnPoints is null)
+            if(_mobSpawnPoints is null)
             {
-                _spawnPoints = new SpawnPointStruct[0];
+                _mobSpawnPoints = new SpawnPointStruct[0];
+            }
+
+            if (_objectSpawnPoints is null)
+            {
+                _objectSpawnPoints = new SpawnPointStruct[0];
+            }
+
+            if (_itemSpawnPoints is null)
+            {
+                _itemSpawnPoints = new SpawnPointStruct[0];
             }
         }
 
@@ -41,7 +56,44 @@ namespace Coordinator.Stages
 
         public virtual void InitObjects()
         {
+            for(int i = 0; i < _mobSpawnPoints.Length; i++)
+            {
+                var go = Managers.Instance.ResourceManager.Instantiate(_mobSpawnPoints[0].PrefabName,null,false,true);
+                if(go != null)
+                {
+                    go.transform.position = _mobSpawnPoints[i].SpawnPoint.position;
+                }
+            }
 
+            for (int i = 0; i < _itemSpawnPoints.Length; i++)
+            {
+                var go = Managers.Instance.ResourceManager.Instantiate(_itemSpawnPoints[0].PrefabName, null, false, true);
+                if (go != null)
+                {
+                    go.transform.position = _itemSpawnPoints[i].SpawnPoint.position;
+                }
+            }
+
+            for (int i = 0; i < _objectSpawnPoints.Length; i++)
+            {
+                if (Managers.Instance.DataManager.ObjectDataDict.TryGetValue(_objectSpawnPoints[i].DataIdx,out var data) == false)
+                {
+                    continue;
+                }
+
+                var go = Managers.Instance.ResourceManager.Instantiate(_objectSpawnPoints[0].PrefabName, null, false, true);
+                if (go == null)
+                {
+                    continue;
+                }
+                go.transform.position = _objectSpawnPoints[i].SpawnPoint.position;
+                if (go.TryGetComponent<ObjectCoordinator>(out var coord) == false)
+                {
+                    Managers.Instance.ResourceManager.Destroy(go);
+                    continue;
+                }
+                coord.Init(data);
+            }
         }
 
         public virtual void ClearAllObjects()

@@ -106,7 +106,7 @@ namespace Manager.Contents
                 return null;
             }
 
-            section.InitChunk(Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[_stageIdx].CollectedCollections);
+            section.InitChunk();
 
             _spawnedChunks[key] = (section, resourceKey);
 
