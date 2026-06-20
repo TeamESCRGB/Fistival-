@@ -18,6 +18,8 @@ namespace Manager.Contents
 
         private int _totalTakenDamage = 0;
 
+        private int _life = 0;
+
         public void Init()
         {
             _stageIdx = -1;
@@ -33,6 +35,7 @@ namespace Manager.Contents
                 }
                 Managers.Instance.ResourceManager.ReleaseIn(chunk.allocatedResources);
             }
+            _life = 0;
             _totalTakenDamage = 0;
             _collection.Clear();
             _spawnedChunks.Clear();
@@ -96,11 +99,10 @@ namespace Manager.Contents
             _totalTakenDamage += damage;
         }
 
-        public void StartStage()
+        public void StartStage(int life)
         {
             _scaledTimeStart = _unscaledTimeStart = Time.timeAsDouble;
-
-
+            _life = life;
         }
 
         public StageSectionCoordinator TrySpawnChunk(string key,string resourceKey ,Vector3 spawnPos)
