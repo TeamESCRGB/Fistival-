@@ -40,7 +40,10 @@ namespace Manager.Contents
 
         public void CollectCollection(int collectionIdx)
         {
-            _collection.Add(collectionIdx);
+            if(Managers.Instance.DataManager.CollectionDataDict.ContainsKey(collectionIdx) && _collection.Contains(collectionIdx) == false)
+            {
+                _collection.Add(collectionIdx);
+            }
         }
 
         public bool IsCollected(int collectionIdx)
