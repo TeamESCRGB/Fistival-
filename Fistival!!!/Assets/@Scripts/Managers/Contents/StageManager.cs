@@ -1,7 +1,10 @@
+using Coordinator;
 using Coordinator.Stages;
+using Coordinator.Victims;
 using Data;
 using System;
 using System.Collections.Generic;
+using UI.Popup;
 using UnityEngine;
 
 namespace Manager.Contents
@@ -18,6 +21,11 @@ namespace Manager.Contents
 
         private int _totalTakenDamage = 0;
 
+        private int _life = 0;
+
+        [SerializeField]
+        private Vector3 _checkpointPos = Vector3.zero;
+
         public void Init()
         {
             _stageIdx = -1;
@@ -33,6 +41,8 @@ namespace Manager.Contents
                 }
                 Managers.Instance.ResourceManager.ReleaseIn(chunk.allocatedResources);
             }
+            _checkpointPos = Vector3.zero;
+            _life = 0;
             _totalTakenDamage = 0;
             _collection.Clear();
             _spawnedChunks.Clear();
@@ -76,16 +86,86 @@ namespace Manager.Contents
             }
         }
 
+        public void SaveCheckpoint(Vector3 checkpointPos)
+        {
+            _checkpointPos = checkpointPos;
+        }
+
+        public void OnDead()
+        {
+            _life--;
+            if(_life <= 0)
+            {
+                OnFail();
+                return;
+            }
+            Respawn();
+        }
+
+        private void Respawn()
+        {
+            var player = GameObject.FindAnyObjectByType<PlayerCoordinator>();
+
+            player.GetComponentInChildren<PlayerVictimCoordinator>().Respawn();
+
+            player.transform.position = _checkpointPos;
+
+            foreach(var chunk in _spawnedChunks.Values)
+            {
+                chunk.chunk.InitChunk();
+            }
+
+        }
+
+        private void OnFail()
+        {
+            //컷씬 넣어줘야됨
+            ReturnToLobby();
+        }
+
+        public void OnClear()
+        {
+            TrySyncToPlayerData(true);
+            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnSaveYes, OnSaveNo).SetText("현 시점의 세이브를 저장하시겠습니까?");
+        }
+
+
+
+        private void OnSaveYes()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.SaveDataManager.SaveSaveData();
+            ReturnToLobby();
+        }
+
+        private void OnSaveNo()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+            ReturnToLobby();
+        }
+
+        private void ReturnToLobby()
+        {
+            Init();
+            Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, max) => {
+                if (now == max)
+                {
+                    Managers.Instance.ResourceManager.ReleaseIn("GameSceneBasicLoaded");
+                    Managers.Instance.SceneManagerEx.LoadScene(Defines.SceneType.LobbyScene);
+                }
+            });
+        }
+
+
         public void TakeDamage(int damage)
         {
             _totalTakenDamage += damage;
         }
 
-        public void StartStage()
+        public void StartStage(int life)
         {
             _scaledTimeStart = _unscaledTimeStart = Time.timeAsDouble;
-
-
+            _life = life;
         }
 
         public StageSectionCoordinator TrySpawnChunk(string key,string resourceKey ,Vector3 spawnPos)
