@@ -2,8 +2,8 @@
   "stageDatas": [
     {
       "Idx": 0,
-      "FirstStageLoadedDatasName": "",
-      "FirstStageSectionInstanceName": "",
+      "FirstStageLoadedDatasName": "stage_0_loaded_0",
+      "FirstStageSectionInstanceName": "stage_0_chunk_0",
       "SavefileLockedIMG": "",
       "SavefileClearedIMG": "",
       "MapLockedIMG": "",
@@ -14,8 +14,8 @@
     },
     {
       "Idx": 1,
-      "FirstStageLoadedDatasName": "",
-      "FirstStageSectionInstanceName": "",
+      "FirstStageLoadedDatasName": "stage_1_loaded_0",
+      "FirstStageSectionInstanceName": "stage_1_chunk_0",
       "SavefileLockedIMG": "",
       "SavefileClearedIMG": "",
       "MapLockedIMG": "",
@@ -26,8 +26,8 @@
     },
     {
       "Idx": 2,
-      "FirstStageLoadedDatasName": "",
-      "FirstStageSectionInstanceName": "",
+      "FirstStageLoadedDatasName": "stage_2_loaded_0",
+      "FirstStageSectionInstanceName": "stage_2_chunk_0",
       "SavefileLockedIMG": "",
       "SavefileClearedIMG": "",
       "MapLockedIMG": "",
@@ -38,8 +38,8 @@
     },
     {
       "Idx": 3,
-      "FirstStageLoadedDatasName": "",
-      "FirstStageSectionInstanceName": "",
+      "FirstStageLoadedDatasName": "stage_3_loaded_0",
+      "FirstStageSectionInstanceName": "stage_3_chunk_0",
       "SavefileLockedIMG": "",
       "SavefileClearedIMG": "",
       "MapLockedIMG": "",
@@ -50,8 +50,8 @@
     },
     {
       "Idx": 4,
-      "FirstStageLoadedDatasName": "",
-      "FirstStageSectionInstanceName": "",
+      "FirstStageLoadedDatasName": "stage_4_loaded_0",
+      "FirstStageSectionInstanceName": "stage_4_chunk_0",
       "SavefileLockedIMG": "",
       "SavefileClearedIMG": "",
       "MapLockedIMG": "",
@@ -62,8 +62,8 @@
     },
     {
       "Idx": 5,
-      "FirstStageLoadedDatasName": "",
-      "FirstStageSectionInstanceName": "",
+      "FirstStageLoadedDatasName": "stage_5_loaded_0",
+      "FirstStageSectionInstanceName": "stage_5_chunk_0",
       "SavefileLockedIMG": "",
       "SavefileClearedIMG": "",
       "MapLockedIMG": "",
@@ -74,8 +74,8 @@
     },
     {
       "Idx": 6,
-      "FirstStageLoadedDatasName": "",
-      "FirstStageSectionInstanceName": "",
+      "FirstStageLoadedDatasName": "stage_6_loaded_0",
+      "FirstStageSectionInstanceName": "stage_6_chunk_0",
       "SavefileLockedIMG": "",
       "SavefileClearedIMG": "",
       "MapLockedIMG": "",

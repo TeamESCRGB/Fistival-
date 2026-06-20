@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: b24eaeb5f76778844850176db7d3c569
   m_currentHash:
     serializedVersion: 2
-    Hash: fb78d50986ba6dd0c63a05799f5d2c1e
+    Hash: 3757e8491666021aa3546f2f325fb00e
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -67,7 +67,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67df0c83e43d5e94590d9df694a19881, type: 2}
   - {fileID: 11400000, guid: 35027750f0326b040a9e4339b22e27c1, type: 2}
   - {fileID: 11400000, guid: ea930e3e76f235f469c496db8ddfa9f2, type: 2}
+  - {fileID: 11400000, guid: bfb10140abddb29479199bbfd9c2d6f4, type: 2}
   - {fileID: 11400000, guid: dbe134661fdc46847a65100adb8fb65e, type: 2}
+  - {fileID: 11400000, guid: 520ff9c8bce55d748803cdbaa2abc277, type: 2}
   - {fileID: 11400000, guid: 3507bcf2ac412324097f9f070e1def90, type: 2}
   - {fileID: 11400000, guid: dee0fbaf8fd423546b24cdfcea32bb9e, type: 2}
   - {fileID: 11400000, guid: 07e9e6d0816ad3446893d0101d591096, type: 2}
@@ -117,6 +119,7 @@ MonoBehaviour:
     - LobbySceneLoaded
     - StaticLoaded
     - GameSceneBasicLoaded
+    - stage_0_loaded_0
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 589972af66090ac4188aef085f5cccb5, type: 2}
