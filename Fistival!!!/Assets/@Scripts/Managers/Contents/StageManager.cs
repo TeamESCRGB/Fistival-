@@ -86,7 +86,23 @@ namespace Manager.Contents
 
         public void OnDead()
         {
+            _life--;
+            if(_life <= 0)
+            {
+                OnFail();
+                return;
+            }
+            Respawn();
+        }
 
+        private void Respawn()
+        {
+            Debug.Log("리스폰");
+        }
+
+        private void OnFail()
+        {
+            Debug.Log("실패")
         }
 
         public void OnClear()
