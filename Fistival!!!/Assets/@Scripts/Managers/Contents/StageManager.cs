@@ -76,6 +76,21 @@ namespace Manager.Contents
             }
         }
 
+        public void SaveCheckpoint()
+        {
+                
+        }
+
+        public void OnDead()
+        {
+
+        }
+
+        public void OnClear()
+        {
+
+        }
+
         public void TakeDamage(int damage)
         {
             _totalTakenDamage += damage;
