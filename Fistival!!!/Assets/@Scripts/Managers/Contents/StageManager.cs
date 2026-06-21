@@ -81,10 +81,13 @@ namespace Manager.Contents
                 save.StageSaveDatas[_stageIdx].CollectedCollections.AddRange(_collection);
                 Managers.Instance.GameManager.GetClearedMapDictRef()[_stageIdx] = true;
 
-                if(_scaledTimeStart < save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause)
+                double totalScaledTime = Time.timeAsDouble - _scaledTimeStart;
+                double totalUnscaledTime = Time.unscaledTimeAsDouble - _unscaledTimeStart;
+
+                if (save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause < 0 || totalScaledTime < save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause)
                 {
-                    save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause = _scaledTimeStart;
-                    save.StageSaveDatas[_stageIdx].ClearTimeWithPause = _unscaledTimeStart;
+                    save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause = totalScaledTime;
+                    save.StageSaveDatas[_stageIdx].ClearTimeWithPause = totalUnscaledTime;
                 }
             }
         }
