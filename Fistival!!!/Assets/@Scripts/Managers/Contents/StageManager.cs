@@ -81,10 +81,13 @@ namespace Manager.Contents
                 save.StageSaveDatas[_stageIdx].CollectedCollections.AddRange(_collection);
                 Managers.Instance.GameManager.GetClearedMapDictRef()[_stageIdx] = true;
 
-                if(_scaledTimeStart < save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause)
+                double totalScaledTime = Time.timeAsDouble - _scaledTimeStart;
+                double totalUnscaledTime = Time.unscaledTimeAsDouble - _unscaledTimeStart;
+
+                if (save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause < 0 || totalScaledTime < save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause)
                 {
-                    save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause = _scaledTimeStart;
-                    save.StageSaveDatas[_stageIdx].ClearTimeWithPause = _unscaledTimeStart;
+                    save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause = totalUnscaledTime;
+                    save.StageSaveDatas[_stageIdx].ClearTimeWithPause = totalScaledTime;
                 }
             }
         }
@@ -129,7 +132,7 @@ namespace Manager.Contents
         public void OnClear()
         {
             TrySyncToPlayerData(true);
-            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnSaveYes, OnSaveNo).SetText("현 시점의 세이브를 저장하시겠습니까?");
+            Managers.Instance.UIManager.ShowPopupUI<StageClearedPopup>("StageClearedPopup").SetIdx(_stageIdx);
         }
 
 
@@ -144,20 +147,9 @@ namespace Manager.Contents
         }
 
 
-        private void OnSaveYes()
-        {
-            Managers.Instance.UIManager.ClosePopupUI();
-            Managers.Instance.SaveDataManager.SaveSaveData();
-            ReturnToLobby();
-        }
+        
 
-        private void OnSaveNo()
-        {
-            Managers.Instance.UIManager.ClosePopupUI();
-            ReturnToLobby();
-        }
-
-        private void ReturnToLobby()
+        public void ReturnToLobby()
         {
             Init();
             Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, max) => {
@@ -177,7 +169,8 @@ namespace Manager.Contents
 
         public void StartStage(int life)
         {
-            _scaledTimeStart = _unscaledTimeStart = Time.timeAsDouble;
+            _scaledTimeStart = Time.timeAsDouble;
+            _unscaledTimeStart = Time.unscaledTimeAsDouble;
             _life = life;
         }
 

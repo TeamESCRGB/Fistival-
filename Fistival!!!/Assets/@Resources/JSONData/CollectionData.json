@@ -1,8 +1,10 @@
 {
   "collectionDatas": [
     {
-      "Idx": -6974,
-      "Money": 6974
+      "Idx": 6974,
+      "Money": 6974,
+      "Image": "",
+      "SlotIDX": 0
     }
   ]
 }
