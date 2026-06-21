@@ -9,6 +9,9 @@ namespace Actor
         [SerializeField]
         private float _followRate = 0;
 
+        [SerializeField]
+        private Vector2Int _activation;
+
         private void Start()
         {
             _mainCam = Camera.main.transform;
@@ -19,7 +22,7 @@ namespace Actor
         {
             Vector3 camPos = _mainCam.position;
             Vector3 delta = camPos - _camLastPos;
-            transform.position += new Vector3(delta.x * _followRate, delta.y * _followRate, transform.position.z);
+            transform.position += new Vector3(delta.x * _followRate*_activation.x, delta.y * _followRate*_activation.y, transform.position.z);
             _camLastPos = camPos;
         }
     }

@@ -15,6 +15,8 @@ namespace Actor
         private float _followRate = 0;
         private Vector2 _textureUnitSize;
         private Vector2 _camSiz;
+        [SerializeField]
+        private Vector2Int _activation;
 
         private void Start()
         {
@@ -32,25 +34,22 @@ namespace Actor
         {
             Vector3 camPos = _mainCam.position;
             Vector3 delta = camPos - _camLastPos;
-            transform.position += new Vector3(delta.x * _followRate, delta.y * _followRate, 0);
+            transform.position += new Vector3(delta.x * _followRate*_activation.x, delta.y * _followRate*_activation.y, 0);
             _camLastPos = camPos;
             Vector3 myPos = transform.position;
 
             Vector2 camSiz = _camSiz / 2;
             Vector2 mySiz = _textureUnitSize / 2;
 
-            float myRight = myPos.x + mySiz.x;
-            float myLeft = myPos.x - mySiz.x;
-            float myUp = myPos.y + mySiz.y;
-            float myDown = myPos.y - mySiz.y;
-
-            float camRight = _camLastPos.x + camSiz.x;
-            float camLeft = _camLastPos.x - camSiz.x;
-            float camUp = _camLastPos.y + camSiz.y;
-            float camDown = _camLastPos.y - camSiz.y;
+            
+            
 
             if(_activateXInfinity)
             {
+                float myRight = myPos.x + mySiz.x;
+                float myLeft = myPos.x - mySiz.x;
+                float camRight = _camLastPos.x + camSiz.x;
+                float camLeft = _camLastPos.x - camSiz.x;
                 if (myRight < camLeft)//내 오른쪽과 캠의 왼쪽을 비교
                 {
                     myPos.x = _camLastPos.x + (mySiz.x + camSiz.x) - (camLeft - myRight);
@@ -63,6 +62,10 @@ namespace Actor
 
             if(_activateYInfinity)
             {
+                float myUp = myPos.y + mySiz.y;
+                float myDown = myPos.y - mySiz.y;
+                float camUp = _camLastPos.y + camSiz.y;
+                float camDown = _camLastPos.y - camSiz.y;
                 if (myUp < camDown)//내 위와 캠의 아래를 비교
                 {
                     myPos.y = _camLastPos.y + (mySiz.y + camSiz.y) - (camDown - myUp);
