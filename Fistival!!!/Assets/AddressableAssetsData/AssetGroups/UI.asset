@@ -52,6 +52,12 @@ MonoBehaviour:
     - StaticLoaded
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9439d4e8d1b065241ab9d88afe0b81b6
+    m_Address: StageClearedPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9d1ceb69629698a4fa0b864998ca0fb9
     m_Address: BusstopUI
     m_ReadOnly: 0
