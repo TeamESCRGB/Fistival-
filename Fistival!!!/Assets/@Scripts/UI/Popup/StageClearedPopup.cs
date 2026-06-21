@@ -1,6 +1,8 @@
+using Data;
 using Manager;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -12,14 +14,14 @@ namespace UI.Popup
 
         enum Images
         {
+            Collection1=0,
+            Collection2=1,
+            Collection3=2,
+            Collection4=3,
+            Collection5=4,
             BG,
             StageClearedImg,
-            Character,
-            Collection1,
-            Collection2,
-            Collection3,
-            Collection4,
-            Collection5
+            Character
         }
 
         enum Texts
@@ -57,21 +59,26 @@ namespace UI.Popup
             _idx = idx;
         }
 
+        private void SetupCollection(int idx)
+        {
+            var data = Managers.Instance.DataManager.CollectionDataDict[idx];
+            GetImage(data.SlotIDX).sprite = Managers.Instance.ResourceManager.Load<Sprite>(data.Image);
+        }
+
         private IEnumerator ShowRoutine()
         {
-            var collectionData = Managers.Instance.DataManager.CollectionDataDict;
+            
             var stageData = Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[_idx];
             var waiter = new WaitForSeconds(0.25f);
-            GetImage((int)Images.Collection1).sprite = Managers.Instance.ResourceManager.Load<Sprite>(collectionData[stageData.CollectedCollections[0]].Image);
-            yield return waiter;
-            GetImage((int)Images.Collection2).sprite = Managers.Instance.ResourceManager.Load<Sprite>(collectionData[stageData.CollectedCollections[1]].Image);
-            yield return waiter;
-            GetImage((int)Images.Collection3).sprite = Managers.Instance.ResourceManager.Load<Sprite>(collectionData[stageData.CollectedCollections[2]].Image);
-            yield return waiter;
-            GetImage((int)Images.Collection4).sprite = Managers.Instance.ResourceManager.Load<Sprite>(collectionData[stageData.CollectedCollections[3]].Image);
-            yield return waiter;
-            GetImage((int)Images.Collection5).sprite = Managers.Instance.ResourceManager.Load<Sprite>(collectionData[stageData.CollectedCollections[4]].Image);
-            yield return new WaitForSeconds(5);
+
+
+            for(int i = 0; i < stageData.CollectedCollections.Count; i++)
+            {
+                SetupCollection(stageData.CollectedCollections[i]);
+                yield return waiter;
+            }
+
+            yield return new WaitForSeconds(1);
 
             GetText((int)Texts.ClearTimeCounter).text = TimeUtils.SecToTimeStr(stageData.ClearTimeWithPause);
             yield return waiter;
