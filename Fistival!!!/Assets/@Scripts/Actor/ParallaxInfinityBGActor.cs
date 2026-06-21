@@ -5,6 +5,10 @@ namespace Actor
 {
     public class ParallaxInfinityBGActor : MonoBehaviour
     {
+        [SerializeField]
+        private bool _activateXInfinity = true;
+        [SerializeField]
+        private bool _activateYInfinity = true;
         private Transform _mainCam;
         private Vector3 _camLastPos;
         [SerializeField]
@@ -45,22 +49,28 @@ namespace Actor
             float camUp = _camLastPos.y + camSiz.y;
             float camDown = _camLastPos.y - camSiz.y;
 
-            if(myRight < camLeft)//내 오른쪽과 캠의 왼쪽을 비교
+            if(_activateXInfinity)
             {
-                myPos.x = _camLastPos.x + (mySiz.x + camSiz.x) - (camLeft - myRight);
-            }
-            else if(myLeft > camRight)//내 왼쪽과 캠의 오른쪽을 비교
-            {
-                myPos.x = _camLastPos.x - (mySiz.x + camSiz.x) + (myLeft - camRight);
+                if (myRight < camLeft)//내 오른쪽과 캠의 왼쪽을 비교
+                {
+                    myPos.x = _camLastPos.x + (mySiz.x + camSiz.x) - (camLeft - myRight);
+                }
+                else if (myLeft > camRight)//내 왼쪽과 캠의 오른쪽을 비교
+                {
+                    myPos.x = _camLastPos.x - (mySiz.x + camSiz.x) + (myLeft - camRight);
+                }
             }
 
-            if (myUp < camDown)//내 위와 캠의 아래를 비교
+            if(_activateYInfinity)
             {
-                myPos.y = _camLastPos.y + (mySiz.y + camSiz.y) - (camDown - myUp);
-            }
-            else if (myDown > camUp)//내 아래와 캑의 위를 비교
-            {
-                myPos.y = _camLastPos.y - (mySiz.y + camSiz.y) + (myDown - camUp);
+                if (myUp < camDown)//내 위와 캠의 아래를 비교
+                {
+                    myPos.y = _camLastPos.y + (mySiz.y + camSiz.y) - (camDown - myUp);
+                }
+                else if (myDown > camUp)//내 아래와 캑의 위를 비교
+                {
+                    myPos.y = _camLastPos.y - (mySiz.y + camSiz.y) + (myDown - camUp);
+                }
             }
 
             transform.position = myPos;
