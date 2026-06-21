@@ -169,7 +169,8 @@ namespace Manager.Contents
 
         public void StartStage(int life)
         {
-            _scaledTimeStart = _unscaledTimeStart = Time.timeAsDouble;
+            _scaledTimeStart = Time.timeAsDouble;
+            _unscaledTimeStart = Time.unscaledTimeAsDouble;
             _life = life;
         }
 
