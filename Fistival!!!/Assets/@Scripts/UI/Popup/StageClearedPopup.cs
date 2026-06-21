@@ -1,4 +1,5 @@
 using Data;
+using DG.Tweening;
 using Manager;
 using System;
 using System.Collections;
@@ -35,6 +36,12 @@ namespace UI.Popup
             Next
         }
 
+        enum Objects
+        {
+            Damage,
+            ClearTime
+        }
+
         private int _idx=0;
 
         public override bool Init()
@@ -44,13 +51,25 @@ namespace UI.Popup
                 return false;
             }
 
+            BindObject(typeof(Objects));
             BindButton(typeof(Buttons));
             BindImage(typeof(Images));
             BindText(typeof(Texts));
 
             GetButton((int)Buttons.Next).gameObject.BindUIEvent(OnNext);
-            StartCoroutine(ShowRoutine());
+            
 
+            GetImage((int)Images.Collection1).gameObject.SetActive(false);
+            GetImage((int)Images.Collection2).gameObject.SetActive(false);
+            GetImage((int)Images.Collection3).gameObject.SetActive(false);
+            GetImage((int)Images.Collection4).gameObject.SetActive(false);
+            GetImage((int)Images.Collection5).gameObject.SetActive(false);
+            GetImage((int)Images.StageClearedImg).gameObject.SetActive(false);
+            GetImage((int)Images.Character).gameObject.SetActive(false);
+
+            GetObject((int)Objects.ClearTime).gameObject.SetActive(false);
+            GetObject((int)Objects.Damage).gameObject.SetActive(false);
+            StartCoroutine(ShowRoutine());
             return true;
         }
 
@@ -62,17 +81,45 @@ namespace UI.Popup
         private void SetupCollection(int idx)
         {
             var data = Managers.Instance.DataManager.CollectionDataDict[idx];
+            GetImage(data.SlotIDX).gameObject.SetActive(true);
             GetImage(data.SlotIDX).sprite = Managers.Instance.ResourceManager.Load<Sprite>(data.Image);
+            GetImage(data.SlotIDX).GetComponent<RectTransform>().DOPunchScale(new Vector3(0.5f, 0.5f, 0f), 0.25f, vibrato: 1, elasticity: 0.5f);
         }
 
         private IEnumerator ShowRoutine()
         {
-            
             var stageData = Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[_idx];
             var waiter = new WaitForSeconds(0.25f);
 
+            GetImage((int)Images.BG).gameObject.SetActive(true);
+            GetImage((int)Images.BG).GetComponent<RectTransform>().localScale = Vector3.zero;
+            GetImage((int)Images.BG).GetComponent<RectTransform>().DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
 
-            for(int i = 0; i < stageData.CollectedCollections.Count; i++)
+            yield return new WaitForSeconds(0.3f);
+
+            var charImg = GetImage((int)Images.Character);
+            charImg.gameObject.SetActive(true); // 캐릭터 활성화
+
+            RectTransform rect = charImg.GetComponent<RectTransform>();
+            rect.DOKill(); // 기존 트윈 찌꺼기 제거
+
+            // 1. 현재 기기 해상도에 맞는 캐릭터 높이(또는 화면 높이)를 가져옵니다.
+            float bottomPos = rect.rect.height;
+
+            // 2. 시작 위치를 화면 하단 바깥으로 강제 지정 (Y축을 마이너스 높이만큼 내림)
+            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, -bottomPos);
+
+            // 3. 0.4초 동안 원래 위치(0)로 툭 튀어나오며 올라옵니다.
+            rect.DOAnchorPosY(0f, 0.4f).SetEase(Ease.OutBack);
+
+            yield return new WaitForSeconds(0.4f);
+
+            GetImage((int)Images.StageClearedImg).gameObject.SetActive(true);
+            GetImage((int)Images.StageClearedImg).GetComponent<RectTransform>().DOPunchScale(new Vector3(1f, 1f, 0f), 0.25f, vibrato: 1, elasticity: 0.5f);
+            yield return new WaitForSeconds(0.25f);
+
+
+            for (int i = 0; i < stageData.CollectedCollections.Count; i++)
             {
                 SetupCollection(stageData.CollectedCollections[i]);
                 yield return waiter;
@@ -80,9 +127,14 @@ namespace UI.Popup
 
             yield return new WaitForSeconds(1);
 
+            GetObject((int)Objects.ClearTime).gameObject.SetActive(true);
             GetText((int)Texts.ClearTimeCounter).text = TimeUtils.SecToTimeStr(stageData.ClearTimeWithPause);
             yield return waiter;
+            GetObject((int)Objects.Damage).gameObject.SetActive(true);
             GetText((int)Texts.TotalDamageCounter).text = stageData.TotalGainedDamage.ToString("N0");
+
+            yield return waiter;
+
         }
 
 
