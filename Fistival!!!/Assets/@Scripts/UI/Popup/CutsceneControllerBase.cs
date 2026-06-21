@@ -63,6 +63,14 @@ namespace UI.Popup
             };
         }
 
+
+        private void OnDisable()
+        {
+            if(Managers.Instance.GameManager.IsPauseDisabled())
+            {
+                Managers.Instance.GameManager.EnablePause();
+            }
+        }
         protected bool FlipTo(int idx)
         {
             if (idx == _index || _isFlipping)

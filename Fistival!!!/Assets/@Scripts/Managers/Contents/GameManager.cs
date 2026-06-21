@@ -29,6 +29,11 @@ namespace Manager.Contents
             return _isPaused;
         }
 
+        public bool IsPauseDisabled()
+        {
+            return _isPauseDisabled;
+        }
+
         public void PauseGame()
         {
             if(_isPauseDisabled)
