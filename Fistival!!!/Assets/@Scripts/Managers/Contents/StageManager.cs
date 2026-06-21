@@ -122,14 +122,14 @@ namespace Manager.Contents
 
         private void OnFail()
         {
-            //fail이미지 띄워야됨
+            //컷씬 넣어줘야됨
             ReturnToLobby();
         }
 
         public void OnClear()
         {
             TrySyncToPlayerData(true);
-
+            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnSaveYes, OnSaveNo).SetText("현 시점의 세이브를 저장하시겠습니까?");
         }
 
 
@@ -143,7 +143,21 @@ namespace Manager.Contents
             return _clearedBossList.Contains(bossPrefabName);
         }
 
-        public void ReturnToLobby()
+
+        private void OnSaveYes()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.SaveDataManager.SaveSaveData();
+            ReturnToLobby();
+        }
+
+        private void OnSaveNo()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+            ReturnToLobby();
+        }
+
+        private void ReturnToLobby()
         {
             Init();
             Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, max) => {
