@@ -129,7 +129,7 @@ namespace Manager.Contents
         public void OnClear()
         {
             TrySyncToPlayerData(true);
-            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnSaveYes, OnSaveNo).SetText("현 시점의 세이브를 저장하시겠습니까?");
+            Managers.Instance.UIManager.ShowPopupUI<StageClearedPopup>("StageClearedPopup").SetIdx(_stageIdx);
         }
 
 
