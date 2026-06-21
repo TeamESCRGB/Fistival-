@@ -86,8 +86,8 @@ namespace Manager.Contents
 
                 if (save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause < 0 || totalScaledTime < save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause)
                 {
-                    save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause = totalScaledTime;
-                    save.StageSaveDatas[_stageIdx].ClearTimeWithPause = totalUnscaledTime;
+                    save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause = totalUnscaledTime;
+                    save.StageSaveDatas[_stageIdx].ClearTimeWithPause = totalScaledTime;
                 }
             }
         }
