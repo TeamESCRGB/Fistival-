@@ -144,20 +144,9 @@ namespace Manager.Contents
         }
 
 
-        private void OnSaveYes()
-        {
-            Managers.Instance.UIManager.ClosePopupUI();
-            Managers.Instance.SaveDataManager.SaveSaveData();
-            ReturnToLobby();
-        }
+        
 
-        private void OnSaveNo()
-        {
-            Managers.Instance.UIManager.ClosePopupUI();
-            ReturnToLobby();
-        }
-
-        private void ReturnToLobby()
+        public void ReturnToLobby()
         {
             Init();
             Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, max) => {
