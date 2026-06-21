@@ -2,6 +2,7 @@ using Manager;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Utils;
 
 namespace UI.Popup
@@ -27,6 +28,11 @@ namespace UI.Popup
             ClearTimeCounter
         }
 
+        enum Buttons
+        {
+            OK
+        }
+
         private int _idx=0;
 
         public override bool Init()
@@ -36,8 +42,11 @@ namespace UI.Popup
                 return false;
             }
 
+            BindButton(typeof(Buttons));
             BindImage(typeof(Images));
             BindText(typeof(Texts));
+
+            GetButton((int)Buttons.OK).gameObject.BindUIEvent(OnOK);
 
             StartCoroutine(ShowRoutine());
 
@@ -72,7 +81,21 @@ namespace UI.Popup
 
         }
 
+        private void OnOK(PointerEventData _)
+        {
+            Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnSave, OnNo).SetText("현 시점의 세이브를 저장하시겠습니까?");
+        }
 
+        private void OnSave()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.SaveDataManager.SaveSaveData();
+        }
+
+        private void OnNo()
+        {
+            Managers.Instance.UIManager.ClosePopupUI();
+        }
 
     }
 }
