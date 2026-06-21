@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Manager;
 using System;
 using System.Collections;
 using UI.Transition;
@@ -48,12 +49,18 @@ namespace UI.Popup
 
         protected void Close()
         {
+            Managers.Instance.GameManager.DisablePause();
             GetComponent<RectTransform>().DOAnchorPosY(-_closedPos, 1f).SetEase(Ease.InBack);
             if (_blockerRoutine != null)
             {
                 StopCoroutine(_blockerRoutine);
             }
             _blockerRoutine = StartCoroutine(BlockerRoutine(1));
+            _onBlockRoutineEnd += () =>
+            {
+                Managers.Instance.UIManager.ClosePopupUI();
+                Managers.Instance.GameManager.EnablePause();
+            };
         }
 
         protected bool FlipTo(int idx)

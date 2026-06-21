@@ -8,6 +8,7 @@ namespace Manager.Contents
 {
     public class GameManager
     {
+        private bool _isPauseDisabled;
         private bool _isPaused;
         private ModeTypes _nowMode;
         private float _timeScale;
@@ -30,6 +31,10 @@ namespace Manager.Contents
 
         public void PauseGame()
         {
+            if(_isPauseDisabled)
+            {
+                return;
+            }
             if(_isPaused == false)
             {
                 _isPaused = true;
@@ -70,6 +75,17 @@ namespace Manager.Contents
         {
             Time.timeScale = 1;
             _isPaused = false;
+            _isPauseDisabled = false;
+        }
+
+        public void DisablePause()
+        {
+            _isPauseDisabled = true;
+        }
+
+        public void EnablePause()
+        {
+            _isPauseDisabled = false;
         }
 
         public float MasterVolume
