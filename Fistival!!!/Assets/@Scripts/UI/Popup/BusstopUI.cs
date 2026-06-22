@@ -171,7 +171,7 @@ namespace UI.Popup
 
         private void OnStage7LockedPressed(PointerEventData _)
         {
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectFailedSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
 
         private void OnExitButton(PointerEventData _)

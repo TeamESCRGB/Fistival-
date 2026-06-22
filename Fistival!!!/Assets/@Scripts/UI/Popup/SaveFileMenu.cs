@@ -172,6 +172,7 @@ namespace UI.Popup
             {
                 if (Managers.Instance.SaveDataManager.IsSaveFileEmpty(_selectedIdx))
                 {
+                    Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedSFX", true, Managers.Instance.GameManager.SFXVolume);
                     Managers.Instance.UIManager.ShowPopupUI<BasicPopupAlert>("BasicPopupAlert").SetText("로드 가능한 세이브 정보가 없습니다.");
                 }
                 else

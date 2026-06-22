@@ -134,7 +134,7 @@ namespace UI.Popup
         {
             if(_selectedItem is null)
             {
-                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnShopItemSelectFailedSFX", false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
                 GetObject((int)Objects.QueueCard).SetActive(false);Debug.Log("null");
                 return;
             }
@@ -200,7 +200,7 @@ namespace UI.Popup
             var data = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData;
             if(data.Money < _selectedItem.Price)
             {
-                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnPurchaseFailedSFX", false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
                 return;
             }
             data.Money -= _selectedItem.Price;
