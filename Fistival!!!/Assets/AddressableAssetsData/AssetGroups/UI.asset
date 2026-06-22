@@ -45,6 +45,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74d877feda40dcd48adf28a0d4d2e2c9
+    m_Address: StageFailedPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8187b2db08f5ff446ba6f1b9038f24bd
     m_Address: BasicConfirmBox
     m_ReadOnly: 0

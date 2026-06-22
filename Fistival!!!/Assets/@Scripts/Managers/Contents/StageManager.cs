@@ -126,7 +126,7 @@ namespace Manager.Contents
         private void OnFail()
         {
             //컷씬 넣어줘야됨
-            ReturnToLobby();
+            Managers.Instance.UIManager.ShowPopupUI<StageFailedPopup>("StageFailedPopup");
         }
 
         public void OnClear()
