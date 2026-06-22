@@ -13,9 +13,9 @@ namespace UI.Popup
     {
         enum Images
         {
-            FailedImg,
+            FailedImage,
             BG,
-            Charecter
+            Character
         }
 
         enum Buttons
@@ -36,9 +36,9 @@ namespace UI.Popup
             BindButton(typeof(Buttons));
 
 
-            GetImage((int)Images.FailedImg).gameObject.SetActive(false);
+            GetImage((int)Images.FailedImage).gameObject.SetActive(false);
             GetImage((int)Images.BG).gameObject.SetActive(false);
-            GetImage((int)Images.Charecter).gameObject.SetActive(false);
+            GetImage((int)Images.Character).gameObject.SetActive(false);
 
             GetButton((int)Buttons.Restart).gameObject.BindUIEvent(OnRestart);
             GetButton((int)Buttons.Return).gameObject.BindUIEvent(OnReturn);
@@ -58,16 +58,16 @@ namespace UI.Popup
             GetImage((int)Images.BG).GetComponent<RectTransform>().DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack).From(Vector3.zero);
             yield return new WaitForSeconds(0.3f);
 
-            GetImage((int)Images.FailedImg).gameObject.SetActive(true);
-            GetImage((int)Images.FailedImg).gameObject.GetComponent<Image>().DOFade(1f, 1).From(0f);
-            GetImage((int)Images.Charecter).gameObject.SetActive(true);
-            GetImage((int)Images.Charecter).gameObject.GetComponent<Image>().DOFade(1f, 1).From(0f);
+            GetImage((int)Images.FailedImage).gameObject.SetActive(true);
+            GetImage((int)Images.FailedImage).gameObject.GetComponent<Image>().DOFade(1f, 1).From(0f);
+            GetImage((int)Images.Character).gameObject.SetActive(true);
+            GetImage((int)Images.Character).gameObject.GetComponent<Image>().DOFade(1f, 1).From(0f);
 
             yield return new WaitForSeconds(1.5f);
             GetButton((int)Buttons.Return).gameObject.SetActive(true);
-            GetButton((int)Buttons.Return).gameObject.GetComponent<Image>().DOFade(1f,0.5f).From(0f);
+            GetButton((int)Buttons.Return).gameObject.GetComponent<Image>().DOFade(1f,1f).From(0f);
             GetButton((int)Buttons.Restart).gameObject.SetActive(true);
-            GetButton((int)Buttons.Restart).gameObject.GetComponent<Image>().DOFade(1f,0.5f).From(0f);
+            GetButton((int)Buttons.Restart).gameObject.GetComponent<Image>().DOFade(1f,1f).From(0f);
         }
 
         private void OnRestart(PointerEventData _)
