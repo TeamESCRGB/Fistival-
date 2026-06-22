@@ -1,6 +1,7 @@
 using Defines;
 using DG.Tweening;
 using Manager;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -20,12 +21,12 @@ namespace UI.Popup
 
         enum Images
         {
-            StagePreviewImg,
-            Collection1,
-            Collection2,
-            Collection3,
-            Collection4,
-            Collection5
+            Collection1=0,
+            Collection2=1,
+            Collection3=2,
+            Collection4=3,
+            Collection5=4,
+            StagePreviewImg
         }
 
         enum Texts
@@ -101,8 +102,26 @@ namespace UI.Popup
                 GetObject((int)Objects.Locker).SetActive(false);
             }
 
+            Span<int> collectionSlots = stackalloc int[] {(int)Images.Collection1, (int)Images.Collection2, (int)Images.Collection3, (int)Images.Collection4, (int)Images.Collection5};
             var collectionList = save.StageSaveDatas[_stageIdx].CollectedCollections;
-            //GetImage((int)Images.Collection1).sprite; 이거 나중에 수집품 시스템 정리되면 그 때 세이브데이터에서 클리어 데이터 긁어와서 넣도록.
+
+            for(int i =0; i < collectionList.Count;i++)
+            {
+                var collectionData = Managers.Instance.DataManager.CollectionDataDict[collectionList[i]];
+                GetImage(collectionData.SlotIDX).gameObject.SetActive(true);
+                GetImage(collectionData.SlotIDX).sprite = Managers.Instance.ResourceManager.Load<Sprite>(collectionData.Image);
+                collectionSlots[collectionData.SlotIDX] = -1;
+            }
+
+            for(int i = 0; i < collectionSlots.Length; i++)
+            {
+                if (collectionSlots[i] >= 0)
+                {
+                    GetImage(collectionSlots[i]).gameObject.SetActive(false);
+                }
+            }
+
+
         }
 
         private void OnNext(PointerEventData _)
