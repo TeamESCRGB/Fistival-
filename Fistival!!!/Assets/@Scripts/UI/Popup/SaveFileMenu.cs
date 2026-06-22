@@ -206,7 +206,7 @@ namespace UI.Popup
 
             saveData.TotalPlayTime = Managers.Instance.GameManager.GetTotalPlayTime();
             Managers.Instance.SaveDataManager.SaveSaveData();
-
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnSaveFileSavedSFX", true, Managers.Instance.GameManager.SFXVolume);
             RefreshButtonState();
         }
 
@@ -230,8 +230,8 @@ namespace UI.Popup
             }
 
             Managers.Instance.GameManager.InitTotalPlayTimeChecker(saveData.TotalPlayTime);
-
-            if(nowSceneType == SceneType.MainScene)
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnSaveFileLoadSFX", true, Managers.Instance.GameManager.SFXVolume);
+            if (nowSceneType == SceneType.MainScene)
             {
                 Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
                 {
@@ -246,7 +246,6 @@ namespace UI.Popup
             {
                 Debug.Log("로비씬에서 로드함 -- 자리표시자");
             }
-
         }
 
         private void OnConfirmNo()

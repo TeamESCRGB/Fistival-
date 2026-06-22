@@ -188,6 +188,8 @@ namespace UI.Popup
                 clearedMapDict[i] = false;
             }
 
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnNewGameSFX", true, Managers.Instance.GameManager.SFXVolume);
+
             Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
             {
                 if (now == end)

@@ -153,6 +153,7 @@ namespace UI.Popup
         {
             Managers.Instance.UIManager.ClosePopupUI();
             Managers.Instance.SaveDataManager.SaveSaveData();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnSaveFileSavedSFX", true, Managers.Instance.GameManager.SFXVolume);
             Managers.Instance.StageManager.ReturnToLobby();
         }
 
