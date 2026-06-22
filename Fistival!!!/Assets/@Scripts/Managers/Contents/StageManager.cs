@@ -25,6 +25,9 @@ namespace Manager.Contents
 
         private int _life = 0;
 
+
+        private double _clearTimeWithPause = 0;
+
         [SerializeField]
         private Vector3 _checkpointPos = Vector3.zero;
 
@@ -34,7 +37,7 @@ namespace Manager.Contents
             _data = null;
             _scaledTimeStart = 0;
             _unscaledTimeStart = 0;
-            
+            _clearTimeWithPause = 0;
             foreach(var chunk in _spawnedChunks.Values)
             {
                 if(chunk.chunk != null)
@@ -83,6 +86,7 @@ namespace Manager.Contents
 
                 double totalScaledTime = Time.timeAsDouble - _scaledTimeStart;
                 double totalUnscaledTime = Time.unscaledTimeAsDouble - _unscaledTimeStart;
+                _clearTimeWithPause = totalUnscaledTime;
 
                 if (save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause < 0 || totalScaledTime < save.StageSaveDatas[_stageIdx].ClearTimeWithOutPause)
                 {
@@ -132,7 +136,7 @@ namespace Manager.Contents
         public void OnClear()
         {
             TrySyncToPlayerData(true);
-            Managers.Instance.UIManager.ShowPopupUI<StageClearedPopup>("StageClearedPopup").SetIdx(_stageIdx);
+            Managers.Instance.UIManager.ShowPopupUI<StageClearedPopup>("StageClearedPopup").SetupData(_stageIdx,_clearTimeWithPause);
         }
 
 

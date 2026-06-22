@@ -43,6 +43,7 @@ namespace UI.Popup
         }
 
         private int _idx=0;
+        private double _clearTimeWithPause = 0;
 
         public override bool Init()
         {
@@ -73,9 +74,10 @@ namespace UI.Popup
             return true;
         }
 
-        public void SetIdx(int idx)
+        public void SetupData(int idx,double clearTimeWithPause)
         {
             _idx = idx;
+            _clearTimeWithPause = clearTimeWithPause;
         }
 
         private void SetupCollection(int idx)
@@ -128,7 +130,7 @@ namespace UI.Popup
             yield return new WaitForSeconds(1);
 
             GetObject((int)Objects.ClearTime).gameObject.SetActive(true);
-            GetText((int)Texts.ClearTimeCounter).text = TimeUtils.SecToTimeStr(stageData.ClearTimeWithPause);
+            GetText((int)Texts.ClearTimeCounter).text = TimeUtils.SecToTimeStr(_clearTimeWithPause);
             yield return waiter;
             GetObject((int)Objects.Damage).gameObject.SetActive(true);
             GetText((int)Texts.TotalDamageCounter).text = stageData.TotalGainedDamage.ToString("N0");
