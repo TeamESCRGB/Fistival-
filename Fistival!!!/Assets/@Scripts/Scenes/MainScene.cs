@@ -15,5 +15,10 @@ namespace Scenes
             Managers.Instance.UIManager.DIsableAutoUIActionMapChange();
             Debug.Log($"{name} init complete");
         }
+
+        private void Start()
+        {
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "MainBGM", true, Managers.Instance.GameManager.BGMVolume);
+        }
     }
 }

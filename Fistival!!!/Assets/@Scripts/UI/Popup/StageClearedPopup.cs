@@ -1,4 +1,5 @@
 using Data;
+using Defines;
 using DG.Tweening;
 using Manager;
 using System;
@@ -71,6 +72,9 @@ namespace UI.Popup
             GetObject((int)Objects.ClearTime).gameObject.SetActive(false);
             GetObject((int)Objects.Damage).gameObject.SetActive(false);
             StartCoroutine(ShowRoutine());
+
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "StageClearedBGM", true, Managers.Instance.GameManager.BGMVolume);
+
             return true;
         }
 

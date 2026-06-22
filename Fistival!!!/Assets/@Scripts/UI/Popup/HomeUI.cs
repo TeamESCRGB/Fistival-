@@ -1,3 +1,4 @@
+using Defines;
 using Manager;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -61,6 +62,9 @@ namespace UI.Popup
                 }
             }
 
+
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "HomeBGM", true, Managers.Instance.GameManager.BGMVolume);
+
             return true;
         }
 
@@ -105,6 +109,7 @@ namespace UI.Popup
         private void OnExitButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "LobbyBGM", true, Managers.Instance.GameManager.BGMVolume);
         }
     }
 }

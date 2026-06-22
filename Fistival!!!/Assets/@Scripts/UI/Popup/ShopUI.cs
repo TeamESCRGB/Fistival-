@@ -1,4 +1,5 @@
 using Data;
+using Defines;
 using Manager;
 using TMPro;
 using UnityEngine;
@@ -97,6 +98,9 @@ namespace UI.Popup
 
             Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
             Managers.Instance.NewInputSystemManager.UI_ESCInput += PauseOpenBind;
+
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "ShopBGM", true, Managers.Instance.GameManager.BGMVolume);
+
             return true;
         }
 
@@ -184,6 +188,7 @@ namespace UI.Popup
         private void OnExitButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "LobbyBGM", true, Managers.Instance.GameManager.BGMVolume);
         }
 
         private void OnPurchase(PointerEventData _)

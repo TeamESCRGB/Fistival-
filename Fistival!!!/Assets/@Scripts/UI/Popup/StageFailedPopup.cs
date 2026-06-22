@@ -1,3 +1,4 @@
+using Defines;
 using DG.Tweening;
 using Manager;
 using System.Collections;
@@ -47,6 +48,8 @@ namespace UI.Popup
 
 
             StartCoroutine(ShowRoutine());
+
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "StageFailedBGM", true, Managers.Instance.GameManager.BGMVolume);
 
             return true;
         }

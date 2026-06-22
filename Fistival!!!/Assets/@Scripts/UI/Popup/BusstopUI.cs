@@ -1,4 +1,5 @@
 using Data;
+using Defines;
 using Manager;
 using UI.Popup;
 using UnityEngine;
@@ -96,6 +97,8 @@ namespace UI.Popup
             Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
             Managers.Instance.NewInputSystemManager.UI_ESCInput += PauseOpenBind;
 
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "BusstopBGM", true, Managers.Instance.GameManager.BGMVolume);
+
             return true;
         }
         private void OnDisable()
@@ -166,6 +169,7 @@ namespace UI.Popup
         private void OnExitButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "LobbyBGM", true, Managers.Instance.GameManager.BGMVolume);
         }
     }
 }
