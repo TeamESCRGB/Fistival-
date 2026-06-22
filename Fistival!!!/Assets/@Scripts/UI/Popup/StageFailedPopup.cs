@@ -81,12 +81,14 @@ namespace UI.Popup
             Managers.Instance.StageManager.Init();
             Managers.Instance.StageManager.SetStageIDX(idx);
             Managers.Instance.SceneManagerEx.LoadScene(Defines.SceneType.GameScene);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "GameStartSFX", true, Managers.Instance.GameManager.SFXVolume);
         }
 
         private void OnReturn(PointerEventData _)
         {
             Managers.Instance.UIManager.ClosePopupUI();
             Managers.Instance.StageManager.ReturnToLobby();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
         }
 
     }

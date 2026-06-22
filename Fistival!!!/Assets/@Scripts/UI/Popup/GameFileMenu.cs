@@ -203,6 +203,7 @@ namespace UI.Popup
         private void OnConfirmNo()
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
         }
 
         private void OnExitButton(PointerEventData data)

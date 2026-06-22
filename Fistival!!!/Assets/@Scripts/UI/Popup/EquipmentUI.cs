@@ -1,5 +1,6 @@
 using Coordinator;
 using Data;
+using Defines;
 using Manager;
 using System;
 using UnityEngine;
@@ -230,6 +231,7 @@ namespace UI.Popup
         private void OnExitButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
         }
     }
 }

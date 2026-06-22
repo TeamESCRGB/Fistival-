@@ -167,6 +167,7 @@ namespace UI.Popup
 
         private void OnFileClicked(PointerEventData data)
         {
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
             if (_nowMode == SaveFileAccessMode.LOAD)
             {
                 if (Managers.Instance.SaveDataManager.IsSaveFileEmpty(_selectedIdx))
@@ -251,6 +252,7 @@ namespace UI.Popup
         private void OnConfirmNo()
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
         }
 
         private void OnExitButton(PointerEventData data)
@@ -263,6 +265,7 @@ namespace UI.Popup
             {
                 Managers.Instance.UIManager.ClosePopupUI();
             }
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
         }
     }
 }

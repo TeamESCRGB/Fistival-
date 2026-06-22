@@ -152,6 +152,7 @@ namespace UI.Popup
         private void OnNext(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnSaveYes, OnSaveNo).SetText("현 시점의 세이브를 저장하시겠습니까?");
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
         }
 
         private void OnSaveYes()
@@ -166,6 +167,7 @@ namespace UI.Popup
         {
             Managers.Instance.UIManager.ClosePopupUI();
             Managers.Instance.StageManager.ReturnToLobby();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
         }
     }
 }
