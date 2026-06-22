@@ -1,4 +1,5 @@
 using Data;
+using Defines;
 using Manager;
 using TMPro;
 using UnityEngine;
@@ -97,6 +98,10 @@ namespace UI.Popup
 
             Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
             Managers.Instance.NewInputSystemManager.UI_ESCInput += PauseOpenBind;
+
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "ShopBGM", true, Managers.Instance.GameManager.BGMVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "ShopEnterSFX", false, Managers.Instance.GameManager.SFXVolume);
+
             return true;
         }
 
@@ -129,9 +134,11 @@ namespace UI.Popup
         {
             if(_selectedItem is null)
             {
+                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
                 GetObject((int)Objects.QueueCard).SetActive(false);Debug.Log("null");
                 return;
             }
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnShopItemSelectedSFX", false, Managers.Instance.GameManager.SFXVolume);
             GetObject((int)Objects.QueueCard).SetActive(true);
             GetImage((int)Images.ItemPreview).sprite = Managers.Instance.ResourceManager.Load<Sprite>(_selectedItem.Image);
             GetText((int)Text.SelectedItemPrice).text = $"x {_selectedItem.Price}";
@@ -184,6 +191,8 @@ namespace UI.Popup
         private void OnExitButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "LobbyBGM", true, Managers.Instance.GameManager.BGMVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "ShopExitSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
 
         private void OnPurchase(PointerEventData _)
@@ -191,6 +200,7 @@ namespace UI.Popup
             var data = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData;
             if(data.Money < _selectedItem.Price)
             {
+                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
                 return;
             }
             data.Money -= _selectedItem.Price;
@@ -198,6 +208,7 @@ namespace UI.Popup
             Get<ShopItemUI>(_selectedItem.Idx).SetPurchased();
             _selectedItem = null;
             GetText((int)Text.Money).text = $"x {data.Money}";
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnPurchaseSFX", false, Managers.Instance.GameManager.SFXVolume);
             UpdateItemData();
         }
 
@@ -205,6 +216,7 @@ namespace UI.Popup
         {
             _selectedItem = null;
             UpdateItemData();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
     }
 }

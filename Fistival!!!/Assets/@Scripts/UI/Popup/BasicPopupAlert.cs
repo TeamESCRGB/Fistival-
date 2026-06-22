@@ -1,3 +1,4 @@
+using Defines;
 using Manager;
 using TMPro;
 using UnityEngine;
@@ -41,6 +42,7 @@ namespace UI.Popup
         private void OnYes(PointerEventData data)
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
     }
 }

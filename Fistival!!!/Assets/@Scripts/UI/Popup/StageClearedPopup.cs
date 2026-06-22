@@ -1,4 +1,5 @@
 using Data;
+using Defines;
 using DG.Tweening;
 using Manager;
 using System;
@@ -71,6 +72,9 @@ namespace UI.Popup
             GetObject((int)Objects.ClearTime).gameObject.SetActive(false);
             GetObject((int)Objects.Damage).gameObject.SetActive(false);
             StartCoroutine(ShowRoutine());
+
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "StageClearedBGM", true, Managers.Instance.GameManager.BGMVolume);
+
             return true;
         }
 
@@ -83,6 +87,7 @@ namespace UI.Popup
         private void SetupCollection(int idx)
         {
             var data = Managers.Instance.DataManager.CollectionDataDict[idx];
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "CollectionResultSFX", false, Managers.Instance.GameManager.SFXVolume);
             GetImage(data.SlotIDX).gameObject.SetActive(true);
             GetImage(data.SlotIDX).sprite = Managers.Instance.ResourceManager.Load<Sprite>(data.Image);
             GetImage(data.SlotIDX).GetComponent<RectTransform>().DOPunchScale(new Vector3(0.5f, 0.5f, 0f), 0.25f, vibrato: 1, elasticity: 0.5f);
@@ -113,11 +118,13 @@ namespace UI.Popup
 
             // 3. 0.4초 동안 원래 위치(0)로 툭 튀어나오며 올라옵니다.
             rect.DOAnchorPosY(0f, 0.4f).SetEase(Ease.OutBack);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "CharacterPopupSFX", false, Managers.Instance.GameManager.SFXVolume);
 
             yield return new WaitForSeconds(0.4f);
 
             GetImage((int)Images.StageClearedImg).gameObject.SetActive(true);
             GetImage((int)Images.StageClearedImg).GetComponent<RectTransform>().DOPunchScale(new Vector3(1f, 1f, 0f), 0.25f, vibrato: 1, elasticity: 0.5f);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "ClearTextIMGShowSFX", false, Managers.Instance.GameManager.SFXVolume);
             yield return new WaitForSeconds(0.25f);
 
 
@@ -131,9 +138,11 @@ namespace UI.Popup
 
             GetObject((int)Objects.ClearTime).gameObject.SetActive(true);
             GetText((int)Texts.ClearTimeCounter).text = TimeUtils.SecToTimeStr(_clearTimeWithPause);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicResultPunchSFX", false, Managers.Instance.GameManager.SFXVolume);
             yield return waiter;
             GetObject((int)Objects.Damage).gameObject.SetActive(true);
             GetText((int)Texts.TotalDamageCounter).text = stageData.TotalGainedDamage.ToString("N0");
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicResultPunchSFX", false, Managers.Instance.GameManager.SFXVolume);
 
             yield return waiter;
 
@@ -143,12 +152,14 @@ namespace UI.Popup
         private void OnNext(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnSaveYes, OnSaveNo).SetText("현 시점의 세이브를 저장하시겠습니까?");
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
 
         private void OnSaveYes()
         {
             Managers.Instance.UIManager.ClosePopupUI();
             Managers.Instance.SaveDataManager.SaveSaveData();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnSaveFileSavedSFX", false, Managers.Instance.GameManager.SFXVolume);
             Managers.Instance.StageManager.ReturnToLobby();
         }
 
@@ -156,6 +167,7 @@ namespace UI.Popup
         {
             Managers.Instance.UIManager.ClosePopupUI();
             Managers.Instance.StageManager.ReturnToLobby();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
     }
 }

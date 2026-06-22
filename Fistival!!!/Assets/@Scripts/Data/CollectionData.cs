@@ -8,5 +8,6 @@ namespace Data
         public int SlotIDX { get; set; }
         public int Money { get; set; }
         public string Image { get; set; }
+        public string CollectingSound { get; set; }
     }
 }

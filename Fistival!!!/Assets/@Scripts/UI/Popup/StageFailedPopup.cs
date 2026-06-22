@@ -1,3 +1,4 @@
+using Defines;
 using DG.Tweening;
 using Manager;
 using System.Collections;
@@ -48,6 +49,8 @@ namespace UI.Popup
 
             StartCoroutine(ShowRoutine());
 
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "StageFailedBGM", true, Managers.Instance.GameManager.BGMVolume);
+
             return true;
         }
 
@@ -60,6 +63,7 @@ namespace UI.Popup
 
             GetImage((int)Images.FailedImage).gameObject.SetActive(true);
             GetImage((int)Images.FailedImage).gameObject.GetComponent<Image>().DOFade(1f, 1).From(0f);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedTextIMGShowSFX", false, Managers.Instance.GameManager.SFXVolume);
             GetImage((int)Images.Character).gameObject.SetActive(true);
             GetImage((int)Images.Character).gameObject.GetComponent<Image>().DOFade(1f, 1).From(0f);
 
@@ -77,12 +81,14 @@ namespace UI.Popup
             Managers.Instance.StageManager.Init();
             Managers.Instance.StageManager.SetStageIDX(idx);
             Managers.Instance.SceneManagerEx.LoadScene(Defines.SceneType.GameScene);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "GameStartSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
 
         private void OnReturn(PointerEventData _)
         {
             Managers.Instance.UIManager.ClosePopupUI();
             Managers.Instance.StageManager.ReturnToLobby();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
 
     }

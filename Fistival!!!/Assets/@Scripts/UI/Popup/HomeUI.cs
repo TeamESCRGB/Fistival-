@@ -1,3 +1,4 @@
+using Defines;
 using Manager;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -61,6 +62,10 @@ namespace UI.Popup
                 }
             }
 
+
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "HomeBGM", true, Managers.Instance.GameManager.BGMVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "HomeEnterSFX", false, Managers.Instance.GameManager.SFXVolume);
+
             return true;
         }
 
@@ -92,19 +97,24 @@ namespace UI.Popup
         private void OnEquipmentButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<EquipmentUI>("EquipmentUI");
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "AppOpenSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
         private void OnSaveButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<SaveFileMenu>("SaveFileMenu").SetMenuType(Defines.SaveFileAccessMode.OVERWRITE);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "AppOpenSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
         private void OnDataButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<DataUI>("DataUI");
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "AppOpenSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
 
         private void OnExitButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "LobbyBGM", true, Managers.Instance.GameManager.BGMVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "HomeExitSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
     }
 }

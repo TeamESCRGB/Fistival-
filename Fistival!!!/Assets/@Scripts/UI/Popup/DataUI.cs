@@ -1,3 +1,4 @@
+using Defines;
 using Manager;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -46,6 +47,7 @@ namespace UI.Popup
         private void OnExitButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
     }
 }

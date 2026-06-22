@@ -188,6 +188,8 @@ namespace UI.Popup
                 clearedMapDict[i] = false;
             }
 
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnNewGameSFX", false, Managers.Instance.GameManager.SFXVolume);
+
             Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
             {
                 if (now == end)
@@ -201,6 +203,7 @@ namespace UI.Popup
         private void OnConfirmNo()
         {
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
 
         private void OnExitButton(PointerEventData data)
