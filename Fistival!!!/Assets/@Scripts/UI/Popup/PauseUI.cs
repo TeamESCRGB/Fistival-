@@ -51,7 +51,7 @@ namespace UI.Popup
             if(_isMainSceneChangeTriggered == false)
             {
                 Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnMainMenuYes, OnConfirmNo).SetText("메인 화면으로 돌아가시겠습니까?\n저장되지 않은 모든 정보는 삭제됩니다!");
-                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
             }
         }
 
@@ -60,7 +60,7 @@ namespace UI.Popup
             if(_isMainSceneChangeTriggered == false)
             {
                 Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLobbyYes, OnConfirmNo).SetText("로비 화면으로 돌아가시겠습니까?\n저장되지 않은 모든 진행상황은 삭제됩니다!");
-                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
             }
         }
 
@@ -69,7 +69,7 @@ namespace UI.Popup
             if(_isMainSceneChangeTriggered == false)
             {
                 Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnQuitGameYes, OnConfirmNo).SetText("게임을 종료하시겠습니까? 저장되지 않은 모든 정보는 삭제됩니다!");
-                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
             }
         }
 
@@ -78,7 +78,7 @@ namespace UI.Popup
             if(_isMainSceneChangeTriggered == false)
             {
                 Managers.Instance.UIManager.ShowPopupUI<SettingMenu>("SettingMenu");
-                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
             }
         }
 
@@ -88,7 +88,7 @@ namespace UI.Popup
             {
                 Managers.Instance.GameManager.UnPauseGame();
                 Managers.Instance.UIManager.ClosePopupUI();
-                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
             }
         }
 
@@ -130,14 +130,14 @@ namespace UI.Popup
 #else
             Application.Quit();
 #endif
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
 
         private void OnMainMenuYes()
         {
             _isMainSceneChangeTriggered = true;
             StartCoroutine(LoadMainScene());
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
 
         private IEnumerator LoadMainScene()
@@ -175,7 +175,7 @@ namespace UI.Popup
         {
             Managers.Instance.UIManager.ClosePopupUI();
             var nowScene = Managers.Instance.SceneManagerEx.CurrentScene.NowSceneType;
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
             Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
             {
                 if (now < end)
@@ -196,7 +196,7 @@ namespace UI.Popup
         private void OnConfirmNo()
         {
             Managers.Instance.UIManager.ClosePopupUI();
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
     }
 }

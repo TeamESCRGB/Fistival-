@@ -167,12 +167,12 @@ namespace UI.Popup
 
         private void OnFileClicked(PointerEventData data)
         {
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
             if (_nowMode == SaveFileAccessMode.LOAD)
             {
                 if (Managers.Instance.SaveDataManager.IsSaveFileEmpty(_selectedIdx))
                 {
-                    Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedSFX", true, Managers.Instance.GameManager.SFXVolume);
+                    Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
                     Managers.Instance.UIManager.ShowPopupUI<BasicPopupAlert>("BasicPopupAlert").SetText("로드 가능한 세이브 정보가 없습니다.");
                 }
                 else
@@ -208,7 +208,7 @@ namespace UI.Popup
 
             saveData.TotalPlayTime = Managers.Instance.GameManager.GetTotalPlayTime();
             Managers.Instance.SaveDataManager.SaveSaveData();
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnSaveFileSavedSFX", true, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnSaveFileSavedSFX", false, Managers.Instance.GameManager.SFXVolume);
             RefreshButtonState();
         }
 
@@ -232,7 +232,7 @@ namespace UI.Popup
             }
 
             Managers.Instance.GameManager.InitTotalPlayTimeChecker(saveData.TotalPlayTime);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnSaveFileLoadSFX", true, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "OnSaveFileLoadSFX", false, Managers.Instance.GameManager.SFXVolume);
             if (nowSceneType == SceneType.MainScene)
             {
                 Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, end) =>
@@ -253,7 +253,7 @@ namespace UI.Popup
         private void OnConfirmNo()
         {
             Managers.Instance.UIManager.ClosePopupUI();
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
 
         private void OnExitButton(PointerEventData data)
@@ -266,7 +266,7 @@ namespace UI.Popup
             {
                 Managers.Instance.UIManager.ClosePopupUI();
             }
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", true, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
         }
     }
 }
