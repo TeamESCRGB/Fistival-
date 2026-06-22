@@ -63,6 +63,7 @@ namespace UI.Popup
 
             GetImage((int)Images.FailedImage).gameObject.SetActive(true);
             GetImage((int)Images.FailedImage).gameObject.GetComponent<Image>().DOFade(1f, 1).From(0f);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedTextIMGShowSFX", false, Managers.Instance.GameManager.SFXVolume);
             GetImage((int)Images.Character).gameObject.SetActive(true);
             GetImage((int)Images.Character).gameObject.GetComponent<Image>().DOFade(1f, 1).From(0f);
 
