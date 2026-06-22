@@ -46,9 +46,11 @@ namespace UI.Popup
             Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
             Managers.Instance.NewInputSystemManager.UI_ESCInput += PauseOpenBind;
 
+            var clearDict = Managers.Instance.GameManager.GetClearedMapDictRef();
+
             foreach (var data in Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas)
             {
-                if(data.Value.IsCleared)
+                if (clearDict[data.Key])
                 {
                     //이거 이미지 로드할까 생각해봤는데, 그냥 직접 배치해두고 껐다켰다하는게 더 좋을듯
                     GetImage(data.Key).gameObject.SetActive(true);
