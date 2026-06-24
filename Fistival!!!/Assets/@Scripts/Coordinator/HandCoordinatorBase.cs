@@ -351,6 +351,7 @@ namespace Coordinator
             {
                 _chargeTime = 0;
                 _chargeCnt = 1;
+                InvokeOnChargeRateChanged(_chargeCnt,_maxChargeCnt);
                 _status = HandStatus.CHARGE;
             }
         }
