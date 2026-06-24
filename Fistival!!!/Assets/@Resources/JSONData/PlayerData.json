@@ -1,6 +1,6 @@
 {
   "playerData": {
-    "MaxHP": 20,
+    "MaxHP": 5,
     "MaxLife": 5,
     "MaxChargeCnt": 2,
     "Damage": 2,
