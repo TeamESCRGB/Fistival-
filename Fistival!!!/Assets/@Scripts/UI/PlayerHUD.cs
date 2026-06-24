@@ -1,6 +1,7 @@
 using Coordinator;
 using Coordinator.Objects;
 using Data;
+using Manager;
 using Manager.Contents;
 using System.Collections;
 using UnityEngine;
@@ -58,6 +59,7 @@ namespace UI
             for(int i = _chargeOffset; i < 12; i++)
             {
                 GetImage(i).gameObject.SetActive(i < playerData.MaxHP + _chargeOffset);
+                GetImage(i).sprite = Managers.Instance.ResourceManager.Load<Sprite>("ChargeOff");
             }
 
             return true;
@@ -76,7 +78,17 @@ namespace UI
 
         private void OnChargeRateChanged(int now, int max)
         {
-
+            for(int i = _chargeOffset; i < _chargeOffset + max; i++)
+            {
+                if(now + _chargeOffset > i)
+                {
+                    GetImage(i).sprite = Managers.Instance.ResourceManager.Load<Sprite>("ChargeOn");
+                }
+                else
+                {
+                    GetImage(i).sprite = Managers.Instance.ResourceManager.Load<Sprite>("ChargeOff");
+                }
+            }
         }
 
         private void OnGrabbedObjectChanged(ObjectData obj)
