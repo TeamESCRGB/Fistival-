@@ -7,7 +7,7 @@
     "StrongAttackDamage": 9999,
     "ThrowAttackAdditionalDamage": 100000,
     "AttackCooldown": 1.25,
-    "AttackableLayers": 4096,
+    "AttackableLayers": 266240,
     "PickableLayers": 64,
     "ForcePerCharge": 10,
     "ChargeTimeInterval": 1,
