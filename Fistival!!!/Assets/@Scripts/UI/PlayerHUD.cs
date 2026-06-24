@@ -52,30 +52,40 @@ namespace UI
 
             _bossHPSlider = GetObject((int)Objects.BossHPBarHUD).GetComponentInChildren<Slider>();
 
+            InitUIDatas();
+
+            return true;
+        }
+
+        public void InitUIDatas()
+        {
             var playerCoord = FindAnyObjectByType<PlayerCoordinator>();
             var modeManageCoord = FindAnyObjectByType<ModeManageCoordinator>();
             var playerData = playerCoord.GetPlayerData();
             _maxHP = playerData.MaxHP;
+
+            modeManageCoord.OnModeChanged -= OnModeChanged;
             modeManageCoord.OnModeChanged += OnModeChanged;
+            playerCoord.GetComponentInChildren<HPCoordinator>().UnSubscribeOnHPChanged(OnHPChanged);
             playerCoord.GetComponentInChildren<HPCoordinator>().SubscribeOnHPChanged(OnHPChanged);
+
             GetObject((int)Objects.BossHPBarHUD).SetActive(false);
             OnModeChanged(modeManageCoord.GetNowMode());
 
             GetImage((int)Images.GrabbedObjectImg).sprite = Managers.Instance.ResourceManager.Load<Sprite>("NullIg");
 
-            for(int i = 0; i < 8; i++)
+            //이쪽을 어떻게 해야되나
+            for (int i = 0; i < 8; i++)
             {
                 GetImage(i).gameObject.SetActive(i < playerData.MaxHP);
                 GetImage(i).sprite = Managers.Instance.ResourceManager.Load<Sprite>("HPOn");
             }
 
-            for(int i = _chargeOffset; i < 12; i++)
+            for (int i = _chargeOffset; i < 12; i++)
             {
                 GetImage(i).gameObject.SetActive(i < playerData.MaxChargeCnt + _chargeOffset);
                 GetImage(i).sprite = Managers.Instance.ResourceManager.Load<Sprite>("ChargeOff");
             }
-
-            return true;
         }
 
 
