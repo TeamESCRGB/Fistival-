@@ -34,6 +34,7 @@ namespace UI
         }
 
         private const int _chargeOffset = 8;
+        private int _maxHP = 0;
 
         public override bool Init()
         {
@@ -48,6 +49,7 @@ namespace UI
             var playerCoord = FindAnyObjectByType<PlayerCoordinator>();
             var modeManageCoord = FindAnyObjectByType<ModeManageCoordinator>();
             var playerData = playerCoord.GetPlayerData();
+            _maxHP = playerData.MaxHP;
             modeManageCoord.OnModeChanged += OnModeChanged;
             playerCoord.GetComponentInChildren<HPCoordinator>().SubscribeOnHPChanged(OnHPChanged);
             GetObject((int)Objects.BossHPBarHUD).SetActive(false);
@@ -57,12 +59,13 @@ namespace UI
 
             for(int i = 0; i < 8; i++)
             {
-                GetImage(i).gameObject.SetActive(i < playerData.MaxChargeCnt);
+                GetImage(i).gameObject.SetActive(i < playerData.MaxHP);
+                GetImage(i).sprite = Managers.Instance.ResourceManager.Load<Sprite>("HPOn");
             }
 
             for(int i = _chargeOffset; i < 12; i++)
             {
-                GetImage(i).gameObject.SetActive(i < playerData.MaxHP + _chargeOffset);
+                GetImage(i).gameObject.SetActive(i < playerData.MaxChargeCnt + _chargeOffset);
                 GetImage(i).sprite = Managers.Instance.ResourceManager.Load<Sprite>("ChargeOff");
             }
 
@@ -77,7 +80,17 @@ namespace UI
 
         private void OnHPChanged(int old, int now, int delta)
         {
-
+            for (int i = 0; i < _maxHP; i++)
+            {
+                if(now > i)
+                {
+                    GetImage(i).sprite = Managers.Instance.ResourceManager.Load<Sprite>("HPOn");
+                }
+                else
+                {
+                    GetImage(i).sprite = Managers.Instance.ResourceManager.Load<Sprite>("HPOff");
+                }
+            }
         }
 
         private void OnChargeRateChanged(int now, int max)
