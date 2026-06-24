@@ -1,6 +1,7 @@
 using Coordinator;
 using Defines;
 using Manager;
+using UI;
 using UnityEngine;
 
 namespace Scenes
@@ -9,13 +10,17 @@ namespace Scenes
     {
         public override SceneType NowSceneType => SceneType.LobbyScene;
 
+        private PlayerHUD _hud;
+
         protected override void Init()
         {
             base.Init();
 
             Managers.Instance.GameManager.InitPauseState();
             Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.PLAYER);
-            
+
+            _hud = FindAnyObjectByType<PlayerHUD>();
+            _hud.gameObject.SetActive(false);
             Debug.Log($"{name} init complete");
         }
 
@@ -27,6 +32,7 @@ namespace Scenes
                 player.Init();
             }
             Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "LobbyBGM", true, Managers.Instance.GameManager.BGMVolume);
+            _hud.gameObject.SetActive(true);
             //var modeManageCoord = FindAnyObjectByType<ModeManageCoordinator>();
             //if(modeManageCoord != null)
             //{

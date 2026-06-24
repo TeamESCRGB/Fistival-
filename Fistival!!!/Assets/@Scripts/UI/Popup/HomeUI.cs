@@ -115,6 +115,7 @@ namespace UI.Popup
             Managers.Instance.UIManager.ClosePopupUI();
             Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "LobbyBGM", true, Managers.Instance.GameManager.BGMVolume);
             Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "HomeExitSFX", false, Managers.Instance.GameManager.SFXVolume);
+            FindAnyObjectByType<PlayerHUD>().InitUIDatas();
         }
     }
 }
