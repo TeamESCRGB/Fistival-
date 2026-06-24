@@ -23,7 +23,9 @@ namespace UI
             Charge1=8,
             Charge2=9,
             Charge3=10,
-            Charge4=11
+            Charge4=11,
+
+            GrabbedObjectImg
         }
 
         enum Objects
@@ -50,6 +52,8 @@ namespace UI
             playerCoord.GetComponentInChildren<HPCoordinator>().SubscribeOnHPChanged(OnHPChanged);
             GetObject((int)Objects.BossHPBarHUD).SetActive(false);
             OnModeChanged(modeManageCoord.GetNowMode());
+
+            GetImage((int)Images.GrabbedObjectImg).sprite = Managers.Instance.ResourceManager.Load<Sprite>("NullIg");
 
             for(int i = 0; i < 8; i++)
             {
@@ -93,7 +97,14 @@ namespace UI
 
         private void OnGrabbedObjectChanged(ObjectData obj)
         {
-
+            if(obj is null)
+            {
+                GetImage((int)Images.GrabbedObjectImg).sprite = Managers.Instance.ResourceManager.Load<Sprite>("NullIg");
+            }
+            else
+            {
+                GetImage((int)Images.GrabbedObjectImg).sprite = Managers.Instance.ResourceManager.Load<Sprite>(obj.SpriteName);
+            }
         }
     }
 }
