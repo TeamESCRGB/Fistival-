@@ -5,6 +5,8 @@ using Manager;
 using Manager.Contents;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using Utils;
 
 namespace UI
 {
@@ -33,8 +35,11 @@ namespace UI
             BossHPBarHUD
         }
 
+        private Slider _bossHPSlider;
+
         private const int _chargeOffset = 8;
         private int _maxHP = 0;
+        private int _bossHPMax = 1;
 
         public override bool Init()
         {
@@ -45,6 +50,7 @@ namespace UI
             BindObject(typeof(Objects));
             BindImage(typeof(Images));
 
+            _bossHPSlider = GetObject((int)Objects.BossHPBarHUD).GetComponentInChildren<Slider>();
 
             var playerCoord = FindAnyObjectByType<PlayerCoordinator>();
             var modeManageCoord = FindAnyObjectByType<ModeManageCoordinator>();
@@ -72,6 +78,21 @@ namespace UI
             return true;
         }
 
+
+        public void SetBoss(HPCoordinator bossHPCoord, int maxHP)
+        {
+            _bossHPMax = maxHP;
+            _bossHPSlider.value = 1;
+            GetObject((int)Objects.BossHPBarHUD).SetActive(true);
+            bossHPCoord.SubscribeOnHPChanged(OnBossHPChanged);
+            bossHPCoord.SubscribeOnDead(OnBossDead);
+        }
+
+        private void OnBossDead()
+        {
+            GetObject((int)Objects.BossHPBarHUD).SetActive(false);
+        }
+
         private void OnModeChanged(ModeBase mode)
         {
             mode.GetComponentInChildren<HandCoordinatorBase>().OnChargeRateChanged += OnChargeRateChanged;
@@ -90,6 +111,18 @@ namespace UI
                 {
                     GetImage(i).sprite = Managers.Instance.ResourceManager.Load<Sprite>("HPOff");
                 }
+            }
+        }
+
+        private void OnBossHPChanged(int old, int now, int delta)
+        {
+            if(_bossHPMax < 0)
+            {
+                _bossHPSlider.value = 0;
+            }
+            else
+            {
+                _bossHPSlider.value = now / _maxHP;
             }
         }
 
