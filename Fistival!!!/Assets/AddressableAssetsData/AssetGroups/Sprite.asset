@@ -15,12 +15,40 @@ MonoBehaviour:
   m_GroupName: Sprite
   m_GUID: 525e8192d265cb2448e0abde96315b7b
   m_SerializeEntries:
+  - m_GUID: 35c61fe3d9a0d7e42b563887a3260824
+    m_Address: ChargeOff
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b7515c1f158b754a9dd6ff9d7810b02
+    m_Address: ChargeOn
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7141c7d0398053d47a37b851b429cf20
     m_Address: StageClearDataLocked
     m_ReadOnly: 0
     m_SerializedLabels:
     - LobbySceneLoaded
     - MainSceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a5b53423fc99e0f4a857de3c31cb0bf0
+    m_Address: HPOff
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef3745cb52c5e0043aa2aef37bf2b952
+    m_Address: HPOn
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}

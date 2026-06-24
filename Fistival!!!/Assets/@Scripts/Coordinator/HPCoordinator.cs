@@ -22,18 +22,18 @@ namespace Coordinator
             }
         }
 
-        public void Init(int hp, int maxHP, bool resetEvent =false)//일단 이렇게 해두는데, 이벤트를 리셋하는 경우는 아마 없을듯
+        public void Init(int hp, int maxHP)//일단 이렇게 해두는데, 이벤트를 리셋하는 경우는 아마 없을듯
         {
-
-            if(resetEvent)
-            {
-                OnHPChanged = null;
-                OnDead = null;
-            }
-
             _isDead = false;
             _hpModule.Init(hp, maxHP);
         }
+
+        private void OnDisable()
+        {
+            OnHPChanged = null;
+            OnDead = null;
+        }
+
 
         public void Respawn()
         {
