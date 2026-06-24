@@ -132,7 +132,7 @@ namespace UI
             }
             else
             {
-                _bossHPSlider.value = now / _maxHP;
+                _bossHPSlider.value = (float)now / _bossHPMax;
             }
         }
 
