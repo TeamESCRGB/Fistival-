@@ -1,6 +1,7 @@
 using Coordinator;
 using Defines;
 using Manager;
+using UI;
 using UnityEngine;
 
 namespace Scenes
@@ -10,12 +11,15 @@ namespace Scenes
         public override SceneType NowSceneType => SceneType.GameScene;
         private PlayerCoordinator _player;
         private Transform _firstChunkPos;
+        private PlayerHUD _hud;
         protected override void Init()
         {
             base.Init();
             _firstChunkPos = GameObject.Find("@FirstChunkSpawnPoint").transform;
             _player = FindAnyObjectByType<PlayerCoordinator>();
             Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.PLAYER);
+            _hud = FindAnyObjectByType<PlayerHUD>();
+            _hud.gameObject.SetActive(false);
             Debug.Log($"{name} init complete");
         }
 
@@ -26,6 +30,7 @@ namespace Scenes
             _player.GetComponentInChildren<HPCoordinator>().SubscribeOnDead(Managers.Instance.StageManager.OnDead);
             Managers.Instance.StageManager.TrySpawnChunk(stageData.FirstStageSectionInstanceName, stageData.FirstStageLoadedDatasName, _firstChunkPos.position);
             Managers.Instance.StageManager.StartStage(_player.GetPlayerData().MaxLife);
+            _hud.gameObject.SetActive(true);
         }
     }
 }
