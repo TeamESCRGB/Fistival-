@@ -14,7 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: ItemPrefab
   m_GUID: 1b7c18587c031b9449daf7ad98b28fc4
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: d0043de1284496145ab898161b6df43d
+    m_Address: HealItem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
   m_SchemaSet:
