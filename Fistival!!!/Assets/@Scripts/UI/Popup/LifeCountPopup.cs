@@ -2,6 +2,7 @@ using Manager;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace UI.Popup
@@ -17,7 +18,7 @@ namespace UI.Popup
         }
 
         private int _life=0;
-
+        private bool _canPause = true;
         public override bool Init()
         {
             if(base.Init() == false)
@@ -31,9 +32,35 @@ namespace UI.Popup
 
             GetObject((int)Objects.Life).SetActive(false);
             GetObject((int)Objects.LifeCounter).SetActive(false);
-
+            Managers.Instance.NewInputSystemManager.UI_ESCInput -= OnESCInputBind;
+            Managers.Instance.NewInputSystemManager.UI_ESCInput += OnESCInputBind;
             StartCoroutine(ShowRoutine());
             return true;
+        }
+
+        private void OnDisable()
+        {
+            Managers.Instance.NewInputSystemManager.UI_ESCInput -= OnESCInputBind;
+        }
+
+        private void OnESCInputBind(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed == false || _canPause == false)
+            {
+                return;
+            }
+
+            Managers.Instance.GameManager.PauseGame();
+            _canPause = false;
+        }
+
+        private void LateUpdate()
+        {
+            if (_canPause)
+            {
+                return;
+            }
+            _canPause = Managers.Instance.GameManager.IsGamePaused() == false;
         }
 
         private IEnumerator ShowRoutine()
