@@ -4,6 +4,7 @@ using System;
 using Manager;
 using Data.NonLodable;
 using Coordinator.Objects;
+using Coordinator.Items;
 
 namespace Coordinator.Stages
 {
@@ -88,11 +89,23 @@ namespace Coordinator.Stages
 
             for (int i = 0; i < _itemSpawnPoints.Length; i++)
             {
-                var go = Managers.Instance.ResourceManager.Instantiate(_itemSpawnPoints[i].PrefabName, null, false, true);
-                if (go != null)
+                if (Managers.Instance.DataManager.HealItemDataDict.TryGetValue(_itemSpawnPoints[i].DataIdx, out var data) == false)
                 {
-                    go.transform.position = _itemSpawnPoints[i].SpawnPoint.position;
+                    continue;
                 }
+
+                var go = Managers.Instance.ResourceManager.Instantiate(_itemSpawnPoints[i].PrefabName, null, false, true);
+                if (go == null)
+                {
+                    continue;
+                }
+                go.transform.position = _itemSpawnPoints[i].SpawnPoint.position;
+                if (go.TryGetComponent<HealItem>(out var coord) == false)
+                {
+                    Managers.Instance.ResourceManager.Destroy(go);
+                    continue;
+                }
+                coord.Init(data.Idx);
             }
 
             for (int i = 0; i < _objectSpawnPoints.Length; i++)
