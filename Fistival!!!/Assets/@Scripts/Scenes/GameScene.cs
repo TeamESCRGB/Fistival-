@@ -2,6 +2,7 @@ using Coordinator;
 using Defines;
 using Manager;
 using UI;
+using UI.Popup;
 using UnityEngine;
 
 namespace Scenes
@@ -31,6 +32,7 @@ namespace Scenes
             Managers.Instance.StageManager.TrySpawnChunk(stageData.FirstStageSectionInstanceName, stageData.FirstStageLoadedDatasName, _firstChunkPos.position);
             Managers.Instance.StageManager.StartStage(_player.GetPlayerData().MaxLife);
             _hud.gameObject.SetActive(true);
+            Managers.Instance.UIManager.ShowPopupUI<LifeCountPopup>("LifeCountPopup").SetData(_player.GetPlayerData().MaxLife);
         }
     }
 }
