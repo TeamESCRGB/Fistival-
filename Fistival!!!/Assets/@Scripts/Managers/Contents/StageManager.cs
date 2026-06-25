@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using UI.Popup;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Manager.Contents
 {
@@ -116,6 +117,8 @@ namespace Manager.Contents
         private void Respawn()
         {
             var player = GameObject.FindAnyObjectByType<PlayerCoordinator>();
+
+            Managers.Instance.UIManager.ShowPopupUI<LifeCountPopup>("LifeCountPopup").SetData(_life);
 
             player.GetComponentInChildren<PlayerVictimCoordinator>().Respawn();
 
