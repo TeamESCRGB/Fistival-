@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - MainSceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a84f2a6251b59f4bb661066d405fdc2
+    m_Address: LifeCountPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3e654531cb60481489695e3f7bfe9544
     m_Address: SettingMenu
     m_ReadOnly: 0
