@@ -26,7 +26,7 @@ namespace Coordinator.Chain
         public void Init(LayerMask attackableMask, Transform parentTransform, int damage,int strongAttackDamage ,IChainPullable player, float stunTime)
         {
             _parentTransform = parentTransform;
-            _anchor.Init(attackableMask, _pullTotalTime, player);
+            _anchor.Init(attackableMask, _pullTotalTime, player, stunTime);
             _baseDamage = damage;
             _strongAttackDamage = strongAttackDamage;
         }
