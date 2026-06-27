@@ -13,6 +13,22 @@
       "DropObjectIdx": 0,
       "DropObjectPrefabName": "",
       "AnimationController": "TestController"
+    },
+
+
+    {
+      "Idx": 0,
+      "HP": 3,
+      "InvincibilityTime": 1,
+      "Speed": 1,
+      "SkillDelay": 3,
+      "AggroRange": {
+        "x": 0,
+        "y": 0
+      },
+      "DropObjectIdx": 0,
+      "DropObjectPrefabName": "BasicMobDropObject",
+      "AnimationController": "TestController"
     }
   ]
 }
