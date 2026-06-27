@@ -23,7 +23,7 @@ namespace Coordinator.Chain
         {
             _anchor = GetComponentInChildren<ChainAnchor>();
         }
-        public void Init(LayerMask attackableMask, Transform parentTransform, int damage,int strongAttackDamage ,IChainPullable player)
+        public void Init(LayerMask attackableMask, Transform parentTransform, int damage,int strongAttackDamage ,IChainPullable player, float stunTime)
         {
             _parentTransform = parentTransform;
             _anchor.Init(attackableMask, _pullTotalTime, player);

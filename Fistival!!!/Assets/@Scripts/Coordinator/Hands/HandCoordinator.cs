@@ -23,6 +23,8 @@ namespace Coordinator.Hands
         protected int _strongAttackDamage;
         protected SkillCoordinatorBase _skillBase;
 
+        protected float _strongStun = 0;
+
         protected override void OnAwake()
         {
             _attackBox = transform.Find("@AttackBox");
@@ -78,7 +80,7 @@ namespace Coordinator.Hands
             ResetEvents();
             _baseSmashDamage = playerData.Damage;
             _strongAttackDamage = playerData.StrongAttackDamage;
-
+            _strongStun = playerData.StrongStunTime;
             _skillBase.Init(_attackableMask,_baseSmashDamage);
         }
 

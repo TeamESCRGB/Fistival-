@@ -66,7 +66,7 @@ namespace Coordinator.Hands
             ResetEvents();
             _strongAttackThreshold = playerData.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
-            _chain.Init(playerData.AttackableLayers,parentRb2d.transform, playerData.Damage,playerData.StrongAttackDamage ,GetComponentInParent<IChainPullable>());
+            _chain.Init(playerData.AttackableLayers,parentRb2d.transform, playerData.Damage,playerData.StrongAttackDamage ,GetComponentInParent<IChainPullable>(), playerData.StunTime);
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             _chain.transform.SetParent(null);

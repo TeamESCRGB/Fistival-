@@ -34,6 +34,7 @@ namespace Coordinator.Chain
         private Vector2 _dir;
         private IChainPullable _player;
         private ContactFilter2D _filter;
+        private float _stunTime = 0;
 
         private void Awake()
         {
@@ -56,8 +57,9 @@ namespace Coordinator.Chain
             return _isMoving;
         }
 
-        public void Init(LayerMask attackableMask,float totalMoveTime, IChainPullable player)
+        public void Init(LayerMask attackableMask,float totalMoveTime, IChainPullable player, float stunTIme)
         {
+            _stunTime = stunTIme;
             _player = player;
             _totalMoveTime = totalMoveTime;
             _isMoving = false;
