@@ -221,7 +221,7 @@ namespace Coordinator.Hands
                     return;
                 }
 
-                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, _baseSmashDamage,Vector2.zero);
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, _baseSmashDamage,Vector2.zero, _stunTime);
             }
         }
 

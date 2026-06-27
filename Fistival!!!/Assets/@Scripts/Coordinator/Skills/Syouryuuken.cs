@@ -56,7 +56,7 @@ namespace Coordinator.Skills
                 {
                     continue;
                 }
-                Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg, knockback);
+                Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg, knockback, _baseStunTime + _strongStunTime);
             }
 
             OnAttackEnd?.Invoke();

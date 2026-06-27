@@ -110,7 +110,7 @@ namespace Coordinator.Skills
                     {
                         continue;
                     }
-                    Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg, Vector2.zero);
+                    Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg, Vector2.zero, _baseStunTime);
                 }
 
                 if (_remainAttackTick<=0)

@@ -150,7 +150,7 @@ namespace Coordinator.Chain
                     {
                         continue;
                     }
-                    Managers.Instance.AttackManager.RequestAttack(attackTarget, _baseSkill, _damage, _dir * _damage);
+                    Managers.Instance.AttackManager.RequestAttack(attackTarget, _baseSkill, _damage, _dir * _damage, _stunTime);
                 }
                 else if ((layer & _chainPullPadMask) != 0)
                 {

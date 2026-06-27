@@ -48,7 +48,7 @@ namespace Coordinator.Skills
                 var enemy = enemies[i];
                 if (enemy.TryGetComponent<IAttackable>(out var target) && CanAttackTarget(target))
                 {
-                    Managers.Instance.AttackManager.RequestAttack(target, this, _baseDamage, Vector2.down);
+                    Managers.Instance.AttackManager.RequestAttack(target, this, _baseDamage, Vector2.down, _baseStunTime);
                     OnStepKill?.Invoke();
                 }
             }

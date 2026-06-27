@@ -13,8 +13,10 @@ namespace Coordinator.Skills
             var enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0, _attackableLayers);
 
             int totalDmg = _baseDamage;
+            float stunTime = _baseStunTime;
             if (attackStatus == AttackStatus.STRONG)
             {
+                _baseStunTime += strongStunTime;
                 totalDmg += strongAttackDamage;
             }
 
@@ -34,7 +36,7 @@ namespace Coordinator.Skills
                 {
                     continue;
                 }
-                Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg, knockback);
+                Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg, knockback, stunTime);
             }
         }
         private void OnDisable()

@@ -105,9 +105,11 @@ namespace Coordinator.Hands
                 //BoxOverlap에 필터링에 걸린것만 가져와서 수행.
                 //없으면 실행 안함
                 int totalDmg = _baseSmashDamage;
+                float stunTime = _stunTime;
 
                 if(_attackStatus == AttackStatus.STRONG)
                 {
+                    stunTime += _strongStun;
                     totalDmg += _strongAttackDamage;
                 }
 
@@ -127,7 +129,7 @@ namespace Coordinator.Hands
                 }
 
                 Vector2 knockback = new Vector2(transform.forward.z * totalDmg,0);
-                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg, knockback);
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg, knockback, stunTime);
             }
         }
 

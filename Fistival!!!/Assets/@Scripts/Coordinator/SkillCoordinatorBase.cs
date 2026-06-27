@@ -52,7 +52,7 @@ namespace Coordinator
         {
             return ((target.GetMaskedLayer() & _attackableLayers) != 0) && target.CanAttack();
         }
-
+        public float GetBaseStun => _baseStunTime;
         public int GetBaseDamage => _baseDamage;
         public virtual void SetBaseDamage(int damage)
         {
