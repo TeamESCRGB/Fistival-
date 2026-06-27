@@ -8,8 +8,8 @@ namespace Manager.Contents
 {
     public class AttackManager : MonoBehaviour
     {
-        private Queue<(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce)> _reqQueue =
-            new Queue<(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce)>(64);
+        private Queue<(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce, float calculatedStun)> _reqQueue =
+            new Queue<(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce, float calculatedStun)>(64);
         private bool _isRequested = false;
 
         public void Init()
@@ -18,9 +18,9 @@ namespace Manager.Contents
             _reqQueue.Clear();
         }
 
-        public void RequestAttack(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce)
+        public void RequestAttack(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce, float calculatedStun)
         {
-            _reqQueue.Enqueue((target, attacker, calculatedDamage, knockbackForce));
+            _reqQueue.Enqueue((target, attacker, calculatedDamage, knockbackForce, calculatedDamage));
             _isRequested = true;
         }
 
@@ -59,7 +59,7 @@ namespace Manager.Contents
 
                 if(req.attacker.CanAttackTarget(req.target))
                 {
-                    req.attacker.Act(req.target, req.calculatedDamage, req.knockbackForce);
+                    req.attacker.Act(req.target, req.calculatedDamage, req.knockbackForce, req.calculatedStun);
                 }
             }
 

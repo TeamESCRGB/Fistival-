@@ -14,13 +14,13 @@ namespace Coordinator.Hands
         protected bool _isLMBPressed;
         protected Transform _attackBox;
         protected int _projectileIdx;
-        public void Init(int projectileIdx,Rigidbody2D parentrb2d , LayerMask attackableMask, LayerMask pickableObjectMask,float cooldownTime, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage)
+        public void Init(int projectileIdx,Rigidbody2D parentrb2d, PlayerData playerData)// , LayerMask attackableMask, LayerMask pickableObjectMask,float cooldownTime, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float stunTime
         {
-            InitCommonDatas(parentrb2d, attackableMask, pickableObjectMask, forcePerCharge, chargeTimeInterval,attackCooldwn, throwAdditionalDamage);
+            InitCommonDatas(parentrb2d, playerData);
             ResetEvents();
             _isLMBPressed = false;
             _projectileIdx = projectileIdx;
-            _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(cooldownTime,-1);
+            _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(playerData.AttackCooldown,-1);
         }
 
         protected override void OnDisabled()

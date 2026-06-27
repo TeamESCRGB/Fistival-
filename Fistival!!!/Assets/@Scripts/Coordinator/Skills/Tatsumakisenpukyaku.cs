@@ -31,9 +31,9 @@ namespace Coordinator.Skills
         private float _gravityScale;
 
 
-        public void Init(int attackableLayers, int damage, Rigidbody2D rb2d, IAttackable attackable)
+        public void Init(int attackableLayers, int damage, Rigidbody2D rb2d, IAttackable attackable, float baseStunTime)
         {
-            base.Init(attackableLayers, damage);
+            base.Init(attackableLayers, damage, baseStunTime);
             _rb2d = rb2d;
             _gravityScale = _rb2d.gravityScale;
             _isAttack = false;
@@ -110,7 +110,7 @@ namespace Coordinator.Skills
                     {
                         continue;
                     }
-                    Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg, Vector2.zero);
+                    Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg, Vector2.zero, _baseStunTime);
                 }
 
                 if (_remainAttackTick<=0)
@@ -120,12 +120,13 @@ namespace Coordinator.Skills
             }
         }
 
-        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
+        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback, float stun)
         {
             if (target.CanAttack())
             {
                 target.TakeDamage(calculatedDamage);
                 target.TakeKnockBack(knockback);
+                target.StunFor(stun);
                 target.StartInvincibleTime();
             }
             return true;

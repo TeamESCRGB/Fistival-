@@ -18,7 +18,7 @@ namespace Coordinator.Modes
 
             int strongDamage = _playerData.Damage + _playerData.StrongAttackDamage;
 
-            _footCoord.Init(_stepAttackableMask, strongDamage);
+            _footCoord.Init(_stepAttackableMask, strongDamage, _playerData.StunTime + _playerData.StrongStunTime);
         }
 
         public override void UpdateUpdatedPlayerData()

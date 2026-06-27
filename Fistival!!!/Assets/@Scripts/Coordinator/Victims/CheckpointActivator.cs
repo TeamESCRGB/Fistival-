@@ -41,6 +41,16 @@ namespace Coordinator.Victims
         {
 
         }
+
+        public void StunFor(float time)
+        {
+
+        }
+
+        public void ReleaseStun()
+        {
+
+        }
         #endregion
     }
 }

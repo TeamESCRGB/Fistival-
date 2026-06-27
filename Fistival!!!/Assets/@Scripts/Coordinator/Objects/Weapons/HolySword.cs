@@ -73,7 +73,7 @@ namespace Coordinator.Objects.Weapons
                 {
                     continue;
                 }
-                Managers.Instance.AttackManager.RequestAttack(comp, this, _damage, knockback);
+                Managers.Instance.AttackManager.RequestAttack(comp, this, _damage, knockback,_baseStunTime);
             }
 
 

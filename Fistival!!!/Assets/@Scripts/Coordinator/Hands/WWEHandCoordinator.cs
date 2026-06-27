@@ -12,6 +12,7 @@ namespace Coordinator.Hands
 {
     public class WWEHandCoordinator : HandCoordinatorBase
     {
+        private float _strongStun;
         private int _strongDamage;
         private double _strongRdyThreshold = 0.5f;
         private double _strongAttackThreshold = 1;
@@ -107,10 +108,11 @@ namespace Coordinator.Hands
             }
         }
 
-        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold)
+        public void Init(Rigidbody2D parentRb2d, PlayerData playerData)//int baseSmashDamage,int strongDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold, float stunTime
         {
-            InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn, throwAdditionalDamage);
-            _strongAttackThreshold = strongAttackThreshold;
+            _strongStun = playerData.StrongStunTime;
+            InitCommonDatas(parentRb2d, playerData);
+            _strongAttackThreshold = playerData.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
             _attackStatus = AttackStatus.NO_PRESSED;
             _skillType = WWESkillTypes.NORMAL;
@@ -119,12 +121,12 @@ namespace Coordinator.Hands
             _energy = 0;
             ResetEvents();
             _isSkillActing = false;
-            _strongDamage = strongDamage;
-            _normalSkill.Init(attackableFilter,baseSmashDamage);
-            _hadouken.Init(attackableFilter, -1);
+            _strongDamage = playerData.StrongAttackDamage;
+            _normalSkill.Init(playerData.AttackableLayers,playerData.Damage, playerData.StunTime);
+            _hadouken.Init(playerData.AttackableLayers, -1, playerData.StunTime);
             var attackable = transform.parent.parent.parent.Find("@Hitbox").GetComponent<IAttackable>();
-            _syouryuuken.Init(attackableFilter, baseSmashDamage + _strongDamage, GetComponentInParent<IPushable>(), attackable);
-            _tatsumakisenpukyaku.Init(attackableFilter,baseSmashDamage, parentRb2d, attackable);
+            _syouryuuken.Init(playerData.AttackableLayers, playerData.Damage + _strongDamage, GetComponentInParent<IPushable>(), attackable, playerData.StunTime ,playerData.StrongStunTime);
+            _tatsumakisenpukyaku.Init(playerData.AttackableLayers, playerData.Damage, parentRb2d, attackable, playerData.StunTime);
             if (_normalSkill != null)
             {
                 _normalSkill.RegisterOnAttack(_onFistAttacked);
@@ -213,7 +215,7 @@ namespace Coordinator.Hands
                 }
             }
 
-            _normalSkill.Attack(_attackStatus, objDmg, _strongDamage);
+            _normalSkill.Attack(_attackStatus, objDmg, _strongDamage, _strongStun);
             OnAttackSuccess();
         }
 

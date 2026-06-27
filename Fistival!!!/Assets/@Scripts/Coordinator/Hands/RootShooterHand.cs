@@ -102,19 +102,19 @@ namespace Coordinator.Hands
             _reloadCooldown = null;
         }
 
-        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold)
+        public void Init(Rigidbody2D parentRb2d, PlayerData playerData)//int baseSmashDamage, LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold, float stunTime
         {
-            InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn, throwAdditionalDamage);
+            InitCommonDatas(parentRb2d, playerData);
             ResetEvents();
-            _strongAttackThreshold = strongAttackThreshold;
+            _strongAttackThreshold = playerData.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
-            _baseSmashDamage = baseSmashDamage;
+            _baseSmashDamage = playerData.Damage;
             _bulletCnt = _maxBulletCnt;
             _lastShootTime = 0;
             _gunStatus = GunStatus.OFF;
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
-            _skillBase.Init(_attackableMask, _baseSmashDamage);
+            _skillBase.Init(_attackableMask, _baseSmashDamage, playerData.StunTime);
             _attackBox.SetParent(null);//나중에 ui로 옮기면 바꾸고, 옮기면 그대로.
             if (_reloadCooldown is not null)
             {
@@ -127,7 +127,7 @@ namespace Coordinator.Hands
                 _reloadUnlockCounter = null;
             }
             _reloadCooldown = Managers.Instance.CooldownManager.GetCooldownModule(_reloadTime);
-            _reloadUnlockCounter = Managers.Instance.CooldownManager.GetCooldownModule(attackCooldwn/2);
+            _reloadUnlockCounter = Managers.Instance.CooldownManager.GetCooldownModule(playerData.AttackCooldown/2);
 
             _reloadCooldown.OnCooldownEnded += (() =>
             {
@@ -221,7 +221,7 @@ namespace Coordinator.Hands
                     return;
                 }
 
-                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, _baseSmashDamage,Vector2.zero);
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, _baseSmashDamage,Vector2.zero, _stunTime);
             }
         }
 

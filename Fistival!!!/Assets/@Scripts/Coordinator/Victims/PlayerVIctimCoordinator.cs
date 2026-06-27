@@ -7,7 +7,7 @@ using Utils;
 
 namespace Coordinator.Victims
 {
-    public class PlayerVictimCoordinator : MonoBehaviour, IAttackable, IStunnable
+    public class PlayerVictimCoordinator : MonoBehaviour, IAttackable
     {
         private IPushable _pushable;
         private IStunnable _internalTarget;
