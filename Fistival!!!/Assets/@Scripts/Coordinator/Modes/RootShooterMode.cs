@@ -31,7 +31,7 @@ namespace Coordinator.Modes
             _inputCoordinator.SetHorizontalMovementInputHandler(_movCoordinator);
             _inputCoordinator.SetPointerMovementInputHandler(_hand);
             _inputCoordinator.SetReloadInputHandler(this);
-            _hand.Init(GetComponentInParent<Rigidbody2D>(), _playerData.Damage, _playerData.AttackableLayers, _playerData.PickableLayers, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown, _playerData.ThrowAttackAdditionalDamage, _playerData.StrongAttackThreshold);
+            _hand.Init(GetComponentInParent<Rigidbody2D>(), _playerData);//_playerData.Damage, _playerData.AttackableLayers, _playerData.PickableLayers, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown, _playerData.ThrowAttackAdditionalDamage, _playerData.StrongAttackThreshold, _playerData.StunTime
             _hand.OnChargeRateChanged += OnChargeRateChanged;
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;
             _hand.SetMaxCharge(_playerData.MaxChargeCnt);

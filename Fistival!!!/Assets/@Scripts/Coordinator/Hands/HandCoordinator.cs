@@ -68,16 +68,16 @@ namespace Coordinator.Hands
             }
         }
 
-        public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold)
+        public virtual void Init(Rigidbody2D parentRb2d, PlayerData playerData)//int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold, float stunTime
         {
-            InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask,forcePerCharge, chargeTimeInterval,attackCooldwn, throwAdditionalDamage);
-            _strongAttackThreshold = strongAttackThreshold;
+            InitCommonDatas(parentRb2d, playerData);
+            _strongAttackThreshold = playerData.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             ResetEvents();
-            _baseSmashDamage = baseSmashDamage;
-            _strongAttackDamage = strongAttackDamage;
+            _baseSmashDamage = playerData.Damage;
+            _strongAttackDamage = playerData.StrongAttackDamage;
 
             _skillBase.Init(_attackableMask,_baseSmashDamage);
         }

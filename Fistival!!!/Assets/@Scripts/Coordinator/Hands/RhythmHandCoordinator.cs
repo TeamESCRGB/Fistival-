@@ -1,5 +1,6 @@
 using Coordinator.Rhythm;
 using Coordinator.Victims;
+using Data;
 using Defines;
 using Manager;
 using UnityEngine;
@@ -21,9 +22,9 @@ namespace Coordinator.Hands
 
         private int _parryReflectionDamage;
 
-        public override void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask,float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage,float strongAttackThreshold)
+        public override void Init(Rigidbody2D parentRb2d, PlayerData playerData)//int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask,float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage,float strongAttackThreshold, float stunTime
         {
-            base.Init(parentRb2d, baseSmashDamage,strongAttackDamage ,attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval,attackCooldwn, throwAdditionalDamage, strongAttackThreshold);
+            base.Init(parentRb2d, playerData);
             _endIdx = -1;
             _judgeType = _missMask;
             _noteType = NoteTypes.NO_ACTION;

@@ -60,13 +60,13 @@ namespace Coordinator.Hands
             _chain.SetRotation(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position));
         }
 
-        public void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold)
+        public void Init(Rigidbody2D parentRb2d, PlayerData playerData)//int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold, float stunTime
         {
-            InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval, attackCooldwn, throwAdditionalDamage);
+            InitCommonDatas(parentRb2d, playerData);
             ResetEvents();
-            _strongAttackThreshold = strongAttackThreshold;
+            _strongAttackThreshold = playerData.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
-            _chain.Init(attackableFilter,parentRb2d.transform, baseSmashDamage,strongAttackDamage ,GetComponentInParent<IChainPullable>());
+            _chain.Init(playerData.AttackableLayers,parentRb2d.transform, playerData.Damage,playerData.StrongAttackDamage ,GetComponentInParent<IChainPullable>());
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             _chain.transform.SetParent(null);
