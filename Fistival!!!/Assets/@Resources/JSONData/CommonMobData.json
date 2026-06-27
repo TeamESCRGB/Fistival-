@@ -1,0 +1,18 @@
+{
+  "commonMobDatas": [
+    {
+      "Idx": -666775,
+      "HP": 6,
+      "InvincibilityTime": 1,
+      "Speed": 5,
+      "SkillDelay": 3,
+      "AggroRange": {
+        "x": 6,
+        "y": 6
+      },
+      "DropObjectIdx": 0,
+      "DropObjectPrefabName": "",
+      "AnimationController": "TestController"
+    }
+  ]
+}
