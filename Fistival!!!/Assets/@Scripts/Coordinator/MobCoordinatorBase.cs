@@ -10,9 +10,9 @@ namespace Coordinator
     public abstract class MobCoordinatorBase : MonoBehaviour, IStunnable, IPushable
     {
         [SerializeField]
-        private LayerMask _playerLayer;
+        protected LayerMask _playerLayer;
         [SerializeField]
-        private LayerMask _groundLayer;
+        protected LayerMask _groundLayer;
 
         protected float _skillDelay = 5;
 
