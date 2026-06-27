@@ -49,5 +49,15 @@ namespace Coordinator.Victims
         {
             _original.TakeKnockBack(force);
         }
+
+        public void StunFor(float time)
+        {
+            _original.StunFor(time);
+        }
+
+        public void ReleaseStun()
+        {
+            _original.ReleaseStun();
+        }
     }
 }

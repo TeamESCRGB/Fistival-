@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Coordinator.Movements;
+using UnityEngine;
 
 namespace Coordinator.Victims
 {
-    public interface IAttackable
+    public interface IAttackable : IStunnable
     {
         public bool CanAttack();
         public T RequestComponent<T>() where T : class;
