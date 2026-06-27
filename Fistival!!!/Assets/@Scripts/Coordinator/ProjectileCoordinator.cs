@@ -49,7 +49,7 @@ namespace Coordinator
             _targetLayer = data.ExplodableLayerMask | attackableLayerMask;
             _baseSpeed = data.Speed;
             _rb2d.sharedMaterial = Managers.Instance.ResourceManager.Load<PhysicsMaterial2D>(data.Physics2DMaterialName);
-            _skill.Init(attackableLayerMask, data.Damage);
+            _skill.Init(attackableLayerMask, data.Damage, data.StunTime);
             _explosionKnockBack = data.ExplosionKnockBack;
             if(data.Lifetime > 0)
             {

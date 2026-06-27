@@ -67,7 +67,7 @@ namespace Coordinator.Chain
             _rb2d.linearVelocity = Vector2.zero;
             _rb2d.includeLayers = _attackableMask | _objectMask | _groundMask | _chainPullPadMask;
             _filter.layerMask   = _attackableMask | _objectMask | _groundMask | _chainPullPadMask;
-            _baseSkill.Init(attackableMask,0);
+            _baseSkill.Init(attackableMask,0,stunTIme);
             Retrive();
         }
 

@@ -81,7 +81,7 @@ namespace Coordinator.Hands
             _baseSmashDamage = playerData.Damage;
             _strongAttackDamage = playerData.StrongAttackDamage;
             _strongStun = playerData.StrongStunTime;
-            _skillBase.Init(_attackableMask,_baseSmashDamage);
+            _skillBase.Init(_attackableMask,_baseSmashDamage, playerData.StunTime);
         }
 
         public virtual void Attack()

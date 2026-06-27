@@ -114,7 +114,7 @@ namespace Coordinator.Hands
             _gunStatus = GunStatus.OFF;
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
-            _skillBase.Init(_attackableMask, _baseSmashDamage);
+            _skillBase.Init(_attackableMask, _baseSmashDamage, playerData.StunTime);
             _attackBox.SetParent(null);//나중에 ui로 옮기면 바꾸고, 옮기면 그대로.
             if (_reloadCooldown is not null)
             {

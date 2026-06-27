@@ -10,13 +10,15 @@ namespace Coordinator
 
         protected int _baseDamage = 0;
 
+        protected float _baseStunTime=0;
+
         private event Action<int, int> _onAttack;
 
-        public void Init(int attackableLayers, int baseDamage)
+        public void Init(int attackableLayers, int baseDamage, float baseStunTime)
         {
             _baseDamage = baseDamage;
             _attackableLayers = 0;
-
+            _baseStunTime=baseStunTime;
             SetAttackableLayer(attackableLayers);
         }
 

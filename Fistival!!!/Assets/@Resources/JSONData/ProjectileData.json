@@ -8,6 +8,7 @@
       "ExplosionKnockBack": 5,
       "Lifetime": 10,
       "AttackRadius": 0.5,
+      "StunTime": 0.5,
       "Physics2DMaterialName": "Obj",
       "ProjectilePrefabName": "TestProjectile1"
     },
@@ -19,6 +20,7 @@
       "ExplosionKnockBack": 5,
       "Lifetime": 10,
       "AttackRadius": 0.5,
+      "StunTime": 0.5,
       "Physics2DMaterialName": "Obj",
       "ProjectilePrefabName": "TestProjectile2"
     },
@@ -31,6 +33,7 @@
       "ExplosionKnockBack": 5,
       "Lifetime": 2,
       "AttackRadius": 1,
+      "StunTime": 0.5,
       "Physics2DMaterialName": "Obj",
       "ProjectilePrefabName": "TestProjectile2"
     },
@@ -43,6 +46,7 @@
       "ExplosionKnockBack": 10,
       "Lifetime": 2,
       "AttackRadius": 0.5,
+      "StunTime": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
       "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile"
     },
@@ -54,6 +58,7 @@
       "ExplosionKnockBack": 4,
       "Lifetime": 2,
       "AttackRadius": 0.5,
+      "StunTime": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
       "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile"
     },
@@ -66,6 +71,7 @@
       "ExplosionKnockBack": 4,
       "Lifetime": 2,
       "AttackRadius": 0.5,
+      "StunTime": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
       "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile"
     },
@@ -77,6 +83,7 @@
       "ExplosionKnockBack": 4,
       "Lifetime": 0.1,
       "AttackRadius": 1,
+      "StunTime": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
       "ProjectilePrefabName": "NoGrav_1b1_Explodable_CircleProjectile"
     }

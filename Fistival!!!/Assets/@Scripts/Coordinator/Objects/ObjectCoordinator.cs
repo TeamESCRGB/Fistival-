@@ -85,7 +85,7 @@ namespace Coordinator.Objects
             _abrasableLayerMask = data.AbrasableLayerMask;
             _isThrown = false;
             _additionalDamage = 0;
-            base.Init(0, data.Damage);
+            base.Init(0, data.Damage, data.StunTime);
         }
 
         public void SetAdditionalDamage(int damage)

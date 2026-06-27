@@ -8,7 +8,7 @@ namespace Coordinator.Skills
 {
     public class FistSkill : SkillCoordinatorBase
     {
-        public void Attack(AttackStatus attackStatus, int objectDmg, int strongAttackDamage)
+        public void Attack(AttackStatus attackStatus, int objectDmg, int strongAttackDamage, float strongStunTime)
         {
             var enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0, _attackableLayers);
 

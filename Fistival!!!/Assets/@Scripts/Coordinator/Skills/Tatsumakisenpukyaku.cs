@@ -31,9 +31,9 @@ namespace Coordinator.Skills
         private float _gravityScale;
 
 
-        public void Init(int attackableLayers, int damage, Rigidbody2D rb2d, IAttackable attackable)
+        public void Init(int attackableLayers, int damage, Rigidbody2D rb2d, IAttackable attackable, float baseStunTime)
         {
-            base.Init(attackableLayers, damage);
+            base.Init(attackableLayers, damage, baseStunTime);
             _rb2d = rb2d;
             _gravityScale = _rb2d.gravityScale;
             _isAttack = false;

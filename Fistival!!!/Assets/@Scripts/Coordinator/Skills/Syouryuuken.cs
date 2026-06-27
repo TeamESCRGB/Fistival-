@@ -17,12 +17,14 @@ namespace Coordinator.Skills
         private Vector2 _force;
         private IPushable _pushable;
         private IAttackable _attackable;
+        private float _strongStunTime;
 
-        public void Init(int attackableLayers, int damage, IPushable pushable, IAttackable attackable)
+        public void Init(int attackableLayers, int damage, IPushable pushable, IAttackable attackable, float baseStunTime, float strongStunTime)
         {
-            base.Init(attackableLayers, damage);
+            base.Init(attackableLayers, damage, baseStunTime);
             _pushable = pushable;
             _attackable = attackable;
+            _strongStunTime = strongStunTime;
         }
         private void OnDisable()
         {
