@@ -16,6 +16,8 @@
     "MaxSlowness": 0.5,
     "MoveSpeed": 10,
     "JumpPower": 10,
-    "InvincibilityTime": 1
+    "InvincibilityTime": 1,
+    "StunTime": 0.5,
+    "StrongStunTime": 0.5
   }
 }

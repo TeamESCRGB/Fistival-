@@ -24,6 +24,8 @@
             MaxSlowness = original.MaxSlowness;
             JumpPower = original.JumpPower;
             InvincibilityTime = original.InvincibilityTime;
+            StunTime=original.StunTime;
+            StrongStunTime = original.StrongStunTime;
         }
 
         public PlayerData() { }
@@ -49,5 +51,7 @@
         public float MaxSlowness { get; set; }
         public float JumpPower { get; set; }
         public float InvincibilityTime { get; set; }
+        public float StunTime { get; set; }
+        public float StrongStunTime { get; set; }
     }
 }
