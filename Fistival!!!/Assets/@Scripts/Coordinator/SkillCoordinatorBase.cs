@@ -59,6 +59,6 @@ namespace Coordinator
             _baseDamage = damage;
         }
 
-        public abstract bool Act(IAttackable target, int calculatedDamage, Vector2 knockback);
+        public abstract bool Act(IAttackable target, int calculatedDamage, Vector2 knockback, float calculatedStunTime);
     }
 }

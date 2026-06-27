@@ -15,7 +15,7 @@ namespace Coordinator.Skills
             _box = transform;
         }
 
-        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
+        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback, float stun)
         {
             if(target.CanAttack() == false)
             {
@@ -23,6 +23,7 @@ namespace Coordinator.Skills
             }
             target.TakeDamage(calculatedDamage);
             target.TakeKnockBack(knockback);
+            target.StunFor(stun);
             return true;
         }
         private void OnDisable()

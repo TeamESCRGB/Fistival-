@@ -59,7 +59,7 @@ namespace Manager.Contents
 
                 if(req.attacker.CanAttackTarget(req.target))
                 {
-                    req.attacker.Act(req.target, req.calculatedDamage, req.knockbackForce);
+                    req.attacker.Act(req.target, req.calculatedDamage, req.knockbackForce, req.calculatedStun);
                 }
             }
 

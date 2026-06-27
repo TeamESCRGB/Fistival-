@@ -96,12 +96,13 @@ namespace Coordinator.Objects.Weapons
             _isPressed = false;
         }
 
-        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
+        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback, float stun)
         {
             if (target.CanAttack())
             {
                 target.TakeDamage(calculatedDamage);
                 target.TakeKnockBack(knockback);
+                target.StunFor(stun);
                 target.StartInvincibleTime();
                 _attackCnt++;
                 if(_isThrown)
