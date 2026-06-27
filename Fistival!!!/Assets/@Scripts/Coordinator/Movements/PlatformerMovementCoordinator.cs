@@ -32,7 +32,9 @@ namespace Coordinator.Movements
         private float _slownessSensitivity=1;
         private float _maxSlowness=0;
 
-        private Vector3 _leftRotation = new Vector3(0, 180, 0);
+        private float _rightRot = 0;
+        private float _leftRot = 180;
+
         private WaitForSeconds _platformEnableDelay;
 
         [SerializeField]private MovementKeyStatus _keyStatus = MovementKeyStatus.OFF;
@@ -51,6 +53,8 @@ namespace Coordinator.Movements
 
         private bool _isGrounded = false;
 
+        private bool _isGravityFlipped = false;
+
         private void Awake()
         {
             OnAwake();
@@ -64,6 +68,15 @@ namespace Coordinator.Movements
 
         public virtual void Init(float speed,float jumpPow ,float slownessSensitivity,float maxSlowness,Rigidbody2D parentRb2d)
         {
+            _isGravityFlipped = parentRb2d.gravityScale < 0;
+
+            if(_isGravityFlipped)
+            {
+                float tmp = _rightRot;
+                _rightRot = _leftRot;
+                _leftRot = tmp;
+            }
+
             _movState = MovementState.OFF;
             _nextDir = Directions.OFF;
             _parentRb2d = parentRb2d;
@@ -206,7 +219,18 @@ namespace Coordinator.Movements
             _jumpBufferCounter = -1;
             _coyoteTimeCounter = -1;
             _parentRb2d.linearVelocityY = 0;
-            _parentRb2d.AddForce(Vector2.up * _jumpPow, ForceMode2D.Impulse);
+            Vector2 force;
+
+            if(_isGravityFlipped)
+            {
+                force = Vector2.down* _jumpPow;
+            }
+            else
+            {
+                force = Vector2.up* _jumpPow;
+            }
+
+            _parentRb2d.AddForce(force, ForceMode2D.Impulse);
         }
 
         public virtual void OnJumpMovementInputEvent(bool pressed)
@@ -235,7 +259,9 @@ namespace Coordinator.Movements
                 }
                 _keyStatus |= MovementKeyStatus.LEFT;
                 _nextDir = Directions.LEFT;
-                _parentTransform.eulerAngles = _leftRotation;
+                Vector3 eularAngle = _parentTransform.eulerAngles;
+                eularAngle.y = _leftRot;
+                _parentTransform.eulerAngles = eularAngle;
             }
             else if((_keyStatus & MovementKeyStatus.LEFT) == MovementKeyStatus.LEFT)
             {
@@ -254,7 +280,9 @@ namespace Coordinator.Movements
                 }
                 _keyStatus |= MovementKeyStatus.RIGHT;
                 _nextDir = Directions.RIGHT;
-                _parentTransform.eulerAngles = Vector3.zero;
+                Vector3 eularAngle = _parentTransform.eulerAngles;
+                eularAngle.y = _rightRot;
+                _parentTransform.eulerAngles = eularAngle;
             }
             else if((_keyStatus & MovementKeyStatus.RIGHT) == MovementKeyStatus.RIGHT)
             {
@@ -269,12 +297,16 @@ namespace Coordinator.Movements
             if ((_keyStatus & MovementKeyStatus.LEFT) == MovementKeyStatus.LEFT)
             {
                 _nextDir = Directions.LEFT;
-                _parentTransform.eulerAngles = _leftRotation;
+                Vector3 eularAngle = _parentTransform.eulerAngles;
+                eularAngle.y = _leftRot;
+                _parentTransform.eulerAngles = eularAngle;
             }
             else if((_keyStatus & MovementKeyStatus.RIGHT) == MovementKeyStatus.RIGHT)
             {
                 _nextDir = Directions.RIGHT;
-                _parentTransform.eulerAngles = Vector3.zero;
+                Vector3 eularAngle = _parentTransform.eulerAngles;
+                eularAngle.y = _rightRot;
+                _parentTransform.eulerAngles = eularAngle;
             }
             else if(_keyStatus == MovementKeyStatus.OFF)
             {
