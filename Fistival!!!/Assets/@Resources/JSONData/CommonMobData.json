@@ -13,6 +13,7 @@
       "DropObjectIdx": 0,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
+      "InitialDir": 0,
       "DropObjectPrefabName": "",
       "AnimationController": "TestController"
     },
@@ -31,6 +32,7 @@
       "DropObjectIdx": 0,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
+      "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
       "AnimationController": "TestController"
     },
@@ -47,6 +49,7 @@
       "DropObjectIdx": 0,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
+      "InitialDir": 2,
       "DropObjectPrefabName": "BasicMobDropObject",
       "AnimationController": "TestController"
     }

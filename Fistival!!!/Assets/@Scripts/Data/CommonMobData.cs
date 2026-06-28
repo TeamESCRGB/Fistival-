@@ -13,6 +13,7 @@ namespace Data
         public int DropObjectIdx { get; set; }
         public int PlayerLayer { get; set; }
         public int PlayerHitboxLayer { get; set; }
+        public int InitialDir { get; set; }
         public string DropObjectPrefabName { get; set; }
         public string AnimationController { get; set; }
     }

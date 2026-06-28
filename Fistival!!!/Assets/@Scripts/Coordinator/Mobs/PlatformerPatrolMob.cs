@@ -17,8 +17,6 @@ namespace Coordinator.Mobs
         protected float _stunTime;
         [SerializeField]
         protected float _knockbackForce;
-        [SerializeField]
-        protected MovementKeyStatus _initialDir;
         protected PlatfoermerTriggerMovementCoordinator _move;
         
 
@@ -32,7 +30,7 @@ namespace Coordinator.Mobs
         {
             base.Init(data);
             GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
-            _move.Init(data.Speed, 0, GetComponent<Rigidbody2D>(), _initialDir);
+            _move.Init(data.Speed, 0, GetComponent<Rigidbody2D>(), (MovementKeyStatus)data.InitialDir);
         }
 
         public override void StunFor(float time)
