@@ -99,7 +99,7 @@ namespace Coordinator
                     comp.Init(Managers.Instance.DataManager.ObjectDataDict[_dropObjectIdx]);
                 }
             }
-            Managers.Instance.ResourceManager.Destroy(gameObject);
+            Managers.Instance.ResourceManager.Destroy(gameObject,true);
         }
 
         protected virtual void OnHPChanged(int old, int now, int delta)
