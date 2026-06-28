@@ -60,6 +60,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d6005d3534d3ce340ac2f2a09938d942
+    m_Address: CommonMobData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dc1efe257639e554bbc32294027b155f
     m_Address: EquipmentData
     m_ReadOnly: 0

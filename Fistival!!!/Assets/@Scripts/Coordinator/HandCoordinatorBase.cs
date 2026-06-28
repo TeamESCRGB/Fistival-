@@ -51,6 +51,7 @@ namespace Coordinator
         #endregion
 
         protected int _throwAttackAdditionalDamage = 0;
+        protected float _stunTime = 0;
 
         #region Events
 
@@ -72,22 +73,23 @@ namespace Coordinator
 
         #endregion
 
-        protected void InitCommonDatas(Rigidbody2D parentRb2d, LayerMask attackableMask,LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldown, int throwAttackAdditionalDamage)
+        protected void InitCommonDatas(Rigidbody2D parentRb2d, PlayerData playerData)//LayerMask attackableMask,LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldown, int throwAttackAdditionalDamage, float stunTime
         {
-            _pickableObjectMask = pickableObjectMask;
-            _attackableMask = attackableMask;
+            _stunTime = playerData.StunTime;
+            _pickableObjectMask = playerData.PickableLayers;
+            _attackableMask = playerData.AttackableLayers;
             _status = HandStatus.IDLE;
             _grabbedObject = null;
             _weapon = null;
             _parentRb2d = parentRb2d;
             _chargeTime = 0;
             _chargeCnt = 0;
-            _forcePerCharge = forcePerCharge;
-            _chargeTimeInterval = chargeTimeInterval;
-            _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(attackCooldown, 0.1f);
+            _forcePerCharge = playerData.ForcePerCharge;
+            _chargeTimeInterval = playerData.ChargeTimeInterval;
+            _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(playerData.AttackCooldown, 0.1f);
             _nowSelectedObject = (null, null);
             _nowSelectedInteractable = (null, null);
-            _throwAttackAdditionalDamage = throwAttackAdditionalDamage;
+            _throwAttackAdditionalDamage = playerData.ThrowAttackAdditionalDamage;
         }
 
         public virtual void UpdateUpdatedData(PlayerData data)

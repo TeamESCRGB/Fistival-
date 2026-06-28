@@ -11,6 +11,7 @@
             ExplosionKnockBack = original.ExplosionKnockBack;
             Lifetime = original.Lifetime;
             AttackRadius = original.AttackRadius;
+            StunTime = original.StunTime;
             Physics2DMaterialName = original.Physics2DMaterialName;
             ProjectilePrefabName = original.ProjectilePrefabName;
         }
@@ -23,6 +24,7 @@
         public float ExplosionKnockBack;
         public float Lifetime;
         public float AttackRadius;
+        public float StunTime;
         public string Physics2DMaterialName;
         public string ProjectilePrefabName;
     }

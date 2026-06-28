@@ -8,13 +8,15 @@ namespace Coordinator.Skills
 {
     public class FistSkill : SkillCoordinatorBase
     {
-        public void Attack(AttackStatus attackStatus, int objectDmg, int strongAttackDamage)
+        public void Attack(AttackStatus attackStatus, int objectDmg, int strongAttackDamage, float strongStunTime)
         {
             var enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0, _attackableLayers);
 
             int totalDmg = _baseDamage;
+            float stunTime = _baseStunTime;
             if (attackStatus == AttackStatus.STRONG)
             {
+                _baseStunTime += strongStunTime;
                 totalDmg += strongAttackDamage;
             }
 
@@ -34,19 +36,20 @@ namespace Coordinator.Skills
                 {
                     continue;
                 }
-                Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg, knockback);
+                Managers.Instance.AttackManager.RequestAttack(comp, this, totalDmg, knockback, stunTime);
             }
         }
         private void OnDisable()
         {
             ResetOnAttack();
         }
-        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
+        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback, float stun)
         {
             if(target.CanAttack())
             {
                 target.TakeDamage(calculatedDamage);
                 target.TakeKnockBack(knockback);
+                target.StunFor(stun);
                 target.StartInvincibleTime();
                 CallOnAttack(1,calculatedDamage);
             }

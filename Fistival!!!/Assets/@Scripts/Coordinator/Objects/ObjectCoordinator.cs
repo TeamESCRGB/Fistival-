@@ -85,7 +85,7 @@ namespace Coordinator.Objects
             _abrasableLayerMask = data.AbrasableLayerMask;
             _isThrown = false;
             _additionalDamage = 0;
-            base.Init(0, data.Damage);
+            base.Init(0, data.Damage, data.StunTime);
         }
 
         public void SetAdditionalDamage(int damage)
@@ -200,7 +200,7 @@ namespace Coordinator.Objects
             }
             else if (((1 << col.gameObject.layer) & _attackableLayers) != 0)
             {
-                Managers.Instance.AttackManager.RequestAttack(comp, this, (int)(_baseDamage * _rb2d.linearVelocity.magnitude) + _additionalDamage, _rb2d.linearVelocity);
+                Managers.Instance.AttackManager.RequestAttack(comp, this, (int)(_baseDamage * _rb2d.linearVelocity.magnitude) + _additionalDamage, _rb2d.linearVelocity, _baseStunTime * _chargeRate);
                 _durability--;
             }
 
@@ -215,12 +215,13 @@ namespace Coordinator.Objects
             InternalCollisionHandler(collision);
         }
 
-        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
+        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback, float stun)
         {
             if (target.CanAttack())
             {
                 target.TakeDamage(calculatedDamage);
                 target.TakeKnockBack(knockback);
+                target.StunFor(stun);
                 target.StartInvincibleTime();
                 _attackCnt++;
                 CallOnAttack(_attackCnt, _chargeRate);

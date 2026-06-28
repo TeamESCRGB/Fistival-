@@ -15,7 +15,7 @@ namespace Coordinator.Skills
             _box = transform;
         }
 
-        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback)
+        public override bool Act(IAttackable target, int calculatedDamage, Vector2 knockback, float stun)
         {
             if(target.CanAttack() == false)
             {
@@ -23,6 +23,7 @@ namespace Coordinator.Skills
             }
             target.TakeDamage(calculatedDamage);
             target.TakeKnockBack(knockback);
+            target.StunFor(stun);
             return true;
         }
         private void OnDisable()
@@ -48,7 +49,7 @@ namespace Coordinator.Skills
                 var enemy = enemies[i];
                 if (enemy.TryGetComponent<IAttackable>(out var target) && CanAttackTarget(target))
                 {
-                    Managers.Instance.AttackManager.RequestAttack(target, this, _baseDamage, Vector2.down);
+                    Managers.Instance.AttackManager.RequestAttack(target, this, _baseDamage, Vector2.down, _baseStunTime);
                     OnStepKill?.Invoke();
                 }
             }

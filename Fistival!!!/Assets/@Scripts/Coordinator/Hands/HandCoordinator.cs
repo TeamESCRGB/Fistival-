@@ -23,6 +23,8 @@ namespace Coordinator.Hands
         protected int _strongAttackDamage;
         protected SkillCoordinatorBase _skillBase;
 
+        protected float _strongStun = 0;
+
         protected override void OnAwake()
         {
             _attackBox = transform.Find("@AttackBox");
@@ -68,18 +70,18 @@ namespace Coordinator.Hands
             }
         }
 
-        public virtual void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold)
+        public virtual void Init(Rigidbody2D parentRb2d, PlayerData playerData)//int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold, float stunTime
         {
-            InitCommonDatas(parentRb2d, attackableFilter, pickableObjectMask,forcePerCharge, chargeTimeInterval,attackCooldwn, throwAdditionalDamage);
-            _strongAttackThreshold = strongAttackThreshold;
+            InitCommonDatas(parentRb2d, playerData);
+            _strongAttackThreshold = playerData.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             ResetEvents();
-            _baseSmashDamage = baseSmashDamage;
-            _strongAttackDamage = strongAttackDamage;
-
-            _skillBase.Init(_attackableMask,_baseSmashDamage);
+            _baseSmashDamage = playerData.Damage;
+            _strongAttackDamage = playerData.StrongAttackDamage;
+            _strongStun = playerData.StrongStunTime;
+            _skillBase.Init(_attackableMask,_baseSmashDamage, playerData.StunTime);
         }
 
         public virtual void Attack()
@@ -103,9 +105,11 @@ namespace Coordinator.Hands
                 //BoxOverlap에 필터링에 걸린것만 가져와서 수행.
                 //없으면 실행 안함
                 int totalDmg = _baseSmashDamage;
+                float stunTime = _stunTime;
 
                 if(_attackStatus == AttackStatus.STRONG)
                 {
+                    stunTime += _strongStun;
                     totalDmg += _strongAttackDamage;
                 }
 
@@ -125,7 +129,7 @@ namespace Coordinator.Hands
                 }
 
                 Vector2 knockback = new Vector2(transform.forward.z * totalDmg,0);
-                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg, knockback);
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg, knockback, stunTime);
             }
         }
 

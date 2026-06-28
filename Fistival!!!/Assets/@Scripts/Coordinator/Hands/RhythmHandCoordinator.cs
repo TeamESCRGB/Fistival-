@@ -1,5 +1,6 @@
 using Coordinator.Rhythm;
 using Coordinator.Victims;
+using Data;
 using Defines;
 using Manager;
 using UnityEngine;
@@ -21,9 +22,9 @@ namespace Coordinator.Hands
 
         private int _parryReflectionDamage;
 
-        public override void Init(Rigidbody2D parentRb2d, int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask,float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage,float strongAttackThreshold)
+        public override void Init(Rigidbody2D parentRb2d, PlayerData playerData)//int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask,float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage,float strongAttackThreshold, float stunTime
         {
-            base.Init(parentRb2d, baseSmashDamage,strongAttackDamage ,attackableFilter, pickableObjectMask, forcePerCharge, chargeTimeInterval,attackCooldwn, throwAdditionalDamage, strongAttackThreshold);
+            base.Init(parentRb2d, playerData);
             _endIdx = -1;
             _judgeType = _missMask;
             _noteType = NoteTypes.NO_ACTION;
@@ -66,19 +67,22 @@ namespace Coordinator.Hands
                 }
 
                 float damageMultiplier = 1;
+                float stunTime = _stunTime;
 
                 switch (_judgeType)
                 {
                     case JudgementTypes.PERFECT:
+                        stunTime += _strongStun;
                         damageMultiplier = 2;
                         break;
                     case JudgementTypes.GOOD:
+                        stunTime += _strongStun * 0.5f;
                         damageMultiplier = 1.5f;
                         break;
                 }
                 totalDmg = (int)(totalDmg * damageMultiplier);
                 Vector2 dir = VectorUtils.GetDirVec2(enemy.transform.position, transform.position);
-                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg, dir*totalDmg);
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, totalDmg, dir*totalDmg, stunTime);
             }
         }
 
@@ -117,7 +121,7 @@ namespace Coordinator.Hands
                 }
 
                 Vector2 dir = VectorUtils.GetDirVec2(enemy.transform.position, transform.position);
-                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, _parryReflectionDamage, dir*_parryReflectionDamage);
+                Managers.Instance.AttackManager.RequestAttack(comp, _skillBase, _parryReflectionDamage, dir*_parryReflectionDamage, _stunTime);
             }
         }
 

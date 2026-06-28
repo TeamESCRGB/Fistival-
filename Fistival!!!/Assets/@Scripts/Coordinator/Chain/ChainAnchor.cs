@@ -34,6 +34,7 @@ namespace Coordinator.Chain
         private Vector2 _dir;
         private IChainPullable _player;
         private ContactFilter2D _filter;
+        private float _stunTime = 0;
 
         private void Awake()
         {
@@ -56,8 +57,9 @@ namespace Coordinator.Chain
             return _isMoving;
         }
 
-        public void Init(LayerMask attackableMask,float totalMoveTime, IChainPullable player)
+        public void Init(LayerMask attackableMask,float totalMoveTime, IChainPullable player, float stunTIme)
         {
+            _stunTime = stunTIme;
             _player = player;
             _totalMoveTime = totalMoveTime;
             _isMoving = false;
@@ -65,7 +67,7 @@ namespace Coordinator.Chain
             _rb2d.linearVelocity = Vector2.zero;
             _rb2d.includeLayers = _attackableMask | _objectMask | _groundMask | _chainPullPadMask;
             _filter.layerMask   = _attackableMask | _objectMask | _groundMask | _chainPullPadMask;
-            _baseSkill.Init(attackableMask,0);
+            _baseSkill.Init(attackableMask,0,stunTIme);
             Retrive();
         }
 
@@ -148,7 +150,7 @@ namespace Coordinator.Chain
                     {
                         continue;
                     }
-                    Managers.Instance.AttackManager.RequestAttack(attackTarget, _baseSkill, _damage, _dir * _damage);
+                    Managers.Instance.AttackManager.RequestAttack(attackTarget, _baseSkill, _damage, _dir * _damage, _stunTime);
                 }
                 else if ((layer & _chainPullPadMask) != 0)
                 {

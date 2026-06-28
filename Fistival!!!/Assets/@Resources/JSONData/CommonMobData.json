@@ -1,0 +1,34 @@
+{
+  "commonMobDatas": [
+    {
+      "Idx": -666775,
+      "HP": 6,
+      "InvincibilityTime": 1,
+      "Speed": 5,
+      "SkillDelay": 3,
+      "AggroRange": {
+        "x": 6,
+        "y": 6
+      },
+      "DropObjectIdx": 0,
+      "DropObjectPrefabName": "",
+      "AnimationController": "TestController"
+    },
+
+
+    {
+      "Idx": 0,
+      "HP": 3,
+      "InvincibilityTime": 1,
+      "Speed": 1,
+      "SkillDelay": 3,
+      "AggroRange": {
+        "x": 0,
+        "y": 0
+      },
+      "DropObjectIdx": 0,
+      "DropObjectPrefabName": "BasicMobDropObject",
+      "AnimationController": "TestController"
+    }
+  ]
+}

@@ -6,7 +6,7 @@ using Utils;
 
 namespace Coordinator.Victims
 {
-    public class VictimCoordinator : MonoBehaviour, IAttackable, IStunnable
+    public class VictimCoordinator : MonoBehaviour, IAttackable
     {
         //방어도 없다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
         private IPushable _pushable;

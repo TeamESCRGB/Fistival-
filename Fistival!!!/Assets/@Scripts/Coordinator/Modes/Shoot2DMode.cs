@@ -40,7 +40,7 @@ namespace Coordinator.Modes
 
             GetComponentInParent<Rigidbody2D>().transform.eulerAngles = Vector3.zero;
 
-            _shooterHand.Init(_projectileIdx,GetComponentInParent<Rigidbody2D>() ,_playerData.AttackableLayers, _playerData.PickableLayers, _playerData.AttackCooldown, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown, _playerData.ThrowAttackAdditionalDamage);
+            _shooterHand.Init(_projectileIdx,GetComponentInParent<Rigidbody2D>() ,_playerData);//_playerData.AttackableLayers, _playerData.PickableLayers, _playerData.AttackCooldown, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown, _playerData.ThrowAttackAdditionalDamage, _playerData.StunTime
             _shooterHand.SetMaxCharge(_playerData.MaxChargeCnt);
         }
 
