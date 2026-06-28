@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Defines;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -17,12 +18,34 @@ namespace Coordinator.Movements.TriggerMovement
             _flightMov = GetComponent<FlightMovementCoordinator>();
         }
 
-        public void Init(float speed, float jumpPower, Rigidbody2D rb2d)
+        public void Init(float speed, float jumpPower, Rigidbody2D rb2d, MovementKeyStatus initialDir)
         {
             _flightMov.Init(speed, rb2d);
             _target = null;
             _isFollowOn = false;
             _speed = speed;
+
+            if((initialDir & MovementKeyStatus.LEFT) == MovementKeyStatus.LEFT)
+            {
+                _flightMov.OnRightMovementInputEvent(false);
+                _flightMov.OnLeftMovementInputEvent(true);
+            }
+            else if((initialDir & MovementKeyStatus.LEFT) == MovementKeyStatus.RIGHT)
+            {
+                _flightMov.OnLeftMovementInputEvent(false);
+                _flightMov.OnRightMovementInputEvent(true);
+            }
+
+            if ((initialDir & MovementKeyStatus.UP) == MovementKeyStatus.UP)
+            {
+                _flightMov.OnDownMovementInputEvent(false);
+                _flightMov.OnUpMovementInputEvent(true);
+            }
+            else if ((initialDir & MovementKeyStatus.DOWN) == MovementKeyStatus.DOWN)
+            {
+                _flightMov.OnUpMovementInputEvent(false);
+                _flightMov.OnDownMovementInputEvent(true);
+            }
         }
 
         public void FollowTarget(float speed, Transform target)

@@ -11,6 +11,8 @@
         "y": 6
       },
       "DropObjectIdx": 0,
+      "PlayerLayer": 128,
+      "PlayerHitboxLayer": 524288,
       "DropObjectPrefabName": "",
       "AnimationController": "TestController"
     },
@@ -27,6 +29,24 @@
         "y": 0
       },
       "DropObjectIdx": 0,
+      "PlayerLayer": 128,
+      "PlayerHitboxLayer": 524288,
+      "DropObjectPrefabName": "BasicMobDropObject",
+      "AnimationController": "TestController"
+    },
+    {
+      "Idx": 1,
+      "HP": 3,
+      "InvincibilityTime": 1,
+      "Speed": 1,
+      "SkillDelay": 3,
+      "AggroRange": {
+        "x": 0,
+        "y": 0
+      },
+      "DropObjectIdx": 0,
+      "PlayerLayer": 128,
+      "PlayerHitboxLayer": 524288,
       "DropObjectPrefabName": "BasicMobDropObject",
       "AnimationController": "TestController"
     }

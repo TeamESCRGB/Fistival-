@@ -14,7 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: EntityPrefab
   m_GUID: 4437db024164939438fc4d4d0c5cf7b5
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 9f2442f612c85ec45b4f930f45ac8215
+    m_Address: FlightPatrolMob
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e45cc799eaf188a478674329cd07972b
+    m_Address: PlatformerPatrolMob
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
   m_SchemaSet:

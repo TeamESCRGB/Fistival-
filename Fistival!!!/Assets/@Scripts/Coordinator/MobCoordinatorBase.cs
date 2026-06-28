@@ -1,4 +1,5 @@
-﻿using Coordinator.Movements;
+﻿using ComponentModule;
+using Coordinator.Movements;
 using Coordinator.Objects;
 using Coordinator.Victims;
 using Data;
@@ -7,9 +8,8 @@ using UnityEngine;
 
 namespace Coordinator
 {
-    public abstract class MobCoordinatorBase : MonoBehaviour, IStunnable, IPushable
+    public abstract class MobCoordinatorBase : MonoBehaviour, IStunnable
     {
-        [SerializeField]
         protected LayerMask _playerLayer;
         [SerializeField]
         protected LayerMask _groundLayer;
@@ -21,7 +21,8 @@ namespace Coordinator
 
         protected Rigidbody2D _rb2d;
 
-        protected IPushable _internalTarget;
+        protected CooldownComponentModule _stunCounter;
+        protected IMovementLockable _movLock;
 
         private void Awake()
         {
@@ -33,10 +34,24 @@ namespace Coordinator
             OnStart();
         }
 
+        private void OnDisable()
+        {
+            OnDisabled();
+        }
+
+        protected virtual void OnDisabled()
+        {
+            if(_stunCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_stunCounter);
+                _stunCounter = null;
+            }
+        }
+
         protected virtual void OnAwake()
         {
             _rb2d = GetComponent<Rigidbody2D>();
-            _internalTarget = GetComponentInChildren<IPushable>();
+            _movLock = GetComponentInChildren<IMovementLockable>();
         }
 
         protected virtual void OnStart()
@@ -53,12 +68,18 @@ namespace Coordinator
             hp.UnSubscribeOnHPChanged(OnHPChanged);
             hp.SubscribeOnHPChanged(OnHPChanged);
             hp.SubscribeOnDead(OnDead);
-
+            _playerLayer = data.PlayerLayer;
             var detector = transform.Find("@DetectRange");
             detector.localScale = data.AggroRange;
             _skillDelay = data.SkillDelay;
             _dropObjectIdx = data.DropObjectIdx;
             _dropObjectPrefab = data.DropObjectPrefabName;
+            if (_stunCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_stunCounter);
+            }
+            _stunCounter = Managers.Instance.CooldownManager.GetCooldownModule(0);
+            _stunCounter.OnCooldownEnded += OnStunEnd;
             //애니메이터 달기
         }
 
@@ -78,7 +99,7 @@ namespace Coordinator
                     comp.Init(Managers.Instance.DataManager.ObjectDataDict[_dropObjectIdx]);
                 }
             }
-            Managers.Instance.ResourceManager.Destroy(gameObject);
+            Managers.Instance.ResourceManager.Destroy(gameObject,true);
         }
 
         protected virtual void OnHPChanged(int old, int now, int delta)
@@ -90,10 +111,9 @@ namespace Coordinator
 
         public abstract void ReleaseStun();
 
-        public void PushTo(Vector2 force)
+        public virtual void OnStunEnd()
         {
-            _internalTarget?.PushTo(force);
-        }
 
+        }
     }
 }
