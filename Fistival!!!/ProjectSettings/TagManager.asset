@@ -6,6 +6,13 @@ TagManager:
   tags:
   - GroundCheckbox
   - Collection
+  - RightMovementTag
+  - LeftMovementTag
+  - UpMovementTag
+  - DownMovementTag
+  - JumpTag
+  - DownJumpTag
+  - StopTag
   layers:
   - Default
   - TransparentFX
@@ -27,7 +34,7 @@ TagManager:
   - Item
   - AttackActivatableObject
   - PlayerHitbox
-  - 
+  - Trigger
   - 
   - 
   - 

@@ -66,6 +66,11 @@ namespace Coordinator.Movements
             _groundedCheckBox = transform.Find("@GroundedCheckBox");
         }
 
+        public void SetMaxSpeed(float speed)
+        {
+            _speed = speed;
+        }
+
         public virtual void Init(float speed,float jumpPow ,float slownessSensitivity,float maxSlowness,Rigidbody2D parentRb2d)
         {
             _isGravityFlipped = parentRb2d.gravityScale < 0;
