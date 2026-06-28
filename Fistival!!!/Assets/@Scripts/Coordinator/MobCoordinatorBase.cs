@@ -10,7 +10,6 @@ namespace Coordinator
 {
     public abstract class MobCoordinatorBase : MonoBehaviour, IStunnable, IPushable
     {
-        [SerializeField]
         protected LayerMask _playerLayer;
         [SerializeField]
         protected LayerMask _groundLayer;
@@ -72,7 +71,7 @@ namespace Coordinator
             hp.UnSubscribeOnHPChanged(OnHPChanged);
             hp.SubscribeOnHPChanged(OnHPChanged);
             hp.SubscribeOnDead(OnDead);
-
+            _playerLayer = data.PlayerLayer;
             var detector = transform.Find("@DetectRange");
             detector.localScale = data.AggroRange;
             _skillDelay = data.SkillDelay;

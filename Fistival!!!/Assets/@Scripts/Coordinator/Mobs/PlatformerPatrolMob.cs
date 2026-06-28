@@ -1,5 +1,6 @@
 using ComponentModule;
 using Coordinator.Movements;
+using Coordinator.Skills;
 using Coordinator.TriggerMovement;
 using Data;
 using Defines;
@@ -10,6 +11,12 @@ namespace Coordinator.Mobs
 {
     public class PlatformerPatrolMob : MobCoordinatorBase
     {
+        [SerializeField]
+        protected int _damage;
+        [SerializeField]
+        protected float _stunTime;
+        [SerializeField]
+        protected float _knockbackForce;
         [SerializeField]
         protected MovementKeyStatus _initialDir;
         protected PlatfoermerTriggerMovementCoordinator _move;
@@ -24,6 +31,7 @@ namespace Coordinator.Mobs
         public override void Init(CommonMobData data)
         {
             base.Init(data);
+            GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             _move.Init(data.Speed, 0, GetComponent<Rigidbody2D>(), _initialDir);
         }
 

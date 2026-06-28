@@ -11,6 +11,8 @@ namespace Data
         public float SkillDelay { get; set; }
         public Vector2 AggroRange { get; set; }
         public int DropObjectIdx { get; set; }
+        public int PlayerLayer { get; set; }
+        public int PlayerHitboxLayer { get; set; }
         public string DropObjectPrefabName { get; set; }
         public string AnimationController { get; set; }
     }

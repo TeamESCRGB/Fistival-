@@ -11,6 +11,8 @@
         "y": 6
       },
       "DropObjectIdx": 0,
+      "PlayerLayer": 128,
+      "PlayerHitboxLayer": 524288,
       "DropObjectPrefabName": "",
       "AnimationController": "TestController"
     },
@@ -27,6 +29,8 @@
         "y": 0
       },
       "DropObjectIdx": 0,
+      "PlayerLayer": 128,
+      "PlayerHitboxLayer": 524288,
       "DropObjectPrefabName": "BasicMobDropObject",
       "AnimationController": "TestController"
     }
