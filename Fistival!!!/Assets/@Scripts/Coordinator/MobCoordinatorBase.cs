@@ -25,6 +25,7 @@ namespace Coordinator
         protected IPushable _internalTarget;
 
         protected CooldownComponentModule _stunCounter;
+        protected IMovementLockable _movLock;
 
         private void Awake()
         {
@@ -54,6 +55,7 @@ namespace Coordinator
         {
             _rb2d = GetComponent<Rigidbody2D>();
             _internalTarget = GetComponentInChildren<IPushable>();
+            _movLock = GetComponentInChildren<IMovementLockable>();
         }
 
         protected virtual void OnStart()
@@ -81,6 +83,7 @@ namespace Coordinator
                 Managers.Instance.CooldownManager.ReturnModule(_stunCounter);
             }
             _stunCounter = Managers.Instance.CooldownManager.GetCooldownModule(0);
+            _stunCounter.OnCooldownEnded += OnStunEnd;
             //애니메이터 달기
         }
 
@@ -111,6 +114,11 @@ namespace Coordinator
         public abstract void StunFor(float time);
 
         public abstract void ReleaseStun();
+
+        public virtual void OnStunEnd()
+        {
+
+        }
 
         public void PushTo(Vector2 force)
         {
