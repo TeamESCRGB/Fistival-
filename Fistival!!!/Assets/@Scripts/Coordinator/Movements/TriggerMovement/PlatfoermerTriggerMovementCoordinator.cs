@@ -1,4 +1,5 @@
 using Coordinator.Movements;
+using Defines;
 using UnityEngine;
 
 namespace Coordinator.TriggerMovement
@@ -14,12 +15,24 @@ namespace Coordinator.TriggerMovement
             _platformerMov = GetComponent<PlatformerMovementCoordinator>();
         }
 
-        public void Init(float speed,  float jumpPower, Rigidbody2D rb2d)
+        public void Init(float speed,  float jumpPower, Rigidbody2D rb2d, MovementKeyStatus initialDir)
         {
             _platformerMov.Init(speed, jumpPower, 0, 1, rb2d);
             _target = null;
             _isFollowOn = false;
             _speed = speed;
+
+            switch(initialDir)
+            {
+                case MovementKeyStatus.RIGHT:
+                    _platformerMov.OnLeftMovementInputEvent(false);
+                    _platformerMov.OnRightMovementInputEvent(true);
+                    break;
+                case MovementKeyStatus.LEFT:
+                    _platformerMov.OnRightMovementInputEvent(false);
+                    _platformerMov.OnLeftMovementInputEvent(true);
+                    break;
+            }
         }
 
         public void FollowTarget(float speed, Transform target)
