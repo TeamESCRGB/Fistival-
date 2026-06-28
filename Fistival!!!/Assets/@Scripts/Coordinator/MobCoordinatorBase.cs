@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Coordinator
 {
-    public abstract class MobCoordinatorBase : MonoBehaviour, IStunnable, IPushable
+    public abstract class MobCoordinatorBase : MonoBehaviour, IStunnable
     {
         protected LayerMask _playerLayer;
         [SerializeField]
@@ -20,8 +20,6 @@ namespace Coordinator
         protected string _dropObjectPrefab;
 
         protected Rigidbody2D _rb2d;
-
-        protected IPushable _internalTarget;
 
         protected CooldownComponentModule _stunCounter;
         protected IMovementLockable _movLock;
@@ -53,7 +51,6 @@ namespace Coordinator
         protected virtual void OnAwake()
         {
             _rb2d = GetComponent<Rigidbody2D>();
-            _internalTarget = GetComponentInChildren<IPushable>();
             _movLock = GetComponentInChildren<IMovementLockable>();
         }
 
@@ -118,11 +115,5 @@ namespace Coordinator
         {
 
         }
-
-        public void PushTo(Vector2 force)
-        {
-            _internalTarget?.PushTo(force);
-        }
-
     }
 }
