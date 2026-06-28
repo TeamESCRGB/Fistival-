@@ -1,4 +1,5 @@
-﻿using Coordinator.Movements;
+﻿using ComponentModule;
+using Coordinator.Movements;
 using Coordinator.Objects;
 using Coordinator.Victims;
 using Data;
@@ -23,6 +24,8 @@ namespace Coordinator
 
         protected IPushable _internalTarget;
 
+        protected CooldownComponentModule _stunCounter;
+
         private void Awake()
         {
             OnAwake();
@@ -31,6 +34,20 @@ namespace Coordinator
         private void Start()
         {
             OnStart();
+        }
+
+        private void OnDisable()
+        {
+            OnDisabled();
+        }
+
+        protected virtual void OnDisabled()
+        {
+            if(_stunCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_stunCounter);
+                _stunCounter = null;
+            }
         }
 
         protected virtual void OnAwake()
@@ -59,6 +76,11 @@ namespace Coordinator
             _skillDelay = data.SkillDelay;
             _dropObjectIdx = data.DropObjectIdx;
             _dropObjectPrefab = data.DropObjectPrefabName;
+            if (_stunCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_stunCounter);
+            }
+            _stunCounter = Managers.Instance.CooldownManager.GetCooldownModule(0);
             //애니메이터 달기
         }
 
