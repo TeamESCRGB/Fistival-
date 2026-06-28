@@ -38,6 +38,11 @@ namespace Coordinator.Movements
             _isInputLocked = false;
         }
 
+        public void SetMaxSpeed(float speed)
+        {
+            _speed = speed;
+        }
+
         private void FixedUpdate()
         {
             if (Managers.Instance.GameManager.IsGamePaused())
