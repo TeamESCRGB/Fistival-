@@ -66,11 +66,23 @@ namespace Coordinator.Stages
         {
             for(int i = 0; i < _mobSpawnPoints.Length; i++)
             {
-                var go = Managers.Instance.ResourceManager.Instantiate(_mobSpawnPoints[i].PrefabName,null,false,true);
-                if(go != null)
+                if (Managers.Instance.DataManager.CommonMobDataDict.TryGetValue(_mobSpawnPoints[i].DataIdx, out var data) == false)
                 {
-                    go.transform.position = _mobSpawnPoints[i].SpawnPoint.position;
+                    continue;
                 }
+
+                var go = Managers.Instance.ResourceManager.Instantiate(_mobSpawnPoints[i].PrefabName,null,false,true);
+                if(go == null)
+                {
+                    continue;
+                }
+                go.transform.position = _mobSpawnPoints[i].SpawnPoint.position;
+                if (go.TryGetComponent<MobCoordinatorBase>(out var coord) == false)
+                {
+                    Managers.Instance.ResourceManager.Destroy(go);
+                    continue;
+                }
+                coord.Init(data);
             }
 
             for (int i = 0; i < _bossSpawnPoints.Length; i++)
