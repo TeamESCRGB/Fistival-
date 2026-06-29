@@ -54,7 +54,7 @@ namespace Coordinator.Movements
 
             _parentRb2d.excludeLayers |= _groundLayermask;
 
-            Vector2 impulseForce = MovementUtils.CaculateThrowPower(distance,totalMoveTime,_parentRb2d.linearDamping, dampingThreshold, _gravityConstant, _parentRb2d.linearVelocity);
+            Vector2 impulseForce = MovementUtils.ApproximatedCalculateThrowPower(distance,totalMoveTime,_parentRb2d.linearDamping, dampingThreshold, _gravityConstant, _parentRb2d.linearVelocity);
 
             _parentRb2d.AddForce(impulseForce, ForceMode2D.Impulse);
 

@@ -251,7 +251,7 @@ namespace Coordinator.Objects
 
             _rb2d.excludeLayers |= _groundLayermask;
             
-            Vector2 impulseForce = MovementUtils.CaculateThrowPower(distance, totalMoveTime, _rb2d.linearDamping, dampingThreshold, _gravityConstant, _rb2d.linearVelocity) ;
+            Vector2 impulseForce = MovementUtils.ApproximatedCalculateThrowPower(distance, totalMoveTime, _rb2d.linearDamping, dampingThreshold, _gravityConstant, _rb2d.linearVelocity) ;
 
             _rb2d.AddForce(impulseForce, ForceMode2D.Impulse);
 
