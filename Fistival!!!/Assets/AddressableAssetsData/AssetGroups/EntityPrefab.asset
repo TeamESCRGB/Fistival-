@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 70f3264e0331e7d40b04db0571a23bc2
+    m_Address: TurtleMob
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7336b05770008bd47b3a385209829698
     m_Address: Bat
     m_ReadOnly: 0
