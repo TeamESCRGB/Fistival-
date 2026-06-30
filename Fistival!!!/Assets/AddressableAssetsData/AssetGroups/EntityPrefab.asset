@@ -45,6 +45,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a9c8889cd4d9dd3419c98c1eca6bf913
+    m_Address: FrogMob
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e45cc799eaf188a478674329cd07972b
     m_Address: PlatformerPatrolMob
     m_ReadOnly: 0
