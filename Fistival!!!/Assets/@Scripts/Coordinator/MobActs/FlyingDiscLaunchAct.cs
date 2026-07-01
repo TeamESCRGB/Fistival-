@@ -33,6 +33,7 @@ namespace Coordinator.MobActs
 
         public void Init(Action onEnd, string objKey, int objDataIdx ,int damage, float stunTime, float returnDuration, float movLen, LayerMask objectizableLayer)
         {
+            base.Init(onEnd);
             _isActing = false;
             _returnCode = -666775;
             _objDataIdx = objDataIdx;
