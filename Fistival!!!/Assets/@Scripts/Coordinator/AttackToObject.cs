@@ -21,8 +21,11 @@ namespace Coordinator
         private float _stun;
 
         public event Action OnObjectized;
+        public event Action OnReturnStart;
 
         private int _retrieveIdx;
+
+        private bool _isReturnStarted;
 
         private void Awake()
         {
@@ -33,8 +36,10 @@ namespace Coordinator
 
         public void Init(float duration, float value, LayerMask layer, int damage, float stun, int retrieveIdx)
         {
+            OnReturnStart = null;
             OnObjectized = null;
             _layer=layer;
+            _isReturnStarted = false;
             _isObjectized = false;
             _druation = duration;
             _value = value;
@@ -48,6 +53,7 @@ namespace Coordinator
         {
             DisableComponentData();
             OnObjectized = null;
+            OnReturnStart = null;
         }
 
         private void DisableComponentData()
@@ -63,6 +69,7 @@ namespace Coordinator
             DisableComponentData();
             OnObjectized?.Invoke();
             OnObjectized = null;
+            OnReturnStart = null;
         }
 
 
@@ -136,6 +143,12 @@ namespace Coordinator
 
             float mappedX = Mathf.Lerp(-_value, _value, _progress);
             float targetVelocityX = mappedX * mappedX;
+
+            if(_isReturnStarted == false && _progress >= 0.5f)
+            {
+                _isReturnStarted = true;
+                OnReturnStart?.Invoke();
+            }
 
             if (mappedX < 0)
             {
