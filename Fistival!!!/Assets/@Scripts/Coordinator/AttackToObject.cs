@@ -23,8 +23,6 @@ namespace Coordinator
         public event Action OnObjectized;
         public event Action OnReturnStart;
 
-        private int _retrieveIdx;
-
         private bool _isReturnStarted;
 
         private void Awake()
@@ -34,7 +32,7 @@ namespace Coordinator
             _skill = GetComponentInChildren<SkillCoordinatorBase>();
         }
 
-        public void Init(float duration, float value, LayerMask layer, int damage, float stun, int retrieveIdx)
+        public void Init(float duration, float value, LayerMask layer, int damage, float stun)
         {
             OnReturnStart = null;
             OnObjectized = null;
@@ -46,7 +44,6 @@ namespace Coordinator
             _damage = damage;
             _stun = stun;
             _rb2d.gravityScale = 0;
-            _retrieveIdx = retrieveIdx;
         }
         
         private void OnDisable()
@@ -58,7 +55,6 @@ namespace Coordinator
 
         private void DisableComponentData()
         {
-            _retrieveIdx = -1;
             _layer = 0;
             _isObjectized = false;
             _rb2d.gravityScale = 1;
@@ -71,12 +67,6 @@ namespace Coordinator
             OnObjectized = null;
             OnReturnStart = null;
             _isObjectized = true;
-        }
-
-
-        public int GetRetrieveIdx()
-        {
-            return _retrieveIdx;
         }
 
         public void Launch()
