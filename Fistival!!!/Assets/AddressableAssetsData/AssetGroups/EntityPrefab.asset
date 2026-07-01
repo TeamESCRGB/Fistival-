@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: EntityPrefab
   m_GUID: 4437db024164939438fc4d4d0c5cf7b5
   m_SerializeEntries:
+  - m_GUID: 01322992d2d64ed4fba09152b074ad1d
+    m_Address: FlyingDiscMob
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 675024cd874197a4f894096d855a831d
     m_Address: WalkingDalmatian
     m_ReadOnly: 0
