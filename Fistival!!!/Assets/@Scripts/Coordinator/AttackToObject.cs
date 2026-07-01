@@ -70,6 +70,7 @@ namespace Coordinator
             OnObjectized?.Invoke();
             OnObjectized = null;
             OnReturnStart = null;
+            _isObjectized = true;
         }
 
 
