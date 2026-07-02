@@ -1,15 +1,12 @@
-using ComponentModule;
+﻿using Coordinator.MobActs;
 using Coordinator.Movements;
 using Coordinator.Skills;
-using Coordinator.TriggerMovement;
 using Data;
-using Defines;
-using Manager;
 using UnityEngine;
 
 namespace Coordinator.Mobs
 {
-    public class PlatformerPatrolMob : MobCoordinatorBase
+    public class TurtleMob : MobCoordinatorBase
     {
         [SerializeField]
         protected int _damage;
@@ -17,21 +14,59 @@ namespace Coordinator.Mobs
         protected float _stunTime;
         [SerializeField]
         protected float _knockbackForce;
-        protected PlatfoermerTriggerMovementCoordinator _move;
-        
+
+        protected bool _isActing;
+        protected bool _isAggroOn;
+        protected float _skillTime;
+
+        protected DashAct _act;
+        protected PlatformerMovementCoordinator _mov;
 
         protected override void OnAwake()
         {
             base.OnAwake();
-            _move = GetComponentInChildren<PlatfoermerTriggerMovementCoordinator>();
+            _mov = GetComponent<PlatformerMovementCoordinator>();
+            _act = GetComponentInChildren<DashAct>();
         }
 
         public override void Init(CommonMobData data)
         {
             base.Init(data);
+            _isActing = false;
+            _isAggroOn = false;
+            _skillTime = _skillDelay;
             GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
-            _move.Init(data.Speed, 0, GetComponent<Rigidbody2D>(), (MovementKeyStatus)data.InitialDir);
+            _mov.Init(data.Speed,0,1,1,GetComponent<Rigidbody2D>());
+            _act.Init(() => { _isActing = false; }, _mov, GetComponent<Rigidbody2D>(), data.Speed);
         }
+        private void Update()
+        {
+            if (_isActing)
+            {
+                return;
+            }
+
+            if (_skillTime < _skillDelay)
+            {
+                _skillTime += Time.deltaTime;
+                return;
+            }
+
+            if (_stunCounter.IsCooldownEnded() == false || _isAggroOn == false)
+            {
+                return;
+            }
+
+            _skillTime = 0;
+            _isActing = true;
+            _act.Act();
+        }
+
+        protected override void OnAggroStateChanged(bool isAggro, Collider2D collider)
+        {
+            _isAggroOn= isAggro;
+        }
+
 
         public override void StunFor(float time)
         {
@@ -43,6 +78,7 @@ namespace Coordinator.Mobs
             if (_stunCounter.IsCooldownEnded())
             {
                 _movLock.LockMovement();
+                _act.StopAct();
             }
 
             _stunCounter.SetCooldownTime(time);
@@ -62,13 +98,5 @@ namespace Coordinator.Mobs
         {
             _movLock.UnlockMovement();
         }
-
-        #region Unused
-        protected override void OnAggroStateChanged(bool isAggro, Collider2D collider)
-        {
-
-        }
-        #endregion
-
     }
 }

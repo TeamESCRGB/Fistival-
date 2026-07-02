@@ -24,6 +24,18 @@
       "Physics2DMaterialName": "Obj",
       "ProjectilePrefabName": "TestProjectile2"
     },
+    {
+      "IDX": -3,
+      "ExplodableLayerMask": 0,
+      "Speed": 3,
+      "Damage": 200,
+      "ExplosionKnockBack": 5,
+      "Lifetime": 10,
+      "AttackRadius": 0.5,
+      "StunTime": 0.5,
+      "Physics2DMaterialName": "Obj",
+      "ProjectilePrefabName": "TestProjectile3"
+    },
 
     {
       "IDX": 1,

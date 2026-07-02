@@ -67,6 +67,22 @@
       "SpriteName": "Bycicle",
       "AnimControllerName": "Bycicle",
       "PhysicsMaterialName": "BCK"
+    },
+
+
+
+    {
+      "ObjectIndex": 4,
+      "Damage": 1,
+      "Durability": 1,
+      "AbrasableLayerMask": 0,
+      "Weight": 1,
+      "PlatformSpeedThreshold": 1,
+      "StunTime": 0.5,
+      "PlatformLayerMask": 1024,
+      "SpriteName": "ChargeOn",
+      "AnimControllerName": "FlyingDiscAnimController",
+      "PhysicsMaterialName": "BCK"
     }
   ]
 }

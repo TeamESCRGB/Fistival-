@@ -45,5 +45,25 @@ namespace Utils
 
             return true;
         }
+
+        public static bool LaunchGravityProjectile(LayerMask attackLayermask, int idx, in Vector3 initialPos, Transform target)
+        {
+            if (Managers.Instance.DataManager.ProjectileDataDict.TryGetValue(idx, out var data) == false)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(data.ProjectilePrefabName) || string.IsNullOrEmpty(data.Physics2DMaterialName))
+            {
+                return false;
+            }
+
+            var go = Managers.Instance.ResourceManager.Instantiate(data.ProjectilePrefabName, pooling: true);
+            var proj = go.GetComponent<GravityProjectileCoordinator>();
+            proj.Init(attackLayermask, data);
+            proj.Launch(initialPos, target.position);
+
+            return true;
+        }
     }
 }

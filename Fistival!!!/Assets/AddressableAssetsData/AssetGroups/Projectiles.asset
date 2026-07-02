@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 24b4e1094233c1949ba9b5c5bf94ce76
+    m_Address: TestProjectile3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6eaf2c65377579e4684333af71810c66
     m_Address: NoGrav_1b1_CircleProjectile
     m_ReadOnly: 0
