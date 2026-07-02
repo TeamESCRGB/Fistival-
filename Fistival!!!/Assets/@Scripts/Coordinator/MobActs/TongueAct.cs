@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using DG.Tweening;
 
@@ -9,10 +6,16 @@ namespace Coordinator.MobActs
 {
     public class TongueAct : MobActBase
     {
+        private Transform _tongueTransform;
         private float _tongDuration;
         private float _tongueStayDuration;
         private float _tongueLength;
         private Sequence _tongueSeq;
+
+        private void Awake()
+        {
+            _tongueTransform = transform.Find("@Tongue");
+        }
 
         public void Init(Action onEnd,Animator animator ,float tongueDuration, float tongueStayDuration, float tongueLength)
         {
@@ -33,19 +36,20 @@ namespace Coordinator.MobActs
                 _tongueSeq.Kill();
             }
             _tongueSeq = DOTween.Sequence();
-            _tongueSeq.Append(transform.DOScaleX(_tongueLength, _tongDuration).From(0));
+            _tongueSeq.Append(_tongueTransform.DOScaleX(_tongueLength, _tongDuration).From(0));
             _tongueSeq.AppendInterval(_tongueStayDuration);
-            _tongueSeq.Append(transform.DOScaleX(0, _tongDuration).OnComplete(OnEnd));
+            _tongueSeq.Append(_tongueTransform.DOScaleX(0, _tongDuration).OnComplete(OnEnd));
             _tongueSeq.Play();
         }
 
         public override void Act()
         {
-            StartAct();//애니메이션이 호출할거임 이제
+            _animator.SetTrigger("TongueLaunch");
         }
 
         private void OnEnd()
         {
+            _animator.SetTrigger("TongueRollBack");
             _onActEnd?.Invoke();
         }
 
@@ -55,9 +59,9 @@ namespace Coordinator.MobActs
             {
                 _tongueSeq.Kill();
             }
-            var a = transform.localScale;
+            var a = _tongueTransform.localScale;
             a.x = 0;
-            transform.localScale = a;
+            _tongueTransform.localScale = a;
             OnEnd();
         }
     }
