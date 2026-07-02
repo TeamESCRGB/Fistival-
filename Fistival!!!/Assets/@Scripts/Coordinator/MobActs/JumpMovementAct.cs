@@ -26,7 +26,18 @@ namespace Coordinator.MobActs
             _isMoving = false;
         }
 
-        public void Move();
+        public void Move()
+        {
+            _mov.SetMaxSpeed(_maxSpeed);
+            if (_player.position.x < transform.position.x)
+            {
+                _mov.OnLeftMovementInputEvent(true);
+            }
+            else
+            {
+                _mov.OnRightMovementInputEvent(true);
+            }
+        }
 
         public void Jump()
         {
