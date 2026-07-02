@@ -193,7 +193,7 @@ MonoBehaviour:
   _objKey: FlyingDiscObject
   _objIdx: 4
   _returnDuration: 2
-  _movLen: 4
+  _movLen: -4
   _objectizableLayer:
     serializedVersion: 2
     m_Bits: 525320
