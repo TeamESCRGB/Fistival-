@@ -82,11 +82,12 @@ namespace Coordinator
                 return;
             }
 
+            var go = collision.collider.gameObject;
             _isObjectized = true;
 
-            if (((1 << collision.gameObject.layer) & _layer) != 0)
+            if (((1 << go.layer) & _layer) != 0)
             {
-                if (collision.gameObject.TryGetComponent<IAttackable>(out var comp))
+                if (go.TryGetComponent<IAttackable>(out var comp))
                 {
                     Managers.Instance.AttackManager.RequestAttack(comp, _skill, _damage, _rb2d.linearVelocity, _stun);
                 }

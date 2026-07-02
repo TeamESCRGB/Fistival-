@@ -45,12 +45,9 @@ namespace Objects.Weapons
                 return;
             }
 
-            if (col == null || col.gameObject == null)
-            {
-                return;
-            }
+            var go = col.collider.gameObject;
 
-            if (col.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
+            if (go.TryGetComponent<IAttackable>(out var comp) == false)
             {
                 return;
             }

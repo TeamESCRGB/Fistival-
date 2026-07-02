@@ -51,6 +51,7 @@ namespace Coordinator.Objects
         {
             ResetOnAttack();
             _rb2d.excludeLayers &= ~_groundLayermask;
+            _rb2d.includeLayers &= ~_attackableLayers;
             if (Managers.Instance != null && _pullGroundDisableCounter is not null)
             {
                 Managers.Instance.CooldownManager.ReturnFixedModule(_pullGroundDisableCounter);
@@ -109,10 +110,13 @@ namespace Coordinator.Objects
             {
                 _isThrown = false;
                 _rb2d.excludeLayers &= ~_data.PlatformLayerMask;
+                _rb2d.includeLayers &= ~_attackableLayers;
+                Debug.Log("dis");
             }
             else
             {
                 _rb2d.excludeLayers |= _data.PlatformLayerMask;
+                _rb2d.includeLayers |= _attackableLayers;
             }
         }
 
@@ -183,22 +187,18 @@ namespace Coordinator.Objects
             {
                 return;
             }
+            var go = col.collider.gameObject;
 
-            if (col == null || col.gameObject == null)
-            {
-                return;
-            }
-            
-            if(col.gameObject.TryGetComponent<IAttackable>(out var comp) == false)
+            if (go.TryGetComponent<IAttackable>(out var comp) == false)
             {
                 return;
             }
 
-            if(((1<<col.gameObject.layer) & _abrasableLayerMask) != 0)
+            if(((1<< go.layer) & _abrasableLayerMask) != 0)
             {
                 _durability--;
             }
-            else if (((1 << col.gameObject.layer) & _attackableLayers) != 0)
+            else if (((1 << go.layer) & _attackableLayers) != 0)
             {
                 Managers.Instance.AttackManager.RequestAttack(comp, this, (int)(_baseDamage * _rb2d.linearVelocity.magnitude) + _additionalDamage, _rb2d.linearVelocity, _baseStunTime * _chargeRate);
                 _durability--;
