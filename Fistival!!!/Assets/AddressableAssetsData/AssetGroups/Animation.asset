@@ -15,8 +15,20 @@ MonoBehaviour:
   m_GroupName: Animation
   m_GUID: f4c80725b71ef2749962c2ef1b3ebcab
   m_SerializeEntries:
+  - m_GUID: 5e25d14133c0d1b4c842723c94dbae18
+    m_Address: FlingFurryAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 67b12fad4a93f68418922bec1703ab02
     m_Address: TurtleAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ff2637a165fb2e49b7d3990f6662da9
+    m_Address: RaccoonAnimationController
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_0_loaded_0
