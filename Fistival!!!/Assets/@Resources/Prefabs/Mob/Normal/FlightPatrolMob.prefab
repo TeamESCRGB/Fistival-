@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 5081347808307924698}
   - component: {fileID: 5134333761627307456}
   - component: {fileID: 1614244117873393648}
+  - component: {fileID: -6296173804020754078}
   m_Layer: 13
   m_Name: FlightPatrolMob
   m_TagString: Untagged
@@ -261,6 +262,28 @@ MonoBehaviour:
   _damage: 1
   _stunTime: 0.5
   _knockbackForce: 5
+--- !u!95 &-6296173804020754078
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4271877235586825150}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5754230177952525791
 GameObject:
   m_ObjectHideFlags: 0
