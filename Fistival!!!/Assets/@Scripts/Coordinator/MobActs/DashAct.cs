@@ -14,11 +14,13 @@ namespace Coordinator.MobActs
         private float _leftRot = 180;
         private float _speed;
         private Vector2 _force;
+        private bool _isEnd = true;
 
         public void Init(Action onEnd, Animator animator, PlatformerMovementCoordinator movCoord, Rigidbody2D rb2d, float dashSpeed)
         {
             Init(onEnd,animator);
             _speed = dashSpeed;
+            _isEnd = true;
             _myTransform = rb2d.transform;
             _mov= movCoord;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
@@ -61,32 +63,24 @@ namespace Coordinator.MobActs
             _mov.PushTo(_force);
         }
 
-        private IEnumerator ActRoutine()
-        {
-            Ready();
-            yield return new WaitForSeconds(0.5f);
-            Dash();
-            yield return new WaitForSeconds(1);
-            End();
-        }
-
         private void End()
         {
+            if(_isEnd)
+            {
+                return;
+            }
+            _isEnd = true;
             _onActEnd?.Invoke();
         }
 
         public override void Act()
         {
-            _routine = StartCoroutine(ActRoutine());
-            
+            _isEnd = false;
+            _animator.SetTrigger(Animator.StringToHash("Dash"));
         }
 
         public override void StopAct()
         {
-            if (_routine != null)
-            {
-                StopCoroutine(_routine);
-            }
             End();
         }
     }

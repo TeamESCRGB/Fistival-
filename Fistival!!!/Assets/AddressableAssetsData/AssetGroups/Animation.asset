@@ -14,7 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Animation
   m_GUID: f4c80725b71ef2749962c2ef1b3ebcab
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 67b12fad4a93f68418922bec1703ab02
+    m_Address: TurtleAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a1a80e436fb0d0444945aa2611d78a63
+    m_Address: BatAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4dc13695fcaaa340938220e410f44e4
+    m_Address: FrogAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
   m_SchemaSet:

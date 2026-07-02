@@ -15,9 +15,12 @@ namespace Coordinator.MobActs
 
         private bool _isMoving;
 
+        private bool _isActing;
+
         public void Init(Action onEnd, Animator animator, PlatformerMovementCoordinator movCoord, Rigidbody2D rb2d, float maxSpeed,float jumpDelay)
         {
             Init(onEnd,animator);
+            _isActing = false;
             _maxSpeed = maxSpeed;
             _rb2d = rb2d;
             _mov = movCoord;
@@ -37,6 +40,7 @@ namespace Coordinator.MobActs
             {
                 _mov.OnRightMovementInputEvent(true);
             }
+            _animator.SetTrigger("Move");
         }
 
         public void Jump()
@@ -46,6 +50,7 @@ namespace Coordinator.MobActs
             _mov.OnRightMovementInputEvent(false);
             _mov.OnJumpMovementInputEvent(true);
             _isMoving = true;
+            _animator.SetTrigger("Jump");
         }
         private IEnumerator ActRoutine()
         {
@@ -76,12 +81,13 @@ namespace Coordinator.MobActs
 
         public override void Act()
         {
+            _isActing = true;
             _routine = StartCoroutine(ActRoutine());
         }
 
         public override void StopAct()
         {
-            if (_routine != null)
+            if(_routine != null && _isActing)
             {
                 StopCoroutine(_routine);
             }
