@@ -31,9 +31,9 @@ namespace Coordinator.MobActs
             _grabBox = transform.Find("@FlyingdiscGrabBox");
         }
 
-        public void Init(Action onEnd, string objKey, int objDataIdx ,int damage, float stunTime, float returnDuration, float movLen, LayerMask objectizableLayer, LayerMask playerHitboxLayer)
+        public void Init(Action onEnd, Animator animator, string objKey, int objDataIdx ,int damage, float stunTime, float returnDuration, float movLen, LayerMask objectizableLayer, LayerMask playerHitboxLayer)
         {
-            base.Init(onEnd);
+            base.Init(onEnd,animator);
             _playerHitboxLayer= playerHitboxLayer;
             _isActing = false;
             _returnCode = -666775;

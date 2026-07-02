@@ -49,7 +49,7 @@ namespace Coordinator.Mobs
             _isAggroOn = false;
             _skillTime = _skillDelay;
             GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
-            _act.Init(() => { _isActing = false; }, _objKey, _objIdx, _damage, _stunTime, _returnDuration,  _movLen * Mathf.Sign(transform.right.x), _objectizableLayer, data.PlayerHitboxLayer);//소환하는것들 인자에 보는 방향 넣어주도록 수정하기
+            _act.Init(() => { _isActing = false; }, _animator, _objKey, _objIdx, _damage, _stunTime, _returnDuration,  _movLen * Mathf.Sign(transform.right.x), _objectizableLayer, data.PlayerHitboxLayer);//소환하는것들 인자에 보는 방향 넣어주도록 수정하기
         }
 
         protected override void OnAggroStateChanged(bool isAggroOn, Collider2D player)

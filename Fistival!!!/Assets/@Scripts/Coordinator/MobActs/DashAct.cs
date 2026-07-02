@@ -15,9 +15,9 @@ namespace Coordinator.MobActs
         private float _speed;
         private Vector2 _force;
 
-        public void Init(Action onEnd, PlatformerMovementCoordinator movCoord, Rigidbody2D rb2d, float dashSpeed)
+        public void Init(Action onEnd, Animator animator, PlatformerMovementCoordinator movCoord, Rigidbody2D rb2d, float dashSpeed)
         {
-            Init(onEnd);
+            Init(onEnd,animator);
             _speed = dashSpeed;
             _myTransform = rb2d.transform;
             _mov= movCoord;

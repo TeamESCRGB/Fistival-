@@ -14,9 +14,9 @@ namespace Coordinator.MobActs
         private float _tongueLength;
         private Sequence _tongueSeq;
 
-        public void Init(Action onEnd, float tongueDuration, float tongueStayDuration, float tongueLength)
+        public void Init(Action onEnd,Animator animator ,float tongueDuration, float tongueStayDuration, float tongueLength)
         {
-            base.Init(onEnd);
+            base.Init(onEnd,animator);
             if(_tongueSeq.IsActive())
             {
                 _tongueSeq.Kill();

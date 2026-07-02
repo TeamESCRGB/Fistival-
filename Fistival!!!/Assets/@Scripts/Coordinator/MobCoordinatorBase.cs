@@ -24,6 +24,7 @@ namespace Coordinator
         protected CooldownComponentModule _stunCounter;
         protected IMovementLockable _movLock;
 
+        protected Animator _animator;
         private void Awake()
         {
             OnAwake();
@@ -52,6 +53,7 @@ namespace Coordinator
         {
             _rb2d = GetComponent<Rigidbody2D>();
             _movLock = GetComponentInChildren<IMovementLockable>();
+            _animator= GetComponent<Animator>();
         }
 
         protected virtual void OnStart()

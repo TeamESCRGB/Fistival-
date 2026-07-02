@@ -15,9 +15,9 @@ namespace Coordinator.MobActs
 
         private bool _isMoving;
 
-        public void Init(Action onEnd, PlatformerMovementCoordinator movCoord, Rigidbody2D rb2d, float maxSpeed,float jumpDelay)
+        public void Init(Action onEnd, Animator animator, PlatformerMovementCoordinator movCoord, Rigidbody2D rb2d, float maxSpeed,float jumpDelay)
         {
-            Init(onEnd);
+            Init(onEnd,animator);
             _maxSpeed = maxSpeed;
             _rb2d = rb2d;
             _mov = movCoord;

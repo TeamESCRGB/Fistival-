@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace Coordinator
@@ -9,10 +7,12 @@ namespace Coordinator
     {
         protected Action _onActEnd;
         protected Coroutine _routine;
-        public virtual void Init(Action onActionEnd)
+        protected Animator _animator;
+        public virtual void Init(Action onActionEnd, Animator animator)
         {
             _onActEnd = onActionEnd;
             _routine = null;
+            _animator = animator;
         }
 
         public abstract void StopAct();

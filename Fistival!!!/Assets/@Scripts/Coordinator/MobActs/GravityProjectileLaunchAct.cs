@@ -17,9 +17,9 @@ namespace Assets._Scripts.Coordinator.MobActs
         //애니메이터도 추가할것
         //소리도
 
-        public void Init(Action onEnd, int projectileIdx,int shootCnt ,float shootTimeInterval, LayerMask attackTargetMask)
+        public void Init(Action onEnd,Animator animator ,int projectileIdx,int shootCnt ,float shootTimeInterval, LayerMask attackTargetMask)
         {
-            Init(onEnd);
+            Init(onEnd,animator);
             _isRunning = false;
             _target = attackTargetMask;
             _waiter = new WaitForSeconds(shootTimeInterval);
