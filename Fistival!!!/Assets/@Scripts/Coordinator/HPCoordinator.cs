@@ -86,8 +86,8 @@ namespace Coordinator
             OnHPChanged?.Invoke(old, _hpModule.GetHP(), hp);
             if(ret)
             {
-                OnDead?.Invoke();
                 _isDead = true;
+                OnDead?.Invoke();
             }
         }
 
