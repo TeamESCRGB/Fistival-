@@ -76,7 +76,7 @@ namespace Coordinator.Stages
                 Managers.Instance.ResourceManager.Destroy(go);
                 return null;
             }
-            go.transform.position = point.SpawnPoint.position;
+            go.transform.SetPositionAndRotation(point.SpawnPoint.position, point.SpawnPoint.rotation);
             return coord;
         }
 
