@@ -5,6 +5,7 @@ using Manager;
 using Data.NonLodable;
 using Coordinator.Objects;
 using Coordinator.Items;
+using Data;
 
 namespace Coordinator.Stages
 {
@@ -62,6 +63,23 @@ namespace Coordinator.Stages
             ClearAllObjects();
         }
 
+        private TCoord Spawn<TCoord, TInitData>(in SpawnPointStruct point, TInitData spawnData) where TCoord : UnityEngine.Object
+        {
+            var go = Managers.Instance.ResourceManager.Instantiate(point.PrefabName, null, false, true);
+            if(go == null)
+            {
+                return null;
+            }
+
+            if(go.TryGetComponent<TCoord>(out var coord) == false)
+            {
+                Managers.Instance.ResourceManager.Destroy(go);
+                return null;
+            }
+            go.transform.position = point.SpawnPoint.position;
+            return coord;
+        }
+
         public virtual void InitObjects()
         {
             for(int i = 0; i < _mobSpawnPoints.Length; i++)
@@ -70,19 +88,11 @@ namespace Coordinator.Stages
                 {
                     continue;
                 }
-
-                var go = Managers.Instance.ResourceManager.Instantiate(_mobSpawnPoints[i].PrefabName,null,false,true);
-                if(go == null)
+                var coord = Spawn<MobCoordinatorBase, CommonMobData>(_mobSpawnPoints[i], data);
+                if(coord != null)
                 {
-                    continue;
+                    coord.Init(data);
                 }
-                go.transform.position = _mobSpawnPoints[i].SpawnPoint.position;
-                if (go.TryGetComponent<MobCoordinatorBase>(out var coord) == false)
-                {
-                    Managers.Instance.ResourceManager.Destroy(go);
-                    continue;
-                }
-                coord.Init(data);
             }
 
             for (int i = 0; i < _bossSpawnPoints.Length; i++)
@@ -92,6 +102,7 @@ namespace Coordinator.Stages
                     continue;
                 }
 
+                //보스몹용 데이터 추가 필요
                 var go = Managers.Instance.ResourceManager.Instantiate(_bossSpawnPoints[i].PrefabName, null, false, true);
                 if (go != null)
                 {
@@ -105,19 +116,11 @@ namespace Coordinator.Stages
                 {
                     continue;
                 }
-
-                var go = Managers.Instance.ResourceManager.Instantiate(_itemSpawnPoints[i].PrefabName, null, false, true);
-                if (go == null)
+                var coord = Spawn<HealItem, HealItemData>(_itemSpawnPoints[i], data);
+                if(coord != null)
                 {
-                    continue;
+                    coord.Init(data.Idx);
                 }
-                go.transform.position = _itemSpawnPoints[i].SpawnPoint.position;
-                if (go.TryGetComponent<HealItem>(out var coord) == false)
-                {
-                    Managers.Instance.ResourceManager.Destroy(go);
-                    continue;
-                }
-                coord.Init(data.Idx);
             }
 
             for (int i = 0; i < _objectSpawnPoints.Length; i++)
@@ -126,19 +129,12 @@ namespace Coordinator.Stages
                 {
                     continue;
                 }
-
-                var go = Managers.Instance.ResourceManager.Instantiate(_objectSpawnPoints[i].PrefabName, null, false, true);
-                if (go == null)
+                var coord = Spawn<ObjectCoordinator, ObjectData>(_objectSpawnPoints[i], data);
+                if(coord != null)
                 {
-                    continue;
+                    coord.Init(data);
                 }
-                go.transform.position = _objectSpawnPoints[i].SpawnPoint.position;
-                if (go.TryGetComponent<ObjectCoordinator>(out var coord) == false)
-                {
-                    Managers.Instance.ResourceManager.Destroy(go);
-                    continue;
-                }
-                coord.Init(data);
+                
             }
         }
 
@@ -182,3 +178,46 @@ namespace Coordinator.Stages
 
     }
 }
+
+#if false
+
+
+                var go = Managers.Instance.ResourceManager.Instantiate(_mobSpawnPoints[i].PrefabName,null,false,true);
+                if(go == null)
+                {
+                    continue;
+                }
+                go.transform.position = _mobSpawnPoints[i].SpawnPoint.position;
+                if (go.TryGetComponent<MobCoordinatorBase>(out var coord) == false)
+                {
+                    Managers.Instance.ResourceManager.Destroy(go);
+                    continue;
+                }
+                coord.Init(data);
+
+                var go = Managers.Instance.ResourceManager.Instantiate(_itemSpawnPoints[i].PrefabName, null, false, true);
+                if (go == null)
+                {
+                    continue;
+                }
+                go.transform.position = _itemSpawnPoints[i].SpawnPoint.position;
+                if (go.TryGetComponent<HealItem>(out var coord) == false)
+                {
+                    Managers.Instance.ResourceManager.Destroy(go);
+                    continue;
+                }
+                coord.Init(data.Idx);
+
+                var go = Managers.Instance.ResourceManager.Instantiate(_objectSpawnPoints[i].PrefabName, null, false, true);
+                if (go == null)
+                {
+                    continue;
+                }
+                go.transform.position = _objectSpawnPoints[i].SpawnPoint.position;
+                if (go.TryGetComponent<ObjectCoordinator>(out var coord) == false)
+                {
+                    Managers.Instance.ResourceManager.Destroy(go);
+                    continue;
+                }
+                coord.Init(data);
+#endif
