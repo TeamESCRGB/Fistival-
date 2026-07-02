@@ -87,6 +87,7 @@ namespace Coordinator
 
             if (((1 << go.layer) & _layer) != 0)
             {
+                
                 if (go.TryGetComponent<IAttackable>(out var comp))
                 {
                     Managers.Instance.AttackManager.RequestAttack(comp, _skill, _damage, _rb2d.linearVelocity, _stun);
@@ -116,7 +117,7 @@ namespace Coordinator
             if (result != null)
             {
                 _isObjectized = true;
-                if(result.TryGetComponent<IAttackable>(out var comp))
+                if (result.gameObject.TryGetComponent<IAttackable>(out var comp))
                 {
                     Managers.Instance.AttackManager.RequestAttack(comp, _skill, _damage, _rb2d.linearVelocity, _stun);
                 }

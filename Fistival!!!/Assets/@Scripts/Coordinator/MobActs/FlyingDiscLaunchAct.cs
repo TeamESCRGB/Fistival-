@@ -19,7 +19,7 @@ namespace Coordinator.MobActs
         private LayerMask _objectizableLayer;
         [SerializeField]
         private LayerMask _objectLayer;
-
+        private LayerMask _playerHitboxLayer;
         private Transform _grabBox;
 
         private bool _isActing;
@@ -31,9 +31,10 @@ namespace Coordinator.MobActs
             _grabBox = transform.Find("@FlyingdiscGrabBox");
         }
 
-        public void Init(Action onEnd, string objKey, int objDataIdx ,int damage, float stunTime, float returnDuration, float movLen, LayerMask objectizableLayer)
+        public void Init(Action onEnd, string objKey, int objDataIdx ,int damage, float stunTime, float returnDuration, float movLen, LayerMask objectizableLayer, LayerMask playerHitboxLayer)
         {
             base.Init(onEnd);
+            _playerHitboxLayer= playerHitboxLayer;
             _isActing = false;
             _returnCode = -666775;
             _objDataIdx = objDataIdx;
@@ -89,6 +90,7 @@ namespace Coordinator.MobActs
                 return;
             }
             go.GetComponent<ObjectCoordinator>().Init(data);
+            go.GetComponent<ObjectCoordinator>().SetAttackableLayer(_playerHitboxLayer);
             go.transform.position = transform.position;
             var attackToObj = go.GetComponent<AttackToObject>();
             attackToObj.Init(_duration, _movLen, _objectizableLayer, _damage, _stunTime);
