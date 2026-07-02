@@ -64,7 +64,8 @@ namespace Coordinator
         public virtual void Init(CommonMobData data)
         {
             GetComponentInChildren<VictimCoordinator>().Init(data.HP, data.HP, data.InvincibilityTime);
-
+            _animator.runtimeAnimatorController = Managers.Instance.ResourceManager.Load<RuntimeAnimatorController>(data.AnimationController);
+            _animator.Rebind();
             var hp = GetComponentInChildren<HPCoordinator>();
             hp.UnSubscribeOnDead(OnDead);
             hp.UnSubscribeOnHPChanged(OnHPChanged);
@@ -82,7 +83,6 @@ namespace Coordinator
             }
             _stunCounter = Managers.Instance.CooldownManager.GetCooldownModule(0);
             _stunCounter.OnCooldownEnded += OnStunEnd;
-            //애니메이터 달기
         }
 
         protected abstract void OnAggroStateChanged(bool isAggroOn, Collider2D player);
