@@ -28,13 +28,22 @@ namespace Assets._Scripts.Coordinator.MobActs
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
         }
 
+        public void Launch()
+        {
+            ProjectileLaunchHelper.LaunchGravityProjectile(_target,_projectileIdx,transform.position, _player);
+        }
+
+        public void End()
+        {
+            _onActEnd?.Invoke();
+        }
+
         private IEnumerator ActRoutine()
         {
             _isRunning = true;
-            var pos = transform.position;
             for (int i = 0; i < _shootCnt; i++)
             {
-                ProjectileLaunchHelper.LaunchGravityProjectile(_target, _projectileIdx, pos, _player);
+                Launch();
                 yield return _waiter;
             }
             _isRunning = false;

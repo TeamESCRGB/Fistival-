@@ -26,24 +26,21 @@ namespace Coordinator.MobActs
             _isMoving = false;
         }
 
-        private IEnumerator ActRoutine()
-        {
-            _mov.SetMaxSpeed(_maxSpeed);
-            if (_player.position.x < transform.position.x)
-            {
-                _mov.OnLeftMovementInputEvent(true);
-            }
-            else
-            {
-                _mov.OnRightMovementInputEvent(true);
-            }
+        public void Move();
 
-            yield return _jumpDelay;
+        public void Jump()
+        {
             _mov.SetMaxSpeed(0);
             _mov.OnLeftMovementInputEvent(false);
             _mov.OnRightMovementInputEvent(false);
             _mov.OnJumpMovementInputEvent(true);
             _isMoving = true;
+        }
+        private IEnumerator ActRoutine()
+        {
+            Move();
+            yield return _jumpDelay;
+            Jump();
         }
 
         private void FixedUpdate()
