@@ -98,6 +98,21 @@
       "StunTime": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
       "ProjectilePrefabName": "NoGrav_1b1_Explodable_CircleProjectile"
+    },
+
+
+
+    {
+      "IDX": 6,
+      "ExplodableLayerMask": 1032,
+      "Speed": 8,
+      "Damage": 2,
+      "ExplosionKnockBack": 0.25,
+      "Lifetime": 100,
+      "AttackRadius": 0.5,
+      "StunTime": 0.5,
+      "Physics2DMaterialName": "NoBounceNoFric",
+      "ProjectilePrefabName": "SwordSlashProjectile"
     }
   ]
 }
