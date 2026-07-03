@@ -325,6 +325,10 @@ MonoBehaviour:
   _slashProjectileIdx: 6
   _slashCnt: 3
   _jumpForce: 50
+  _slamDropObjPrefab: FlyingDiscObject
+  _slamDropObjIdx: 4
+  _slamDropObjCnt: 2
+  _slamDropObjForce: 5
 --- !u!114 &6662562585864053630
 MonoBehaviour:
   m_ObjectHideFlags: 0

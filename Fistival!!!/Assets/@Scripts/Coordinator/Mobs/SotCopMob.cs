@@ -27,20 +27,30 @@ namespace Coordinator.Mobs
 
         protected PlatformerMovementCoordinator _move;
 
-        private MobActBase[] _acts = new MobActBase[1];
+        private MobActBase[] _acts = new MobActBase[2];
 
-
+        [SerializeField]
+        private float _jumpForce;
 
         protected Transform _player;
         protected bool _isActing;
         protected float _skillTime;
+
+        [SerializeField]
+        private string _slamDropObjPrefab;
+        [SerializeField]
+        private int _slamDropObjIdx;
+        [SerializeField]
+        private int _slamDropObjCnt;
+        [SerializeField]
+        private float _slamDropObjForce;
 
         protected override void OnAwake()
         {
             base.OnAwake();
             _move = GetComponentInChildren<PlatformerMovementCoordinator>();
             _acts[0] = GetComponent<ProjectileLaunchAct>();
-            //_acts[1] = GetComponent<ProjectileLaunchAct>();
+            _acts[1] = GetComponent<SlamAct>();
             //_acts[2] = GetComponent<ProjectileLaunchAct>();
         }
 
@@ -53,6 +63,7 @@ namespace Coordinator.Mobs
             GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             _move.Init(data.Speed, _jumpPow, 1, 1, GetComponent<Rigidbody2D>());
             ((ProjectileLaunchAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _slashProjectileIdx, _slashCnt, data.PlayerHitboxLayer);
+            ((SlamAct)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(),_slamDropObjPrefab,_slamDropObjIdx,_slamDropObjCnt ,_player, _jumpForce, _slamDropObjForce,_groundLayer);
         }
 
         private void Update()
@@ -87,7 +98,7 @@ namespace Coordinator.Mobs
                 _move.OnRightMovementInputEvent(false);
             }
 
-            _acts[UnityEngine.Random.Range(0, _acts.Length)].Act();
+            _acts[1].Act();//UnityEngine.Random.Range(0, _acts.Length)
 
         }
 

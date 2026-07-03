@@ -1,29 +1,55 @@
-﻿using System;
+﻿using Coordinator.Objects;
+using Data;
+using Manager;
+using System;
 using UnityEngine;
 
 namespace Coordinator.MobActs
 {
     public class SlamAct : MobActBase
     {
-        private int _itemIdx;
-        private int _itemCnt;
+        private ObjectData _objData;
+        private string _prefabKey;
+        private int _objCnt;
         private Transform _player;
         private Vector2 _jumpForce;
         private Rigidbody2D _rb2d;
+        private float _objDropForce;
+        private bool _canSpawnObj;
+        private LayerMask _ground;
 
-        public void Init(Action onActionEnd, Animator animator, Rigidbody2D rb2d ,int itemIdx, int itemCnt, Transform player, float jumpForce)
+        public void Init(Action onActionEnd, Animator animator, Rigidbody2D rb2d ,string objPrefab, int objIdx, int objCnt, Transform player, float jumpForce, float objDropForce, LayerMask groundLayer)
         {
             base.Init(onActionEnd, animator);
+            _canSpawnObj = false;
+            _ground = groundLayer;
+            Managers.Instance.DataManager.ObjectDataDict.TryGetValue(objIdx, out _objData);
             _rb2d = rb2d;
-            _itemIdx= itemIdx;
-            _itemCnt= itemCnt;
+            _prefabKey = objPrefab;
+            _objCnt= objCnt;
             _player = player;
+            _objDropForce = objDropForce;
             _jumpForce = new Vector2(0, jumpForce);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-           
+            if(_canSpawnObj==false || _objData is null || ((1<<collision.collider.gameObject.layer)&_ground)==0)
+            {
+                return;
+            }
+            var pos = transform.position;
+            pos.y -= transform.lossyScale.y / 2;
+            for(int i = 0; i < _objCnt; i++)
+            {
+                float sign = (i & 1) == 1 ? 1 : -1;
+                var force = new Vector2(sign*_objDropForce,_objDropForce);
+                var obj = Managers.Instance.ResourceManager.Instantiate(_prefabKey, null, true, true).GetComponentInChildren<ObjectCoordinator>();
+                obj.transform.position = pos;
+                obj.Init(_objData);
+                obj.GetComponent<Rigidbody2D>().AddForce(force,ForceMode2D.Impulse);
+            }
+            _canSpawnObj = false;
         }
 
         public void SlamEnd()
@@ -36,6 +62,7 @@ namespace Coordinator.MobActs
             _rb2d.simulated = true;
             _rb2d.WakeUp();
             _rb2d.AddForce(-_jumpForce, ForceMode2D.Impulse);
+            _canSpawnObj = true;
         }
 
         public void Stay()
@@ -54,6 +81,7 @@ namespace Coordinator.MobActs
 
         public override void Act()
         {
+            _canSpawnObj = false;
             _animator.SetTrigger("Slam");
         }
 
