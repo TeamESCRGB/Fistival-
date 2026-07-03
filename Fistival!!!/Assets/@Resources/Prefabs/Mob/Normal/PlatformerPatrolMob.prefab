@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 8994772445462810203}
   - component: {fileID: 6566019591927991842}
   - component: {fileID: 6126119057128476245}
-  - component: {fileID: -3019882641190341527}
+  - component: {fileID: 3955867187551316069}
   - component: {fileID: 1137039208163065367}
   - component: {fileID: 2046108646850883627}
   - component: {fileID: 2732356926654115764}
@@ -413,7 +413,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-3019882641190341527
+--- !u!114 &3955867187551316069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -422,16 +422,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 9177942700750373024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65becc97f9299cb419a1854f302efb1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8034f2bae9bc28d49988aa8399cc4e59, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Mobs.ChasePlatformerPatrolMob
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Mobs.PlatformerPatrolMob
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
   _damage: 1
   _stunTime: 0.5
   _knockbackForce: 5
-  _aggroSpeed: 3
 --- !u!114 &1137039208163065367
 MonoBehaviour:
   m_ObjectHideFlags: 0
