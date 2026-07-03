@@ -33,6 +33,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6857e80a1b411ad45a6c2d59fb065d74
+    m_Address: CrestedGeckoAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7ff2637a165fb2e49b7d3990f6662da9
     m_Address: RaccoonAnimationController
     m_ReadOnly: 0
