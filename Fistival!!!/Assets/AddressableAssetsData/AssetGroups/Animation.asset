@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Animation
   m_GUID: f4c80725b71ef2749962c2ef1b3ebcab
   m_SerializeEntries:
+  - m_GUID: 4f589205ba332de49ab652e83594ae0d
+    m_Address: LeopardGeckoAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5e25d14133c0d1b4c842723c94dbae18
     m_Address: FlingFurryAnimationController
     m_ReadOnly: 0
@@ -35,6 +41,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a1a80e436fb0d0444945aa2611d78a63
     m_Address: BatAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d3ff0af37f56cff4b9b56db18a9006e9
+    m_Address: WalkingDalmatianAnimationController
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_0_loaded_0
