@@ -8,14 +8,14 @@ namespace Assets._Scripts.Coordinator.MobActs
 {
     public class GravityProjectileLaunchAct : MobActBase
     {
-        private int _projectileIdx;
-        private int _maxShootCnt;
-        private int _shootCnt = 0;
-        private LayerMask _target;
-        private Transform _player;
-        private bool _isStopped = false;
+        protected int _projectileIdx;
+        protected int _maxShootCnt;
+        protected int _shootCnt = 0;
+        protected LayerMask _target;
+        protected Transform _player;
+        protected bool _isStopped = false;
 
-        public void Init(Action onEnd,Animator animator ,int projectileIdx,int shootCnt ,float shootTimeInterval, LayerMask attackTargetMask)
+        public void Init(Action onEnd,Animator animator ,int projectileIdx,int shootCnt, LayerMask attackTargetMask)
         {
             Init(onEnd,animator);
             _isStopped = false;
@@ -25,7 +25,7 @@ namespace Assets._Scripts.Coordinator.MobActs
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
         }
 
-        public void Launch()
+        public virtual void Launch()
         {
             if (_shootCnt <= 0)
             {
