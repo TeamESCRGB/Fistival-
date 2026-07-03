@@ -24,6 +24,7 @@ namespace Coordinator
         protected CooldownComponentModule _stunCounter;
         protected IMovementLockable _movLock;
 
+        protected Animator _animator;
         private void Awake()
         {
             OnAwake();
@@ -52,6 +53,7 @@ namespace Coordinator
         {
             _rb2d = GetComponent<Rigidbody2D>();
             _movLock = GetComponentInChildren<IMovementLockable>();
+            _animator= GetComponent<Animator>();
         }
 
         protected virtual void OnStart()
@@ -62,7 +64,8 @@ namespace Coordinator
         public virtual void Init(CommonMobData data)
         {
             GetComponentInChildren<VictimCoordinator>().Init(data.HP, data.HP, data.InvincibilityTime);
-
+            _animator.runtimeAnimatorController = Managers.Instance.ResourceManager.Load<RuntimeAnimatorController>(data.AnimationController);
+            _animator.Rebind();
             var hp = GetComponentInChildren<HPCoordinator>();
             hp.UnSubscribeOnDead(OnDead);
             hp.UnSubscribeOnHPChanged(OnHPChanged);
@@ -80,17 +83,17 @@ namespace Coordinator
             }
             _stunCounter = Managers.Instance.CooldownManager.GetCooldownModule(0);
             _stunCounter.OnCooldownEnded += OnStunEnd;
-            //애니메이터 달기
         }
 
         protected abstract void OnAggroStateChanged(bool isAggroOn, Collider2D player);
 
-        protected virtual void OnDead()
+
+        public void AnimatorOnDead()
         {
             var go = Managers.Instance.ResourceManager.Instantiate(_dropObjectPrefab);
-            if(go != null)
+            if (go != null)
             {
-                if(go.TryGetComponent<ObjectCoordinator>(out var comp) == false || Managers.Instance.DataManager.ObjectDataDict.ContainsKey(_dropObjectIdx) == false)
+                if (go.TryGetComponent<ObjectCoordinator>(out var comp) == false || Managers.Instance.DataManager.ObjectDataDict.ContainsKey(_dropObjectIdx) == false)
                 {
                     Managers.Instance.ResourceManager.Destroy(go);
                 }
@@ -99,12 +102,22 @@ namespace Coordinator
                     comp.Init(Managers.Instance.DataManager.ObjectDataDict[_dropObjectIdx]);
                 }
             }
-            Managers.Instance.ResourceManager.Destroy(gameObject,true);
+            Managers.Instance.ResourceManager.Destroy(gameObject, true);
+        }
+
+        public void AnimatorOnHit()
+        {
+
+        }
+
+        protected virtual void OnDead()
+        {
+            _animator.SetTrigger("Dead");
         }
 
         protected virtual void OnHPChanged(int old, int now, int delta)
         {
-
+            _animator.SetTrigger("Hit");
         }
 
         public abstract void StunFor(float time);

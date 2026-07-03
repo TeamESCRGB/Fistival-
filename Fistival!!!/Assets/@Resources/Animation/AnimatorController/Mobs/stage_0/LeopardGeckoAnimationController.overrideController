@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LeopardGeckoAnimationController
+  m_Controller: {fileID: 9100000, guid: d3ff0af37f56cff4b9b56db18a9006e9, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c67b7a33630612f408e684e8adf7ba02, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 04868fd8c6236ff4fb487c6e947b2446, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4982fdbea3954244b98682f18c97c7c8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4b3c99f845fa4834bb7067412b0da111, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1b4513e79c678ee469d51bcff4434540, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e664c9c8462e02441807a656ea732526, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d3dd9138eaaa6cd49aed499955288c68, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f650908dc9dcdfe45a3ac12542de2ca6, type: 2}

@@ -9,49 +9,56 @@ namespace Assets._Scripts.Coordinator.MobActs
     public class GravityProjectileLaunchAct : MobActBase
     {
         private int _projectileIdx;
-        private WaitForSeconds _waiter;
-        private int _shootCnt;
+        private int _maxShootCnt;
+        private int _shootCnt = 0;
         private LayerMask _target;
         private Transform _player;
-        private bool _isRunning = false;
-        //애니메이터도 추가할것
-        //소리도
+        private bool _isStopped = false;
 
-        public void Init(Action onEnd, int projectileIdx,int shootCnt ,float shootTimeInterval, LayerMask attackTargetMask)
+        public void Init(Action onEnd,Animator animator ,int projectileIdx,int shootCnt ,float shootTimeInterval, LayerMask attackTargetMask)
         {
-            Init(onEnd);
-            _isRunning = false;
+            Init(onEnd,animator);
+            _isStopped = false;
             _target = attackTargetMask;
-            _waiter = new WaitForSeconds(shootTimeInterval);
             _projectileIdx = projectileIdx;
-            _shootCnt = shootCnt;
+            _maxShootCnt = shootCnt;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
         }
 
-        private IEnumerator ActRoutine()
+        public void Launch()
         {
-            _isRunning = true;
-            var pos = transform.position;
-            for (int i = 0; i < _shootCnt; i++)
+            if (_shootCnt <= 0)
             {
-                ProjectileLaunchHelper.LaunchGravityProjectile(_target, _projectileIdx, pos, _player);
-                yield return _waiter;
+                return;
             }
-            _isRunning = false;
-            _onActEnd?.Invoke();
+            _shootCnt--;
+            ProjectileLaunchHelper.LaunchGravityProjectile(_target,_projectileIdx,transform.position, _player);
+            _animator.SetInteger("ShootCnt", _shootCnt);
         }
+
+
+        public void End()
+        {
+            if(_isStopped == false)
+            {
+                _onActEnd?.Invoke();
+            }
+        }
+
 
         public override void Act()
         {
-            _routine = StartCoroutine(ActRoutine());
+            _isStopped = false;
+            _shootCnt = _maxShootCnt;
+            _animator.SetInteger("ShootCnt", _shootCnt);
+            _animator.SetTrigger("Shoot");
         }
 
         public override void StopAct()
         {
-            if(_routine != null && _isRunning)
-            {
-                StopCoroutine(_routine);
-            }
+            _isStopped = true;
+            _animator.SetInteger("ShootCnt", 0);
+            _shootCnt = 0;
             _onActEnd?.Invoke();
         }
     }

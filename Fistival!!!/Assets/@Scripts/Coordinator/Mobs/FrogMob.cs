@@ -51,7 +51,7 @@ namespace Coordinator.Mobs
                 _skills[i].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             }
             GetComponentInChildren<VictimConnector>().SetOriginal(GetComponentInChildren<VictimCoordinator>());
-            _act.Init(() => { _isActing = false; }, _tongueDuration,_tongueStayTime,_tongueLength);
+            _act.Init(() => { _isActing = false; }, _animator, _tongueDuration,_tongueStayTime,_tongueLength);
         }
         
         protected override void OnAggroStateChanged(bool isAggroOn, Collider2D player)

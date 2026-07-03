@@ -345,6 +345,7 @@ GameObject:
   - component: {fileID: 819431197234345762}
   - component: {fileID: 5945810399488930535}
   - component: {fileID: 3013779260428781050}
+  - component: {fileID: -8052905033847206173}
   m_Layer: 13
   m_Name: LeopardGecko
   m_TagString: Untagged
@@ -557,3 +558,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1539e5c713f8f8428dafbbb95c12a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.TriggerMovement.PlatfoermerTriggerMovementCoordinator
+--- !u!95 &-8052905033847206173
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6138066204905698410}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -46,7 +46,7 @@ namespace Coordinator.Mobs
             _isAggroOn = false;
             _skillTime = _skillDelay;
             GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
-            _act.Init(() => { _isActing = false; }, _projIdx, _shootCnt, _shootInterval, data.PlayerHitboxLayer);
+            _act.Init(() => { _isActing = false; },_animator ,_projIdx, _shootCnt, _shootInterval, data.PlayerHitboxLayer);
         }
 
         protected override void OnAggroStateChanged(bool isAggroOn, Collider2D player)

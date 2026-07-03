@@ -490,6 +490,7 @@ GameObject:
   - component: {fileID: 4118001657117622515}
   - component: {fileID: 8547069655944576511}
   - component: {fileID: 3533374063500808743}
+  - component: {fileID: 3222092674040230265}
   m_Layer: 13
   m_Name: TurtleMob
   m_TagString: Untagged
@@ -702,6 +703,28 @@ MonoBehaviour:
   _movState: 0
   _coyoteTime: 0.1
   _jumpBufferTime: 0.12
+--- !u!95 &3222092674040230265
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748275250505855412}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8106842383635676169
 GameObject:
   m_ObjectHideFlags: 0

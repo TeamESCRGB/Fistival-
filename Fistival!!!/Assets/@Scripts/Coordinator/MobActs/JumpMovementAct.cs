@@ -15,9 +15,12 @@ namespace Coordinator.MobActs
 
         private bool _isMoving;
 
-        public void Init(Action onEnd, PlatformerMovementCoordinator movCoord, Rigidbody2D rb2d, float maxSpeed,float jumpDelay)
+        private bool _isActing;
+
+        public void Init(Action onEnd, Animator animator, PlatformerMovementCoordinator movCoord, Rigidbody2D rb2d, float maxSpeed,float jumpDelay)
         {
-            Init(onEnd);
+            Init(onEnd,animator);
+            _isActing = false;
             _maxSpeed = maxSpeed;
             _rb2d = rb2d;
             _mov = movCoord;
@@ -26,7 +29,7 @@ namespace Coordinator.MobActs
             _isMoving = false;
         }
 
-        private IEnumerator ActRoutine()
+        public void Move()
         {
             _mov.SetMaxSpeed(_maxSpeed);
             if (_player.position.x < transform.position.x)
@@ -37,13 +40,23 @@ namespace Coordinator.MobActs
             {
                 _mov.OnRightMovementInputEvent(true);
             }
+            _animator.SetTrigger("Move");
+        }
 
-            yield return _jumpDelay;
+        public void Jump()
+        {
             _mov.SetMaxSpeed(0);
             _mov.OnLeftMovementInputEvent(false);
             _mov.OnRightMovementInputEvent(false);
             _mov.OnJumpMovementInputEvent(true);
             _isMoving = true;
+            _animator.SetTrigger("Jump");
+        }
+        private IEnumerator ActRoutine()
+        {
+            Move();
+            yield return _jumpDelay;
+            Jump();
         }
 
         private void FixedUpdate()
@@ -68,12 +81,13 @@ namespace Coordinator.MobActs
 
         public override void Act()
         {
+            _isActing = true;
             _routine = StartCoroutine(ActRoutine());
         }
 
         public override void StopAct()
         {
-            if (_routine != null)
+            if(_routine != null && _isActing)
             {
                 StopCoroutine(_routine);
             }
