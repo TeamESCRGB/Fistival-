@@ -51,7 +51,7 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 2,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "TestController"
+      "AnimationController": "WalkingDalmatianAnimationController"
     },
     {
       "Idx": 2,
@@ -68,7 +68,7 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "TestController"
+      "AnimationController": "YorkshireAnimationController"
     },
     {
       "Idx": 3,
@@ -120,7 +120,7 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "TestController"
+      "AnimationController": "LeopardGeckoAnimationController"
     },
     {
       "Idx": 6,

@@ -1,9 +1,6 @@
 ﻿using Coordinator.Objects;
-using Data;
 using Manager;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace Coordinator.MobActs
@@ -23,6 +20,9 @@ namespace Coordinator.MobActs
         private Transform _grabBox;
 
         private bool _isActing;
+        private bool _isReturning;
+
+        private AttackToObject _obj;
 
         private int _returnCode;
 
@@ -34,8 +34,10 @@ namespace Coordinator.MobActs
         public void Init(Action onEnd, Animator animator, string objKey, int objDataIdx ,int damage, float stunTime, float returnDuration, float movLen, LayerMask objectizableLayer, LayerMask playerHitboxLayer)
         {
             base.Init(onEnd,animator);
+            _obj = null;
             _playerHitboxLayer= playerHitboxLayer;
             _isActing = false;
+            _isReturning = false;
             _returnCode = -666775;
             _objDataIdx = objDataIdx;
             _objKey = objKey;
@@ -48,19 +50,27 @@ namespace Coordinator.MobActs
 
         private void OnObjectized()
         {
-            _isActing = false;
-            _returnCode = -666775;
-            _onActEnd?.Invoke();
+            if(_isActing)
+            {
+                _obj = null;
+                _isReturning = false;
+                _isActing = false;
+                _returnCode = -666775;
+                _onActEnd?.Invoke();
+            }
         }
 
         private void OnReturnStart()
         {
-            _isActing = true;
+            if(_isActing)
+            {
+                _isReturning = true;
+            }
         }
 
         private void FixedUpdate()
         {
-            if(_isActing == false)
+            if(_isReturning == false)
             {
                 return;
             }
@@ -89,31 +99,50 @@ namespace Coordinator.MobActs
             {
                 return;
             }
+            
             go.GetComponent<ObjectCoordinator>().Init(data);
             go.GetComponent<ObjectCoordinator>().SetAttackableLayer(_playerHitboxLayer);
             go.transform.position = transform.position;
-            var attackToObj = go.GetComponent<AttackToObject>();
-            attackToObj.Init(_duration, _movLen, _objectizableLayer, _damage, _stunTime);
-            attackToObj.OnObjectized += OnObjectized;
-            attackToObj.OnReturnStart += OnReturnStart;
+            _obj = go.GetComponent<AttackToObject>();
+            _obj.Init(_duration, _movLen, _objectizableLayer, _damage, _stunTime);
+            _obj.OnObjectized += OnObjectized;
+            _obj.OnReturnStart += OnReturnStart;
             _returnCode = go.GetInstanceID();
-            attackToObj.Launch();
+            _obj.Launch();
         }
 
         public void End()
         {
-            _isActing = false;
-            _onActEnd?.Invoke();
+            if(_isActing)
+            {
+                _isReturning = false;
+                _isActing = false;
+                _obj = null;
+                _animator.SetTrigger("Catch");
+                _onActEnd?.Invoke();
+            }
         }
 
         public override void Act()
         {
-            Launch();
+            _isActing = true;
+            _animator.SetTrigger("Launch");//Launch();
         }
 
         public override void StopAct()
         {
-
+            if (_isActing)
+            {
+                _isReturning = false;
+                _isActing = false;
+                if(_obj != null)
+                {
+                    _obj.OnObjectized -= OnObjectized;
+                    _obj.OnReturnStart -= OnReturnStart;
+                }
+                _obj = null;
+                _onActEnd?.Invoke();
+            }
         }
     }
 }

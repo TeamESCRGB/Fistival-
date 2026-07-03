@@ -39,6 +39,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 80b101b1a2b59994f8aa3f73e2f5bb79
+    m_Address: YorkshireAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a1a80e436fb0d0444945aa2611d78a63
     m_Address: BatAnimationController
     m_ReadOnly: 0
