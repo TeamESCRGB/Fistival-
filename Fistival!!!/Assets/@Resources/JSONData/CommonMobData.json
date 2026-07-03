@@ -38,13 +38,13 @@
     },
     {
       "Idx": 1,
-      "HP": 3,
+      "HP": 6,
       "InvincibilityTime": 1,
-      "Speed": 1,
+      "Speed": 5,
       "SkillDelay": 3,
       "AggroRange": {
-        "x": 0,
-        "y": 0
+        "x": 15,
+        "y": 7
       },
       "DropObjectIdx": 0,
       "PlayerLayer": 128,
@@ -57,7 +57,7 @@
       "Idx": 2,
       "HP": 3,
       "InvincibilityTime": 1,
-      "Speed": 1,
+      "Speed": 0,
       "SkillDelay": 3,
       "AggroRange": {
         "x": 15,
@@ -102,18 +102,18 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "TurtleAnimationController"
+      "AnimationController": "TestController"
     },
 
     {
       "Idx": 5,
-      "HP": 3,
+      "HP": 5,
       "InvincibilityTime": 1,
       "Speed": 0,
       "SkillDelay": 3,
       "AggroRange": {
-        "x": 5,
-        "y": 7
+        "x": 15,
+        "y": 5
       },
       "DropObjectIdx": 0,
       "PlayerLayer": 128,
@@ -129,7 +129,7 @@
       "Speed": 10,
       "SkillDelay": 3,
       "AggroRange": {
-        "x": 5,
+        "x": 9,
         "y": 5
       },
       "DropObjectIdx": 0,
