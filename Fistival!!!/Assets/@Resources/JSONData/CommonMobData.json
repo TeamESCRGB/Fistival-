@@ -91,7 +91,7 @@
       "Idx": 4,
       "HP": 40,
       "InvincibilityTime": 0.5,
-      "Speed": 0,
+      "Speed": 2,
       "SkillDelay": 3,
       "AggroRange": {
         "x": 0,

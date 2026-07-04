@@ -27,7 +27,7 @@ namespace Coordinator.Mobs
 
         protected PlatformerMovementCoordinator _move;
 
-        private MobActBase[] _acts = new MobActBase[2];
+        private MobActBase[] _acts = new MobActBase[3];
 
         [SerializeField]
         private float _jumpForce;
@@ -47,13 +47,16 @@ namespace Coordinator.Mobs
         [SerializeField]
         private LayerMask _attackLayer;
 
+        [SerializeField]
+        private float _dashStopTime;
+
         protected override void OnAwake()
         {
             base.OnAwake();
             _move = GetComponentInChildren<PlatformerMovementCoordinator>();
             _acts[0] = GetComponent<ProjectileLaunchAct>();
             _acts[1] = GetComponent<SlamAct>();
-            //_acts[2] = GetComponent<ProjectileLaunchAct>();
+            _acts[2] = GetComponent<LengthDashAct>();
         }
 
         public override void Init(CommonMobData data)
@@ -66,6 +69,7 @@ namespace Coordinator.Mobs
             _move.Init(data.Speed, _jumpPow, 1, 1, GetComponent<Rigidbody2D>());
             ((ProjectileLaunchAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _slashProjectileIdx, _slashCnt, data.PlayerHitboxLayer);
             ((SlamAct)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(),_slamDropObjPrefab,_slamDropObjIdx,_slamDropObjCnt ,_player, _jumpForce, _slamDropObjForce,_groundLayer,_attackLayer);
+            ((LengthDashAct)_acts[2]).Init(() => { _isActing = false; }, _animator, _move, GetComponent<Rigidbody2D>(), data.Speed, _dashStopTime);
         }
 
         private void Update()
@@ -100,7 +104,7 @@ namespace Coordinator.Mobs
                 _move.OnRightMovementInputEvent(false);
             }
 
-            _acts[1].Act();//UnityEngine.Random.Range(0, _acts.Length)
+            _acts[2].Act();//UnityEngine.Random.Range(0, _acts.Length)
 
         }
 

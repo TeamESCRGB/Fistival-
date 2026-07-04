@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 6662562585864053630}
   - component: {fileID: 6332164810350005981}
   - component: {fileID: 5464808160303889472}
+  - component: {fileID: 4940189273081590124}
   m_Layer: 13
   m_Name: SotCopMob
   m_TagString: Untagged
@@ -332,6 +333,8 @@ MonoBehaviour:
   _attackLayer:
     serializedVersion: 2
     m_Bits: 66112
+  _dashStopThreshold: 0.05
+  _dashStopTime: 2
 --- !u!114 &6662562585864053630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,6 +382,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8004fce9bcdc1143aa99ee46a3d9ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.MobActs.SlamAct
+--- !u!114 &4940189273081590124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3448054658280287163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf408e58c043c364ea2483344afd851f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.MobActs.LengthDashAct
 --- !u!1 &4788610765150113570
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,7 +661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9167650922605369834}
   - component: {fileID: 6822529560194980626}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: '@SlamAlert'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
