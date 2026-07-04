@@ -39,7 +39,7 @@ namespace Coordinator.Skills
             }
 
             var knockBackForce = _baseDamage * _knockbackForce;
-            var force = transform.right.x * knockBackForce;
+            var force = Mathf.Sign(transform.right.x) * knockBackForce;
             Managers.Instance.AttackManager.RequestAttack(comp, this, _baseDamage, new Vector2(force, knockBackForce), _baseStunTime);
         }
 
