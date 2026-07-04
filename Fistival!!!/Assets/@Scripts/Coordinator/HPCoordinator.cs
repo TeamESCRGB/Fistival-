@@ -50,7 +50,7 @@ namespace Coordinator
                 OnHPChanged?.Invoke(old, maxHP, maxHP - old);
             }
 
-            _hpModule.Init(Math.Clamp(old, 0, maxHP), maxHP);
+            _hpModule.Init(maxHP, maxHP);//문제
             bool isDeadOld = _isDead;
             _isDead = _hpModule.IsDead();
 
