@@ -12,7 +12,7 @@ namespace Coordinator.MobActs
         private PlatformerMovementCoordinator _mov;
         private Transform _player;
         private WaitForSeconds _jumpDelay;
-
+        private Coroutine _routine;
         private bool _isMoving;
 
         private bool _isActing;
@@ -20,6 +20,7 @@ namespace Coordinator.MobActs
         public void Init(Action onEnd, Animator animator, PlatformerMovementCoordinator movCoord, Rigidbody2D rb2d, float maxSpeed,float jumpDelay)
         {
             Init(onEnd,animator);
+            _routine = null;
             _isActing = false;
             _maxSpeed = maxSpeed;
             _rb2d = rb2d;
