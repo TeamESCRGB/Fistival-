@@ -44,6 +44,8 @@ namespace Coordinator.Mobs
         private int _slamDropObjCnt;
         [SerializeField]
         private float _slamDropObjForce;
+        [SerializeField]
+        private LayerMask _attackLayer;
 
         protected override void OnAwake()
         {
@@ -63,7 +65,7 @@ namespace Coordinator.Mobs
             GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             _move.Init(data.Speed, _jumpPow, 1, 1, GetComponent<Rigidbody2D>());
             ((ProjectileLaunchAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _slashProjectileIdx, _slashCnt, data.PlayerHitboxLayer);
-            ((SlamAct)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(),_slamDropObjPrefab,_slamDropObjIdx,_slamDropObjCnt ,_player, _jumpForce, _slamDropObjForce,_groundLayer);
+            ((SlamAct)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(),_slamDropObjPrefab,_slamDropObjIdx,_slamDropObjCnt ,_player, _jumpForce, _slamDropObjForce,_groundLayer,_attackLayer);
         }
 
         private void Update()

@@ -329,6 +329,9 @@ MonoBehaviour:
   _slamDropObjIdx: 4
   _slamDropObjCnt: 2
   _slamDropObjForce: 5
+  _attackLayer:
+    serializedVersion: 2
+    m_Bits: 66112
 --- !u!114 &6662562585864053630
 MonoBehaviour:
   m_ObjectHideFlags: 0

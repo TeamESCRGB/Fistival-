@@ -17,12 +17,19 @@ namespace Coordinator.MobActs
         private float _objDropForce;
         private bool _canSpawnObj;
         private LayerMask _ground;
+        private LayerMask _attackLayer;
+        private BoxCollider2D _hitbox;
+        private void Awake()
+        {
+            _hitbox = transform.Find("@Hitbox").GetComponent<BoxCollider2D>();
+        }
 
-        public void Init(Action onActionEnd, Animator animator, Rigidbody2D rb2d ,string objPrefab, int objIdx, int objCnt, Transform player, float jumpForce, float objDropForce, LayerMask groundLayer)
+        public void Init(Action onActionEnd, Animator animator, Rigidbody2D rb2d ,string objPrefab, int objIdx, int objCnt, Transform player, float jumpForce, float objDropForce, LayerMask groundLayer, LayerMask attackLayer)
         {
             base.Init(onActionEnd, animator);
             _canSpawnObj = false;
             _ground = groundLayer;
+            _attackLayer= attackLayer;
             Managers.Instance.DataManager.ObjectDataDict.TryGetValue(objIdx, out _objData);
             _rb2d = rb2d;
             _prefabKey = objPrefab;
@@ -30,12 +37,19 @@ namespace Coordinator.MobActs
             _player = player;
             _objDropForce = objDropForce;
             _jumpForce = new Vector2(0, jumpForce);
+            _hitbox.excludeLayers &= ~_attackLayer;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if(_canSpawnObj==false || _objData is null || ((1<<collision.collider.gameObject.layer)&_ground)==0)
+            if(_canSpawnObj == false)
             {
+                return;
+            }
+            _hitbox.excludeLayers &= ~_attackLayer;
+            if (_objData is null || ((1<<collision.collider.gameObject.layer)&_ground)==0)
+            {
+                _canSpawnObj = false;
                 return;
             }
             var pos = transform.position;
@@ -51,7 +65,7 @@ namespace Coordinator.MobActs
             }
             _canSpawnObj = false;
         }
-
+        //땅에 닿기 전까지 오브젝트,공격 레이어하고 충돌 안하게 하기
         public void SlamEnd()
         {
             _onActEnd?.Invoke();
@@ -82,6 +96,7 @@ namespace Coordinator.MobActs
         public override void Act()
         {
             _canSpawnObj = false;
+            _hitbox.excludeLayers |= _attackLayer;
             _animator.SetTrigger("Slam");
         }
 
