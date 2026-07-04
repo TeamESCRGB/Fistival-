@@ -12,12 +12,6 @@ namespace Coordinator.Mobs
     public class SotCopMob : MobCoordinatorBase
     {
         [SerializeField]
-        protected int _damage;
-        [SerializeField]
-        protected float _stunTime;
-        [SerializeField]
-        protected float _knockbackForce;
-        [SerializeField]
         protected float _jumpPow;
 
         [SerializeField]
@@ -104,7 +98,7 @@ namespace Coordinator.Mobs
                 _move.OnRightMovementInputEvent(false);
             }
 
-            _acts[2].Act();//UnityEngine.Random.Range(0, _acts.Length)
+            _acts[UnityEngine.Random.Range(0, _acts.Length)].Act();
 
         }
 

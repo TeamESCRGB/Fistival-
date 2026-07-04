@@ -22,7 +22,7 @@ namespace Coordinator.Skills
 
         private void Update()
         {
-            var col = Physics2D.OverlapBox(transform.position, transform.localScale, 0, _attackableLayers);
+            var col = Physics2D.OverlapBox(transform.position, transform.lossyScale, 0, _attackableLayers);
             if(col == null)
             {
                 return;
@@ -38,8 +38,9 @@ namespace Coordinator.Skills
                 return;
             }
 
-            var force = transform.forward.z * _baseDamage * _knockbackForce;
-            Managers.Instance.AttackManager.RequestAttack(comp, this, _baseDamage, new Vector2(force, force), _baseStunTime);
+            var knockBackForce = _baseDamage * _knockbackForce;
+            var force = Mathf.Sign(transform.right.x) * knockBackForce;
+            Managers.Instance.AttackManager.RequestAttack(comp, this, _baseDamage, new Vector2(force, knockBackForce), _baseStunTime);
         }
 
 

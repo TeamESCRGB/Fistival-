@@ -79,7 +79,7 @@ namespace Coordinator.MobActs
             _canSpawnObj = true;
         }
 
-        public void Stay()
+        public void SlamStay()
         {
             var pos = _rb2d.transform.position;
             pos.x = _player.position.x;

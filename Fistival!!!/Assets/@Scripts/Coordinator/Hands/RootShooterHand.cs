@@ -206,7 +206,7 @@ namespace Coordinator.Hands
         private void Attack() //이건 순수히 공격만 하고 패닝/단일샷 이거는 호출부에서 생각
         {
             _bulletCnt--;
-            var enemies = Physics2D.OverlapCircleAll(_attackBox.position, _attackBox.localScale.x / 2, _attackableMask);
+            var enemies = Physics2D.OverlapCircleAll(_attackBox.position, _attackBox.lossyScale.x / 2, _attackableMask);
 
             if (enemies is null)
             {

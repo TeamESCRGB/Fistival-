@@ -8,12 +8,6 @@ namespace Coordinator.Mobs
 {
     public class FlightPatrolMob : MobCoordinatorBase
     {
-        [SerializeField]
-        protected int _damage;
-        [SerializeField]
-        protected float _stunTime;
-        [SerializeField]
-        protected float _knockbackForce;
         protected FlightTriggerMovementCoordinator _move;
         
 

@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace ComponentModule
 {
     public class HPComponentModule
@@ -41,7 +43,9 @@ namespace ComponentModule
         /// <returns></returns>
         public bool SubHP(int hp)
         {
+            int told = _hp;
             _hp -= hp;
+            UnityEngine.Debug.Log($"delta:{hp} max:{_maxHP} now:{_hp} old:{told}");
             return IsDead();
         }
 

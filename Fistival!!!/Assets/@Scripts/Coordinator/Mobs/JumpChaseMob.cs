@@ -14,14 +14,6 @@ namespace Coordinator.Mobs
     public class JumpChaseMob : MobCoordinatorBase
     {
         [SerializeField]
-        protected int _damage;
-        [SerializeField]
-        protected float _stunTime;
-        [SerializeField]
-        protected float _knockbackForce;
-
-
-        [SerializeField]
         protected float _jumpDelay;
         [SerializeField]
         protected float _jumpPow;

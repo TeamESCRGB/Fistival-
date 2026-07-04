@@ -29,7 +29,7 @@ namespace Coordinator.MobActs
             _tongueLength = tongueLength;
         }
 
-        public void StartAct()
+        public void StartTongueAct()
         {
             if (_tongueSeq.IsActive())
             {
@@ -38,7 +38,7 @@ namespace Coordinator.MobActs
             _tongueSeq = DOTween.Sequence();
             _tongueSeq.Append(_tongueTransform.DOScaleX(_tongueLength, _tongDuration).From(0));
             _tongueSeq.AppendInterval(_tongueStayDuration);
-            _tongueSeq.Append(_tongueTransform.DOScaleX(0, _tongDuration).OnComplete(OnEnd));
+            _tongueSeq.Append(_tongueTransform.DOScaleX(0, _tongDuration).OnComplete(OnTongueEnd));
             _tongueSeq.Play();
         }
 
@@ -47,7 +47,7 @@ namespace Coordinator.MobActs
             _animator.SetTrigger("TongueLaunch");
         }
 
-        private void OnEnd()
+        private void OnTongueEnd()
         {
             _animator.SetTrigger("TongueRollBack");
             _onActEnd?.Invoke();
@@ -62,7 +62,7 @@ namespace Coordinator.MobActs
             var a = _tongueTransform.localScale;
             a.x = 0;
             _tongueTransform.localScale = a;
-            OnEnd();
+            OnTongueEnd();
         }
     }
 }

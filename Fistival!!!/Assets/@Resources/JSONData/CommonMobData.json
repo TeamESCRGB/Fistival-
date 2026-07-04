@@ -3,6 +3,9 @@
     {
       "Idx": -666775,
       "HP": 6,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 1,
       "Speed": 5,
       "SkillDelay": 3,
@@ -22,6 +25,9 @@
     {
       "Idx": 0,
       "HP": 3,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 0.5,
       "Speed": 5,
       "SkillDelay": 3,
@@ -39,6 +45,9 @@
     {
       "Idx": 1,
       "HP": 6,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 1,
       "Speed": 5,
       "SkillDelay": 3,
@@ -56,6 +65,9 @@
     {
       "Idx": 2,
       "HP": 3,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 1,
       "Speed": 0,
       "SkillDelay": 3,
@@ -73,6 +85,9 @@
     {
       "Idx": 3,
       "HP": 3,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 0.5,
       "Speed": 5,
       "SkillDelay": 3,
@@ -90,6 +105,9 @@
     {
       "Idx": 4,
       "HP": 40,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 0.5,
       "Speed": 2,
       "SkillDelay": 3,
@@ -108,6 +126,9 @@
     {
       "Idx": 5,
       "HP": 5,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 1,
       "Speed": 0,
       "SkillDelay": 3,
@@ -125,6 +146,9 @@
     {
       "Idx": 6,
       "HP": 3,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 1,
       "Speed": 10,
       "SkillDelay": 3,
@@ -142,6 +166,9 @@
     {
       "Idx": 7,
       "HP": 5,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 0.5,
       "Speed": 0,
       "SkillDelay": 3,
@@ -159,6 +186,9 @@
     {
       "Idx": 8,
       "HP": 15,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 0.5,
       "Speed": 5,
       "SkillDelay": 3,
@@ -176,6 +206,9 @@
     {
       "Idx": 9,
       "HP": 3,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 0.5,
       "Speed": 5,
       "SkillDelay": 3,
@@ -193,6 +226,9 @@
     {
       "Idx": 10,
       "HP": 3,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 1,
       "Speed": 0,
       "SkillDelay": 3,
@@ -210,6 +246,9 @@
     {
       "Idx": 11,
       "HP": 3,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
       "InvincibilityTime": 1,
       "Speed": 0,
       "SkillDelay": 3,

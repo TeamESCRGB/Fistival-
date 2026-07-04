@@ -146,7 +146,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.1666666
-    functionName: Stay
+    functionName: SlamStay
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

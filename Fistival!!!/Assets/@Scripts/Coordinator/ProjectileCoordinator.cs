@@ -79,7 +79,7 @@ namespace Coordinator
 
         protected virtual void OnExplode()
         {
-            var enemies = Physics2D.OverlapCircleAll(_attackRange.position, _attackRange.localScale.x / 2, _targetLayer);
+            var enemies = Physics2D.OverlapCircleAll(_attackRange.position, _attackRange.lossyScale.x / 2, _targetLayer);
 
             if (enemies is null)
             {
@@ -101,7 +101,7 @@ namespace Coordinator
 
         protected virtual bool CanExplode()
         {
-            var obj = Physics2D.OverlapCircle(_activateRange.position, _activateRange.localScale.x / 2, _targetLayer);
+            var obj = Physics2D.OverlapCircle(_activateRange.position, _activateRange.lossyScale.x / 2, _targetLayer);
             return obj != null && obj.gameObject != null;
         }
 

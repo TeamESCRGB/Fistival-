@@ -6,6 +6,9 @@ namespace Data
     {
         public int Idx { get; set; }
         public int HP { get; set; }
+        public int TouchDamage { get; set; }
+        public float TouchStunTime { get; set; }
+        public float KnockBackForce { get; set; }
         public float InvincibilityTime { get; set; }
         public float Speed { get; set; }
         public float SkillDelay { get; set; }

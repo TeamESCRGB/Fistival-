@@ -82,13 +82,13 @@ namespace Coordinator.MobActs
                 if (targets[i].gameObject.GetInstanceID() == _returnCode)
                 {
                     Managers.Instance.ResourceManager.Destroy(targets[i].gameObject);
-                    End();
+                    EndFlyingDisc();
                     return;
                 }
             }
         }
 
-        public void Launch()
+        public void LaunchFlyingDisc()
         {
             if(Managers.Instance.DataManager.ObjectDataDict.TryGetValue(_objDataIdx, out var data) == false)
             {
@@ -111,7 +111,7 @@ namespace Coordinator.MobActs
             _obj.Launch();
         }
 
-        public void End()
+        public void EndFlyingDisc()
         {
             if(_isActing)
             {

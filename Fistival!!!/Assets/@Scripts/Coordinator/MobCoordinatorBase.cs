@@ -10,6 +10,9 @@ namespace Coordinator
 {
     public abstract class MobCoordinatorBase : MonoBehaviour, IStunnable
     {
+        protected int _damage;
+        protected float _stunTime;
+        protected float _knockbackForce;
         protected LayerMask _playerLayer;
         [SerializeField]
         protected LayerMask _groundLayer;
@@ -77,6 +80,9 @@ namespace Coordinator
             _skillDelay = data.SkillDelay;
             _dropObjectIdx = data.DropObjectIdx;
             _dropObjectPrefab = data.DropObjectPrefabName;
+            _damage = data.TouchDamage;
+            _stunTime = data.TouchStunTime;
+            _knockbackForce = data.KnockBackForce;
             if (_stunCounter is not null)
             {
                 Managers.Instance.CooldownManager.ReturnModule(_stunCounter);

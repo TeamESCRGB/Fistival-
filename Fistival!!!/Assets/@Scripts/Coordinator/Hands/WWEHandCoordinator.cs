@@ -197,7 +197,7 @@ namespace Coordinator.Hands
 
         private void Attack()
         {
-            if(Physics2D.OverlapBoxAll(_normalSkill.transform.position, _normalSkill.transform.localScale, 0, _attackableMask).Length <= 0)
+            if(Physics2D.OverlapBoxAll(_normalSkill.transform.position, _normalSkill.transform.lossyScale, 0, _attackableMask).Length <= 0)
             {
                 return;
             }

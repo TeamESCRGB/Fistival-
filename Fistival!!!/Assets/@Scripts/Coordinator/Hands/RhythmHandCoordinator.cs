@@ -36,7 +36,7 @@ namespace Coordinator.Hands
             /*
              판정에 따른 데미지 계수 곱하는거 빼면 로직은 기본가 똑같음
              */
-            var enemies = Physics2D.OverlapCircleAll(_attackBox.position, _attackBox.localScale.x / 2, _attackableMask);
+            var enemies = Physics2D.OverlapCircleAll(_attackBox.position, _attackBox.lossyScale.x / 2, _attackableMask);
             if(enemies is null)
             {
                 return;
@@ -104,7 +104,7 @@ namespace Coordinator.Hands
                     break;
             }
 
-            var hit = Physics2D.OverlapCircleAll(_attackBox.position, _attackBox.localScale.x * attackboxRange / 2, _attackableMask);
+            var hit = Physics2D.OverlapCircleAll(_attackBox.position, _attackBox.lossyScale.x * attackboxRange / 2, _attackableMask);
 
             if(hit == null)
             {
