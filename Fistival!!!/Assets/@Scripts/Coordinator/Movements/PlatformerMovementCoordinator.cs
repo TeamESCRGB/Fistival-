@@ -211,7 +211,7 @@ namespace Coordinator.Movements
                 return;
             }
 
-            var col = Physics2D.OverlapBox(_groundedCheckBox.position, _groundedCheckBox.localScale, 0, _platformMask);
+            var col = Physics2D.OverlapBox(_groundedCheckBox.position, _groundedCheckBox.lossyScale, 0, _platformMask);
             if (col != null)
             {
                 StartCoroutine(DisablePlatform(col));

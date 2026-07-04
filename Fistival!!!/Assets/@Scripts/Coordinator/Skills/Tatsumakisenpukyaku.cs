@@ -65,7 +65,7 @@ namespace Coordinator.Skills
         {
             _isAttack = true;
             _attackable.StartInvincibleTime();
-            _targetHeight = _rb2d.position.y + math.abs(_rb2d.transform.localScale.y);
+            _targetHeight = _rb2d.position.y + math.abs(_rb2d.transform.lossyScale.y);
             _rb2d.AddForce(_force,ForceMode2D.Impulse);
             _remainAttackTick = _attackCnt;
             _lastAttackTime = Time.time;
@@ -95,7 +95,7 @@ namespace Coordinator.Skills
                 _remainAttackTick--;
 
 
-                var enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0, _attackableLayers);
+                var enemies = Physics2D.OverlapBoxAll(transform.position, transform.lossyScale, 0, _attackableLayers);
 
                 int totalDmg = _baseDamage;
                 if (enemies is null)

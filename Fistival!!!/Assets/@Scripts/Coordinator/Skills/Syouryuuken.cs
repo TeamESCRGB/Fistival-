@@ -41,7 +41,7 @@ namespace Coordinator.Skills
             _pushable.PushTo(knockback);
             _attackable.StartInvincibleTime();
 
-            var enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0, _attackableLayers);
+            var enemies = Physics2D.OverlapBoxAll(transform.position, transform.lossyScale, 0, _attackableLayers);
 
             int totalDmg = _baseDamage;
             if (enemies is null)

@@ -112,7 +112,7 @@ namespace Coordinator
                 return;
             }
 
-            var result = Physics2D.OverlapBox(_checkBox.position, _checkBox.localScale, 0, _layer);
+            var result = Physics2D.OverlapBox(_checkBox.position, _checkBox.lossyScale, 0, _layer);
 
             if (result != null)
             {

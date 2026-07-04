@@ -22,7 +22,7 @@ namespace Coordinator.Skills
 
         private void Update()
         {
-            var col = Physics2D.OverlapBox(transform.position, transform.localScale, 0, _attackableLayers);
+            var col = Physics2D.OverlapBox(transform.position, transform.lossyScale, 0, _attackableLayers);
             if(col == null)
             {
                 return;

@@ -10,7 +10,7 @@ namespace Coordinator.Skills
     {
         public void Attack(AttackStatus attackStatus, int objectDmg, int strongAttackDamage, float strongStunTime)
         {
-            var enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0, _attackableLayers);
+            var enemies = Physics2D.OverlapBoxAll(transform.position, transform.lossyScale, 0, _attackableLayers);
 
             int totalDmg = _baseDamage;
             float stunTime = _baseStunTime;

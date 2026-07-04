@@ -59,7 +59,7 @@ namespace Coordinator.Objects.Weapons
             }
 
 
-            var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.localScale, 0, _attackableLayers);
+            var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.lossyScale, 0, _attackableLayers);
 
 
             if (enemies is null)

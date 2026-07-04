@@ -37,7 +37,7 @@ namespace Coordinator.Skills
             {
                 return;
             }
-            var enemies = Physics2D.OverlapBoxAll(_box.position, _box.localScale,0,_attackableLayers);
+            var enemies = Physics2D.OverlapBoxAll(_box.position, _box.lossyScale,0,_attackableLayers);
 
             if(enemies is null)
             {
