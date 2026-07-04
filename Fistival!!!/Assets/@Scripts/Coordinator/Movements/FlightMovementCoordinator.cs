@@ -37,7 +37,10 @@ namespace Coordinator.Movements
             _yMovState = _xMovState = MovementState.OFF;
             _isInputLocked = false;
         }
-
+        public void SetNowSpeed(Vector2 linearSpeed)
+        {
+            _parentRb2d.linearVelocity = linearSpeed;
+        }
         public void SetMaxSpeed(float speed)
         {
             _speed = speed;

@@ -47,7 +47,10 @@ namespace Coordinator.Movements.TriggerMovement
                 _flightMov.OnDownMovementInputEvent(true);
             }
         }
-
+        public void SetNowSpeed(Vector2 linearSpeed)
+        {
+            _flightMov.SetNowSpeed(linearSpeed);
+        }
         public void FollowTarget(float speed, Transform target)
         {
             _isFollowOn = true;
