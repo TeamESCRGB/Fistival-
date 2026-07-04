@@ -11,12 +11,6 @@ namespace Coordinator.Mobs
 {
     public class PlatformerPatrolMob : MobCoordinatorBase
     {
-        [SerializeField]
-        protected int _damage;
-        [SerializeField]
-        protected float _stunTime;
-        [SerializeField]
-        protected float _knockbackForce;
         protected PlatfoermerTriggerMovementCoordinator _move;
         
 

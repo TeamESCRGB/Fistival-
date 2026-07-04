@@ -12,12 +12,6 @@ namespace Coordinator.Mobs
     public class SotCopMob : MobCoordinatorBase
     {
         [SerializeField]
-        protected int _damage;
-        [SerializeField]
-        protected float _stunTime;
-        [SerializeField]
-        protected float _knockbackForce;
-        [SerializeField]
         protected float _jumpPow;
 
         [SerializeField]

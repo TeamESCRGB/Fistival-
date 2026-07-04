@@ -13,13 +13,6 @@ namespace Coordinator.Mobs
 {
     public class CrestedGeckoMob : MobCoordinatorBase, IPushable
     {
-        [SerializeField]
-        protected int _damage;
-        [SerializeField]
-        protected float _stunTime;
-        [SerializeField]
-        protected float _knockbackForce;
-
         protected bool _isActing;
         protected bool _isAggroOn;
         protected float _skillTime;
