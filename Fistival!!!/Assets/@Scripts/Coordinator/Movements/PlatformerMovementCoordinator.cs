@@ -99,6 +99,12 @@ namespace Coordinator.Movements
             _lockCnt = 0;
         }
 
+
+        public void SetNowSpeed(Vector2 linearSpeed)
+        {
+            _parentRb2d.linearVelocity = linearSpeed;
+        }
+
         private void FixedUpdate()
         {
             if(Managers.Instance.GameManager.IsGamePaused())

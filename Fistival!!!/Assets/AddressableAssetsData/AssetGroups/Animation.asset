@@ -57,6 +57,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd0f215c3921c8c4fa74c87c2805e15d
+    m_Address: SotCopAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d3ff0af37f56cff4b9b56db18a9006e9
     m_Address: WalkingDalmatianAnimationController
     m_ReadOnly: 0

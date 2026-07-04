@@ -29,8 +29,6 @@ namespace Coordinator.Mobs
         protected int _projIdx;
         [SerializeField]
         protected int _shootCnt;
-        [SerializeField]
-        protected float _shootInterval;
 
 
         protected override void OnAwake()
@@ -46,7 +44,7 @@ namespace Coordinator.Mobs
             _isAggroOn = false;
             _skillTime = _skillDelay;
             GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
-            _act.Init(() => { _isActing = false; },_animator ,_projIdx, _shootCnt, _shootInterval, data.PlayerHitboxLayer);
+            _act.Init(() => { _isActing = false; },_animator ,_projIdx, _shootCnt, data.PlayerHitboxLayer);
         }
 
         protected override void OnAggroStateChanged(bool isAggroOn, Collider2D player)

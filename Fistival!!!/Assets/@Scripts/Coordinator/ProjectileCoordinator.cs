@@ -22,6 +22,11 @@ namespace Coordinator
 
         private void Awake()
         {
+            OnAwake();
+        }
+
+        protected virtual void OnAwake()
+        {
             _rb2d = GetComponent<Rigidbody2D>();
             _skill = GetComponent<SkillCoordinatorBase>();
             _projActor = new ProjectileActor(_rb2d);

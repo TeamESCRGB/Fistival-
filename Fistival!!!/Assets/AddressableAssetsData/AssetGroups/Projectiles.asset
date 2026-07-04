@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d32cf65a3c0a40469a73a5d7337abf9
+    m_Address: SwordSlashProjectile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 24b4e1094233c1949ba9b5c5bf94ce76
     m_Address: TestProjectile3
     m_ReadOnly: 0

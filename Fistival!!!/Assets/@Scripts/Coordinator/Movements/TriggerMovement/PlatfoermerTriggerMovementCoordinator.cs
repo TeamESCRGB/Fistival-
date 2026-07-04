@@ -34,7 +34,10 @@ namespace Coordinator.TriggerMovement
                     break;
             }
         }
-
+        public void SetNowSpeed(Vector2 linearSpeed)
+        {
+            _platformerMov.SetNowSpeed(linearSpeed);
+        }
         public void FollowTarget(float speed, Transform target)
         {
             _isFollowOn=true;
