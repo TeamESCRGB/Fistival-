@@ -52,21 +52,21 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: Ready
+    functionName: DashReady
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.5
-    functionName: Dash
+    functionName: DoDash
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 2.5
-    functionName: End
+    functionName: DashEnd
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

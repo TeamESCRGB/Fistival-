@@ -40,7 +40,7 @@ namespace Coordinator.MobActs
             _myTransform.eulerAngles = eularAngle;
         }
 
-        public void Ready()
+        public void DashReady()
         {
             if (_player.position.x < transform.position.x)
             {
@@ -58,12 +58,12 @@ namespace Coordinator.MobActs
             }
         }
 
-        public void Dash()
+        public void DoDash()
         {
             _mov.PushTo(_force);
         }
 
-        private void End()
+        private void DashEnd()
         {
             if(_isEnd)
             {
@@ -81,7 +81,7 @@ namespace Coordinator.MobActs
 
         public override void StopAct()
         {
-            End();
+            DashEnd();
         }
     }
 }
