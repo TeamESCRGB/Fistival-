@@ -102,11 +102,14 @@ namespace Coordinator.Stages
                     continue;
                 }
 
-                //보스몹용 데이터 추가 필요
-                var go = Managers.Instance.ResourceManager.Instantiate(_bossSpawnPoints[i].PrefabName, null, false, true);
-                if (go != null)
+                if (Managers.Instance.DataManager.CommonMobDataDict.TryGetValue(_bossSpawnPoints[i].DataIdx, out var data) == false)
                 {
-                    go.transform.position = _bossSpawnPoints[i].SpawnPoint.position;
+                    continue;
+                }
+                var coord = Spawn<MobCoordinatorBase, CommonMobData>(_bossSpawnPoints[i], data);
+                if (coord != null)
+                {
+                    coord.Init(data);
                 }
             }
 
