@@ -98,7 +98,7 @@ namespace Coordinator.Mobs
                 _move.OnRightMovementInputEvent(false);
             }
 
-            _acts[2].Act();//UnityEngine.Random.Range(0, _acts.Length)
+            _acts[UnityEngine.Random.Range(0, _acts.Length)].Act();
 
         }
 
