@@ -21,6 +21,7 @@ namespace Scenes
 
             _hud = FindAnyObjectByType<PlayerHUD>();
             _hud.gameObject.SetActive(false);
+            Managers.Instance.StageManager.Init();
             Debug.Log($"{name} init complete");
         }
 

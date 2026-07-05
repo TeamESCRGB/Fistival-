@@ -181,7 +181,6 @@ namespace UI.Popup
                     return;
                 }
 
-                Managers.Instance.StageManager.Init();
                 Managers.Instance.StageManager.SetStageIDX(_stageIdx);
 
                 string loadKey = Managers.Instance.StageManager.GetStageData()?.FirstStageLoadedDatasName;

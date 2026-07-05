@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using UI.Popup;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Manager.Contents
 {
@@ -159,7 +158,6 @@ namespace Manager.Contents
 
         public void ReturnToLobby()
         {
-            Init();
             Managers.Instance.ResourceManager.LoadAsyncAllIn("LobbySceneLoaded", (_, now, max) => {
                 if (now == max)
                 {
