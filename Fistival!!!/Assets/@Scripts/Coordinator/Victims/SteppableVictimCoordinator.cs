@@ -19,6 +19,15 @@ namespace Coordinator.Victims
             }
 #endif
         }
+        public void SetAttackableState(bool canAttack)
+        {
+            _original.SetAttackableState(canAttack);
+        }
+
+        public bool IsAttackableStateOn()
+        {
+            return _original.IsAttackableStateOn();
+        }
 
         public bool CanAttack()
         {

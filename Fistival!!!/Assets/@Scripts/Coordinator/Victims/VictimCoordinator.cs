@@ -14,6 +14,7 @@ namespace Coordinator.Victims
         private HPCoordinator _hpCoord;
         private CooldownComponentModule _invincibilityTimeCounter = null;
         private int _maskedLayer = 0;
+        private bool _isAttackableOn;
         private void Awake()
         {
             _hpCoord = gameObject.GetOrAddComponent<HPCoordinator>();
@@ -28,9 +29,21 @@ namespace Coordinator.Victims
 
         public void Init(int hp, int maxHP, float invincibilityTime)
         {
+            _isAttackableOn = true;
             _maskedLayer = 1 << gameObject.layer;
             _hpCoord.Init(hp, maxHP);
             _invincibilityTimeCounter = Managers.Instance.CooldownManager.GetCooldownModule(invincibilityTime);
+        }
+
+
+        public void SetAttackableState(bool canAttack)
+        {
+            _isAttackableOn = canAttack;
+        }
+
+        public bool IsAttackableStateOn()
+        {
+            return _isAttackableOn;
         }
 
         private void OnDisable()
@@ -44,7 +57,7 @@ namespace Coordinator.Victims
 
         public bool CanAttack()
         {
-            if(_invincibilityTimeCounter is null)
+            if(_isAttackableOn == false || _invincibilityTimeCounter is null)
             {
                 return false;
             }

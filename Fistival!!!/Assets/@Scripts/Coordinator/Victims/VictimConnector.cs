@@ -7,6 +7,16 @@ namespace Coordinator.Victims
         private IAttackable _original;
         private int _maskedLayer = 0;
 
+        public void SetAttackableState(bool canAttack)
+        {
+            _original.SetAttackableState(canAttack);
+        }
+
+        public bool IsAttackableStateOn()
+        {
+            return _original.IsAttackableStateOn();
+        }
+
         public void SetOriginal(IAttackable original)
         {
             _original = original;

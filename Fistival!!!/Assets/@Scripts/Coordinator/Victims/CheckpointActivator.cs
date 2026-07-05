@@ -7,10 +7,21 @@ namespace Coordinator.Victims
     {
         private int _maskedLayer = 0;
         private CheckpointInteractor _checkpoint;
+        private bool _isAttackableOn;
         private void Start()
         {
+            _isAttackableOn = true;
             _checkpoint = transform.parent.GetComponent<CheckpointInteractor>();
             _maskedLayer = 1 << gameObject.layer;
+        }
+
+        public void SetAttackableState(bool canAttack)
+        {
+            _isAttackableOn = canAttack;
+        }
+        public bool IsAttackableStateOn()
+        {
+            return _isAttackableOn;
         }
 
         public void TakeDamage(int damage)
@@ -24,7 +35,7 @@ namespace Coordinator.Victims
         }
         public bool CanAttack()
         {
-            return _checkpoint.IsCheckpointChecked() == false;
+            return _isAttackableOn && _checkpoint.IsCheckpointChecked() == false;
         }
         #region UnusedFuncs
         public T RequestComponent<T>() where T : class
