@@ -4,6 +4,7 @@ using Coordinator.Victims;
 using Data;
 using System;
 using System.Collections.Generic;
+using UI;
 using UI.Popup;
 using UnityEngine;
 
@@ -127,7 +128,7 @@ namespace Manager.Contents
             {
                 chunk.chunk.InitChunk();
             }
-
+            GameObject.FindAnyObjectByType<PlayerHUD>().InitUIDatas();
         }
 
         private void OnFail()

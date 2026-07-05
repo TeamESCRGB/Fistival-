@@ -66,7 +66,6 @@ namespace UI
 
             modeManageCoord.OnModeChanged -= OnModeChanged;
             modeManageCoord.OnModeChanged += OnModeChanged;
-            playerCoord.GetComponentInChildren<HPCoordinator>().UnSubscribeOnHPChanged(OnHPChanged);
             playerCoord.GetComponentInChildren<HPCoordinator>().SubscribeOnHPChanged(OnHPChanged);
 
             GetObject((int)Objects.BossHPBarHUD).SetActive(false);
@@ -105,7 +104,9 @@ namespace UI
 
         private void OnModeChanged(ModeBase mode)
         {
-            mode.GetComponentInChildren<HandCoordinatorBase>().OnChargeRateChanged += OnChargeRateChanged;
+            mode.GetComponentInChildren<HandCoordinatorBase>().OnChargeRateChanged -= OnChargeRateChanged;
+            mode.GetComponentInChildren<HandCoordinatorBase>().OnChargeRateChanged -= OnChargeRateChanged;
+            mode.GetComponentInChildren<HandCoordinatorBase>().OnGrabbedObjectChanged += OnGrabbedObjectChanged;
             mode.GetComponentInChildren<HandCoordinatorBase>().OnGrabbedObjectChanged += OnGrabbedObjectChanged;
         }
 
