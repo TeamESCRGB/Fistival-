@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using DG.Tweening;
+using Utils;
 
 namespace Coordinator.MobActs
 {
@@ -16,7 +17,7 @@ namespace Coordinator.MobActs
 
         private void Awake()
         {
-            _tongueTransform = transform.Find("@Tongue");
+            _tongueTransform = gameObject.GetChild<Transform>("@Tongue",true);//transform.Find("@Tongue")
         }
 
         public void Init(Action onEnd,Animator animator ,float tongueDuration, float tongueStayDuration, float tongueMaxLength,int groundLayer=0)

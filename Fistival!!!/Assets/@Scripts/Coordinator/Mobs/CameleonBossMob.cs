@@ -71,7 +71,6 @@ namespace Coordinator.Mobs
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg * dirSign;
             Vector3 localeular = _head.localEulerAngles;
             _head.localRotation = Quaternion.Euler(localeular.x, localeular.y, angle);
-            return;
             if (_skillTime < _skillDelay)
             {
                 _skillTime += Time.deltaTime;
@@ -86,7 +85,7 @@ namespace Coordinator.Mobs
             _skillTime = 0;
             _isActing = true;
 
-            //_acts[UnityEngine.Random.Range(0, _acts.Length)].Act();
+            _acts[0].Act();//UnityEngine.Random.Range(0, _acts.Length)
 
         }
 

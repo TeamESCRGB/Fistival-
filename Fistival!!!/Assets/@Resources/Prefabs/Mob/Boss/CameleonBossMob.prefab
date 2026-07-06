@@ -492,9 +492,9 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  _tongueDuration: 0
-  _tongueStayTime: 0
-  _tongueLength: 0
+  _tongueDuration: 1
+  _tongueStayTime: 1
+  _tongueLength: 5
 --- !u!114 &-385067753951852318
 MonoBehaviour:
   m_ObjectHideFlags: 0
