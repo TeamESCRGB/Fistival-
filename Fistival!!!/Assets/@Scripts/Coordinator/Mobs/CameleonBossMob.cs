@@ -28,6 +28,7 @@ namespace Coordinator.Mobs
         public override void Init(CommonMobData data)
         {
             base.Init(data);
+            GetComponentInChildren<VictimConnector>().SetOriginal(GetComponentInChildren<VictimCoordinator>());
             _points = null;
             _isActing = false;
             _skillTime = _skillDelay;
