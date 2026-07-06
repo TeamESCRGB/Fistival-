@@ -225,23 +225,23 @@
     },
     {
       "Idx": 10,
-      "HP": 3,
+      "HP": 30,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
-      "KnockBackForce": 10,
+      "KnockBackForce": 5,
       "InvincibilityTime": 1,
       "Speed": 0,
       "SkillDelay": 3,
       "AggroRange": {
-        "x": 5,
-        "y": 5
+        "x": 0,
+        "y": 0
       },
       "DropObjectIdx": 0,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "TestController"
+      "AnimationController": "CameleonBossAnimationController"
     },
     {
       "Idx": 11,
