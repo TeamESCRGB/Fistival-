@@ -116,7 +116,7 @@ Rigidbody2D:
   m_LinearDamping: 1
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e6ca44f2e97af5a4a9448a70c973b77e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -188,9 +188,6 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  _damage: 1
-  _stunTime: 0.5
-  _knockbackForce: 5
   _tongueDuration: 1
   _tongueStayTime: 1
   _tongueLength: 5

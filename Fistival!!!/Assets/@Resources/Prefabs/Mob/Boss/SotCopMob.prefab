@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4060308376391611214}
   - component: {fileID: 6526029434084391935}
-  - component: {fileID: 6060135620028670963}
+  - component: {fileID: 2490579054375665956}
   - component: {fileID: 6353117856614932478}
   m_Layer: 12
   m_Name: '@Hitbox'
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8537228d165f1484ba41044fb16655ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.HPCoordinator
---- !u!114 &6060135620028670963
+--- !u!114 &2490579054375665956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,9 +55,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1603039091246669129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 880146ae78887594b8539fa694a4380e, type: 3}
+  m_Script: {fileID: 11500000, guid: e8dbf0db738c240498f63a4bb81197c8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Victims.VictimCoordinator
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Victims.NoKnockBackVictim
 --- !u!61 &6353117856614932478
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -225,7 +225,7 @@ Rigidbody2D:
   m_LinearDamping: 1
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e6ca44f2e97af5a4a9448a70c973b77e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -319,9 +319,6 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  _damage: 1
-  _stunTime: 0.5
-  _knockbackForce: 5
   _jumpPow: 50
   _slashProjectileIdx: 6
   _slashCnt: 3
@@ -333,7 +330,6 @@ MonoBehaviour:
   _attackLayer:
     serializedVersion: 2
     m_Bits: 66112
-  _dashStopThreshold: 0.05
   _dashStopTime: 2
 --- !u!114 &6662562585864053630
 MonoBehaviour:
