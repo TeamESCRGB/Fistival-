@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 9119923474554321800}
   - component: {fileID: 708227934244375802}
   - component: {fileID: 3825965254838247472}
+  - component: {fileID: -385067753951852318}
   m_Layer: 13
   m_Name: CameleonBossMob
   m_TagString: Untagged
@@ -491,6 +492,21 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  _tongueDuration: 0
+  _tongueStayTime: 0
+  _tongueLength: 0
+--- !u!114 &-385067753951852318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3491292837678613023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2169a5fbaeca9304989eb6ee35958425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.MobActs.TongueAct
 --- !u!1 &5180186568543721073
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,7 +582,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -1120,7 +1136,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
