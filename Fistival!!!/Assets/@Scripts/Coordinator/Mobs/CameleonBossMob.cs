@@ -28,7 +28,11 @@ namespace Coordinator.Mobs
         public override void Init(CommonMobData data)
         {
             base.Init(data);
-            GetComponentInChildren<VictimConnector>().SetOriginal(GetComponentInChildren<VictimCoordinator>());
+            var original = GetComponentInChildren<VictimCoordinator>();
+            var connectors = GetComponentsInChildren<VictimConnector>();
+            connectors[0].SetOriginal(original);
+            connectors[1].SetOriginal(original);
+
             _points = null;
             _isActing = false;
             _skillTime = _skillDelay;
