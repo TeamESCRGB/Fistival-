@@ -31,6 +31,7 @@ namespace Coordinator.MobActs
             _tongueStayDuration = tongueStayDuration;
             _tongueLength = 0;
             _tongueMaxLength = tongueMaxLength;
+            _groundLayer = groundLayer;
         }
 
         public void StartTongueAct()
@@ -49,7 +50,8 @@ namespace Coordinator.MobActs
         public override void Act()
         {
             _tongueLength = _tongueMaxLength;
-            var cast = Physics2D.Raycast(_tongueTransform.position, transform.right, _tongueMaxLength, _groundLayer);
+            var cast = Physics2D.Raycast(_tongueTransform.position, _tongueTransform.right, _tongueMaxLength, _groundLayer);
+
             if(cast.collider != null)
             {
                 _tongueLength = cast.distance;
