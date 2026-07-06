@@ -9,13 +9,13 @@ namespace Coordinator.Victims
     public class VictimCoordinator : MonoBehaviour, IAttackable
     {
         //방어도 없다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-        private IPushable _pushable;
-        private IStunnable _internalTarget;
-        private HPCoordinator _hpCoord;
-        private CooldownComponentModule _invincibilityTimeCounter = null;
-        private int _maskedLayer = 0;
-        private bool _isAttackableOn;
-        private void Awake()
+        protected IPushable _pushable;
+        protected IStunnable _internalTarget;
+        protected HPCoordinator _hpCoord;
+        protected CooldownComponentModule _invincibilityTimeCounter = null;
+        protected int _maskedLayer = 0;
+        protected bool _isAttackableOn;
+        protected void Awake()
         {
             _hpCoord = gameObject.GetOrAddComponent<HPCoordinator>();
             _internalTarget = transform.parent.GetComponentInParent<IStunnable>();
@@ -46,7 +46,7 @@ namespace Coordinator.Victims
             return _isAttackableOn;
         }
 
-        private void OnDisable()
+        protected void OnDisable()
         {
             if(Managers.Instance != null && _invincibilityTimeCounter is not null)
             {
@@ -107,7 +107,7 @@ namespace Coordinator.Victims
             _internalTarget?.ReleaseStun();
         }
 
-        public void TakeKnockBack(Vector2 force)
+        public virtual void TakeKnockBack(Vector2 force)
         {
             _pushable?.PushTo(force);
         }
