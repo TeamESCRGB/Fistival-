@@ -10,15 +10,14 @@ using UnityEngine;
 
 namespace Coordinator.Mobs
 {
-    public class CameleonBossMob : MobCoordinatorBase
+    public class CameleonBossMob : MobCoordinatorBase, IPushable
     {
 
         private MobActBase[] _acts = new MobActBase[3];
-
+        
         protected Transform _player;
         protected bool _isActing;
         protected float _skillTime;
-        protected IReadOnlyList<Transform> _points;
         protected Transform _head;
 
         [SerializeField]
@@ -43,7 +42,6 @@ namespace Coordinator.Mobs
             connectors[0].SetOriginal(original);
             connectors[1].SetOriginal(original);
 
-            _points = null;
             _isActing = false;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
@@ -51,12 +49,6 @@ namespace Coordinator.Mobs
             comps[0].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             comps[1].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             ((TongueAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _tongueDuration, _tongueStayTime, _tongueLength, _groundLayer);
-        }
-
-        public void Init(CommonMobData data, IReadOnlyList<Transform> points)
-        {
-            Init(data);
-            _points = points;
         }
 
         private void Update()
@@ -124,6 +116,11 @@ namespace Coordinator.Mobs
         protected override void OnAggroStateChanged(bool isAggroOn, Collider2D player)
         {
 
+        }
+
+        public void PushTo(Vector2 force)
+        {
+            _rb2d.AddForce(force, ForceMode2D.Impulse);
         }
     }
 }
