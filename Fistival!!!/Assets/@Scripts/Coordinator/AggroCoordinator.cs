@@ -38,7 +38,7 @@ namespace Coordinator
 
             _checkTime = 0;
             var pos = _checkRange.position;
-            var result = Physics2D.OverlapBox(pos, _checkRange.lossyScale,0,_playerLayer);
+            var result = Physics2D.OverlapBox(pos, _checkRange.lossyScale,_checkRange.rotation.z,_playerLayer);
             bool aggro = false;
 
 #if UNITY_EDITOR

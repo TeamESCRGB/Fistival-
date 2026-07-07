@@ -75,7 +75,7 @@ namespace Coordinator.MobActs
                 return;
             }
 
-            var targets = Physics2D.OverlapBoxAll(_grabBox.position, _grabBox.localScale, 0, _objectLayer);
+            var targets = Physics2D.OverlapBoxAll(_grabBox.position, _grabBox.localScale, _grabBox.rotation.z, _objectLayer);
 
             for(int i = 0; i < targets.Length; i++)
             {
