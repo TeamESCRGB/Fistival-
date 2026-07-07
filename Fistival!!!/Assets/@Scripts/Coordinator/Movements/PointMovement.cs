@@ -10,11 +10,15 @@ namespace Coordinator.Movements
         private Rigidbody2D _rb2d;
         private Vector2 _movPow;
         private Vector2 _endPos;
+        private float _timeThreshold;
+        private float _movTime;
         public void ReqStartMove(Transform point, float duration, Rigidbody2D rb2d, Action<bool> onEnd)
         {
             _onEnd = onEnd;
             _isMoving = true;
             _rb2d = rb2d;
+            _movTime = 0;
+            _timeThreshold = duration + 0.1f;
             _endPos = new Vector2(point.position.x, point.position.y);
 
             // 전체 거리를 구함
@@ -47,8 +51,9 @@ namespace Coordinator.Movements
             Vector2 remainingDistance = _endPos - currentPos;
 
             Vector2 moveStep = _movPow * Time.fixedDeltaTime;
+            _movTime += Time.fixedDeltaTime;
 
-            if (moveStep.sqrMagnitude >= remainingDistance.sqrMagnitude)
+            if (moveStep.sqrMagnitude >= remainingDistance.sqrMagnitude || _movTime >= _timeThreshold)
             {
                 _isMoving = false;
                 _rb2d.MovePosition(_endPos);
