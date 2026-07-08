@@ -297,7 +297,6 @@ GameObject:
   - component: {fileID: 708227934244375802}
   - component: {fileID: 3825965254838247472}
   - component: {fileID: -385067753951852318}
-  - component: {fileID: 3366997266123148937}
   - component: {fileID: 1532958168885860858}
   m_Layer: 13
   m_Name: CameleonBossMob
@@ -497,8 +496,7 @@ MonoBehaviour:
   _tongueDuration: 1
   _tongueStayTime: 1
   _tongueLength: 5
-  _movInterval: 0.6
-  _movDuration: 0.3
+  ttest: {fileID: 0}
 --- !u!114 &-385067753951852318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,18 +509,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2169a5fbaeca9304989eb6ee35958425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.MobActs.TongueAct
---- !u!114 &3366997266123148937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3491292837678613023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49e76e6d58794f94b949672681021a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MobActs.CameleonBossPattern.CameleonBossPattern2
 --- !u!114 &1532958168885860858
 MonoBehaviour:
   m_ObjectHideFlags: 0

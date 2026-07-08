@@ -27,6 +27,9 @@ namespace Coordinator.Mobs
         [SerializeField]
         protected float _tongueLength;
 
+        private Vector2 _centerPos;
+        private IReadOnlyList<Transform> _points;
+
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -49,6 +52,13 @@ namespace Coordinator.Mobs
             comps[0].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             comps[1].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             ((TongueAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _tongueDuration, _tongueStayTime, _tongueLength, _groundLayer);
+        }
+
+        public void Init(CommonMobData data, Vector2 centerPos, IReadOnlyList<Transform> movPoints)
+        {
+            _points = movPoints;
+            _centerPos = centerPos;
+            Init(data);
         }
 
         private void Update()
