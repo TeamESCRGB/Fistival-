@@ -89,24 +89,24 @@ namespace MobActs.CameleonBossPattern
             _isMoving = false;
         }
 
-        public void StartCameleonPattern1()
+        public void StartCameleonPattern2()
         {
             _isMoving = false;
             var pos = _rb2d.position;
             if (pos.x < _fieldCenterPos.x)
             {
                 _dir = MovementKeyStatus.RIGHT;
-                var rot = _rb2d.transform.rotation;
+                var rot = _rb2d.transform.eulerAngles;
                 rot.y = 0;
-                _rb2d.transform.rotation = rot;
+                _rb2d.transform.eulerAngles = rot;
                 _movIdx = 1;
             }
             else
             {
                 _dir = MovementKeyStatus.LEFT;
-                var rot = _rb2d.transform.rotation;
+                var rot = _rb2d.transform.eulerAngles;
                 rot.y = 180;
-                _rb2d.transform.rotation = rot;
+                _rb2d.transform.eulerAngles = rot;
                 _movIdx = _points.Count - 2;
             }
         }
