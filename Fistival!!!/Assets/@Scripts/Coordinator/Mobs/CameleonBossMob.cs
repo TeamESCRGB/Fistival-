@@ -3,10 +3,12 @@ using Coordinator.Movements;
 using Coordinator.Skills;
 using Coordinator.Victims;
 using Data;
+using MobActs.CameleonBossPattern;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using Utils;
 
 namespace Coordinator.Mobs
 {
@@ -27,14 +29,20 @@ namespace Coordinator.Mobs
         [SerializeField]
         protected float _tongueLength;
 
+        [SerializeField]
+        private float _moveInterval;
+        [SerializeField]
+        protected float _moveDuration;
+
         private Vector2 _centerPos;
         private IReadOnlyList<Transform> _points;
-
         protected override void OnAwake()
         {
             base.OnAwake();
-            _head = transform.Find("@Head");
+            //_head = transform.Find("@Head");
+            _head = gameObject.GetChildGameObject("@Head",true).transform;
             _acts[0] = GetComponent<TongueAct>();
+            _acts[1] = GetComponent<CameleonPattern2>();
         }
 
         public override void Init(CommonMobData data)
@@ -44,7 +52,6 @@ namespace Coordinator.Mobs
             var connectors = GetComponentsInChildren<VictimConnector>();
             connectors[0].SetOriginal(original);
             connectors[1].SetOriginal(original);
-
             _isActing = false;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
@@ -52,6 +59,7 @@ namespace Coordinator.Mobs
             comps[0].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             comps[1].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             ((TongueAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _tongueDuration, _tongueStayTime, _tongueLength, _groundLayer);
+            ((CameleonPattern2)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(), GetComponent<PointMovement>(), _moveInterval, _moveDuration, _points, _centerPos);
         }
 
         public void Init(CommonMobData data, Vector2 centerPos, IReadOnlyList<Transform> movPoints)
@@ -87,7 +95,7 @@ namespace Coordinator.Mobs
             _skillTime = 0;
             _isActing = true;
 
-            _acts[0].Act();//UnityEngine.Random.Range(0, _acts.Length)
+            _acts[1].Act();//UnityEngine.Random.Range(0, _acts.Length)
 
         }
 

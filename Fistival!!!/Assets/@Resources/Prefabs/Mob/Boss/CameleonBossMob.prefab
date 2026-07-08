@@ -180,13 +180,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2197451961241754061}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2833334121795124059}
-  m_Father: {fileID: 2239618290651065503}
+  m_Father: {fileID: 4768726384602778786}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3325049652415841714
 GameObject:
@@ -298,6 +298,7 @@ GameObject:
   - component: {fileID: 3825965254838247472}
   - component: {fileID: -385067753951852318}
   - component: {fileID: 1532958168885860858}
+  - component: {fileID: 8196900432169874223}
   m_Layer: 13
   m_Name: CameleonBossMob
   m_TagString: Untagged
@@ -319,7 +320,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6403134928503268609}
-  - {fileID: 2184024073466837158}
   - {fileID: 4768726384602778786}
   - {fileID: 4262393434812154151}
   m_Father: {fileID: 0}
@@ -398,7 +398,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 1
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: e6ca44f2e97af5a4a9448a70c973b77e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -409,7 +409,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!61 &9119923474554321800
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -496,7 +496,8 @@ MonoBehaviour:
   _tongueDuration: 1
   _tongueStayTime: 1
   _tongueLength: 5
-  ttest: {fileID: 0}
+  _moveInterval: 0.6
+  _moveDuration: 0.1
 --- !u!114 &-385067753951852318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,6 +522,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22526480eef14834599992617e1fb254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Movements.PointMovement
+--- !u!114 &8196900432169874223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3491292837678613023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7651ee19e0350d45879031662027e9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MobActs.CameleonBossPattern.CameleonPattern2
 --- !u!1 &5180186568543721073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,6 +1198,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2184024073466837158}
   - {fileID: 7702685031195820608}
   - {fileID: 6825215168410199857}
   m_Father: {fileID: 2239618290651065503}

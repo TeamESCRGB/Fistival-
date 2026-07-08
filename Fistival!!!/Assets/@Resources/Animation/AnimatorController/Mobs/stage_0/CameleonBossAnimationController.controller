@@ -248,7 +248,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: CameleonBossPattern2End
+    m_ConditionEvent: CameleonPattern2End
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3843830548687893639}
@@ -273,7 +273,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: CameleonBossPattern2
+    m_ConditionEvent: CameleonPattern2
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5148444911983623229}
@@ -322,13 +322,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: CameleonBossPattern2
+  - m_Name: CameleonPattern2
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: CameleonBossPattern2End
+  - m_Name: CameleonPattern2End
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -442,7 +442,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 1e0211ae9332c014c894c6211a6170e6, type: 2}
+  m_Motion: {fileID: 7400000, guid: 6f49dc19faa32e84086c838014522c43, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -470,7 +470,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 6be7f565eb6c5b549abf6f2046c6f832, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -497,7 +497,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ed199c5e1ed2e9b4aa8fbd11f24e200a, type: 2}
+  m_Motion: {fileID: 7400000, guid: a35d9308409fca842b8115aaa8e90952, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
