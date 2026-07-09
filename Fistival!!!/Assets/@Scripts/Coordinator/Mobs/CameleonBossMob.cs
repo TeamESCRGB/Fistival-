@@ -1,4 +1,5 @@
 ﻿using Coordinator.MobActs;
+using Coordinator.MobActs.CameleonBossPattern;
 using Coordinator.Movements;
 using Coordinator.Skills;
 using Coordinator.Victims;
@@ -43,6 +44,7 @@ namespace Coordinator.Mobs
             _head = gameObject.GetChildGameObject("@Head",true).transform;
             _acts[0] = GetComponent<TongueAct>();
             _acts[1] = GetComponent<CameleonPattern2>();
+            _acts[2] = GetComponent<CameleonPattern3>();
         }
 
         public override void Init(CommonMobData data)
@@ -60,6 +62,8 @@ namespace Coordinator.Mobs
             comps[1].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             ((TongueAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _tongueDuration, _tongueStayTime, _tongueLength, _groundLayer);
             ((CameleonPattern2)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(), GetComponent<PointMovement>(), _moveInterval, _moveDuration, _points, _centerPos);
+            ((CameleonPattern3)_acts[2]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(), GetComponent<PointMovement>(), _moveDuration, _points, _centerPos);
+
         }
 
         public void Init(CommonMobData data, Vector2 centerPos, IReadOnlyList<Transform> movPoints)
@@ -95,7 +99,7 @@ namespace Coordinator.Mobs
             _skillTime = 0;
             _isActing = true;
 
-            _acts[1].Act();//UnityEngine.Random.Range(0, _acts.Length)
+            _acts[2].Act();//UnityEngine.Random.Range(0, _acts.Length)
 
         }
 
