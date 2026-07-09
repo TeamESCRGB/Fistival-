@@ -1,4 +1,4 @@
-﻿susing System;
+﻿using System;
 using UnityEngine;
 
 namespace Coordinator.Victims
