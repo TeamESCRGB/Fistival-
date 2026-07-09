@@ -498,7 +498,8 @@ MonoBehaviour:
   _tongueStayTime: 1
   _tongueLength: 5
   _moveInterval: 0.6
-  _moveDuration: 0.1
+  _moveDuration: 1
+  _objIdx: 4
 --- !u!114 &-385067753951852318
 MonoBehaviour:
   m_ObjectHideFlags: 0

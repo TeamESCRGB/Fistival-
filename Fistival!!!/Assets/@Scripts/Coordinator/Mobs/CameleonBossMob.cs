@@ -4,6 +4,7 @@ using Coordinator.Movements;
 using Coordinator.Skills;
 using Coordinator.Victims;
 using Data;
+using Manager;
 using MobActs.CameleonBossPattern;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,10 @@ namespace Coordinator.Mobs
         private float _moveInterval;
         [SerializeField]
         protected float _moveDuration;
+        [SerializeField]
+        protected int _objIdx;
+        protected ObjectData _objData;
+        protected Transform _objSpawnPoint;
 
         private Vector2 _centerPos;
         private IReadOnlyList<Transform> _points;
@@ -45,6 +50,7 @@ namespace Coordinator.Mobs
             _acts[0] = GetComponent<TongueAct>();
             _acts[1] = GetComponent<CameleonPattern2>();
             _acts[2] = GetComponent<CameleonPattern3>();
+            _objData = Managers.Instance.DataManager.ObjectDataDict[_objIdx];
         }
 
         public override void Init(CommonMobData data)
@@ -62,14 +68,15 @@ namespace Coordinator.Mobs
             comps[1].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             ((TongueAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _tongueDuration, _tongueStayTime, _tongueLength, _groundLayer);
             ((CameleonPattern2)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(), GetComponent<PointMovement>(), _moveInterval, _moveDuration, _points, _centerPos);
-            ((CameleonPattern3)_acts[2]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(), GetComponent<PointMovement>(), _moveDuration, _points, _centerPos);
+            ((CameleonPattern3)_acts[2]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(), GetComponent<PointMovement>(), _moveDuration, _points, _centerPos, _objData, _objSpawnPoint);
 
         }
 
-        public void Init(CommonMobData data, Vector2 centerPos, IReadOnlyList<Transform> movPoints)
+        public void Init(CommonMobData data, Vector2 centerPos, IReadOnlyList<Transform> movPoints, Transform objSpawnPoint)
         {
             _points = movPoints;
             _centerPos = centerPos;
+            _objSpawnPoint=objSpawnPoint;
             Init(data);
         }
 
