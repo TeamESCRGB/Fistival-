@@ -94,7 +94,7 @@ namespace Coordinator
         protected abstract void OnAggroStateChanged(bool isAggroOn, Collider2D player);
 
 
-        public void AnimatorOnDead()
+        public virtual void AnimatorOnDead()
         {
             var go = Managers.Instance.ResourceManager.Instantiate(_dropObjectPrefab);
             if (go != null)
@@ -111,7 +111,7 @@ namespace Coordinator
             Managers.Instance.ResourceManager.Destroy(gameObject, true);
         }
 
-        public void AnimatorOnHit()
+        public virtual void AnimatorOnHit()
         {
 
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using DG.Tweening;
+using Utils;
 
 namespace Coordinator.MobActs
 {
@@ -9,15 +10,17 @@ namespace Coordinator.MobActs
         private Transform _tongueTransform;
         private float _tongDuration;
         private float _tongueStayDuration;
+        private float _tongueMaxLength;
         private float _tongueLength;
         private Sequence _tongueSeq;
+        private int _groundLayer;
 
         private void Awake()
         {
-            _tongueTransform = transform.Find("@Tongue");
+            _tongueTransform = gameObject.GetChild<Transform>("@Tongue",true);//transform.Find("@Tongue")
         }
 
-        public void Init(Action onEnd,Animator animator ,float tongueDuration, float tongueStayDuration, float tongueLength)
+        public void Init(Action onEnd,Animator animator ,float tongueDuration, float tongueStayDuration, float tongueMaxLength,int groundLayer=0)
         {
             base.Init(onEnd,animator);
             if(_tongueSeq.IsActive())
@@ -26,7 +29,9 @@ namespace Coordinator.MobActs
             }
             _tongDuration = tongueDuration;
             _tongueStayDuration = tongueStayDuration;
-            _tongueLength = tongueLength;
+            _tongueLength = 0;
+            _tongueMaxLength = tongueMaxLength;
+            _groundLayer = groundLayer;
         }
 
         public void StartTongueAct()
@@ -44,6 +49,13 @@ namespace Coordinator.MobActs
 
         public override void Act()
         {
+            _tongueLength = _tongueMaxLength;
+            var cast = Physics2D.Raycast(_tongueTransform.position, _tongueTransform.right, _tongueMaxLength, _groundLayer);
+
+            if(cast.collider != null)
+            {
+                _tongueLength = cast.distance;
+            }
             _animator.SetTrigger("TongueLaunch");
         }
 

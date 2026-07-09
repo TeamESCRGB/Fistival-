@@ -57,6 +57,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df16da754bc725f4585cf04746bf24a7
+    m_Address: CameleonBossMob
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e3e0e2e4674574146b1db7ecbc22a15f
     m_Address: SotCopMob
     m_ReadOnly: 0

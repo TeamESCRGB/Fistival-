@@ -22,7 +22,7 @@ namespace Coordinator.Skills
 
         private void Update()
         {
-            var col = Physics2D.OverlapBox(transform.position, transform.lossyScale, 0, _attackableLayers);
+            var col = Physics2D.OverlapBox(transform.position, transform.lossyScale, transform.eulerAngles.z, _attackableLayers);//이거 각을 eularangle.z로 줘야함
             if(col == null)
             {
                 return;

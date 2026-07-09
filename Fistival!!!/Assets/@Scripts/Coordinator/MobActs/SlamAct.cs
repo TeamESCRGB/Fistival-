@@ -9,7 +9,6 @@ namespace Coordinator.MobActs
     public class SlamAct : MobActBase
     {
         private ObjectData _objData;
-        private string _prefabKey;
         private int _objCnt;
         private Transform _player;
         private Vector2 _jumpForce;
@@ -24,7 +23,7 @@ namespace Coordinator.MobActs
             _hitbox = transform.Find("@Hitbox").GetComponent<BoxCollider2D>();
         }
 
-        public void Init(Action onActionEnd, Animator animator, Rigidbody2D rb2d ,string objPrefab, int objIdx, int objCnt, Transform player, float jumpForce, float objDropForce, LayerMask groundLayer, LayerMask attackLayer)
+        public void Init(Action onActionEnd, Animator animator, Rigidbody2D rb2d , int objIdx, int objCnt, Transform player, float jumpForce, float objDropForce, LayerMask groundLayer, LayerMask attackLayer)
         {
             base.Init(onActionEnd, animator);
             _canSpawnObj = false;
@@ -32,7 +31,6 @@ namespace Coordinator.MobActs
             _attackLayer= attackLayer;
             Managers.Instance.DataManager.ObjectDataDict.TryGetValue(objIdx, out _objData);
             _rb2d = rb2d;
-            _prefabKey = objPrefab;
             _objCnt= objCnt;
             _player = player;
             _objDropForce = objDropForce;
@@ -58,7 +56,7 @@ namespace Coordinator.MobActs
             {
                 float sign = (i & 1) == 1 ? 1 : -1;
                 var force = new Vector2(sign*_objDropForce,_objDropForce);
-                var obj = Managers.Instance.ResourceManager.Instantiate(_prefabKey, null, true, true).GetComponentInChildren<ObjectCoordinator>();
+                var obj = Managers.Instance.ResourceManager.Instantiate(_objData.PrefabKey, null, true, true).GetComponentInChildren<ObjectCoordinator>();
                 obj.transform.position = pos;
                 obj.Init(_objData);
                 obj.GetComponent<Rigidbody2D>().AddForce(force,ForceMode2D.Impulse);
