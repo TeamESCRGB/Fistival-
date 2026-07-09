@@ -6,6 +6,7 @@ using Data.NonLodable;
 using Coordinator.Objects;
 using Coordinator.Items;
 using Data;
+using Assets._Scripts.Coordinator;
 
 namespace Coordinator.Stages
 {
@@ -23,6 +24,8 @@ namespace Coordinator.Stages
         private SpawnPointStruct[] _mobSpawnPoints;
         [SerializeField]
         private SpawnPointStruct[] _bossSpawnPoints;
+        [SerializeField]
+        private BasicInitializer[] _basicInitializers;
 
         private void Awake()
         {
@@ -138,6 +141,11 @@ namespace Coordinator.Stages
                     coord.Init(data);
                 }
                 
+            }
+
+            for(int i = 0; i < _basicInitializers.Length; i++)
+            {
+                _basicInitializers[i]?.Init();
             }
         }
 
