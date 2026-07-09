@@ -8,7 +8,6 @@ namespace Coordinator.MobActs
     public class FlyingDiscLaunchAct : MobActBase
     {
         private int _objDataIdx;
-        private string _objKey;
         private int _damage;
         private float _stunTime;
         private float _duration;
@@ -31,7 +30,7 @@ namespace Coordinator.MobActs
             _grabBox = transform.Find("@FlyingdiscGrabBox");
         }
 
-        public void Init(Action onEnd, Animator animator, string objKey, int objDataIdx ,int damage, float stunTime, float returnDuration, float movLen, LayerMask objectizableLayer, LayerMask playerHitboxLayer)
+        public void Init(Action onEnd, Animator animator, int objDataIdx ,int damage, float stunTime, float returnDuration, float movLen, LayerMask objectizableLayer, LayerMask playerHitboxLayer)
         {
             base.Init(onEnd,animator);
             _obj = null;
@@ -40,7 +39,6 @@ namespace Coordinator.MobActs
             _isReturning = false;
             _returnCode = -666775;
             _objDataIdx = objDataIdx;
-            _objKey = objKey;
             _damage=damage;
             _stunTime=stunTime;
             _duration=returnDuration;
@@ -94,7 +92,7 @@ namespace Coordinator.MobActs
             {
                 return;
             }
-            var go = Managers.Instance.ResourceManager.Instantiate(_objKey, null, true, true);
+            var go = Managers.Instance.ResourceManager.Instantiate(data.PrefabKey, null, true, true);
             if(go == null)
             {
                 return;

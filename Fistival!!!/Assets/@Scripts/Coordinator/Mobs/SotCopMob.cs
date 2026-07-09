@@ -31,8 +31,6 @@ namespace Coordinator.Mobs
         protected float _skillTime;
 
         [SerializeField]
-        private string _slamDropObjPrefab;
-        [SerializeField]
         private int _slamDropObjIdx;
         [SerializeField]
         private int _slamDropObjCnt;
@@ -62,7 +60,7 @@ namespace Coordinator.Mobs
             GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             _move.Init(data.Speed, _jumpPow, 1, 1, GetComponent<Rigidbody2D>());
             ((ProjectileLaunchAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _slashProjectileIdx, _slashCnt, data.PlayerHitboxLayer);
-            ((SlamAct)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(),_slamDropObjPrefab,_slamDropObjIdx,_slamDropObjCnt ,_player, _jumpForce, _slamDropObjForce,_groundLayer,_attackLayer);
+            ((SlamAct)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(), _slamDropObjIdx,_slamDropObjCnt ,_player, _jumpForce, _slamDropObjForce,_groundLayer,_attackLayer);
             ((LengthDashAct)_acts[2]).Init(() => { _isActing = false; }, _animator, _move, GetComponent<Rigidbody2D>(), data.Speed, _dashStopTime);
         }
 
