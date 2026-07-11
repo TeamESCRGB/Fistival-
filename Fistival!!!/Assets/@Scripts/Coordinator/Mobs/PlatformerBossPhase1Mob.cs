@@ -61,10 +61,18 @@ namespace Coordinator.Mobs
                 return;
             }
 
-            if (_stunCounter.IsCooldownEnded() == false)
+            var rot = transform.eulerAngles;
+
+            if(_player.position.x < transform.position.x)
             {
-                return;
+                rot.z = 180;
             }
+            else
+            {
+                rot.z = 0;
+            }
+
+            transform.eulerAngles = rot;
 
             _skillTime = 0;
             _isActing = true;
@@ -78,27 +86,10 @@ namespace Coordinator.Mobs
 
         public override void StunFor(float time)
         {
-            if (time <= 0 || _stunCounter.GetRemainedTime() >= time)
-            {
-                return;
-            }
-
-            if (_stunCounter.IsCooldownEnded())
-            {
-
-            }
-
-            _stunCounter.SetCooldownTime(time);
-            _stunCounter.StartCooldown();
         }
 
         public override void ReleaseStun()
         {
-            if (_stunCounter is null || _stunCounter.IsCooldownEnded())
-            {
-                return;
-            }
-            _stunCounter.StopCooldown();
         }
 
         public void PushTo(Vector2 force)
