@@ -1,4 +1,5 @@
-﻿using Coordinator.MobActs.PlatformerBoss;
+﻿using Coordinator.MobActs;
+using Coordinator.MobActs.PlatformerBoss;
 using Coordinator.Movements;
 using Coordinator.Skills;
 using Data;
@@ -22,6 +23,7 @@ namespace Coordinator.Mobs
         {
             base.OnAwake();
             _acts[0] = GetComponent<PlatformerPhase1Slam>();
+            _acts[1] = GetComponent<AttackFieldAct>();
         }
 
         public override void Init(CommonMobData data)
@@ -30,8 +32,13 @@ namespace Coordinator.Mobs
             _isActing = false;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
-            GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
+            var touchDamages = GetComponentsInChildren<TouchDamageSkill>();
+            for(int i = 0; i < touchDamages.Length; i++)
+            {
+                touchDamages[i].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
+            }
             ((PlatformerPhase1Slam)_acts[0]).Init(() => { _isActing = false; }, _animator, _rb2d, _player, _groundLayer, _objSpawnPointMin, _objSpawnPointMax);
+            ((AttackFieldAct)_acts[1]).Init(() => { _isActing = false; }, _animator);
         }
 
         public void Init(CommonMobData data, Vector3 objSpawnPointMin, Vector3 objSpawnPointMax)
@@ -63,7 +70,7 @@ namespace Coordinator.Mobs
             _isActing = true;
 
 
-            _acts[UnityEngine.Random.Range(0, 1)].Act();
+            _acts[UnityEngine.Random.Range(1, 2)].Act();
 
         }
 
