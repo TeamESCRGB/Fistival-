@@ -25,7 +25,7 @@ namespace Coordinator.Stages
         [SerializeField]
         private SpawnPointStruct[] _bossSpawnPoints;
         [SerializeField]
-        private BasicInitializer[] _basicInitializers;
+        private MonoBehaviour[] _basicInitializers;
 
         private void Awake()
         {
@@ -145,7 +145,7 @@ namespace Coordinator.Stages
 
             for(int i = 0; i < _basicInitializers.Length; i++)
             {
-                _basicInitializers[i]?.Init();
+                _basicInitializers[i].GetComponent<BasicInitializer>()?.Init();
             }
         }
 
