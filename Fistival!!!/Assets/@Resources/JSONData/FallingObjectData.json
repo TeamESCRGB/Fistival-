@@ -1,0 +1,18 @@
+{
+  "fallingObjectDatas": [
+    {
+      "IDX": -1,
+      "PrefabKey": "",
+      "BreakableLayerMask": 0,
+      "SpawnableObjects": [],
+      "Damage": 0,
+      "StunTime": 0,
+      "Scale": {
+        "x": 0,
+        "y": 0
+      },
+      "KnockBackForce": 0,
+      "AnimControllerName": ""
+    }
+  ]
+}
