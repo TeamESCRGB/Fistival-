@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 347a92a4b60d2ce49ab812347eb217c0
+    m_Address: PlatformerBossPhase1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 675024cd874197a4f894096d855a831d
     m_Address: WalkingDalmatian
     m_ReadOnly: 0

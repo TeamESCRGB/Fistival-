@@ -245,16 +245,36 @@
     },
     {
       "Idx": 11,
-      "HP": 3,
+      "HP": 60,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
       "KnockBackForce": 10,
-      "InvincibilityTime": 1,
-      "Speed": 0,
-      "SkillDelay": 3,
+      "InvincibilityTime": 0.5,
+      "Speed": 5,
+      "SkillDelay": 4.5,
       "AggroRange": {
-        "x": 5,
-        "y": 5
+        "x": 0,
+        "y": 0
+      },
+      "DropObjectIdx": 0,
+      "PlayerLayer": 128,
+      "PlayerHitboxLayer": 524288,
+      "InitialDir": 1,
+      "DropObjectPrefabName": "BasicMobDropObject",
+      "AnimationController": "PlatformerBossPhase1AnimationController"
+    },
+    {
+      "Idx": 12,
+      "HP": 50,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
+      "InvincibilityTime": 0.5,
+      "Speed": 0,
+      "SkillDelay": 4.5,
+      "AggroRange": {
+        "x": 0,
+        "y": 0
       },
       "DropObjectIdx": 0,
       "PlayerLayer": 128,
