@@ -11,6 +11,7 @@ namespace Data
         public int Damage {  get; set; }
         public float StunTime { get; set; }
         public Vector2 Scale { get; set; }
+        public float ObjSpawnForce { get; set; }
         public float KnockBackForce { get; set; }
         public string AnimControllerName { get; set; }
     }

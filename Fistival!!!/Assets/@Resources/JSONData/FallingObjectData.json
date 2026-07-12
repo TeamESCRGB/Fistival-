@@ -11,7 +11,8 @@
         "x": 0,
         "y": 0
       },
-      "KnockBackForce": 0,
+      "ObjSpawnForce": 20,
+      "KnockBackForce": 7,
       "AnimControllerName": ""
     }
   ]
