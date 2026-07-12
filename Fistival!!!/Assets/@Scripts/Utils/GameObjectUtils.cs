@@ -8,9 +8,9 @@ namespace Utils
 {
     public static class GameObjectUtils
     {
-        public static GameObject GetChildGameObject(this GameObject go, string name = null, bool recursive = false)
+        public static GameObject GetChildGameObject(this GameObject go, string name = null, bool recursive = false, bool includeIncactive=false)
         {
-            Transform child = go.GetChild<Transform>(name, recursive);
+            Transform child = go.GetChild<Transform>(name, recursive,includeIncactive);
             if (child is null)
             {
                 return null;
@@ -19,7 +19,7 @@ namespace Utils
             return child.gameObject;
         }
 
-        public static T GetChild<T>(this GameObject go, string name = null, bool recursive = false) where T : UnityEngine.Object
+        public static T GetChild<T>(this GameObject go, string name = null, bool recursive = false, bool includeIncactive = false) where T : UnityEngine.Object
         {
             if (go is null)
             {
@@ -28,7 +28,7 @@ namespace Utils
 
             if (recursive)
             {
-                foreach (T component in go.GetComponentsInChildren<T>())
+                foreach (T component in go.GetComponentsInChildren<T>(includeIncactive))
                 {
                     if (component.name == name || string.IsNullOrEmpty(name))
                     {
