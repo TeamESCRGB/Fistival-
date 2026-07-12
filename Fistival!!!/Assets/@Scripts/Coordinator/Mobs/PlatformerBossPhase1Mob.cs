@@ -19,6 +19,11 @@ namespace Coordinator.Mobs
         Vector3 _objSpawnPointMin;
         Vector3 _objSpawnPointMax;
 
+        private int _hpHalf;
+        private bool _hpHalfPatternFlag;
+        private bool _hpHalfPatternExecutedFlag;
+
+
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -29,9 +34,12 @@ namespace Coordinator.Mobs
         public override void Init(CommonMobData data)
         {
             base.Init(data);
+            _hpHalf = data.HP / 2;
             _isActing = false;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
+            _hpHalfPatternFlag = false;
+            _hpHalfPatternExecutedFlag = false;
             var touchDamages = GetComponentsInChildren<TouchDamageSkill>();
             for(int i = 0; i < touchDamages.Length; i++)
             {
@@ -55,6 +63,7 @@ namespace Coordinator.Mobs
                 return;
             }
 
+
             if (_skillTime < _skillDelay)
             {
                 _skillTime += Time.deltaTime;
@@ -77,12 +86,30 @@ namespace Coordinator.Mobs
             _skillTime = 0;
             _isActing = true;
 
-
-            _acts[UnityEngine.Random.Range(1, 2)].Act();
-
+            if(_hpHalfPatternFlag)
+            {
+                Debug.Log("asdf패턴");
+                _hpHalfPatternFlag = false;
+            }
+            else
+            {
+                _acts[UnityEngine.Random.Range(1, 2)].Act();
+            }
         }
 
-
+        protected override void OnHPChanged(int old, int now, int delta)
+        {
+            base.OnHPChanged(old, now, delta);
+            if(_hpHalfPatternExecutedFlag)
+            {
+                return;
+            }
+            if(now <= _hpHalf)
+            {
+                _hpHalfPatternFlag = true;
+                _hpHalfPatternExecutedFlag = true;
+            }
+        }
 
         public override void StunFor(float time)
         {
