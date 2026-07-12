@@ -130,6 +130,17 @@ namespace Coordinator.MobActs.PlatformerBoss
         public void PlatformerPhase1SlamJump()
         {
             _animator.SetTrigger("Phase1SlamJump");
+            var rot = transform.eulerAngles;
+
+            if (_player.position.x < transform.position.x)
+            {
+                rot.z = 180;
+            }
+            else
+            {
+                rot.z = 0;
+            }
+            transform.eulerAngles = rot;
             _moveTime = 0;
             _canStay = true;
             _tarPos = _player.position;
