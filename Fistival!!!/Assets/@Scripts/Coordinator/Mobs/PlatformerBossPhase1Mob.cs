@@ -100,7 +100,7 @@ namespace Coordinator.Mobs
             }
             else
             {
-                _acts[UnityEngine.Random.Range(1, 2)].Act();
+                _acts[UnityEngine.Random.Range(0, 2)].Act();
             }
         }
 

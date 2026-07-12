@@ -25,6 +25,9 @@ namespace Coordinator.MobActs.PlatformerBoss
         private float _slamYOffset;
         [SerializeField]
         private float _slamMoveTime;
+        [SerializeField]
+        private int _slamMaxCnt;
+        private int _slamCnt;
         private Vector3 _tarPos;
         private Vector3 _objSpawnPointMin;
         private Vector3 _objSpawnPointMax;
@@ -91,12 +94,20 @@ namespace Coordinator.MobActs.PlatformerBoss
             obj.transform.position = new Vector3(UnityEngine.Random.Range(_objSpawnPointMin.x, _objSpawnPointMax.x), _objSpawnPointMin.y, _objSpawnPointMin.z);
             obj.Init(_objData);
             _canSpawnObj = false;
-            SlamEnd();
+            CheckSlamEnd();
         }
 
-        private void SlamEnd()
+        public void PlatformerPhase1SlamEnd()
         {
             _onActEnd?.Invoke();
+        }
+
+
+        private void CheckSlamEnd()
+        {
+            _slamCnt--;
+            _animator.SetInteger("Phase1SlamCnt", _slamCnt);
+            _animator.SetTrigger("Phase1CheckSlamEnd");
         }
 
         public void PlatformerPhase1SlamSlam()
@@ -113,11 +124,12 @@ namespace Coordinator.MobActs.PlatformerBoss
             _slamAlert.SetActive(true);
             _rb2d.linearVelocity = Vector2.zero;
             _rb2d.simulated = false;
-            _animator.SetTrigger("PlatformerPhase1SlamStart");
+            _animator.SetTrigger("Phase1SlamSlam");
         }
 
         public void PlatformerPhase1SlamJump()
         {
+            _animator.SetTrigger("Phase1SlamJump");
             _moveTime = 0;
             _canStay = true;
             _tarPos = _player.position;
@@ -128,9 +140,11 @@ namespace Coordinator.MobActs.PlatformerBoss
 
         public override void Act()
         {
+            _slamCnt = _slamMaxCnt;
             _slamAlert.SetActive(false);
             _canSpawnObj = false;
-            _animator.SetTrigger("PlatformerPhase1SlamReady");
+            _animator.SetInteger("Phase1SlamCnt", _slamCnt);
+            _animator.SetTrigger("Phase1SlamReady");
         }
 
         public override void StopAct()
