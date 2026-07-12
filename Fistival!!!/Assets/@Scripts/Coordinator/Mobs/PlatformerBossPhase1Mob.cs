@@ -3,6 +3,8 @@ using Coordinator.MobActs.PlatformerBoss;
 using Coordinator.Movements;
 using Coordinator.Skills;
 using Data;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Coordinator.Mobs
@@ -22,13 +24,17 @@ namespace Coordinator.Mobs
         private int _hpHalf;
         private bool _hpHalfPatternFlag;
         private bool _hpHalfPatternExecutedFlag;
-
+        [SerializeField]
+        private List<int> _fallingObjectIdx;
+        [SerializeField]
+        private float _fallingObjectInterval;
 
         protected override void OnAwake()
         {
             base.OnAwake();
             _acts[0] = GetComponent<PlatformerPhase1Slam>();
             _acts[1] = GetComponent<AttackFieldAct>();
+            _acts[2] = GetComponent<FallingObjectRandomPosSpawnAct>();
         }
 
         public override void Init(CommonMobData data)
@@ -47,6 +53,7 @@ namespace Coordinator.Mobs
             }
             ((PlatformerPhase1Slam)_acts[0]).Init(() => { _isActing = false; }, _animator, _rb2d, _player, _groundLayer, _objSpawnPointMin, _objSpawnPointMax);
             ((AttackFieldAct)_acts[1]).Init(() => { _isActing = false; }, _animator);
+            ((FallingObjectRandomPosSpawnAct)_acts[2]).Init(() => { _isActing = false; }, _animator, _fallingObjectIdx, _objSpawnPointMin, _objSpawnPointMax, _fallingObjectInterval);
         }
 
         public void Init(CommonMobData data, Vector3 objSpawnPointMin, Vector3 objSpawnPointMax)
@@ -88,7 +95,7 @@ namespace Coordinator.Mobs
 
             if(_hpHalfPatternFlag)
             {
-                Debug.Log("asdf패턴");
+                _acts[2].Act();
                 _hpHalfPatternFlag = false;
             }
             else

@@ -1,19 +1,19 @@
 {
   "fallingObjectDatas": [
     {
-      "IDX": -1,
-      "PrefabKey": "",
-      "BreakableLayerMask": 0,
-      "SpawnableObjects": [],
-      "Damage": 0,
-      "StunTime": 0,
+      "IDX": 0,
+      "PrefabKey": "BasicFallingObject",
+      "BreakableLayerMask": 524296,
+      "SpawnableObjects": [4,4],
+      "Damage": 1,
+      "StunTime": 0.5,
       "Scale": {
-        "x": 0,
-        "y": 0
+        "x": 1,
+        "y": 1
       },
       "ObjSpawnForce": 20,
       "KnockBackForce": 7,
-      "AnimControllerName": ""
+      "AnimControllerName": "FallingStoneAnimationController"
     }
   ]
 }

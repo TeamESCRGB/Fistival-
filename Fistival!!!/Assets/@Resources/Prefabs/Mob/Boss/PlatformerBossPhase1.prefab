@@ -570,8 +570,9 @@ GameObject:
   - component: {fileID: 55871239763545037}
   - component: {fileID: 3091496988555905955}
   - component: {fileID: 8287817313087677634}
-  - component: {fileID: 40833557959944219}
   - component: {fileID: 5968952486200480743}
+  - component: {fileID: 7682269149441244732}
+  - component: {fileID: 40833557959944219}
   m_Layer: 13
   m_Name: PlatformerBossPhase1
   m_TagString: Untagged
@@ -747,6 +748,8 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  _fallingObjectIdx: 0000000000000000000000000000000000000000
+  _fallingObjectInterval: 0.4
 --- !u!114 &8287817313087677634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -763,6 +766,31 @@ MonoBehaviour:
   _slamForce: {x: 0, y: -30}
   _slamYOffset: 4
   _slamMoveTime: 1
+--- !u!114 &5968952486200480743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4915324703599281049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c908ee465a8d14bbe611dcc09debc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackFieldAct
+  _attackFieldName: '@AttackFieldRange'
+--- !u!114 &7682269149441244732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4915324703599281049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d4d0d8d9cad3d41917ab54bf5893e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.MobActs.FallingObjectRandomPosSpawnAct
 --- !u!95 &40833557959944219
 Animator:
   serializedVersion: 7
@@ -785,19 +813,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5968952486200480743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4915324703599281049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c908ee465a8d14bbe611dcc09debc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AttackFieldAct
-  _attackFieldName: '@AttackFieldRange'
 --- !u!1 &5825916389033620981
 GameObject:
   m_ObjectHideFlags: 0
