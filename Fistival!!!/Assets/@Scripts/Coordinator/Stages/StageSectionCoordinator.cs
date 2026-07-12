@@ -155,7 +155,7 @@ namespace Coordinator.Stages
 
             foreach(var obj in result)
             {
-                if(obj.gameObject.CompareTag("Collection"))
+                if(obj.gameObject.CompareTag("Collection") || obj.gameObject.CompareTag("FallingObject") == false)
                 {
                     continue;
                 }

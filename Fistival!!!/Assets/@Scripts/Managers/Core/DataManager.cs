@@ -23,6 +23,7 @@ namespace Manager.Core
         public Dictionary<int,CollectionData> CollectionDataDict { get; private set; }
         public Dictionary<int,HealItemData> HealItemDataDict { get; private set; }
         public Dictionary<int,CommonMobData> CommonMobDataDict { get; private set; }
+        public Dictionary<int,FallingObjectData> FallingObjectDataDict { get; private set; }
 
         public void Init()
         {
@@ -36,6 +37,7 @@ namespace Manager.Core
             CollectionDataDict = LoadJson<CollectionDataLoader, int, CollectionData>("CollectionData").MakeDict();
             HealItemDataDict = LoadJson<HealItemDataLoader, int, HealItemData>("HealItemData").MakeDict();
             CommonMobDataDict = LoadJson<CommonMobDataLoader, int, CommonMobData>("CommonMobData").MakeDict();
+            FallingObjectDataDict = LoadJson<FallingObjectDataLoader, int, FallingObjectData>("FallingObjectData").MakeDict();
         }
 
         //솔직히, 이게 어떻게 가능한건지 아직 모르겠다
