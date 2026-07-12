@@ -13,6 +13,7 @@ TagManager:
   - JumpTag
   - DownJumpTag
   - StopTag
+  - FallingObject
   layers:
   - Default
   - TransparentFX
