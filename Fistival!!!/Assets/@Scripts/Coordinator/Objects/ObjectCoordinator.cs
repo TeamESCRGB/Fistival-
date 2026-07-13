@@ -86,6 +86,10 @@ namespace Coordinator.Objects
             _abrasableLayerMask = data.AbrasableLayerMask;
             _isThrown = false;
             _additionalDamage = 0;
+
+            var physMat = Managers.Instance.ResourceManager.Load<PhysicsMaterial2D>(data.PhysicsMaterialName);
+            _rb2d.sharedMaterial = physMat;
+            _col2d.sharedMaterial = physMat;
             base.Init(0, data.Damage, data.StunTime);
         }
 
