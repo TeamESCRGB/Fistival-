@@ -1,3 +1,4 @@
+using Coordinator.MobActs;
 using Coordinator.Movements;
 using Coordinator.Skills;
 using Data;
@@ -18,6 +19,9 @@ namespace Coordinator.Mobs
         protected override void OnAwake()
         {
             base.OnAwake();
+            //_acts[0];
+            _acts[1] = GetComponent<AttackFieldAct>();
+            //_acts[2];
         }
 
         public override void Init(CommonMobData data)
@@ -31,7 +35,7 @@ namespace Coordinator.Mobs
             {
                 touchDamages[i].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             }
-
+            ((AttackFieldAct)_acts[1]).Init(() => { _isActing = false; }, _animator);
         }
 
         public void Init(CommonMobData data, IReadOnlyList<Transform> spawnPoints)
