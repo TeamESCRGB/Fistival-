@@ -5,6 +5,7 @@ namespace Data
     public class CommonMobData
     {
         public int Idx { get; set; }
+        public string PrefabKey { get; set; }
         public int HP { get; set; }
         public int TouchDamage { get; set; }
         public float TouchStunTime { get; set; }

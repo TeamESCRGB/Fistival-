@@ -81,6 +81,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: defb8ff4bec74174eb3c25d188f340db
+    m_Address: PlatformerBossPhase2AnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f4dc13695fcaaa340938220e410f44e4
     m_Address: FrogAnimationController
     m_ReadOnly: 0

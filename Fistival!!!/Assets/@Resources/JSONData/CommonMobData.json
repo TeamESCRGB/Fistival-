@@ -3,6 +3,7 @@
     {
       "Idx": -666775,
       "HP": 6,
+      "PrefabKey": "",
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
       "KnockBackForce": 10,
@@ -24,6 +25,7 @@
 
     {
       "Idx": 0,
+      "PrefabKey": "PlatformerPatrolMob",
       "HP": 3,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -44,6 +46,7 @@
     },
     {
       "Idx": 1,
+      "PrefabKey": "WalkingDalmatian",
       "HP": 6,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -64,6 +67,7 @@
     },
     {
       "Idx": 2,
+      "PrefabKey": "FlyingDiscMob",
       "HP": 3,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -84,6 +88,7 @@
     },
     {
       "Idx": 3,
+      "PrefabKey": "FlightPatrolMob",
       "HP": 3,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -104,6 +109,7 @@
     },
     {
       "Idx": 4,
+      "PrefabKey": "SotCopMob",
       "HP": 40,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -125,6 +131,7 @@
 
     {
       "Idx": 5,
+      "PrefabKey": "LeopardGecko",
       "HP": 5,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -145,6 +152,7 @@
     },
     {
       "Idx": 6,
+      "PrefabKey": "CrestedGeckoMob",
       "HP": 3,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -165,6 +173,7 @@
     },
     {
       "Idx": 7,
+      "PrefabKey": "FrogMob",
       "HP": 5,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -185,6 +194,7 @@
     },
     {
       "Idx": 8,
+      "PrefabKey": "TurtleMob",
       "HP": 15,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -205,6 +215,7 @@
     },
     {
       "Idx": 9,
+      "PrefabKey": "BatMob",
       "HP": 3,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -225,6 +236,7 @@
     },
     {
       "Idx": 10,
+      "PrefabKey": "CameleonBossMob",
       "HP": 30,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -245,6 +257,7 @@
     },
     {
       "Idx": 11,
+      "PrefabKey": "PlatformerBossPhase1",
       "HP": 60,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -265,6 +278,7 @@
     },
     {
       "Idx": 12,
+      "PrefabKey": "PlatformerBossPhase2",
       "HP": 50,
       "TouchDamage": 1,
       "TouchStunTime": 0.25,
@@ -281,7 +295,7 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "TestController"
+      "AnimationController": "PlatformerBossPhase2AnimationController"
     }
   ]
 }
