@@ -15,7 +15,8 @@ namespace Coordinator
         private float _currentCenter = -10f;
         private bool _isRunning = false;
 
-        private event Action<bool> OnEnd;
+        public event Action<bool> OnEnd;
+        public event Action<float, float> OnProceed;
 
         void Start()
         {
@@ -33,6 +34,8 @@ namespace Coordinator
 
             // 1. 파동 중심 이동
             _currentCenter += _speed * Time.deltaTime;
+
+            OnProceed?.Invoke(_currentCenter, _boxTransforms.Count-1);
 
             // 2. 종료 조건 체크: 파동이 마지막 박스를 지나갔는지 확인
             if (_boxTransforms.Count > 0)
@@ -87,6 +90,7 @@ namespace Coordinator
         {
             if(_isRunning)
             {
+                var current = _currentCenter;
                 _isRunning = false;
                 ResetAllBoxes();
                 OnEnd?.Invoke(false);
