@@ -2,12 +2,14 @@
 using Coordinator.Movements;
 using Coordinator.Skills;
 using Data;
+using Manager;
 using UnityEngine;
 
 namespace Coordinator.Mobs
 {
     public class SotCopMob : MobCoordinatorBase
     {
+        private string _prefabKey;
         [SerializeField]
         protected float _jumpPow;
 
@@ -51,6 +53,7 @@ namespace Coordinator.Mobs
         public override void Init(CommonMobData data)
         {
             base.Init(data);
+            _prefabKey = data.PrefabKey;
             _isActing = false;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
@@ -95,6 +98,12 @@ namespace Coordinator.Mobs
 
             _acts[UnityEngine.Random.Range(0, _acts.Length)].Act();
 
+        }
+
+        protected override void OnDead()
+        {
+            base.OnDead();
+            Managers.Instance.StageManager.ClearBoss(_prefabKey);
         }
 
         protected override void OnHPChanged(int old, int now, int delta)

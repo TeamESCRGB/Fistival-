@@ -4,6 +4,7 @@ using Coordinator.Movements;
 using Coordinator.Skills;
 using Coordinator.Victims;
 using Data;
+using Manager;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace Coordinator.Mobs
         private bool _isActing;
         private float _skillTime;
         private BlockWaveCoordinator _wave;
+        private string _prefabKey;
 
         protected override void OnAwake()
         {
@@ -29,6 +31,7 @@ namespace Coordinator.Mobs
         public override void Init(CommonMobData data)
         {
             base.Init(data);
+            _prefabKey = data.PrefabKey;
             _isActing = false;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
@@ -84,10 +87,17 @@ namespace Coordinator.Mobs
             _skillTime = 0;
             _isActing = true;
 
-            _acts[0].Act();//UnityEngine.Random.Range(0, _acts.Length)
+            _acts[UnityEngine.Random.Range(0, _acts.Length)].Act();
+        }
+
+        protected override void OnDead()
+        {
+            base.OnDead();
+            Managers.Instance.StageManager.ClearBoss(_prefabKey);
         }
 
         #region UnUsed
+
         protected override void OnHPChanged(int old, int now, int delta)
         {
 

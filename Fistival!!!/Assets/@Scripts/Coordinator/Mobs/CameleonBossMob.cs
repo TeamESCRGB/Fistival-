@@ -19,7 +19,7 @@ namespace Coordinator.Mobs
     {
 
         private MobActBase[] _acts = new MobActBase[3];
-        
+        private string _prefabKey;
         protected Transform _player;
         protected bool _isActing;
         protected float _skillTime;
@@ -65,6 +65,7 @@ namespace Coordinator.Mobs
         public override void Init(CommonMobData data)
         {
             base.Init(data);
+            _prefabKey = data.PrefabKey;
             var original = GetComponentInChildren<VictimCoordinator>();
             var connectors = GetComponentsInChildren<VictimConnector>();
             connectors[0].SetOriginal(original);
@@ -120,6 +121,11 @@ namespace Coordinator.Mobs
 
         }
 
+        protected override void OnDead()
+        {
+            base.OnDead();
+            Managers.Instance.StageManager.ClearBoss(_prefabKey);
+        }
 
         public void PaintStun(float time)
         {

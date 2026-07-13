@@ -11,7 +11,6 @@ namespace Coordinator.Mobs
 {
     public class PlatformerBossPhase1Mob : MobCoordinatorBase, IPushable
     {
-        private string _prefabKey;
         private MobActBase[] _acts = new MobActBase[3];
 
         private Transform _player;
@@ -47,7 +46,6 @@ namespace Coordinator.Mobs
         public override void Init(CommonMobData data)
         {
             base.Init(data);
-            _prefabKey = data.PrefabKey;
             _hpHalf = data.HP / 2;
             _isActing = false;
             _skillTime = _skillDelay;
@@ -69,7 +67,6 @@ namespace Coordinator.Mobs
         private void OnPhaseChanged()
         {
             Managers.Instance.ResourceManager.Destroy(gameObject, true);
-            Managers.Instance.StageManager.ClearBoss(_prefabKey);
         }
 
         public void Init(CommonMobData data, Vector3 objSpawnPointMin, Vector3 objSpawnPointMax, Transform phase2Pos, IReadOnlyList<Transform> phase2ObjSpawnPoints, BlockWaveCoordinator phase2WaveCoord)
