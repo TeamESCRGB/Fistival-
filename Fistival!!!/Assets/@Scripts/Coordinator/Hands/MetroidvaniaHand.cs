@@ -92,6 +92,10 @@ namespace Coordinator.Hands
 
                 return;
             }
+            else if (_weapon != null)
+            {
+                RemoveWeapon();
+            }
 
             if (_cooldownModule.IsCooldownEnded() == false)
             {
@@ -114,6 +118,10 @@ namespace Coordinator.Hands
                 _pressedTime = 0;
                 base.OnLMBReleased();
                 return;
+            }
+            else if (_weapon != null)
+            {
+                RemoveWeapon();
             }
 
             if (_cooldownModule.IsCooldownEnded() == false || (_attackStatus & (AttackStatus.NO_PRESSED | AttackStatus.WEAPON)) != 0)

@@ -270,6 +270,11 @@ namespace Coordinator.Hands
                 base.OnLMBPressed();
                 return;
             }
+            else if (_weapon != null)
+            {
+                RemoveWeapon();
+            }
+
             _attackStatus = AttackStatus.PRESSED;
             _pressedTime = Time.timeAsDouble;
             OnAttackStatusChanged?.Invoke(AttackStatus.PRESSED);
@@ -294,6 +299,10 @@ namespace Coordinator.Hands
                 _pressedTime = 0;
                 base.OnLMBReleased();
                 return;
+            }
+            else if (_weapon != null)
+            {
+                RemoveWeapon();
             }
 
             if (_cooldownModule.IsCooldownEnded() == false || _attackStatus == AttackStatus.NO_PRESSED)
