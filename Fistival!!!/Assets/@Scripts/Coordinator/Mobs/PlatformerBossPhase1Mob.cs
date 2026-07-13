@@ -3,7 +3,7 @@ using Coordinator.MobActs.PlatformerBoss;
 using Coordinator.Movements;
 using Coordinator.Skills;
 using Data;
-using NUnit.Framework;
+using Manager;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace Coordinator.Mobs
 {
     public class PlatformerBossPhase1Mob : MobCoordinatorBase, IPushable
     {
-
+        private string _prefabKey;
         private MobActBase[] _acts = new MobActBase[3];
 
         private Transform _player;
@@ -29,17 +29,25 @@ namespace Coordinator.Mobs
         [SerializeField]
         private float _fallingObjectInterval;
 
+        private Transform _phase2SpawnPoint;
+        private PlatformerBossPhaseChange _phaseChangeAct;
+        private IReadOnlyList<Transform> _phase2ObjSpawnPoints;
+        private BlockWaveCoordinator _phase2WaveCoord;
+
         protected override void OnAwake()
         {
             base.OnAwake();
+            _phaseChangeAct = GetComponent<PlatformerBossPhaseChange>();
             _acts[0] = GetComponent<PlatformerPhase1Slam>();
             _acts[1] = GetComponent<AttackFieldAct>();
             _acts[2] = GetComponent<FallingObjectRandomPosSpawnAct>();
+
         }
 
         public override void Init(CommonMobData data)
         {
             base.Init(data);
+            _prefabKey = data.PrefabKey;
             _hpHalf = data.HP / 2;
             _isActing = false;
             _skillTime = _skillDelay;
@@ -54,10 +62,21 @@ namespace Coordinator.Mobs
             ((PlatformerPhase1Slam)_acts[0]).Init(() => { _isActing = false; }, _animator, _rb2d, _player, _groundLayer, _objSpawnPointMin, _objSpawnPointMax);
             ((AttackFieldAct)_acts[1]).Init(() => { _isActing = false; }, _animator);
             ((FallingObjectRandomPosSpawnAct)_acts[2]).Init(() => { _isActing = false; }, _animator, _fallingObjectIdx, _objSpawnPointMin, _objSpawnPointMax, _fallingObjectInterval);
+
+            _phaseChangeAct.Init(OnPhaseChanged,_animator, _phase2SpawnPoint, _rb2d, _phase2ObjSpawnPoints, _phase2WaveCoord);
         }
 
-        public void Init(CommonMobData data, Vector3 objSpawnPointMin, Vector3 objSpawnPointMax)
+        private void OnPhaseChanged()
         {
+            Managers.Instance.ResourceManager.Destroy(gameObject, true);
+            Managers.Instance.StageManager.ClearBoss(_prefabKey);
+        }
+
+        public void Init(CommonMobData data, Vector3 objSpawnPointMin, Vector3 objSpawnPointMax, Transform phase2Pos, IReadOnlyList<Transform> phase2ObjSpawnPoints, BlockWaveCoordinator phase2WaveCoord)
+        {
+            _phase2WaveCoord = phase2WaveCoord;
+            _phase2ObjSpawnPoints = phase2ObjSpawnPoints;
+            _phase2SpawnPoint= phase2Pos;
             _objSpawnPointMin = objSpawnPointMin;
             _objSpawnPointMax = objSpawnPointMax;
             Init(data);
@@ -102,6 +121,11 @@ namespace Coordinator.Mobs
             {
                 _acts[UnityEngine.Random.Range(0, 2)].Act();
             }
+        }
+
+        public override void AnimatorOnDead()
+        {
+            _phaseChangeAct.Act();
         }
 
         protected override void OnHPChanged(int old, int now, int delta)
