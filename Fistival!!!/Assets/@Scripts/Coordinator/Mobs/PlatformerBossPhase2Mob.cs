@@ -2,6 +2,7 @@ using Coordinator.MobActs;
 using Coordinator.MobActs.PlatformerBoss;
 using Coordinator.Movements;
 using Coordinator.Skills;
+using Coordinator.Victims;
 using Data;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,12 +16,12 @@ namespace Coordinator.Mobs
         private Transform _player;
         private bool _isActing;
         private float _skillTime;
-
+        private BlockWaveCoordinator _wave;
 
         protected override void OnAwake()
         {
             base.OnAwake();
-            //_acts[0];
+            _acts[0] = GetComponent<PlatformerPhase2Fist>();
             _acts[1] = GetComponent<AttackFieldAct>();
             _acts[2] = GetComponent<PlatformerPhase2Howling>();
         }
@@ -36,13 +37,33 @@ namespace Coordinator.Mobs
             {
                 touchDamages[i].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             }
+
+            var waveTouchDamages = _wave.GetComponentsInChildren<TouchDamageSkill>();
+
+            for(int i = 0; i < waveTouchDamages.Length; i++)
+            {
+                waveTouchDamages[i].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
+            }
+
+
+            var victimConnectors = GetComponentsInChildren<VictimConnector>();
+            var victim = GetComponentInChildren<VictimCoordinator>();
+
+            for(int i = 0; i < victimConnectors.Length; i++)
+            {
+                victimConnectors[i].SetOriginal(victim);
+            }
+
+            ((PlatformerPhase2Fist)_acts[0]).Init(() => { _isActing = false; }, _animator, _wave, _spawnPoints);
             ((AttackFieldAct)_acts[1]).Init(() => { _isActing = false; }, _animator);
             ((PlatformerPhase2Howling)_acts[2]).Init(() => { _isActing = false; }, _animator, _spawnPoints);
         }
 
-        public void Init(CommonMobData data, IReadOnlyList<Transform> spawnPoints)
+        public void Init(CommonMobData data, IReadOnlyList<Transform> spawnPoints, BlockWaveCoordinator wave)
         {
             _spawnPoints = spawnPoints;
+            _wave= wave;
+
             Init(data);
         }
 
@@ -63,7 +84,7 @@ namespace Coordinator.Mobs
             _skillTime = 0;
             _isActing = true;
 
-            _acts[2].Act();//UnityEngine.Random.Range(0, _acts.Length)
+            _acts[0].Act();//UnityEngine.Random.Range(0, _acts.Length)
         }
 
         #region UnUsed
