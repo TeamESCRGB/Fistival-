@@ -1,4 +1,5 @@
 using Coordinator.MobActs;
+using Coordinator.MobActs.PlatformerBoss;
 using Coordinator.Movements;
 using Coordinator.Skills;
 using Data;
@@ -21,7 +22,7 @@ namespace Coordinator.Mobs
             base.OnAwake();
             //_acts[0];
             _acts[1] = GetComponent<AttackFieldAct>();
-            //_acts[2];
+            _acts[2] = GetComponent<PlatformerPhase2Howling>();
         }
 
         public override void Init(CommonMobData data)
@@ -36,6 +37,7 @@ namespace Coordinator.Mobs
                 touchDamages[i].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             }
             ((AttackFieldAct)_acts[1]).Init(() => { _isActing = false; }, _animator);
+            ((PlatformerPhase2Howling)_acts[2]).Init(() => { _isActing = false; }, _animator, _spawnPoints);
         }
 
         public void Init(CommonMobData data, IReadOnlyList<Transform> spawnPoints)
@@ -61,7 +63,7 @@ namespace Coordinator.Mobs
             _skillTime = 0;
             _isActing = true;
 
-            _acts[1].Act();//UnityEngine.Random.Range(0, _acts.Length)
+            _acts[2].Act();//UnityEngine.Random.Range(0, _acts.Length)
         }
 
         #region UnUsed

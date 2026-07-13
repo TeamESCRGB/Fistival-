@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6058634627050022265}
   - component: {fileID: 8131535066777904483}
   - component: {fileID: 8087932255140567444}
+  - component: {fileID: 6989948409002729020}
   - component: {fileID: 6906201652473306912}
   m_Layer: 13
   m_Name: PlatformerBossPhase2
@@ -201,6 +202,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.MobActs.AttackFieldAct
   _attackFieldName: '@AttackFieldRange'
+--- !u!114 &6989948409002729020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128996063966559228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db83984c30fae9346888ba5dceb4232a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.MobActs.PlatformerBoss.PlatformerPhase2Howling
+  _mobIdx: 5
+  _fallingObjectIdx: 0
+  _objectIdx: 4
 --- !u!95 &6906201652473306912
 Animator:
   serializedVersion: 7
