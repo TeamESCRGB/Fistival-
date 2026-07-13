@@ -130,7 +130,6 @@ namespace Coordinator.Mobs
 
         protected override void OnHPChanged(int old, int now, int delta)
         {
-            base.OnHPChanged(old, now, delta);
             if(_hpHalfPatternExecutedFlag)
             {
                 return;

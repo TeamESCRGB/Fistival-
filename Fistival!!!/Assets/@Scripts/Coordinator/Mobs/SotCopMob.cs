@@ -2,9 +2,6 @@
 using Coordinator.Movements;
 using Coordinator.Skills;
 using Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace Coordinator.Mobs
@@ -100,36 +97,24 @@ namespace Coordinator.Mobs
 
         }
 
-
+        protected override void OnHPChanged(int old, int now, int delta)
+        {
+            
+        }
 
         public override void StunFor(float time)
         {
-            if (time <= 0 || _stunCounter.GetRemainedTime() >= time)
-            {
-                return;
-            }
 
-            if (_stunCounter.IsCooldownEnded())
-            {
-                _movLock.LockMovement();
-            }
-
-            _stunCounter.SetCooldownTime(time);
-            _stunCounter.StartCooldown();
         }
 
         public override void ReleaseStun()
         {
-            if (_stunCounter is null || _stunCounter.IsCooldownEnded())
-            {
-                return;
-            }
-            _stunCounter.StopCooldown();
+
         }
 
         public override void OnStunEnd()
         {
-            _movLock.UnlockMovement();
+
         }
 
         protected override void OnAggroStateChanged(bool isAggroOn, Collider2D player)

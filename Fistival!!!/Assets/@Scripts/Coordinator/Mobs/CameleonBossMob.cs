@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using Utils;
-using static UnityEditor.PlayerSettings;
 
 namespace Coordinator.Mobs
 {
