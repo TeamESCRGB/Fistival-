@@ -573,6 +573,7 @@ GameObject:
   - component: {fileID: 5968952486200480743}
   - component: {fileID: 7682269149441244732}
   - component: {fileID: 40833557959944219}
+  - component: {fileID: 5443209561861958309}
   m_Layer: 13
   m_Name: PlatformerBossPhase1
   m_TagString: Untagged
@@ -814,6 +815,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5443209561861958309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4915324703599281049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f474da64c65c14c8b2654703042f5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.MobActs.PlatformerBoss.PlatformerBossPhaseChange
+  _phase2Idx: 12
+  _phaseChangeJumpDuration: 3
 --- !u!1 &5825916389033620981
 GameObject:
   m_ObjectHideFlags: 0
