@@ -281,7 +281,7 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "TestController"
+      "AnimationController": "PlatformerBossPhase2AnimationController"
     }
   ]
 }
