@@ -32,7 +32,7 @@ namespace Coordinator.Mobs
         {
             base.Init(data);
             _prefabKey = data.PrefabKey;
-            _isActing = false;
+            _isActing = true;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
             var touchDamages = GetComponentsInChildren<TouchDamageSkill>();
@@ -68,6 +68,11 @@ namespace Coordinator.Mobs
             _wave= wave;
 
             Init(data);
+        }
+
+        public void StartPlatformerPhase2()
+        {
+            _isActing = false;
         }
 
         private void Update()

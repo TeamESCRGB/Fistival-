@@ -54,7 +54,7 @@ namespace Coordinator.Mobs
         {
             base.Init(data);
             _prefabKey = data.PrefabKey;
-            _isActing = false;
+            _isActing = true;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
             GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
@@ -62,6 +62,11 @@ namespace Coordinator.Mobs
             ((ProjectileLaunchAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _slashProjectileIdx, _slashCnt, data.PlayerHitboxLayer);
             ((SlamAct)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(), _slamDropObjIdx,_slamDropObjCnt ,_player, _jumpForce, _slamDropObjForce,_groundLayer,_attackLayer);
             ((LengthDashAct)_acts[2]).Init(() => { _isActing = false; }, _animator, _move, GetComponent<Rigidbody2D>(), data.Speed, _dashStopTime);
+        }
+
+        public void StartSotCopBoss()
+        {
+            _isActing = false;
         }
 
         private void Update()
