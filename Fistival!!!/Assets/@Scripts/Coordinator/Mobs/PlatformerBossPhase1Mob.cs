@@ -47,7 +47,7 @@ namespace Coordinator.Mobs
         {
             base.Init(data);
             _hpHalf = data.HP / 2;
-            _isActing = false;
+            _isActing = true;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
             _hpHalfPatternFlag = false;
@@ -62,6 +62,11 @@ namespace Coordinator.Mobs
             ((FallingObjectRandomPosSpawnAct)_acts[2]).Init(() => { _isActing = false; }, _animator, _fallingObjectIdx, _objSpawnPointMin, _objSpawnPointMax, _fallingObjectInterval);
 
             _phaseChangeAct.Init(OnPhaseChanged,_animator, _phase2SpawnPoint, _rb2d, _phase2ObjSpawnPoints, _phase2WaveCoord);
+        }
+
+        public void StartPlatformerPhase1()
+        {
+            _isActing = false;
         }
 
         private void OnPhaseChanged()

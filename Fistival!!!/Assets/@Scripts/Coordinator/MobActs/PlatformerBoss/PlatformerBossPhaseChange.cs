@@ -37,7 +37,7 @@ namespace Coordinator.MobActs.PlatformerBoss
             }
 
             _fdt += Time.fixedDeltaTime;
-            if(_fdt < _phaseChangeJumpDuration)
+            if(_fdt < _phaseChangeJumpDuration*2)
             {
                 return;
             }
