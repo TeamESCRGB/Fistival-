@@ -62,6 +62,11 @@ namespace Coordinator.Mobs
             _mov = GetComponent<PointMovement>();
         }
 
+        public void StartCameleonBoss()
+        {
+            _isActing = false;
+        }
+
         public override void Init(CommonMobData data)
         {
             base.Init(data);
@@ -70,7 +75,7 @@ namespace Coordinator.Mobs
             var connectors = GetComponentsInChildren<VictimConnector>();
             connectors[0].SetOriginal(original);
             connectors[1].SetOriginal(original);
-            _isActing = false;
+            _isActing = true;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
             var comps = GetComponentsInChildren<TouchDamageSkill>(true);
@@ -97,6 +102,12 @@ namespace Coordinator.Mobs
             {
                 return;
             }
+
+            if (_stunCounter.IsCooldownEnded() == false)
+            {
+                return;
+            }
+
             float dirSign = Mathf.Sign(transform.right.x);
             Vector3 direction = -(_player.position - _head.position) * dirSign;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg * dirSign;
@@ -105,11 +116,6 @@ namespace Coordinator.Mobs
             if (_skillTime < _skillDelay)
             {
                 _skillTime += Time.deltaTime;
-                return;
-            }
-            
-            if (_stunCounter.IsCooldownEnded() == false)
-            {
                 return;
             }
 
@@ -125,6 +131,11 @@ namespace Coordinator.Mobs
         {
             base.OnDead();
             Managers.Instance.StageManager.ClearBoss(_prefabKey);
+        }
+
+        public override void AnimatorOnDead()
+        {
+            Managers.Instance.ResourceManager.Destroy(gameObject, true);
         }
 
         public void PaintStun(float time)

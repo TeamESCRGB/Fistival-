@@ -191,6 +191,8 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  _spawnMovementDelta: 8.2
+  _spawnMovementDuration: 5
 --- !u!114 &8087932255140567444
 MonoBehaviour:
   m_ObjectHideFlags: 0

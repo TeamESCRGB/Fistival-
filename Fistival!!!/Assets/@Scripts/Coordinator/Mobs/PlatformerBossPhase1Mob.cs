@@ -32,6 +32,7 @@ namespace Coordinator.Mobs
         private PlatformerBossPhaseChange _phaseChangeAct;
         private IReadOnlyList<Transform> _phase2ObjSpawnPoints;
         private BlockWaveCoordinator _phase2WaveCoord;
+        private GameObject _phase2Platform;
 
         protected override void OnAwake()
         {
@@ -47,7 +48,7 @@ namespace Coordinator.Mobs
         {
             base.Init(data);
             _hpHalf = data.HP / 2;
-            _isActing = false;
+            _isActing = true;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
             _hpHalfPatternFlag = false;
@@ -61,7 +62,12 @@ namespace Coordinator.Mobs
             ((AttackFieldAct)_acts[1]).Init(() => { _isActing = false; }, _animator);
             ((FallingObjectRandomPosSpawnAct)_acts[2]).Init(() => { _isActing = false; }, _animator, _fallingObjectIdx, _objSpawnPointMin, _objSpawnPointMax, _fallingObjectInterval);
 
-            _phaseChangeAct.Init(OnPhaseChanged,_animator, _phase2SpawnPoint, _rb2d, _phase2ObjSpawnPoints, _phase2WaveCoord);
+            _phaseChangeAct.Init(OnPhaseChanged,_animator, _phase2SpawnPoint, _rb2d, _phase2ObjSpawnPoints, _phase2WaveCoord, _phase2Platform);
+        }
+
+        public void StartPlatformerPhase1()
+        {
+            _isActing = false;
         }
 
         private void OnPhaseChanged()
@@ -69,13 +75,14 @@ namespace Coordinator.Mobs
             Managers.Instance.ResourceManager.Destroy(gameObject, true);
         }
 
-        public void Init(CommonMobData data, Vector3 objSpawnPointMin, Vector3 objSpawnPointMax, Transform phase2Pos, IReadOnlyList<Transform> phase2ObjSpawnPoints, BlockWaveCoordinator phase2WaveCoord)
+        public void Init(CommonMobData data, Vector3 objSpawnPointMin, Vector3 objSpawnPointMax, Transform phase2Pos, IReadOnlyList<Transform> phase2ObjSpawnPoints, BlockWaveCoordinator phase2WaveCoord, GameObject phase2Platform)
         {
             _phase2WaveCoord = phase2WaveCoord;
             _phase2ObjSpawnPoints = phase2ObjSpawnPoints;
             _phase2SpawnPoint= phase2Pos;
             _objSpawnPointMin = objSpawnPointMin;
             _objSpawnPointMax = objSpawnPointMax;
+            _phase2Platform = phase2Platform;
             Init(data);
         }
 

@@ -4,6 +4,7 @@ using Coordinator.Movements;
 using Coordinator.Skills;
 using Coordinator.Victims;
 using Data;
+using DG.Tweening;
 using Manager;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,11 @@ namespace Coordinator.Mobs
         private float _skillTime;
         private BlockWaveCoordinator _wave;
         private string _prefabKey;
+        [SerializeField]
+        private float _spawnMovementDelta;
+        [SerializeField]
+        private float _spawnMovementDuration;
+
 
         protected override void OnAwake()
         {
@@ -32,7 +38,7 @@ namespace Coordinator.Mobs
         {
             base.Init(data);
             _prefabKey = data.PrefabKey;
-            _isActing = false;
+            _isActing = true;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
             var touchDamages = GetComponentsInChildren<TouchDamageSkill>();
@@ -70,6 +76,11 @@ namespace Coordinator.Mobs
             Init(data);
         }
 
+        public void StartPlatformerPhase2()
+        {
+            transform.DOMoveY(_spawnMovementDelta, _spawnMovementDuration).SetRelative(true).From(-_spawnMovementDelta).onComplete += ()=> { _isActing = false; };
+        }
+
         private void Update()
         {
             if (_isActing)
@@ -94,6 +105,11 @@ namespace Coordinator.Mobs
         {
             base.OnDead();
             Managers.Instance.StageManager.ClearBoss(_prefabKey);
+        }
+
+        public override void AnimatorOnDead()
+        {
+            transform.DOMoveY(-_spawnMovementDelta, _spawnMovementDuration).SetRelative(true).onComplete += () => { Managers.Instance.ResourceManager.Destroy(gameObject, true); };
         }
 
         #region UnUsed
