@@ -4,6 +4,7 @@ using Coordinator.Movements;
 using Coordinator.Skills;
 using Coordinator.Victims;
 using Data;
+using DG.Tweening;
 using Manager;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,11 @@ namespace Coordinator.Mobs
         private float _skillTime;
         private BlockWaveCoordinator _wave;
         private string _prefabKey;
+        [SerializeField]
+        private float _spawnMovementDelta;
+        [SerializeField]
+        private float _spawnMovementDuration;
+
 
         protected override void OnAwake()
         {
@@ -72,7 +78,7 @@ namespace Coordinator.Mobs
 
         public void StartPlatformerPhase2()
         {
-            _isActing = false;
+            transform.DOMoveY(_spawnMovementDelta, _spawnMovementDuration).SetRelative(true).From(-_spawnMovementDelta).onComplete += ()=> { _isActing = false; };
         }
 
         private void Update()
@@ -103,7 +109,7 @@ namespace Coordinator.Mobs
 
         public override void AnimatorOnDead()
         {
-            Managers.Instance.ResourceManager.Destroy(gameObject, true);
+            transform.DOMoveY(-_spawnMovementDelta, _spawnMovementDuration).SetRelative(true).onComplete += () => { Managers.Instance.ResourceManager.Destroy(gameObject, true); };
         }
 
         #region UnUsed
