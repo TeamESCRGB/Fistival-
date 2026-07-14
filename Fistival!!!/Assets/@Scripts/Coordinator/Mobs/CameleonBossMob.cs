@@ -102,6 +102,12 @@ namespace Coordinator.Mobs
             {
                 return;
             }
+
+            if (_stunCounter.IsCooldownEnded() == false)
+            {
+                return;
+            }
+
             float dirSign = Mathf.Sign(transform.right.x);
             Vector3 direction = -(_player.position - _head.position) * dirSign;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg * dirSign;
@@ -110,11 +116,6 @@ namespace Coordinator.Mobs
             if (_skillTime < _skillDelay)
             {
                 _skillTime += Time.deltaTime;
-                return;
-            }
-            
-            if (_stunCounter.IsCooldownEnded() == false)
-            {
                 return;
             }
 
