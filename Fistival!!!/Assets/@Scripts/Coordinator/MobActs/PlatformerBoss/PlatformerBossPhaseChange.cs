@@ -20,13 +20,16 @@ namespace Coordinator.MobActs.PlatformerBoss
         private bool _isMoving;
         private IReadOnlyList<Transform> _spawnPoints;
         private BlockWaveCoordinator _blockWave;
-        public void Init(Action onActionEnd, Animator animator, Transform endPos, Rigidbody2D rb2d, IReadOnlyList<Transform> phase2ObjSpawnPoints, BlockWaveCoordinator phase2WaveCoord)
+        private GameObject _phase2Platform;
+        public void Init(Action onActionEnd, Animator animator, Transform endPos, Rigidbody2D rb2d, IReadOnlyList<Transform> phase2ObjSpawnPoints, BlockWaveCoordinator phase2WaveCoord, GameObject phase2Platform)
         {
             Init(onActionEnd, animator);
             _endPos= endPos;
             _rb2d= rb2d;
             _spawnPoints= phase2ObjSpawnPoints;
             _blockWave= phase2WaveCoord;
+            _phase2Platform=phase2Platform;
+            _phase2Platform.SetActive(false);
         }
 
         private void FixedUpdate()
@@ -49,6 +52,7 @@ namespace Coordinator.MobActs.PlatformerBoss
             var comp = go.GetComponent<PlatformerBossPhase2Mob>();
             comp.Init(data, _spawnPoints, _blockWave);
             go.transform.position = _endPos.position;
+            _phase2Platform.SetActive(true);
             _onActEnd?.Invoke();
         }
 
