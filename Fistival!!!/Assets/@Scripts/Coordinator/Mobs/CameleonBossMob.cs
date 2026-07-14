@@ -127,6 +127,11 @@ namespace Coordinator.Mobs
             Managers.Instance.StageManager.ClearBoss(_prefabKey);
         }
 
+        public override void AnimatorOnDead()
+        {
+            Managers.Instance.ResourceManager.Destroy(gameObject, true);
+        }
+
         public void PaintStun(float time)
         {
             if (time <= 0 || _stunCounter.GetRemainedTime() >= time)

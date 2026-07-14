@@ -96,6 +96,11 @@ namespace Coordinator.Mobs
             Managers.Instance.StageManager.ClearBoss(_prefabKey);
         }
 
+        public override void AnimatorOnDead()
+        {
+            Managers.Instance.ResourceManager.Destroy(gameObject, true);
+        }
+
         #region UnUsed
 
         protected override void OnHPChanged(int old, int now, int delta)
