@@ -57,6 +57,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8be9c5bfb0a89ea4fb22d5db35f36b2e
+    m_Address: PlatformerBossEndNPC
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9f2442f612c85ec45b4f930f45ac8215
     m_Address: FlightPatrolMob
     m_ReadOnly: 0
