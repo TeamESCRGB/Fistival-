@@ -197,15 +197,23 @@ namespace Coordinator.Hands
 
         private void Attack()
         {
-            if(Physics2D.OverlapBoxAll(_normalSkill.transform.position, _normalSkill.transform.lossyScale, 0, _attackableMask).Length <= 0)
+            var targets = Physics2D.OverlapBoxAll(_normalSkill.transform.position, _normalSkill.transform.lossyScale, 0, _attackableMask);
+            if (targets.Length <= 0)
             {
                 return;
             }
+
+            int layers = 0;
+            for(int i = 0; i < targets.Length; i++)
+            {
+                layers |= (1 << targets[i].gameObject.layer);
+            }
+
             int objDmg = 0;
             if (_grabbedObject != null)
             {
                 objDmg = _grabbedObject.GetSharedData().Damage;
-                if (_grabbedObject.Smash() == false)
+                if (_grabbedObject.Smash(layers) == false)
                 {
                     _grabbedObject = null;
                     _chargeCnt = 0;

@@ -143,9 +143,12 @@ namespace Coordinator.Objects
             return true;
         }
 
-        public virtual bool Smash()
+        public virtual bool Smash(int targetLayerMask)
         {
-            _durability--;
+            if((_abrasableLayerMask & targetLayerMask) != 0)
+            {
+                _durability--;
+            }
             if(_durability <= 0)
             {
                 Managers.Instance.ResourceManager.Destroy(gameObject);
@@ -202,10 +205,10 @@ namespace Coordinator.Objects
             {
                 _durability--;
             }
-            else if (((1 << go.layer) & _attackableLayers) != 0)
+            
+            if (((1 << go.layer) & _attackableLayers) != 0)
             {
                 Managers.Instance.AttackManager.RequestAttack(comp, this, (int)(_baseDamage * _rb2d.linearVelocity.magnitude) + _additionalDamage, _rb2d.linearVelocity, _baseStunTime * _chargeRate);
-                _durability--;
             }
 
             if(_durability <= 0)
