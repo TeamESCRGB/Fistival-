@@ -7,6 +7,7 @@ using InputHandler;
 using Manager;
 using System;
 using UnityEngine;
+using Utils;
 
 namespace Coordinator.Hands
 {
@@ -50,11 +51,24 @@ namespace Coordinator.Hands
 
         private IMovementLockable _movLocker;
 
+        private ParticleSystem _strongAttackCharging;
+        private ParticleSystem _strongAttackChargeEnd;
+
+        private void ClearAttackChargingParticles()
+        {
+            _strongAttackCharging.Stop();
+            _strongAttackCharging.Clear();
+            _strongAttackChargeEnd.Stop();
+            _strongAttackChargeEnd.Clear();
+        }
+
         protected override void OnAwake()
         {
             base.OnAwake();
             _attackBox = transform.Find("@AttackBox");
-            
+            _strongAttackCharging = gameObject.GetChild<ParticleSystem>("@StrongChargingParticle", true, true);
+            _strongAttackChargeEnd = gameObject.GetChild<ParticleSystem>("@StrongChargeEndParticle", true, true);
+
 #if UNITY_EDITOR
             if (_attackBox == null)
             {
@@ -116,6 +130,7 @@ namespace Coordinator.Hands
             _pressedTime = 0;
             _skillBase.Init(_attackableMask, _baseSmashDamage, playerData.StunTime);
             _attackBox.SetParent(null);//나중에 ui로 옮기면 바꾸고, 옮기면 그대로.
+            ClearAttackChargingParticles();
             if (_reloadCooldown is not null)
             {
                 Managers.Instance.CooldownManager.ReturnModule(_reloadCooldown);
@@ -159,8 +174,18 @@ namespace Coordinator.Hands
                     OnAttackStatusChanged?.Invoke(AttackStatus.STRONG_RDY);
                 }
             }
+            else if (_attackStatus == AttackStatus.STRONG_RDY)
+            {
+                if (Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
+                {
+                    _attackStatus = AttackStatus.STRONG;
+                    OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
+                    _strongAttackChargeEnd.Stop();
+                    _strongAttackChargeEnd.Play();
+                }
+            }
 
-            if(_gunStatus == GunStatus.USE)
+            if (_gunStatus == GunStatus.USE)
             {
                 Attack();
                 _gunStatus = GunStatus.OFF;
@@ -198,6 +223,7 @@ namespace Coordinator.Hands
                 _movLocker.UnlockMovement();
             }
 
+            ClearAttackChargingParticles();
             _gunStatus = GunStatus.OFF;
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
@@ -242,6 +268,9 @@ namespace Coordinator.Hands
             {
                 return;
             }
+
+            _strongAttackCharging.Stop();
+            _strongAttackCharging.Play(false);
             _attackStatus = AttackStatus.PRESSED;
             _pressedTime = Time.timeAsDouble;
             OnAttackStatusChanged?.Invoke(AttackStatus.PRESSED);
@@ -255,11 +284,20 @@ namespace Coordinator.Hands
                 return;
             }
 
+            _strongAttackCharging.Stop();
+            _strongAttackCharging.Clear();
             _gunStatus = GunStatus.USE;
             if (_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
             {
-                _movLocker.LockMovement();
                 _attackStatus = AttackStatus.STRONG;
+                OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
+                _strongAttackChargeEnd.Stop();
+                _strongAttackChargeEnd.Play();
+            }
+
+            if(_attackStatus == AttackStatus.STRONG)
+            {
+                _movLocker.LockMovement();
                 _gunStatus = GunStatus.FANNING;
             }
 
