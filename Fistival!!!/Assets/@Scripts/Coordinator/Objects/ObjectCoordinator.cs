@@ -26,6 +26,9 @@ namespace Coordinator.Objects
         private FixedCooldownComponentModule _pullGroundDisableCounter;
         private Action _pullGroundDisableEndCallback;
 
+        protected ParticleSystem _particle;
+        protected TrailRenderer _trail;
+
         private float _gravityConstant;
         [SerializeField]
         protected LayerMask _groundLayermask;
@@ -42,6 +45,8 @@ namespace Coordinator.Objects
             _pullGroundDisableEndCallback = OnGroundDisableEnd;
             _rb2d = gameObject.GetOrAddComponent<Rigidbody2D>();
             _col2d = gameObject.GetOrAddComponent<Collider2D>();
+            _particle = gameObject.GetComponent<ParticleSystem>();
+            _trail = gameObject.GetComponent<TrailRenderer>();
         }
         private void OnDisable()
         {
@@ -87,6 +92,11 @@ namespace Coordinator.Objects
             _isThrown = false;
             _additionalDamage = 0;
 
+            _particle.Stop();
+            _particle.Clear();
+            _trail.emitting = false;
+            _trail.Clear();
+
             GetComponent<SpriteRenderer>().sprite = Managers.Instance.ResourceManager.Load<Sprite>(data.SpriteName);
 
             var physMat = Managers.Instance.ResourceManager.Load<PhysicsMaterial2D>(data.PhysicsMaterialName);
@@ -117,7 +127,8 @@ namespace Coordinator.Objects
                 _isThrown = false;
                 _rb2d.excludeLayers &= ~_data.PlatformLayerMask;
                 _rb2d.includeLayers &= ~_attackableLayers;
-                Debug.Log("dis");
+                _particle.Stop();
+                _trail.emitting = false;
             }
             else
             {
@@ -138,6 +149,8 @@ namespace Coordinator.Objects
                 return false;
             }
 
+            _particle.Play();
+            _trail.emitting = true;
             _attackCnt = 0;
             _chargeRate=chargeRate;
             _isThrown = true;
@@ -180,6 +193,8 @@ namespace Coordinator.Objects
             else
             {
                 _isThrown = false;
+                _particle.Stop();
+                _trail.emitting = false;
                 _rb2d.linearVelocity = Vector2.zero;
                 _rb2d.angularVelocity = 0;
                 transform.SetParent(anchor,false);
