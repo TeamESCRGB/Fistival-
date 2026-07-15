@@ -166,8 +166,6 @@ namespace Coordinator.Hands
             {
                 _attackStatus = AttackStatus.STRONG;
                 OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
-                _strongAttackChargeEnd.Stop();
-                _strongAttackChargeEnd.Play();
             }
 
             _chain.Launch(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position),_attackStatus);
@@ -187,6 +185,8 @@ namespace Coordinator.Hands
             if (_attackStatus == AttackStatus.WEAPON)
             {
                 _attackStatus = AttackStatus.NO_PRESSED;
+                OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
+                ClearAttackChargingParticles();
             }
         }
 
@@ -196,6 +196,8 @@ namespace Coordinator.Hands
             if (_attackStatus == AttackStatus.WEAPON)
             {
                 _attackStatus = AttackStatus.NO_PRESSED;
+                OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
+                ClearAttackChargingParticles();
             }
         }
     }

@@ -219,6 +219,8 @@ namespace Coordinator.Hands
             if (_attackStatus == AttackStatus.WEAPON)
             {
                 _attackStatus = AttackStatus.NO_PRESSED;
+                OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
+                ClearAttackChargingParticles();
             }
         }
 
@@ -356,8 +358,6 @@ namespace Coordinator.Hands
             {
                 _attackStatus = AttackStatus.STRONG;
                 OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
-                _strongAttackChargeEnd.Stop();
-                _strongAttackChargeEnd.Play();
             }
 
             if(_skillType != WWESkillTypes.NORMAL && _attackStatus == AttackStatus.STRONG)
@@ -383,6 +383,8 @@ namespace Coordinator.Hands
             if (_attackStatus == AttackStatus.WEAPON)
             {
                 _attackStatus = AttackStatus.NO_PRESSED;
+                OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
+                ClearAttackChargingParticles();
             }
         }
     }

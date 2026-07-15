@@ -291,8 +291,6 @@ namespace Coordinator.Hands
             {
                 _attackStatus = AttackStatus.STRONG;
                 OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
-                _strongAttackChargeEnd.Stop();
-                _strongAttackChargeEnd.Play();
             }
 
             if(_attackStatus == AttackStatus.STRONG)
