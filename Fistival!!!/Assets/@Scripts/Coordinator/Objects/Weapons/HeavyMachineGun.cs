@@ -57,11 +57,10 @@ namespace Objects.Weapons
                 _durability--;
                 ProjectileLaunchHelper.LaunchConstantDir(_attackableLayers, _explosionProjectileIDX, transform.position, transform.right);
             }
-            else if (((1 << col.gameObject.layer) & _attackableLayers) != 0)
+            
+            if (((1 << col.gameObject.layer) & _attackableLayers) != 0)
             {
                 Managers.Instance.AttackManager.RequestAttack(comp, this, (int)(_baseDamage * _rb2d.linearVelocity.magnitude), _rb2d.linearVelocity, _chargeRate*_baseStunTime);
-                _durability--;
-                ProjectileLaunchHelper.LaunchConstantDir(_attackableLayers, _explosionProjectileIDX, transform.position, transform.right);
             }
 
             if (_durability <= 0)
