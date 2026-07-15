@@ -87,6 +87,8 @@ namespace Coordinator.Objects
             _isThrown = false;
             _additionalDamage = 0;
 
+            GetComponent<SpriteRenderer>().sprite = Managers.Instance.ResourceManager.Load<Sprite>(data.SpriteName);
+
             var physMat = Managers.Instance.ResourceManager.Load<PhysicsMaterial2D>(data.PhysicsMaterialName);
             _rb2d.sharedMaterial = physMat;
             _col2d.sharedMaterial = physMat;

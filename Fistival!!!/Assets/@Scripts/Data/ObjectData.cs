@@ -14,7 +14,6 @@ namespace Data
         public float PlatformSpeedThreshold { get; set; }
         public float StunTime { get; set; }
         public string SpriteName { get; set; }
-        public string AnimControllerName { get; set; }
         public string PhysicsMaterialName { get; set; }
     }
 }
