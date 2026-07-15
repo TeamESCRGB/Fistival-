@@ -4,6 +4,7 @@ using Defines;
 using Manager;
 using System;
 using UnityEngine;
+using Utils;
 
 namespace Coordinator.Hands
 {
@@ -25,9 +26,15 @@ namespace Coordinator.Hands
 
         protected float _strongStun = 0;
 
+        private ParticleSystem _strongAttackCharging;
+        private ParticleSystem _strongAttackChargeEnd;
+
+
         protected override void OnAwake()
         {
             _attackBox = transform.Find("@AttackBox");
+            _strongAttackCharging = gameObject.GetChild<ParticleSystem>("@StrongChargingParticle", true, true);
+            _strongAttackChargeEnd = gameObject.GetChild<ParticleSystem>("@StrongChargeEndParticle", true, true);
             base.OnAwake();
 
 #if UNITY_EDITOR
@@ -44,6 +51,11 @@ namespace Coordinator.Hands
 
             }
 #endif
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
         }
 
         public override void UpdateUpdatedData(PlayerData data)
@@ -68,6 +80,16 @@ namespace Coordinator.Hands
                     OnAttackStatusChanged?.Invoke(AttackStatus.STRONG_RDY);
                 }
             }
+            else if(_attackStatus == AttackStatus.STRONG_RDY)
+            {
+                if(Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
+                {
+                    _attackStatus = AttackStatus.STRONG;
+                    OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
+                    _strongAttackChargeEnd.Stop();
+                    _strongAttackChargeEnd.Play();
+                }
+            }
         }
 
         public virtual void Init(Rigidbody2D parentRb2d, PlayerData playerData)//int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold, float stunTime
@@ -82,14 +104,23 @@ namespace Coordinator.Hands
             _strongAttackDamage = playerData.StrongAttackDamage;
             _strongStun = playerData.StrongStunTime;
             _skillBase.Init(_attackableMask,_baseSmashDamage, playerData.StunTime);
+            ClearAttackChargingParticles();
+        }
+
+        private void ClearAttackChargingParticles()
+        {
+            _strongAttackCharging.Stop();
+            _strongAttackCharging.Clear();
+            _strongAttackChargeEnd.Stop();
+            _strongAttackChargeEnd.Clear();
         }
 
         public virtual void Attack()
         {
             //var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBox.localScale, 0, _attackableMask);//gc
             var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
-            
-            if(enemies is null)
+            Debug.Log(_attackStatus == AttackStatus.STRONG ? "강공나감!" : "약공나감!");
+            if (enemies is null)
             {
                 return;
             }
@@ -135,6 +166,7 @@ namespace Coordinator.Hands
 
         public void StopAttack()
         {
+            ClearAttackChargingParticles();
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
         }
@@ -163,6 +195,10 @@ namespace Coordinator.Hands
             {
                 return;
             }
+
+            _strongAttackCharging.Stop();
+            _strongAttackCharging.Play(false);
+
             _attackStatus = AttackStatus.PRESSED;
             _pressedTime = Time.timeAsDouble;
             OnAttackStatusChanged?.Invoke(AttackStatus.PRESSED);
@@ -192,10 +228,16 @@ namespace Coordinator.Hands
                 return;
             }
 
+            _strongAttackCharging.Stop();
+            _strongAttackCharging.Clear();
             if(_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
             {
                 _attackStatus = AttackStatus.STRONG;
+                OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
+                _strongAttackChargeEnd.Stop();
+                _strongAttackChargeEnd.Play();
             }
+
             Attack();
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
