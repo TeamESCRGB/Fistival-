@@ -56,7 +56,7 @@ namespace Coordinator.Hands
 
                     totalDmg += _grabbedObject.GetSharedData().Damage;
 
-                    if (_grabbedObject.Smash() == false)
+                    if (_grabbedObject.Smash(1<<enemy.gameObject.layer) == false)
                     {
                         _grabbedObject = null;
                         _chargeCnt = 0;

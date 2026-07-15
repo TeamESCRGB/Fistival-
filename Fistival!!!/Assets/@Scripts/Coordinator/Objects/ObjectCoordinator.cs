@@ -143,9 +143,12 @@ namespace Coordinator.Objects
             return true;
         }
 
-        public virtual bool Smash()
+        public virtual bool Smash(int targetLayerMask)
         {
-            _durability--;
+            if((_abrasableLayerMask & targetLayerMask) != 0)
+            {
+                _durability--;
+            }
             if(_durability <= 0)
             {
                 Managers.Instance.ResourceManager.Destroy(gameObject);
