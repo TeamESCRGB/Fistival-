@@ -210,7 +210,7 @@ namespace Coordinator.Hands
             }
         }
 
-        public void StopAttack()
+        public override void StopAttack()
         {
             if((_gunStatus & (GunStatus.USE | GunStatus.FANNING)) != GunStatus.OFF)
             {

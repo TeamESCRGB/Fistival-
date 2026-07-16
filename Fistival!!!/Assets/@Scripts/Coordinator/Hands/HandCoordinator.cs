@@ -164,7 +164,7 @@ namespace Coordinator.Hands
             }
         }
 
-        public void StopAttack()
+        public override void StopAttack()
         {
             ClearAttackChargingParticles();
             _attackStatus = AttackStatus.NO_PRESSED;

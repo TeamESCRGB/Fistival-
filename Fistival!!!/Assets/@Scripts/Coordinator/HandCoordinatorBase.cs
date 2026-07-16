@@ -100,6 +100,8 @@ namespace Coordinator
 
         }
 
+        public virtual void StopAttack() { }
+
         public void SetMousePos(in Vector2 mousePos)
         {
             _mousePos = mousePos;
@@ -316,8 +318,7 @@ namespace Coordinator
                 {
                     _weapon = weapon;
                     _weapon.SetAttackableLayer(_attackableMask);
-                    //기존 애니메이션 컨틀롤러 백업
-                    //애니메이션 컨틀롤러 덮어쓰기
+                    StopAttack();
                 }
             }
             //var hit = Physics2D.BoxCast(_handAnchor.position, _pickupBoxcastSize, 0, _handAnchor.right, _pickupBoxcastDistance, _pickableObjectMask);

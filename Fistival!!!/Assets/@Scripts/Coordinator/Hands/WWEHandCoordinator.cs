@@ -202,7 +202,7 @@ namespace Coordinator.Hands
              */
         }
 
-        public void StopAttack()
+        public override void StopAttack()
         {
             _lastComboInput = 0;
             _skillType = WWESkillTypes.NORMAL;
