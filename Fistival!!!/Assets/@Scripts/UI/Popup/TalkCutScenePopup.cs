@@ -41,7 +41,7 @@ namespace UI.Popup
             {
                 return false;
             }
-
+            
             BindImage(typeof(Images));
             BindText(typeof(Texts));
             BindButton(typeof(Buttons));
@@ -51,6 +51,7 @@ namespace UI.Popup
             _isTalking = false;
             _idx = 0;
             _talkRoutine = null;
+            OnNextButton(null);
             return true;
         }
 
