@@ -125,8 +125,7 @@ namespace Coordinator.Hands
             }
         }
 
-
-        public void ReleaseRhythmCharge()
+        public override void StopAttack()
         {
             _parryReflectionDamage = 0;
             _endIdx = -1;

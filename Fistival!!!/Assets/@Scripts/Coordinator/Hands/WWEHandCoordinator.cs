@@ -7,6 +7,7 @@ using Manager;
 using System;
 using Unity.Mathematics;
 using UnityEngine;
+using Utils;
 
 namespace Coordinator.Hands
 {
@@ -39,9 +40,23 @@ namespace Coordinator.Hands
 
         private Action<int, int> _onThrownObjectAttacked;//attackCnt, chargerate
         private Action<int, int> _onFistAttacked;
+
+        private ParticleSystem _strongAttackCharging;
+        private ParticleSystem _strongAttackChargeEnd;
+
+        private void ClearAttackChargingParticles()
+        {
+            _strongAttackCharging.Stop();
+            _strongAttackCharging.Clear();
+            _strongAttackChargeEnd.Stop();
+            _strongAttackChargeEnd.Clear();
+        }
+
         protected override void OnAwake()
         {
             base.OnAwake();
+            _strongAttackCharging = gameObject.GetChild<ParticleSystem>("@StrongChargingParticle", true, true);
+            _strongAttackChargeEnd = gameObject.GetChild<ParticleSystem>("@StrongChargeEndParticle", true, true);
             _onThrownObjectAttacked = OnThrownObjectAttacked;
             var go = transform.Find("@FistSkill");
             _normalSkill = go.GetComponent<FistSkill>();
@@ -96,6 +111,16 @@ namespace Coordinator.Hands
                     OnAttackStatusChanged?.Invoke(AttackStatus.STRONG_RDY);
                 }
             }
+            else if (_attackStatus == AttackStatus.STRONG_RDY)
+            {
+                if (Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
+                {
+                    _attackStatus = AttackStatus.STRONG;
+                    OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
+                    _strongAttackChargeEnd.Stop();
+                    _strongAttackChargeEnd.Play();
+                }
+            }
 
             if (_skillType != WWESkillTypes.NORMAL)
             {
@@ -127,6 +152,7 @@ namespace Coordinator.Hands
             var attackable = transform.parent.parent.parent.Find("@Hitbox").GetComponent<IAttackable>();
             _syouryuuken.Init(playerData.AttackableLayers, playerData.Damage + _strongDamage, GetComponentInParent<IPushable>(), attackable, playerData.StunTime ,playerData.StrongStunTime);
             _tatsumakisenpukyaku.Init(playerData.AttackableLayers, playerData.Damage, parentRb2d, attackable, playerData.StunTime);
+            ClearAttackChargingParticles();
             if (_normalSkill != null)
             {
                 _normalSkill.RegisterOnAttack(_onFistAttacked);
@@ -176,13 +202,14 @@ namespace Coordinator.Hands
              */
         }
 
-        public void StopAttack()
+        public override void StopAttack()
         {
             _lastComboInput = 0;
             _skillType = WWESkillTypes.NORMAL;
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
             OnComboChanged?.Invoke(WWESkillTypes.NORMAL);
+            ClearAttackChargingParticles();
         }
 
         protected override void Throw()
@@ -192,6 +219,8 @@ namespace Coordinator.Hands
             if (_attackStatus == AttackStatus.WEAPON)
             {
                 _attackStatus = AttackStatus.NO_PRESSED;
+                OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
+                ClearAttackChargingParticles();
             }
         }
 
@@ -283,6 +312,9 @@ namespace Coordinator.Hands
                 RemoveWeapon();
             }
 
+            _strongAttackCharging.Stop();
+            _strongAttackCharging.Play(false);
+
             _attackStatus = AttackStatus.PRESSED;
             _pressedTime = Time.timeAsDouble;
             OnAttackStatusChanged?.Invoke(AttackStatus.PRESSED);
@@ -319,9 +351,13 @@ namespace Coordinator.Hands
                 return;
             }
 
+            _strongAttackCharging.Stop();
+            _strongAttackCharging.Clear();
+
             if (_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
             {
                 _attackStatus = AttackStatus.STRONG;
+                OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
             }
 
             if(_skillType != WWESkillTypes.NORMAL && _attackStatus == AttackStatus.STRONG)
@@ -347,6 +383,8 @@ namespace Coordinator.Hands
             if (_attackStatus == AttackStatus.WEAPON)
             {
                 _attackStatus = AttackStatus.NO_PRESSED;
+                OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
+                ClearAttackChargingParticles();
             }
         }
     }

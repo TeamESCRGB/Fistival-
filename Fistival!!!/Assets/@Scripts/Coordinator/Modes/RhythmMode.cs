@@ -58,7 +58,7 @@ namespace Coordinator.Modes
 
             if (mapType != ActionMapTypes.PLAYER)
             {
-                _hand.ReleaseRhythmCharge();
+                _hand.StopAttack();
                 _hand.StopCharging();
             }
         }
@@ -138,7 +138,7 @@ namespace Coordinator.Modes
 
             if (_stunCounter.IsCooldownEnded())
             {
-                _hand.ReleaseRhythmCharge();
+                _hand.StopAttack();
                 _hand.Drop();
                 _movementCoordinator.LockMovement();
             }

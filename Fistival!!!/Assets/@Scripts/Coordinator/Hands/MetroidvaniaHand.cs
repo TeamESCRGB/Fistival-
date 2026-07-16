@@ -20,10 +20,24 @@ namespace Coordinator.Hands
 
         private ChainMorningStar _chain;
 
+        private ParticleSystem _strongAttackCharging;
+        private ParticleSystem _strongAttackChargeEnd;
+
+        private void ClearAttackChargingParticles()
+        {
+            _strongAttackCharging.Stop();
+            _strongAttackCharging.Clear();
+            _strongAttackChargeEnd.Stop();
+            _strongAttackChargeEnd.Clear();
+        }
+
+
         protected override void OnAwake()
         {
             base.OnAwake();
             _chain = transform.Find("@ChainMorningStar")?.GetComponent<ChainMorningStar>();
+            _strongAttackCharging = gameObject.GetChild<ParticleSystem>("@StrongChargingParticle", true, true);
+            _strongAttackChargeEnd = gameObject.GetChild<ParticleSystem>("@StrongChargeEndParticle", true, true);
 
 #if UNITY_EDITOR
             Debug.Assert(_chain != null, "@ChainMorningStar가 없거나 거기에 ChainMorningStar가 없습니다");
@@ -57,6 +71,16 @@ namespace Coordinator.Hands
                     OnAttackStatusChanged?.Invoke(AttackStatus.STRONG_RDY);
                 }
             }
+            else if (_attackStatus == AttackStatus.STRONG_RDY)
+            {
+                if (Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
+                {
+                    _attackStatus = AttackStatus.STRONG;
+                    OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
+                    _strongAttackChargeEnd.Stop();
+                    _strongAttackChargeEnd.Play();
+                }
+            }
             _chain.SetRotation(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position));
         }
 
@@ -70,10 +94,12 @@ namespace Coordinator.Hands
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             _chain.transform.SetParent(null);
+            ClearAttackChargingParticles();
         }
 
-        public void StopAttack()
+        public override void StopAttack()
         {
+            ClearAttackChargingParticles();
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
         }
@@ -101,6 +127,10 @@ namespace Coordinator.Hands
             {
                 return;
             }
+
+            _strongAttackCharging.Stop();
+            _strongAttackCharging.Play(false);
+
             _attackStatus = AttackStatus.PRESSED;
             _pressedTime = Time.timeAsDouble;
             OnAttackStatusChanged?.Invoke(AttackStatus.PRESSED);
@@ -130,9 +160,12 @@ namespace Coordinator.Hands
                 return;
             }
 
+            _strongAttackCharging.Stop();
+            _strongAttackCharging.Clear();
             if (_attackStatus == AttackStatus.STRONG_RDY && Time.timeAsDouble - _pressedTime >= _strongAttackThreshold)
             {
                 _attackStatus = AttackStatus.STRONG;
+                OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
             }
 
             _chain.Launch(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position),_attackStatus);
@@ -152,6 +185,8 @@ namespace Coordinator.Hands
             if (_attackStatus == AttackStatus.WEAPON)
             {
                 _attackStatus = AttackStatus.NO_PRESSED;
+                OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
+                ClearAttackChargingParticles();
             }
         }
 
@@ -161,6 +196,8 @@ namespace Coordinator.Hands
             if (_attackStatus == AttackStatus.WEAPON)
             {
                 _attackStatus = AttackStatus.NO_PRESSED;
+                OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
+                ClearAttackChargingParticles();
             }
         }
     }
