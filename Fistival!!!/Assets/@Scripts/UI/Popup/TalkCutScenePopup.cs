@@ -1,11 +1,12 @@
 using Data;
+using DG.Tweening;
 using Manager;
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using Utils;
-using System.Collections;
-using System;
-using DG.Tweening;
 
 namespace UI.Popup
 {
@@ -20,6 +21,7 @@ namespace UI.Popup
         private bool _isTalking;
         private Action _onEnd;
 
+        private bool _canPause = true;
         enum Images
         {
             CharacterSprite,
@@ -55,8 +57,36 @@ namespace UI.Popup
             _talkRoutine = null;
             OnNextButton(null);
             GetImage((int)Images.MoveToNextImg).gameObject.SetActive(false);
+            Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
+            Managers.Instance.NewInputSystemManager.UI_ESCInput += PauseOpenBind;
             return true;
         }
+
+        private void OnDisable()
+        {
+            Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
+        }
+
+        private void PauseOpenBind(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed == false || _canPause == false)
+            {
+                return;
+            }
+
+            Managers.Instance.GameManager.PauseGame();
+            _canPause = false;
+        }
+
+        private void LateUpdate()
+        {
+            if (_canPause)
+            {
+                return;
+            }
+            _canPause = Managers.Instance.GameManager.IsGamePaused() == false;
+        }
+
 
         public TalkCutScenePopup SetData(string dataKey)
         {
