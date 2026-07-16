@@ -3,7 +3,6 @@ using Manager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
-using DG.Tweening;
 using System.Collections;
 using System;
 
@@ -50,6 +49,8 @@ namespace UI.Popup
             GetButton((int)Buttons.Next).gameObject.BindUIEvent(OnNextButton);
             _waiter = new WaitForSeconds(_typeInterval);
             _isTalking = false;
+            _idx = 0;
+            _talkRoutine = null;
             return true;
         }
 
@@ -69,20 +70,44 @@ namespace UI.Popup
         private void OnEnd()
         {
             _onEnd?.Invoke();
+            Managers.Instance.UIManager.ClosePopupUI();
         }
 
         private void OnTextTypeEnd()
         {
-            GetText((int)Texts.Script).text = _data.TalkData[_idx].script;
+            if(_isTalking == false)
+            {
+                return;
+            }
             _isTalking = false;
             _idx++;
+        }
+
+        private void CompleteTextType()
+        {
+            GetText((int)Texts.Script).text = _data.TalkData[_idx].script;
+            OnTextTypeEnd();
         }
 
         private IEnumerator ContinueScript()
         {
             _isTalking = true;
-            yield return _waiter;
-            _isTalking = false;
+
+            var charArr = _data.TalkData[_idx].script.ToCharArray();
+            var text = GetText((int)Texts.Script);
+            var sfx = _data.TalkData[_idx].typeSFX;
+
+            GetText((int)Texts.Name).text = _data.TalkData[_idx].name;
+            GetImage((int)Images.CharacterSprite).sprite = Managers.Instance.ResourceManager.Load<Sprite>(_data.TalkData[_idx].characterImg);
+            text.text = "";
+
+            for(int i = 0; i < charArr.Length; i++)
+            {
+                text.text += charArr[i];
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, sfx, false, Managers.Instance.GameManager.SFXVolume);
+                yield return _waiter;
+            }
+
             OnTextTypeEnd();
         }
 
@@ -94,8 +119,11 @@ namespace UI.Popup
             }
             else if(_isTalking)
             {
-                StopCoroutine(_talkRoutine);
-                OnTextTypeEnd();
+                if(_talkRoutine != null)
+                {
+                    StopCoroutine(_talkRoutine);
+                }
+                CompleteTextType();
             }
             else
             {
