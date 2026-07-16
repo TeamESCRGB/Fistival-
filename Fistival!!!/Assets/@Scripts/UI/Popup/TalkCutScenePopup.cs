@@ -71,9 +71,19 @@ namespace UI.Popup
             _onEnd?.Invoke();
         }
 
+        private void OnTextTypeEnd()
+        {
+            GetText((int)Texts.Script).text = _data.TalkData[_idx].script;
+            _isTalking = false;
+            _idx++;
+        }
+
         private IEnumerator ContinueScript()
         {
+            _isTalking = true;
             yield return _waiter;
+            _isTalking = false;
+            OnTextTypeEnd();
         }
 
         private void OnNextButton(PointerEventData _)
@@ -85,8 +95,7 @@ namespace UI.Popup
             else if(_isTalking)
             {
                 StopCoroutine(_talkRoutine);
-                GetText((int)Texts.Script).text = _data.TalkData[_idx].script;
-                _isTalking = false;
+                OnTextTypeEnd();
             }
             else
             {
