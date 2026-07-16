@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using Utils;
 using System.Collections;
 using System;
+using DG.Tweening;
 
 namespace UI.Popup
 {
@@ -21,7 +22,8 @@ namespace UI.Popup
 
         enum Images
         {
-            CharacterSprite
+            CharacterSprite,
+            MoveToNextImg
         }
 
         enum Texts
@@ -52,6 +54,7 @@ namespace UI.Popup
             _idx = 0;
             _talkRoutine = null;
             OnNextButton(null);
+            GetImage((int)Images.MoveToNextImg).gameObject.SetActive(false);
             return true;
         }
 
@@ -80,6 +83,10 @@ namespace UI.Popup
             {
                 return;
             }
+            var img = GetImage((int)Images.MoveToNextImg);
+            img.gameObject.SetActive(true);
+            img.DOKill();
+            img.DOFade(1, 1).From(0).SetEase(Ease.InOutSine).SetLoops(-1,LoopType.Yoyo);
             _isTalking = false;
             _idx++;
         }
@@ -114,6 +121,7 @@ namespace UI.Popup
 
         private void OnNextButton(PointerEventData _)
         {
+            GetImage((int)Images.MoveToNextImg).DOKill();
             if (_idx >= _data.TalkData.Count)
             {
                 OnEnd();
