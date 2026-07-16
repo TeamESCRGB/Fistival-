@@ -4,6 +4,7 @@
       "DataKey": "TestTalk",
       "TalkData": [
         {
+          "name": "asdf",
           "characterImg": "asdf",
           "typeSFX": "asdf",
           "script": "asdf"
