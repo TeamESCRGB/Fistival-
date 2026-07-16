@@ -88,6 +88,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dfcaf8ca3652cbe4cb9b5c6be4c7efcd
+    m_Address: TalkCutScenePopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7486a4817dd21642a9ad03c4a4f7cb8
     m_Address: PauseUI
     m_ReadOnly: 0

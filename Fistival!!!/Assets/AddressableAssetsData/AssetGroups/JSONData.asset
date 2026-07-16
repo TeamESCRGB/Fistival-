@@ -66,6 +66,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b406f2d6529d5024a9e6ccd82fedbb91
+    m_Address: TalkScriptData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d6005d3534d3ce340ac2f2a09938d942
     m_Address: CommonMobData
     m_ReadOnly: 0
