@@ -1,0 +1,14 @@
+{
+  "talkScriptDatas": [
+    {
+      "DataKey": "TestTalk",
+      "TalkData": [
+        {
+          "characterImg": "asdf",
+          "typeSFX": "asdf",
+          "script": "asdf"
+        }
+      ]
+    }
+  ]
+}
