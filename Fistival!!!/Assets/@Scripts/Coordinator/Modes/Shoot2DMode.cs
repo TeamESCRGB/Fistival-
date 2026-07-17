@@ -28,6 +28,11 @@ namespace Coordinator.Modes
             _shooterHand = GetComponentInChildren<ShooterHand>();
         }
 
+        protected override void OnFixedUpdate()
+        {
+            _animator.SetBool("IsWalking", _movementCoord.GetNowMovingDirX() != Directions.OFF || _movementCoord.GetNowMovingDirY() != Directions.OFF);
+        }
+
         public override void Init(CommonModeData data)
         {
             base.Init(data);

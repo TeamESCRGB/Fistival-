@@ -40,6 +40,11 @@ namespace Coordinator
 
         }
 
+        public void OnAnimatorDeadEnd()
+        {
+            Managers.Instance.StageManager.OnDead();
+        }
+
         public void EquipItem(int slot, int item, bool init=false)
         {
             var save = Managers.Instance.SaveDataManager.GetSaveFileData();

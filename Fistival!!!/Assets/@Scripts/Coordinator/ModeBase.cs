@@ -17,6 +17,8 @@ namespace Coordinator
         protected CooldownComponentModule _stunCounter;
         protected Action _onStunEnd;
         protected bool _isStunned;
+        protected Animator _animator;
+        protected Rigidbody2D _rb2d;
         public bool IsUnlocked { get; set; } = false;
         public virtual ModeTypes ModeType { get; }
 
@@ -25,10 +27,22 @@ namespace Coordinator
             OnAwake();
         }
 
+        private void FixedUpdate()
+        {
+            OnFixedUpdate();
+        }
+
         protected virtual void OnAwake()
         {
             _inputCoordinator = gameObject.GetComponentInParent<PlayerInputCoordinator>();
+            _animator = gameObject.GetComponentInParent<Animator>();
             _onStunEnd = OnStunEnd;
+            _rb2d = GetComponentInParent<Rigidbody2D>();
+        }
+
+        protected virtual void OnFixedUpdate()
+        {
+            _animator.SetFloat("YVelocity", _rb2d.linearVelocityY);
         }
 
         public virtual void Init(CommonModeData data)
@@ -43,6 +57,7 @@ namespace Coordinator
             _inputCoordinator.SetESCInputHandler(this);
             _inputCoordinator.SetInteractionInputHandler(this);
             _isStunned = false;
+            _animator.runtimeAnimatorController = Managers.Instance.ResourceManager.Load<RuntimeAnimatorController>(data.AnimControllerName);
             if(_stunCounter is not null)
             {
                 Managers.Instance.CooldownManager.ReturnModule(_stunCounter);

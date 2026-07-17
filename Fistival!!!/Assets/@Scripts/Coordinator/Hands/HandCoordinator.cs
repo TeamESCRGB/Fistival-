@@ -104,6 +104,7 @@ namespace Coordinator.Hands
             _strongAttackDamage = playerData.StrongAttackDamage;
             _strongStun = playerData.StrongStunTime;
             _skillBase.Init(_attackableMask,_baseSmashDamage, playerData.StunTime);
+            _animator.SetBool("IsWeaponAttacking", false);
             ClearAttackChargingParticles();
         }
 
@@ -118,7 +119,6 @@ namespace Coordinator.Hands
         public virtual void Attack()
         {
             var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.lossyScale, 0, _attackableMask);
-            Debug.Log(_attackStatus == AttackStatus.STRONG ? "강공나감!" : "약공나감!");
             if (enemies is null)
             {
                 return;
@@ -234,6 +234,14 @@ namespace Coordinator.Hands
                 _attackStatus = AttackStatus.STRONG;
                 OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
             }
+            if(_attackStatus == AttackStatus.STRONG)
+            {
+                _animator.SetTrigger("StrongAttack");
+            }
+            else
+            {
+                _animator.SetTrigger("WeakAttack");
+            }
 
             Attack();
             _attackStatus = AttackStatus.NO_PRESSED;
@@ -247,17 +255,19 @@ namespace Coordinator.Hands
             base.Drop();
             if(_attackStatus == AttackStatus.WEAPON)
             {
+                _animator.SetBool("IsWeaponAttacking",false);
                 _attackStatus = AttackStatus.NO_PRESSED;
                 OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
                 ClearAttackChargingParticles();
             }
         }
-
+        
         protected override void Throw()
         {
             base.Throw();
             if (_attackStatus == AttackStatus.WEAPON)
             {
+                _animator.SetBool("IsWeaponAttacking", false);
                 _attackStatus = AttackStatus.NO_PRESSED;
                 OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
                 ClearAttackChargingParticles();

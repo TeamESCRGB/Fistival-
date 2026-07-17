@@ -23,7 +23,11 @@ namespace Coordinator.Modes
             _movCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
             _hand = GetComponentInChildren<WWEHandCoordinator>();
         }
-
+        protected override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
+            _animator.SetBool("IsWalking", _movCoordinator.GetNowMoveDir() != Directions.OFF);
+        }
         public override void Init(CommonModeData data)
         {
             base.Init(data);

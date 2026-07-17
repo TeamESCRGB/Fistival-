@@ -146,6 +146,7 @@ namespace Coordinator.Hands
             _energy = 0;
             ResetEvents();
             _isSkillActing = false;
+            _animator.SetBool("IsSkillActing", false);
             _strongDamage = playerData.StrongAttackDamage;
             _normalSkill.Init(playerData.AttackableLayers,playerData.Damage, playerData.StunTime);
             _hadouken.Init(playerData.AttackableLayers, -1, playerData.StunTime);
@@ -153,6 +154,7 @@ namespace Coordinator.Hands
             _syouryuuken.Init(playerData.AttackableLayers, playerData.Damage + _strongDamage, GetComponentInParent<IPushable>(), attackable, playerData.StunTime ,playerData.StrongStunTime);
             _tatsumakisenpukyaku.Init(playerData.AttackableLayers, playerData.Damage, parentRb2d, attackable, playerData.StunTime);
             ClearAttackChargingParticles();
+            _animator.SetBool("IsWeaponAttacking", false);
             if (_normalSkill != null)
             {
                 _normalSkill.RegisterOnAttack(_onFistAttacked);
@@ -218,6 +220,7 @@ namespace Coordinator.Hands
             base.Throw();
             if (_attackStatus == AttackStatus.WEAPON)
             {
+                _animator.SetBool("IsWeaponAttacking", false);
                 _attackStatus = AttackStatus.NO_PRESSED;
                 OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
                 ClearAttackChargingParticles();
@@ -227,8 +230,18 @@ namespace Coordinator.Hands
         private void Attack()
         {
             var targets = Physics2D.OverlapBoxAll(_normalSkill.transform.position, _normalSkill.transform.lossyScale, 0, _attackableMask);
+            if(_attackStatus == AttackStatus.STRONG)
+            {
+                _animator.SetTrigger("StrongAttack");
+            }
+            else
+            {
+                _animator.SetTrigger("WeakAttack");
+            }
+
             if (targets.Length <= 0)
             {
+                OnAttackSuccess();
                 return;
             }
 
@@ -270,23 +283,29 @@ namespace Coordinator.Hands
             {
                 case WWESkillTypes.HADOUKEN:
                     _isSkillActing = true;
+                    _animator.SetBool("IsSkillActing", true);
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     _energy -= _hadouken.GetDemendedCost();
+                    _animator.SetTrigger("Hadouken");
                     _hadouken.Attack(new Vector2(transform.forward.z,0));
                     return;
                 case WWESkillTypes.SYOURYUUKEN:
                     _isSkillActing = true;
+                    _animator.SetBool("IsSkillActing", true);
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     _energy -= _syouryuuken.GetDemendedCost();
+                    _animator.SetTrigger("Syouryuuken");
                     _syouryuuken.Attack(transform.forward.z < 0 ? -1 : 1);
                     break;
                 case WWESkillTypes.TATSUMAKISENPUKYAKU:
                     _isSkillActing = true;
+                    _animator.SetBool("IsSkillActing", true);
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     _energy -= _tatsumakisenpukyaku.GetDemendedCost();
+                    _animator.SetTrigger("Tatsumakisenpukyaku");
                     _tatsumakisenpukyaku.Attack();
                     break;
             }
@@ -373,6 +392,9 @@ namespace Coordinator.Hands
         private void OnAttackSuccess()
         {
             _isSkillActing = false;//이거가 켜져있으면 공격,행동 이런거 못하게 해야함
+            _animator.SetBool("IsSkillActing", false);
+            _animator.ResetTrigger("Throw");
+            _animator.ResetTrigger("Grab");
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
             _cooldownModule.StartCooldown();
@@ -382,6 +404,7 @@ namespace Coordinator.Hands
             base.Drop();
             if (_attackStatus == AttackStatus.WEAPON)
             {
+                _animator.SetBool("IsWeaponAttacking", false);
                 _attackStatus = AttackStatus.NO_PRESSED;
                 OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
                 ClearAttackChargingParticles();

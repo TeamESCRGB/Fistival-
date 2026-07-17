@@ -28,7 +28,6 @@ namespace Scenes
         {
             _player.Init();
             var stageData = Managers.Instance.StageManager.GetStageData();
-            _player.GetComponentInChildren<HPCoordinator>().SubscribeOnDead(Managers.Instance.StageManager.OnDead);
             Managers.Instance.StageManager.TrySpawnChunk(stageData.FirstStageSectionInstanceName, stageData.FirstStageLoadedDatasName, _firstChunkPos.position);
             Managers.Instance.StageManager.StartStage(_player.GetPlayerData().MaxLife);
             _hud.gameObject.SetActive(true);

@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61b83c09196235e4ba6610f07f80fe62
+    m_Address: RhythmModeAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 67b12fad4a93f68418922bec1703ab02
     m_Address: TurtleAnimationController
     m_ReadOnly: 0
@@ -38,6 +44,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f0fa63b589bd834e82d1e15461197b9
+    m_Address: MetroidvaniaModeAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7ff2637a165fb2e49b7d3990f6662da9
     m_Address: RaccoonAnimationController
@@ -51,11 +63,29 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90d0797dfc69fdc479a33f2f4beccb5b
+    m_Address: RootShooterAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a1a80e436fb0d0444945aa2611d78a63
     m_Address: BatAnimationController
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a5e6c2160f69dc343b08f4f1895919ab
+    m_Address: WWEModeAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae48476759e18124d93855e0bad00891
+    m_Address: Shoot2DModeAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b87dcca30f0195247982790032a3ff71
     m_Address: CameleonBossAnimationController
@@ -68,6 +98,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bedf7d3168a60b449a47ed8d702304c5
+    m_Address: PlatformerModeAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d3ff0af37f56cff4b9b56db18a9006e9
     m_Address: WalkingDalmatianAnimationController
@@ -92,6 +128,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_0_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa6b122e35446be478dcc4a742c5034f
+    m_Address: FistivalModeAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}

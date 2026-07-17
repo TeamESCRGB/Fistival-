@@ -53,6 +53,8 @@ namespace Coordinator
         protected int _throwAttackAdditionalDamage = 0;
         protected float _stunTime = 0;
 
+        protected Animator _animator;
+
         #region Events
 
         protected void ResetEvents()
@@ -170,6 +172,7 @@ namespace Coordinator
         {
             _mainCam = Camera.main;
             _handAnchor = transform.Find("@HandAnchor");
+            _animator = GetComponentInParent<Animator>();
 #if UNITY_EDITOR
             if (_handAnchor == null)
             {
@@ -297,6 +300,7 @@ namespace Coordinator
             _grabbedObject.Throw(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), _handAnchor.position), _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt, _chargeCnt);
             _chargeCnt = 0;
             _grabbedObject = null;
+            _animator.SetTrigger("Throw");
             RemoveWeapon();
             InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
             InvokeOnGrabbedObjectChanged(null);
@@ -313,7 +317,7 @@ namespace Coordinator
                 InvokeOnGrabbedObjectChanged(_grabbedObject.GetSharedData());
                 _status = HandStatus.GRABBED;
                 _nowSelectedObject = (null, null);
-
+                _animator.SetTrigger("Grab");
                 if(_grabbedObject.TryGetComponent<WeaponCoordinatorBase>(out var weapon) && weapon.CanUseWeapon())
                 {
                     _weapon = weapon;
@@ -373,6 +377,8 @@ namespace Coordinator
 
         public virtual void OnLMBPressed()
         {
+            _animator.SetBool("IsWeaponAttacking",true);
+            _animator.SetTrigger("WeakAttack");
             _weapon.OnLMBPressed();
             if(CanUseWeapon() == false)
             {
@@ -381,6 +387,7 @@ namespace Coordinator
         }
         public virtual void OnLMBReleased()
         {
+            _animator.SetBool("IsWeaponAttacking", false);
             _weapon.OnLMBReleased();
             if (CanUseWeapon() == false)
             {

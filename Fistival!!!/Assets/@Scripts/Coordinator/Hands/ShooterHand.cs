@@ -61,11 +61,14 @@ namespace Coordinator.Hands
 
         public override void OnLMBPressed()
         {
+            _animator.SetBool("IsAttackOn", true);
+            _animator.SetTrigger("AttackTrigger");
             _isLMBPressed = true;
         }
 
         public override void OnLMBReleased()
         {
+            _animator.SetBool("IsAttackOn", false);
             _isLMBPressed = false;
         }
     }

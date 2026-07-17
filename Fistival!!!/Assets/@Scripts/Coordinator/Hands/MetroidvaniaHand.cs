@@ -90,11 +90,13 @@ namespace Coordinator.Hands
             ResetEvents();
             _strongAttackThreshold = playerData.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
-            _chain.Init(playerData.AttackableLayers,parentRb2d.transform, playerData.Damage,playerData.StrongAttackDamage ,GetComponentInParent<IChainPullable>(), playerData.StunTime);
+            _chain.Init(playerData.AttackableLayers,parentRb2d.transform, playerData.Damage,playerData.StrongAttackDamage ,GetComponentInParent<IChainPullable>(), playerData.StunTime, OnChainRetrived);
             _attackStatus = AttackStatus.NO_PRESSED;
             _pressedTime = 0;
             _chain.transform.SetParent(null);
             ClearAttackChargingParticles();
+            _animator.SetBool("IsWeaponAttacking", false);
+            _animator.SetBool("ChainEnd", true);
         }
 
         public override void StopAttack()
@@ -102,6 +104,7 @@ namespace Coordinator.Hands
             ClearAttackChargingParticles();
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
+            _chain.Retrive();
         }
 
         public override void OnLMBPressed()
@@ -167,7 +170,15 @@ namespace Coordinator.Hands
                 _attackStatus = AttackStatus.STRONG;
                 OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
             }
-
+            if(_attackStatus == AttackStatus.STRONG)
+            {
+                _animator.SetTrigger("StrongAttack");
+            }
+            else
+            {
+                _animator.SetTrigger("WeakAttack");
+            }
+            _animator.SetBool("ChainEnd", false);
             _chain.Launch(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position),_attackStatus);
 
             _attackStatus = AttackStatus.NO_PRESSED;
@@ -179,11 +190,20 @@ namespace Coordinator.Hands
         {
             SetMousePos(screenPos);
         }
+
+        private void OnChainRetrived(bool forcedRetrive)
+        {
+            _animator.SetBool("ChainEnd", true);
+            _animator.ResetTrigger("Throw");
+            _animator.ResetTrigger("Grab");
+        }
+
         public override void Drop()
         {
             base.Drop();
             if (_attackStatus == AttackStatus.WEAPON)
             {
+                _animator.SetBool("IsWeaponAttacking", false);
                 _attackStatus = AttackStatus.NO_PRESSED;
                 OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
                 ClearAttackChargingParticles();
@@ -195,6 +215,7 @@ namespace Coordinator.Hands
             base.Throw();
             if (_attackStatus == AttackStatus.WEAPON)
             {
+                _animator.SetBool("IsWeaponAttacking", false);
                 _attackStatus = AttackStatus.NO_PRESSED;
                 OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
                 ClearAttackChargingParticles();

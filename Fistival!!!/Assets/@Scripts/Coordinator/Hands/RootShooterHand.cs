@@ -202,6 +202,9 @@ namespace Coordinator.Hands
                 Attack();
                 if (_bulletCnt <= 0)
                 {
+                    _animator.ResetTrigger("Throw");
+                    _animator.ResetTrigger("Grab");
+                    _animator.SetBool("IsFanning", false);
                     _gunStatus = GunStatus.OFF;
                     _cooldownModule.StartCooldown();
                     _reloadUnlockCounter.StartCooldown();
@@ -222,6 +225,10 @@ namespace Coordinator.Hands
             {
                 _movLocker.UnlockMovement();
             }
+
+            _animator.ResetTrigger("FanningTrigger");
+            _animator.ResetTrigger("WeakAttack");
+            _animator.SetBool("IsFanning", false);
 
             ClearAttackChargingParticles();
             _gunStatus = GunStatus.OFF;
@@ -257,6 +264,9 @@ namespace Coordinator.Hands
             {
                 return;
             }
+            _animator.ResetTrigger("Throw");
+            _animator.ResetTrigger("Grab");
+            _animator.SetTrigger("Reload");
             _gunStatus = GunStatus.RELOAD;
             _bulletCnt = _maxBulletCnt;
             _reloadCooldown.StartCooldown();
@@ -295,8 +305,14 @@ namespace Coordinator.Hands
 
             if(_attackStatus == AttackStatus.STRONG)
             {
+                _animator.SetTrigger("FanningTrigger");
+                _animator.SetBool("IsFanning", true);
                 _movLocker.LockMovement();
                 _gunStatus = GunStatus.FANNING;
+            }
+            else
+            {
+                _animator.SetTrigger("WeakAttack");
             }
 
             _attackStatus = AttackStatus.NO_PRESSED;

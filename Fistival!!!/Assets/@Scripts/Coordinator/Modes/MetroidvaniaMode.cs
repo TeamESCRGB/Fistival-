@@ -20,7 +20,11 @@ namespace Coordinator.Modes
             _hand = GetComponentInChildren<MetroidvaniaHand>();
             _movCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
         }
-
+        protected override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
+            _animator.SetBool("IsWalking", _movCoordinator.GetNowMoveDir() != Directions.OFF);
+        }
         public override void Init(CommonModeData data)
         {
             base.Init(data);

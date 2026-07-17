@@ -99,6 +99,17 @@ namespace Coordinator.Movements
             _lockCnt = 0;
         }
 
+        public Directions GetNowMoveDir()
+        {
+            if(_isInputLocked)
+            {
+                return Directions.OFF;
+            }
+            else
+            {
+                return _nextDir;
+            }
+        }
 
         public void SetNowSpeed(Vector2 linearSpeed)
         {
