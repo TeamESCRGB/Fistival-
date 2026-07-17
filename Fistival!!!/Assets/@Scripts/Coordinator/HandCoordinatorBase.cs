@@ -317,7 +317,7 @@ namespace Coordinator
                 InvokeOnGrabbedObjectChanged(_grabbedObject.GetSharedData());
                 _status = HandStatus.GRABBED;
                 _nowSelectedObject = (null, null);
-
+                _animator.SetTrigger("Grab");
                 if(_grabbedObject.TryGetComponent<WeaponCoordinatorBase>(out var weapon) && weapon.CanUseWeapon())
                 {
                     _weapon = weapon;
