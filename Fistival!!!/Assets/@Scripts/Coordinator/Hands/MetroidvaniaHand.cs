@@ -168,6 +168,14 @@ namespace Coordinator.Hands
                 _attackStatus = AttackStatus.STRONG;
                 OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
             }
+            if(_attackStatus == AttackStatus.STRONG)
+            {
+                _animator.SetTrigger("StrongAttack");
+            }
+            else
+            {
+                _animator.SetTrigger("WeakAttack");
+            }
 
             _chain.Launch(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position),_attackStatus);
 

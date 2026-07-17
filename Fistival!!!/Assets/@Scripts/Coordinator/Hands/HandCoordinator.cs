@@ -119,7 +119,6 @@ namespace Coordinator.Hands
         public virtual void Attack()
         {
             var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.lossyScale, 0, _attackableMask);
-            Debug.Log(_attackStatus == AttackStatus.STRONG ? "강공나감!" : "약공나감!");
             if (enemies is null)
             {
                 return;
@@ -234,6 +233,14 @@ namespace Coordinator.Hands
             {
                 _attackStatus = AttackStatus.STRONG;
                 OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
+            }
+            if(_attackStatus == AttackStatus.STRONG)
+            {
+                _animator.SetTrigger("StrongAttack");
+            }
+            else
+            {
+                _animator.SetTrigger("WeakAttack");
             }
 
             Attack();

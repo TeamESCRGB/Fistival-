@@ -229,6 +229,14 @@ namespace Coordinator.Hands
         private void Attack()
         {
             var targets = Physics2D.OverlapBoxAll(_normalSkill.transform.position, _normalSkill.transform.lossyScale, 0, _attackableMask);
+            if(_attackStatus == AttackStatus.STRONG)
+            {
+                _animator.SetTrigger("StrongAttack");
+            }
+            else
+            {
+                _animator.SetTrigger("WeakAttack");
+            }
             if (targets.Length <= 0)
             {
                 return;
@@ -275,6 +283,7 @@ namespace Coordinator.Hands
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     _energy -= _hadouken.GetDemendedCost();
+                    _animator.SetTrigger("Hadouken");
                     _hadouken.Attack(new Vector2(transform.forward.z,0));
                     return;
                 case WWESkillTypes.SYOURYUUKEN:
@@ -282,6 +291,7 @@ namespace Coordinator.Hands
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     _energy -= _syouryuuken.GetDemendedCost();
+                    _animator.SetTrigger("Syouryuuken");
                     _syouryuuken.Attack(transform.forward.z < 0 ? -1 : 1);
                     break;
                 case WWESkillTypes.TATSUMAKISENPUKYAKU:
@@ -289,6 +299,7 @@ namespace Coordinator.Hands
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     _energy -= _tatsumakisenpukyaku.GetDemendedCost();
+                    _animator.SetTrigger("Tatsumakisenpukyaku");
                     _tatsumakisenpukyaku.Attack();
                     break;
             }
