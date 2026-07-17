@@ -66,7 +66,7 @@ namespace Coordinator.Victims
         public void Respawn()
         {
             _hpCoord.Respawn();
-            _animator.SetBool("IsDead", false);
+            _animator.Rebind();
         }
 
         public bool CanAttack()
