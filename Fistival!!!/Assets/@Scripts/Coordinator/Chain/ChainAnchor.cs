@@ -1,6 +1,7 @@
 ﻿using Coordinator.Movements;
 using Coordinator.Victims;
 using Manager;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,6 +36,7 @@ namespace Coordinator.Chain
         private IChainPullable _player;
         private ContactFilter2D _filter;
         private float _stunTime = 0;
+        private Action<bool> _onEnd;
 
         private void Awake()
         {
@@ -57,8 +59,9 @@ namespace Coordinator.Chain
             return _isMoving;
         }
 
-        public void Init(LayerMask attackableMask,float totalMoveTime, IChainPullable player, float stunTIme)
+        public void Init(LayerMask attackableMask,float totalMoveTime, IChainPullable player, float stunTIme, Action<bool> onEnd)
         {
+            _onEnd=onEnd;
             _stunTime = stunTIme;
             _player = player;
             _totalMoveTime = totalMoveTime;
@@ -68,7 +71,11 @@ namespace Coordinator.Chain
             _rb2d.includeLayers = _attackableMask | _objectMask | _groundMask | _chainPullPadMask;
             _filter.layerMask   = _attackableMask | _objectMask | _groundMask | _chainPullPadMask;
             _baseSkill.Init(attackableMask,0,stunTIme);
-            Retrive();
+            transform.localPosition = _initialPos;
+            _rope.localScale = _initialScale;
+            _maxLen = 0;
+            _rb2d.linearVelocity = Vector2.zero;
+            _rb2d.simulated = false;
         }
 
         public void Launch(Vector2 dir, float len, float totalMovTime, int damage)
@@ -87,7 +94,7 @@ namespace Coordinator.Chain
             _rb2d.linearVelocity = targetSpd;
         }
 
-        public void Retrive()
+        public void Retrive(bool forcedRetrive)
         {
             _isMoving = false;
             transform.localPosition = _initialPos;
@@ -95,6 +102,7 @@ namespace Coordinator.Chain
             _maxLen = 0;
             _rb2d.linearVelocity = Vector2.zero;
             _rb2d.simulated = false;
+            _onEnd?.Invoke(forcedRetrive);
         }
         private void FixedUpdate()
         {
@@ -119,7 +127,7 @@ namespace Coordinator.Chain
 
             if(len >= _maxLen || cnt > 0)
             {
-                Retrive();
+                Retrive(false);
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using Coordinator.Movements;
 using Defines;
 using Manager;
+using System;
 using UnityEngine;
 
 namespace Coordinator.Chain
@@ -23,10 +24,10 @@ namespace Coordinator.Chain
         {
             _anchor = GetComponentInChildren<ChainAnchor>();
         }
-        public void Init(LayerMask attackableMask, Transform parentTransform, int damage,int strongAttackDamage ,IChainPullable player, float stunTime)
+        public void Init(LayerMask attackableMask, Transform parentTransform, int damage,int strongAttackDamage ,IChainPullable player, float stunTime, Action<bool> onEnd)
         {
             _parentTransform = parentTransform;
-            _anchor.Init(attackableMask, _pullTotalTime, player, stunTime);
+            _anchor.Init(attackableMask, _pullTotalTime, player, stunTime, onEnd);
             _baseDamage = damage;
             _strongAttackDamage = strongAttackDamage;
         }
@@ -80,7 +81,7 @@ namespace Coordinator.Chain
 
         public void Retrive()
         {
-            _anchor.Retrive();
+            _anchor.Retrive(true);
         }
     }
 }
