@@ -64,6 +64,30 @@ namespace Coordinator.Movements
             }
         }
 
+        public Directions GetNowMovingDirX()
+        {
+            if(_isInputLocked)
+            {
+                return Directions.OFF;
+            }
+            else
+            {
+                return _nextXDir;
+            }
+        }
+
+        public Directions GetNowMovingDirY()
+        {
+            if (_isInputLocked)
+            {
+                return Directions.OFF;
+            }
+            else
+            {
+                return _nextYDir;
+            }
+        }
+
         public void LockMovement()
         {
             _lockCnt++;
