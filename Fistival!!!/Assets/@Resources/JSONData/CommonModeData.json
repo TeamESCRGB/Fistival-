@@ -32,7 +32,7 @@
     },
     {
       "CommonModeDataIdx": 7,
-      "AnimControllerName": "FistivalModeAnimationController"
+      "AnimControllerName": "MetroidvaniaModeAnimationController"
     }
   ]
 }

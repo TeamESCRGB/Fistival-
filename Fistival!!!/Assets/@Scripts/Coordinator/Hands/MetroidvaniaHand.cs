@@ -96,6 +96,7 @@ namespace Coordinator.Hands
             _chain.transform.SetParent(null);
             ClearAttackChargingParticles();
             _animator.SetBool("IsWeaponAttacking", false);
+            _animator.SetBool("ChainEnd", true);
         }
 
         public override void StopAttack()
@@ -177,7 +178,7 @@ namespace Coordinator.Hands
             {
                 _animator.SetTrigger("WeakAttack");
             }
-
+            _animator.SetBool("ChainEnd", false);
             _chain.Launch(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), transform.position),_attackStatus);
 
             _attackStatus = AttackStatus.NO_PRESSED;
@@ -192,11 +193,9 @@ namespace Coordinator.Hands
 
         private void OnChainRetrived(bool forcedRetrive)
         {
-            Debug.Log(forcedRetrive ? "강제회수":"자연회수");
-            if(forcedRetrive == false)
-            {
-                _animator.SetTrigger("ChainEnd");
-            }
+            _animator.SetBool("ChainEnd", true);
+            _animator.ResetTrigger("Throw");
+            _animator.ResetTrigger("Grab");
         }
 
         public override void Drop()
