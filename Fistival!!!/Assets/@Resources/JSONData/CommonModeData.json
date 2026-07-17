@@ -8,31 +8,31 @@
     },
     {
       "CommonModeDataIdx": 1,
-      "AnimControllerName": "TestController"
+      "AnimControllerName": "FistivalModeAnimationController"
     },
     {
       "CommonModeDataIdx": 2,
-      "AnimControllerName": "TestController"
+      "AnimControllerName": "PlatformerModeAnimationController"
     },
     {
       "CommonModeDataIdx": 3,
-      "AnimControllerName": "TestController"
+      "AnimControllerName": "FistivalModeAnimationController"
     },
     {
       "CommonModeDataIdx": 4,
-      "AnimControllerName": "TestController"
+      "AnimControllerName": "FistivalModeAnimationController"
     },
     {
       "CommonModeDataIdx": 5,
-      "AnimControllerName": "TestController"
+      "AnimControllerName": "FistivalModeAnimationController"
     },
     {
       "CommonModeDataIdx": 6,
-      "AnimControllerName": "TestController"
+      "AnimControllerName": "FistivalModeAnimationController"
     },
     {
       "CommonModeDataIdx": 7,
-      "AnimControllerName": "TestController"
+      "AnimControllerName": "FistivalModeAnimationController"
     }
   ]
 }
