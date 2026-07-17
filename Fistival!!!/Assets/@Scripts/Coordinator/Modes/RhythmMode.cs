@@ -22,7 +22,11 @@ namespace Coordinator.Modes
             _hand = gameObject.GetComponentInChildren<RhythmHandCoordinator>();
             _movementCoordinator = gameObject.GetOrAddComponent<PlatformerMovementCoordinator>();
         }
-
+        protected override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
+            _animator.SetBool("IsWalking", _movementCoordinator.GetNowMoveDir() != Directions.OFF);
+        }
         public override void Init(CommonModeData data)
         {
             base.Init(data);
