@@ -18,6 +18,7 @@ namespace Coordinator
         protected Action _onStunEnd;
         protected bool _isStunned;
         protected Animator _animator;
+        protected Rigidbody2D _rb2d;
         public bool IsUnlocked { get; set; } = false;
         public virtual ModeTypes ModeType { get; }
 
@@ -26,11 +27,22 @@ namespace Coordinator
             OnAwake();
         }
 
+        private void FixedUpdate()
+        {
+            OnFixedUpdate();
+        }
+
         protected virtual void OnAwake()
         {
             _inputCoordinator = gameObject.GetComponentInParent<PlayerInputCoordinator>();
             _animator = gameObject.GetComponentInParent<Animator>();
             _onStunEnd = OnStunEnd;
+            _rb2d = GetComponentInParent<Rigidbody2D>();
+        }
+
+        protected virtual void OnFixedUpdate()
+        {
+            _animator.SetFloat("YVelocity", _rb2d.linearVelocityY);
         }
 
         public virtual void Init(CommonModeData data)

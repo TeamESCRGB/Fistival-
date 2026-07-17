@@ -28,6 +28,11 @@ namespace Coordinator.Modes
             _shooterHand = GetComponentInChildren<ShooterHand>();
         }
 
+        protected override void OnFixedUpdate()
+        {
+            
+        }
+
         public override void Init(CommonModeData data)
         {
             base.Init(data);
