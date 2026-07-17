@@ -15,8 +15,10 @@ namespace Coordinator.Victims
         private CooldownComponentModule _invincibilityTimeCounter = null;
         private int _maskedLayer = 0;
         private bool _isAttackableOn;
+        private Animator _animator;
         private void Awake()
         {
+            _animator = GetComponentInParent<Animator>();
             _hpCoord = gameObject.GetOrAddComponent<HPCoordinator>();
             _internalTarget = transform.parent.GetComponentInParent<IStunnable>();
             transform.parent.Find("@ModeManageObject").GetComponent<ModeManageCoordinator>().OnModeChanged += OnModeChanged;
@@ -28,6 +30,7 @@ namespace Coordinator.Victims
             _maskedLayer = 1 << gameObject.layer;
             _hpCoord.Init(hp, maxHP);
             _invincibilityTimeCounter = Managers.Instance.CooldownManager.GetCooldownModule(invincibilityTime);
+            _animator.SetBool("IsDead", false);
         }
 
         public void SetAttackableState(bool canAttack)
@@ -63,6 +66,7 @@ namespace Coordinator.Victims
         public void Respawn()
         {
             _hpCoord.Respawn();
+            _animator.SetBool("IsDead", false);
         }
 
         public bool CanAttack()
@@ -89,6 +93,15 @@ namespace Coordinator.Victims
                 return;
             }
             _hpCoord.SubtractHP(damage);
+            if(_hpCoord.IsDead())
+            {
+                _animator.SetBool("IsDead", true);
+                _animator.SetTrigger("Dead");
+            }
+            else
+            {
+                _animator.SetTrigger("Hit");
+            }
             Managers.Instance.StageManager.TakeDamage(damage);//이벤트로 하려고 했는데, 체력 까인거 이펙트 띄우는건 더 밑에 HPCoord에서 할거기도 하고, 이건 딱 거기서밖에 안쓸거같아서 일단 이렇게 함
         }
 
