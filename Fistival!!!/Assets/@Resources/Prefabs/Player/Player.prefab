@@ -35337,6 +35337,7 @@ GameObject:
   - component: {fileID: 58966813629889268}
   - component: {fileID: 9111735477399199852}
   - component: {fileID: 4081866623314227234}
+  - component: {fileID: -1693323570000260090}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -35518,6 +35519,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92e8202eeba4554584e6f2bc023a463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.PlayerCoordinator
+--- !u!95 &-1693323570000260090
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2704959369080764193}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2742186807867262171
 GameObject:
   m_ObjectHideFlags: 0

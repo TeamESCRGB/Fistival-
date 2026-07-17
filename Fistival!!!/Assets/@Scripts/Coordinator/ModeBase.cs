@@ -17,6 +17,7 @@ namespace Coordinator
         protected CooldownComponentModule _stunCounter;
         protected Action _onStunEnd;
         protected bool _isStunned;
+        protected Animator _animator;
         public bool IsUnlocked { get; set; } = false;
         public virtual ModeTypes ModeType { get; }
 
@@ -28,6 +29,7 @@ namespace Coordinator
         protected virtual void OnAwake()
         {
             _inputCoordinator = gameObject.GetComponentInParent<PlayerInputCoordinator>();
+            _animator = gameObject.GetComponentInParent<Animator>();
             _onStunEnd = OnStunEnd;
         }
 
@@ -43,6 +45,7 @@ namespace Coordinator
             _inputCoordinator.SetESCInputHandler(this);
             _inputCoordinator.SetInteractionInputHandler(this);
             _isStunned = false;
+            _animator.runtimeAnimatorController = Managers.Instance.ResourceManager.Load<RuntimeAnimatorController>(data.AnimControllerName);
             if(_stunCounter is not null)
             {
                 Managers.Instance.CooldownManager.ReturnModule(_stunCounter);
