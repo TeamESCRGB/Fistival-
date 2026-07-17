@@ -117,7 +117,7 @@ namespace Coordinator.Hands
                 {
                     _attackStatus = AttackStatus.STRONG;
                     OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
-                    _strongAttackChargeEnd.Stop();Debug.Log("as");
+                    _strongAttackChargeEnd.Stop();
                     _strongAttackChargeEnd.Play();
                 }
             }
@@ -393,6 +393,8 @@ namespace Coordinator.Hands
         {
             _isSkillActing = false;//이거가 켜져있으면 공격,행동 이런거 못하게 해야함
             _animator.SetBool("IsSkillActing", false);
+            _animator.ResetTrigger("Throw");
+            _animator.ResetTrigger("Grab");
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
             _cooldownModule.StartCooldown();

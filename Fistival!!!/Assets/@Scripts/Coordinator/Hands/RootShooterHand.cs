@@ -202,6 +202,8 @@ namespace Coordinator.Hands
                 Attack();
                 if (_bulletCnt <= 0)
                 {
+                    _animator.ResetTrigger("Throw");
+                    _animator.ResetTrigger("Grab");
                     _animator.SetBool("IsFanning", false);
                     _gunStatus = GunStatus.OFF;
                     _cooldownModule.StartCooldown();
@@ -262,6 +264,8 @@ namespace Coordinator.Hands
             {
                 return;
             }
+            _animator.ResetTrigger("Throw");
+            _animator.ResetTrigger("Grab");
             _animator.SetTrigger("Reload");
             _gunStatus = GunStatus.RELOAD;
             _bulletCnt = _maxBulletCnt;
