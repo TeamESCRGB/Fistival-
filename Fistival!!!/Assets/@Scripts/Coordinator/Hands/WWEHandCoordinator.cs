@@ -153,6 +153,7 @@ namespace Coordinator.Hands
             _syouryuuken.Init(playerData.AttackableLayers, playerData.Damage + _strongDamage, GetComponentInParent<IPushable>(), attackable, playerData.StunTime ,playerData.StrongStunTime);
             _tatsumakisenpukyaku.Init(playerData.AttackableLayers, playerData.Damage, parentRb2d, attackable, playerData.StunTime);
             ClearAttackChargingParticles();
+            _animator.SetBool("IsWeaponAttacking", false);
             if (_normalSkill != null)
             {
                 _normalSkill.RegisterOnAttack(_onFistAttacked);
@@ -218,6 +219,7 @@ namespace Coordinator.Hands
             base.Throw();
             if (_attackStatus == AttackStatus.WEAPON)
             {
+                _animator.SetBool("IsWeaponAttacking", false);
                 _attackStatus = AttackStatus.NO_PRESSED;
                 OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
                 ClearAttackChargingParticles();
@@ -382,6 +384,7 @@ namespace Coordinator.Hands
             base.Drop();
             if (_attackStatus == AttackStatus.WEAPON)
             {
+                _animator.SetBool("IsWeaponAttacking", false);
                 _attackStatus = AttackStatus.NO_PRESSED;
                 OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
                 ClearAttackChargingParticles();

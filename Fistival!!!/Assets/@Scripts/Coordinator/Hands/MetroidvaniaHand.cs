@@ -95,6 +95,7 @@ namespace Coordinator.Hands
             _pressedTime = 0;
             _chain.transform.SetParent(null);
             ClearAttackChargingParticles();
+            _animator.SetBool("IsWeaponAttacking", false);
         }
 
         public override void StopAttack()
@@ -184,6 +185,7 @@ namespace Coordinator.Hands
             base.Drop();
             if (_attackStatus == AttackStatus.WEAPON)
             {
+                _animator.SetBool("IsWeaponAttacking", false);
                 _attackStatus = AttackStatus.NO_PRESSED;
                 OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
                 ClearAttackChargingParticles();
@@ -195,6 +197,7 @@ namespace Coordinator.Hands
             base.Throw();
             if (_attackStatus == AttackStatus.WEAPON)
             {
+                _animator.SetBool("IsWeaponAttacking", false);
                 _attackStatus = AttackStatus.NO_PRESSED;
                 OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
                 ClearAttackChargingParticles();

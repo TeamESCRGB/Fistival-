@@ -104,6 +104,7 @@ namespace Coordinator.Hands
             _strongAttackDamage = playerData.StrongAttackDamage;
             _strongStun = playerData.StrongStunTime;
             _skillBase.Init(_attackableMask,_baseSmashDamage, playerData.StunTime);
+            _animator.SetBool("IsWeaponAttacking", false);
             ClearAttackChargingParticles();
         }
 
@@ -247,6 +248,7 @@ namespace Coordinator.Hands
             base.Drop();
             if(_attackStatus == AttackStatus.WEAPON)
             {
+                _animator.SetBool("IsWeaponAttacking",false);
                 _attackStatus = AttackStatus.NO_PRESSED;
                 OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
                 ClearAttackChargingParticles();
@@ -258,6 +260,7 @@ namespace Coordinator.Hands
             base.Throw();
             if (_attackStatus == AttackStatus.WEAPON)
             {
+                _animator.SetBool("IsWeaponAttacking", false);
                 _attackStatus = AttackStatus.NO_PRESSED;
                 OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
                 ClearAttackChargingParticles();
