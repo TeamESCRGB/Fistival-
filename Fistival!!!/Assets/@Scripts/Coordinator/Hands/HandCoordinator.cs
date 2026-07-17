@@ -117,8 +117,7 @@ namespace Coordinator.Hands
 
         public virtual void Attack()
         {
-            //var enemy = Physics2D.OverlapBox(_attackBox.position, _attackBox.localScale, 0, _attackableMask);//gc
-            var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.localScale, 0, _attackableMask);
+            var enemies = Physics2D.OverlapBoxAll(_attackBox.position, _attackBox.lossyScale, 0, _attackableMask);
             Debug.Log(_attackStatus == AttackStatus.STRONG ? "강공나감!" : "약공나감!");
             if (enemies is null)
             {
