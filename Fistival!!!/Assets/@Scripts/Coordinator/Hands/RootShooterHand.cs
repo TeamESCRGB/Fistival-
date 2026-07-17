@@ -221,9 +221,12 @@ namespace Coordinator.Hands
 
             if(_gunStatus == GunStatus.FANNING)
             {
-                _animator.SetBool("IsFanning", false);
                 _movLocker.UnlockMovement();
             }
+
+            _animator.ResetTrigger("FanningTrigger");
+            _animator.ResetTrigger("WeakAttack");
+            _animator.SetBool("IsFanning", false);
 
             ClearAttackChargingParticles();
             _gunStatus = GunStatus.OFF;
@@ -259,6 +262,7 @@ namespace Coordinator.Hands
             {
                 return;
             }
+            _animator.SetTrigger("Reload");
             _gunStatus = GunStatus.RELOAD;
             _bulletCnt = _maxBulletCnt;
             _reloadCooldown.StartCooldown();
@@ -297,6 +301,7 @@ namespace Coordinator.Hands
 
             if(_attackStatus == AttackStatus.STRONG)
             {
+                _animator.SetTrigger("FanningTrigger");
                 _animator.SetBool("IsFanning", true);
                 _movLocker.LockMovement();
                 _gunStatus = GunStatus.FANNING;

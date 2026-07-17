@@ -24,7 +24,7 @@
     },
     {
       "CommonModeDataIdx": 5,
-      "AnimControllerName": "FistivalModeAnimationController"
+      "AnimControllerName": "RootShooterAnimationController"
     },
     {
       "CommonModeDataIdx": 6,

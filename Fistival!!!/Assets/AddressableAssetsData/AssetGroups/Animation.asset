@@ -57,6 +57,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90d0797dfc69fdc479a33f2f4beccb5b
+    m_Address: RootShooterAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a1a80e436fb0d0444945aa2611d78a63
     m_Address: BatAnimationController
     m_ReadOnly: 0
