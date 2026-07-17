@@ -261,7 +261,7 @@ namespace Coordinator.Hands
                 ClearAttackChargingParticles();
             }
         }
-
+        
         protected override void Throw()
         {
             base.Throw();

@@ -117,7 +117,7 @@ namespace Coordinator.Hands
                 {
                     _attackStatus = AttackStatus.STRONG;
                     OnAttackStatusChanged?.Invoke(AttackStatus.STRONG);
-                    _strongAttackChargeEnd.Stop();
+                    _strongAttackChargeEnd.Stop();Debug.Log("as");
                     _strongAttackChargeEnd.Play();
                 }
             }
@@ -146,6 +146,7 @@ namespace Coordinator.Hands
             _energy = 0;
             ResetEvents();
             _isSkillActing = false;
+            _animator.SetBool("IsSkillActing", false);
             _strongDamage = playerData.StrongAttackDamage;
             _normalSkill.Init(playerData.AttackableLayers,playerData.Damage, playerData.StunTime);
             _hadouken.Init(playerData.AttackableLayers, -1, playerData.StunTime);
@@ -237,8 +238,10 @@ namespace Coordinator.Hands
             {
                 _animator.SetTrigger("WeakAttack");
             }
+
             if (targets.Length <= 0)
             {
+                OnAttackSuccess();
                 return;
             }
 
@@ -280,6 +283,7 @@ namespace Coordinator.Hands
             {
                 case WWESkillTypes.HADOUKEN:
                     _isSkillActing = true;
+                    _animator.SetBool("IsSkillActing", true);
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     _energy -= _hadouken.GetDemendedCost();
@@ -288,6 +292,7 @@ namespace Coordinator.Hands
                     return;
                 case WWESkillTypes.SYOURYUUKEN:
                     _isSkillActing = true;
+                    _animator.SetBool("IsSkillActing", true);
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     _energy -= _syouryuuken.GetDemendedCost();
@@ -296,6 +301,7 @@ namespace Coordinator.Hands
                     break;
                 case WWESkillTypes.TATSUMAKISENPUKYAKU:
                     _isSkillActing = true;
+                    _animator.SetBool("IsSkillActing", true);
                     OnComboChanged?.Invoke(WWESkillTypes.ACTIVATION);
                     _skillType = WWESkillTypes.NORMAL;
                     _energy -= _tatsumakisenpukyaku.GetDemendedCost();
@@ -386,6 +392,7 @@ namespace Coordinator.Hands
         private void OnAttackSuccess()
         {
             _isSkillActing = false;//이거가 켜져있으면 공격,행동 이런거 못하게 해야함
+            _animator.SetBool("IsSkillActing", false);
             _attackStatus = AttackStatus.NO_PRESSED;
             OnAttackStatusChanged?.Invoke(AttackStatus.NO_PRESSED);
             _cooldownModule.StartCooldown();

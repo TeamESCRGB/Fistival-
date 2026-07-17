@@ -69,6 +69,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a5e6c2160f69dc343b08f4f1895919ab
+    m_Address: WWEModeAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ae48476759e18124d93855e0bad00891
     m_Address: Shoot2DModeAnimationController
     m_ReadOnly: 0
