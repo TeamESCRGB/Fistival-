@@ -131,6 +131,9 @@ namespace Coordinator.Hands
             _endIdx = -1;
             _judgeType = 0;
             _noteType = 0;
+            _animator.ResetTrigger("LongParryStart");
+            _animator.ResetTrigger("LongParrySuccess");
+            _animator.ResetTrigger("LongParryFailed");
         }
 
         public override void OnLMBPressed()
@@ -147,9 +150,11 @@ namespace Coordinator.Hands
 
             if(_noteType == NoteTypes.LONG_PARRY_START)
             {
+                _animator.SetTrigger("LongParryStart");
                 return;
             }
 
+            _animator.SetTrigger("ShortParry");
             if((_noteType & _noActionMask) == 0 && (_judgeType & _missMask) == 0)
             {
                 ReflectDamage(_noteType);
@@ -165,6 +170,7 @@ namespace Coordinator.Hands
         {
             if(_cooldownModule.IsCooldownEnded() == false || _noteType != NoteTypes.LONG_PARRY_START)
             {
+                _animator.SetTrigger("LongParryFailed");
                 _noteType = 0;
                 return;
             }
@@ -174,8 +180,10 @@ namespace Coordinator.Hands
             _cooldownModule.StartCooldown();
             if((parryResult.judgeType & _missMask) != 0)
             {
+                _animator.SetTrigger("LongParryFailed");
                 return;
             }
+            _animator.SetTrigger("LongParrySuccess");
             ReflectDamage(parryResult.noteType);
             Attack();
         }
