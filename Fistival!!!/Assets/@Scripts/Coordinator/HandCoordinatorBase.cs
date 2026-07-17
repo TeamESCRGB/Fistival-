@@ -53,6 +53,8 @@ namespace Coordinator
         protected int _throwAttackAdditionalDamage = 0;
         protected float _stunTime = 0;
 
+        protected Animator _animator;
+
         #region Events
 
         protected void ResetEvents()
@@ -170,6 +172,7 @@ namespace Coordinator
         {
             _mainCam = Camera.main;
             _handAnchor = transform.Find("@HandAnchor");
+            _animator = GetComponentInParent<Animator>();
 #if UNITY_EDITOR
             if (_handAnchor == null)
             {
@@ -373,6 +376,8 @@ namespace Coordinator
 
         public virtual void OnLMBPressed()
         {
+            _animator.SetBool("IsWeaponAttacking",true);
+            _animator.SetTrigger("WeakAttack");
             _weapon.OnLMBPressed();
             if(CanUseWeapon() == false)
             {
@@ -381,6 +386,7 @@ namespace Coordinator
         }
         public virtual void OnLMBReleased()
         {
+            _animator.SetBool("IsWeaponAttacking", false);
             _weapon.OnLMBReleased();
             if (CanUseWeapon() == false)
             {
