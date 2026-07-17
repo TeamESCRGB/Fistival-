@@ -300,6 +300,7 @@ namespace Coordinator
             _grabbedObject.Throw(GetDirVec2(_mainCam.ScreenToWorldPoint(_mousePos), _handAnchor.position), _parentRb2d.linearVelocity, _forcePerCharge * _chargeCnt, _chargeCnt);
             _chargeCnt = 0;
             _grabbedObject = null;
+            _animator.SetTrigger("Throw");
             RemoveWeapon();
             InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
             InvokeOnGrabbedObjectChanged(null);
