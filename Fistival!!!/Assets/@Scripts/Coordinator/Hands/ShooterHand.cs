@@ -62,6 +62,7 @@ namespace Coordinator.Hands
         public override void OnLMBPressed()
         {
             _animator.SetBool("IsAttackOn", true);
+            _animator.SetTrigger("AttackTrigger");
             _isLMBPressed = true;
         }
 

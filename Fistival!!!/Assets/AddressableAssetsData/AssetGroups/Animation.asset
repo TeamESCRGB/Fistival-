@@ -63,6 +63,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae48476759e18124d93855e0bad00891
+    m_Address: Shoot2DModeAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b87dcca30f0195247982790032a3ff71
     m_Address: CameleonBossAnimationController
     m_ReadOnly: 0
