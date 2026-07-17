@@ -29,6 +29,10 @@ namespace Coordinator.Hands
             _judgeType = _missMask;
             _noteType = NoteTypes.NO_ACTION;
             _parryReflectionDamage = 0;
+            _animator.ResetTrigger("ShortParry");
+            _animator.ResetTrigger("LongParryStart");
+            _animator.ResetTrigger("LongParrySuccess");
+            _animator.ResetTrigger("LongParryFailed");
         }
 
         public override void Attack()
@@ -131,6 +135,7 @@ namespace Coordinator.Hands
             _endIdx = -1;
             _judgeType = 0;
             _noteType = 0;
+            _animator.ResetTrigger("ShortParry");
             _animator.ResetTrigger("LongParryStart");
             _animator.ResetTrigger("LongParrySuccess");
             _animator.ResetTrigger("LongParryFailed");
@@ -170,7 +175,6 @@ namespace Coordinator.Hands
         {
             if(_cooldownModule.IsCooldownEnded() == false || _noteType != NoteTypes.LONG_PARRY_START)
             {
-                _animator.SetTrigger("LongParryFailed");
                 _noteType = 0;
                 return;
             }

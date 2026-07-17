@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61b83c09196235e4ba6610f07f80fe62
+    m_Address: RhythmModeAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 67b12fad4a93f68418922bec1703ab02
     m_Address: TurtleAnimationController
     m_ReadOnly: 0
