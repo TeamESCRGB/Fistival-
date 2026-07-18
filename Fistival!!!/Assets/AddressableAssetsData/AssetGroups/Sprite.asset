@@ -36,8 +36,8 @@ MonoBehaviour:
     - LobbySceneLoaded
     - MainSceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a15f935e04e2cc748b9215363ddfd729
-    m_Address: mob_drone_obj
+  - m_GUID: 935bfe8e6dd28a7428cf8af62f937160
+    m_Address: mob_drone_object
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_pv_loaded_0
