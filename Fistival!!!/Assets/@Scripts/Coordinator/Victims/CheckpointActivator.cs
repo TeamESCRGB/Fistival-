@@ -29,7 +29,7 @@ namespace Coordinator.Victims
             return _isAttackableOn;
         }
 
-        public void TakeDamage(int damage, Vector3 attackerPos)
+        public void TakeDamage(int damage, Vector3 attackerPos, bool showHitEffect)
         {
             _checkpoint.CheckCheckpoint(true);
         }

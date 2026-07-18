@@ -86,7 +86,7 @@ namespace Coordinator.Victims
             return GetComponent<T>();
         }
 
-        public void TakeDamage(int damage, Vector3 attackerPos)
+        public void TakeDamage(int damage, Vector3 attackerPos, bool showHitEffect)
         {
             if (damage < 0)
             {
