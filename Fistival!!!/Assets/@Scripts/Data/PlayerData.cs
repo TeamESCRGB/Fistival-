@@ -30,6 +30,7 @@
             StunTime=original.StunTime;
             StrongStunTime = original.StrongStunTime;
             StrongAttackChargeParticleSpeed = original.StrongAttackChargeParticleSpeed;
+            StrongAttackChargeParticleDelay=original.StrongAttackChargeParticleDelay;
         }
 
         public PlayerData() { }
@@ -59,5 +60,6 @@
         public float StunTime { get; set; }
         public float StrongStunTime { get; set; }
         public float StrongAttackChargeParticleSpeed { get; set; }
+        public float StrongAttackChargeParticleDelay { get; set; }
     }
 }

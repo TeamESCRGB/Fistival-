@@ -64,10 +64,7 @@ namespace Coordinator.Hands
             _strongAttackDamage = data.StrongAttackDamage;
             _strongAttackThreshold = data.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
-            var psStrongCharge = _strongAttackCharging.main;
-            psStrongCharge.duration = (float)_strongAttackThreshold;
-            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
-            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1 / _strongAttackThreshold * data.StrongAttackChargeParticleSpeed));
+            SetParticleData(data.StrongAttackChargeParticleSpeed, data.StrongAttackChargeParticleDelay);
         }
 
         protected override void OnUpdate()
@@ -95,6 +92,22 @@ namespace Coordinator.Hands
             }
         }
 
+        private void SetParticleData(float strongAttackParticleSpeed, float delayRatio)
+        {
+            var psStrongCharge = _strongAttackCharging.main;
+
+            float duration = (float)_strongAttackThreshold;
+            psStrongCharge.duration = duration;
+
+            float actualDelay = duration * delayRatio;
+            float lifetime = duration - actualDelay;
+
+            psStrongCharge.startDelay = actualDelay;
+            psStrongCharge.startLifetime = lifetime;
+
+            psStrongCharge.startSpeed = strongAttackParticleSpeed / Mathf.Max(lifetime, 0.001f);
+        }
+
         public virtual void Init(Rigidbody2D parentRb2d, PlayerData playerData)//int baseSmashDamage,int strongAttackDamage ,LayerMask attackableFilter, LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldwn, int throwAdditionalDamage, float strongAttackThreshold, float stunTime
         {
             InitCommonDatas(parentRb2d, playerData);
@@ -109,10 +122,7 @@ namespace Coordinator.Hands
             _skillBase.Init(_attackableMask,_baseSmashDamage, playerData.StunTime);
             _animator.SetBool("IsWeaponAttacking", false);
             ClearAttackChargingParticles();
-            var psStrongCharge = _strongAttackCharging.main;
-            psStrongCharge.duration = (float)_strongAttackThreshold;
-            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
-            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1/_strongAttackThreshold * playerData.StrongAttackChargeParticleSpeed));
+            SetParticleData(playerData.StrongAttackChargeParticleSpeed, playerData.StrongAttackChargeParticleDelay);
         }
 
         private void ClearAttackChargingParticles()

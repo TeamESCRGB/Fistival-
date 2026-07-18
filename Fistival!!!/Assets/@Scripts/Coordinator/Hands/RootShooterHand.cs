@@ -62,6 +62,22 @@ namespace Coordinator.Hands
             _strongAttackChargeEnd.Clear();
         }
 
+        private void SetParticleData(float strongAttackParticleSpeed, float delayRatio)
+        {
+            var psStrongCharge = _strongAttackCharging.main;
+
+            float duration = (float)_strongAttackThreshold;
+            psStrongCharge.duration = duration;
+
+            float actualDelay = duration * delayRatio;
+            float lifetime = duration - actualDelay;
+
+            psStrongCharge.startDelay = actualDelay;
+            psStrongCharge.startLifetime = lifetime;
+
+            psStrongCharge.startSpeed = strongAttackParticleSpeed / Mathf.Max(lifetime, 0.001f);
+        }
+
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -131,10 +147,7 @@ namespace Coordinator.Hands
             _skillBase.Init(_attackableMask, _baseSmashDamage, playerData.StunTime);
             _attackBox.SetParent(null);//나중에 ui로 옮기면 바꾸고, 옮기면 그대로.
             ClearAttackChargingParticles();
-            var psStrongCharge = _strongAttackCharging.main;
-            psStrongCharge.duration = (float)_strongAttackThreshold;
-            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
-            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1 / _strongAttackThreshold * playerData.StrongAttackChargeParticleSpeed));
+            SetParticleData(playerData.StrongAttackChargeParticleSpeed, playerData.StrongAttackChargeParticleDelay);
             if (_reloadCooldown is not null)
             {
                 Managers.Instance.CooldownManager.ReturnModule(_reloadCooldown);
@@ -163,10 +176,7 @@ namespace Coordinator.Hands
             _baseSmashDamage = data.Damage;
             _strongAttackThreshold = data.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
-            var psStrongCharge = _strongAttackCharging.main;
-            psStrongCharge.duration = (float)_strongAttackThreshold;
-            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
-            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1 / _strongAttackThreshold * data.StrongAttackChargeParticleSpeed));
+            SetParticleData(data.StrongAttackChargeParticleSpeed, data.StrongAttackChargeParticleDelay);
         }
 
         protected override void OnUpdate()
