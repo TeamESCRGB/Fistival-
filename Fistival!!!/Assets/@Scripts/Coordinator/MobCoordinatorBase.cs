@@ -106,6 +106,7 @@ namespace Coordinator
                 else
                 {
                     comp.Init(Managers.Instance.DataManager.ObjectDataDict[_dropObjectIdx]);
+                    go.transform.position = transform.position;
                 }
             }
             Managers.Instance.ResourceManager.Destroy(gameObject, true);
