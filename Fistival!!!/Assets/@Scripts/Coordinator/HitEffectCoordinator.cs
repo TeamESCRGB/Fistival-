@@ -13,14 +13,13 @@ namespace Coordinator
         private ParticleSystem _middleParticle;
         [SerializeField]
         private ParticleSystem _highParticle;
+        [SerializeField]
+        private float _lifeTime=1;
         private WaitForSeconds _waiter;
 
-        private void Start()
+        private void Awake()
         {
-            if(_waiter == null)
-            {
-                _waiter = new WaitForSeconds(_lowParticle.main.startLifetime.constant);
-            }
+            _waiter = new WaitForSeconds(_lifeTime);
         }
 
         public void Show(int damage)
