@@ -1,4 +1,5 @@
 using Defines;
+using Manager;
 using UnityEngine;
 
 namespace Coordinator.Victims
@@ -52,6 +53,12 @@ namespace Coordinator.Victims
 
         public void TakeDamage(int damage, Vector3 attackerPos, bool showHitEffect)
         {
+            if (showHitEffect)
+            {
+                var go = Managers.Instance.ResourceManager.Instantiate("HitEffect", null, true, true);
+                go.transform.position = _collider.ClosestPoint(attackerPos);
+                go.GetComponent<HitEffectCoordinator>().Show(damage);
+            }
             _original.TakeDamage(damage,attackerPos,false);
         }
 

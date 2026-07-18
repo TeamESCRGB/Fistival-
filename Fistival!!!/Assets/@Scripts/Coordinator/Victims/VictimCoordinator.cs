@@ -76,6 +76,13 @@ namespace Coordinator.Victims
 
         public void TakeDamage(int damage, Vector3 attackerPos, bool showHitEffect)
         {
+            Debug.Log(showHitEffect);
+            if (showHitEffect)
+            {
+                var go = Managers.Instance.ResourceManager.Instantiate("HitEffect", null, true,true);
+                go.transform.position = _collider.ClosestPoint(attackerPos);
+                go.GetComponent<HitEffectCoordinator>().Show(damage);
+            }
             if (damage < 0)
             {
                 return;
