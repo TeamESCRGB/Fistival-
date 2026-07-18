@@ -5,6 +5,6 @@ namespace Defines
     public enum HitEffectRange : int
     {
         LowHitEffectMaxExculsiveDmg=3,
-        MiddleEffectMaxExculsiveDmg
+        MiddleEffectMaxExculsiveDmg=5
     }
 }
