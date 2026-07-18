@@ -35,6 +35,7 @@ namespace Manager.Core
                     }
                 }
             }
+            AudioListener.pause = false;
         }
 
         public void Play(SoundChannel channel, string key, bool loop, float volume = 1.0f, float pitch = 1.0f)
@@ -106,10 +107,12 @@ namespace Manager.Core
                 }
                 Pause((SoundChannel)a);
             }
+            AudioListener.pause = true;
         }
 
         public void UnPauseAll()
         {
+            AudioListener.pause = false;
             foreach (int a in System.Enum.GetValues(typeof(SoundChannel)))
             {
                 if (a < 0)
@@ -225,6 +228,7 @@ namespace Manager.Core
                 _pauseTimes[i] = 0;
                 _pauseStartedTimes[i] = 0;
             }
+            AudioListener.pause = false;
         }
 
 
