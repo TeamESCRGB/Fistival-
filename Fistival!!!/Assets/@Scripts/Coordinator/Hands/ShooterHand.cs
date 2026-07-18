@@ -20,7 +20,7 @@ namespace Coordinator.Hands
             ResetEvents();
             _isLMBPressed = false;
             _projectileIdx = projectileIdx;
-            _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(playerData.AttackCooldown,-1);
+            _cooldownModule = Managers.Instance.CooldownManager.GetCooldownModule(playerData.Shoot2DAttackCooldown,-1);
         }
 
         protected override void OnDisabled()

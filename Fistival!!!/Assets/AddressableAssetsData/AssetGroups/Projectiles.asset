@@ -38,12 +38,14 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - TestPreload
+    - stage_pv_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 71135e593abaa9b41b20f8568c3ff087
     m_Address: NoGrav_1b1_Explodable_CircleProjectile
     m_ReadOnly: 0
     m_SerializedLabels:
     - TestPreload
+    - stage_pv_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 91fe70ff1c0353949a1aa7617813cbfc
     m_Address: NoBounceNoFric
