@@ -96,6 +96,10 @@ namespace Coordinator.Hands
             _normalSkill.SetBaseDamage(data.Damage);
             _syouryuuken.SetBaseDamage(data.Damage + data.StrongAttackDamage);
             _tatsumakisenpukyaku.SetBaseDamage(data.Damage);
+            var psStrongCharge = _strongAttackCharging.main;
+            psStrongCharge.duration = (float)_strongAttackThreshold;
+            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
+            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1 / _strongAttackThreshold * data.StrongAttackChargeParticleSpeed));
         }
 
         protected override void OnUpdate()
@@ -154,6 +158,10 @@ namespace Coordinator.Hands
             _syouryuuken.Init(playerData.AttackableLayers, playerData.Damage + _strongDamage, GetComponentInParent<IPushable>(), attackable, playerData.StunTime ,playerData.StrongStunTime);
             _tatsumakisenpukyaku.Init(playerData.AttackableLayers, playerData.Damage, parentRb2d, attackable, playerData.StunTime);
             ClearAttackChargingParticles();
+            var psStrongCharge = _strongAttackCharging.main;
+            psStrongCharge.duration = (float)_strongAttackThreshold;
+            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
+            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1 / _strongAttackThreshold * playerData.StrongAttackChargeParticleSpeed));
             _animator.SetBool("IsWeaponAttacking", false);
             if (_normalSkill != null)
             {

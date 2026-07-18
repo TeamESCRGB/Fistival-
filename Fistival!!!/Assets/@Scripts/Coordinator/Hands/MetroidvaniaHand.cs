@@ -57,6 +57,10 @@ namespace Coordinator.Hands
             _chain.SetStrongDamage(data.StrongAttackDamage);
             _strongAttackThreshold = data.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
+            var psStrongCharge = _strongAttackCharging.main;
+            psStrongCharge.duration = (float)_strongAttackThreshold;
+            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
+            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1 / _strongAttackThreshold * data.StrongAttackChargeParticleSpeed));
         }
 
         protected override void OnUpdate()
@@ -97,6 +101,10 @@ namespace Coordinator.Hands
             ClearAttackChargingParticles();
             _animator.SetBool("IsWeaponAttacking", false);
             _animator.SetBool("ChainEnd", true);
+            var psStrongCharge = _strongAttackCharging.main;
+            psStrongCharge.duration = (float)_strongAttackThreshold;
+            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
+            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1 / _strongAttackThreshold * playerData.StrongAttackChargeParticleSpeed));
         }
 
         public override void StopAttack()

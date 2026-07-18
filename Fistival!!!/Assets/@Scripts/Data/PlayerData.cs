@@ -26,6 +26,7 @@
             InvincibilityTime = original.InvincibilityTime;
             StunTime=original.StunTime;
             StrongStunTime = original.StrongStunTime;
+            StrongAttackChargeParticleSpeed = original.StrongAttackChargeParticleSpeed;
         }
 
         public PlayerData() { }
@@ -53,5 +54,6 @@
         public float InvincibilityTime { get; set; }
         public float StunTime { get; set; }
         public float StrongStunTime { get; set; }
+        public float StrongAttackChargeParticleSpeed { get; set; }
     }
 }

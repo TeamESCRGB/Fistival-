@@ -29,7 +29,6 @@ namespace Coordinator.Hands
         private ParticleSystem _strongAttackCharging;
         private ParticleSystem _strongAttackChargeEnd;
 
-
         protected override void OnAwake()
         {
             _attackBox = transform.Find("@AttackBox");
@@ -65,6 +64,10 @@ namespace Coordinator.Hands
             _strongAttackDamage = data.StrongAttackDamage;
             _strongAttackThreshold = data.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
+            var psStrongCharge = _strongAttackCharging.main;
+            psStrongCharge.duration = (float)_strongAttackThreshold;
+            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
+            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1 / _strongAttackThreshold * data.StrongAttackChargeParticleSpeed));
         }
 
         protected override void OnUpdate()
@@ -106,6 +109,10 @@ namespace Coordinator.Hands
             _skillBase.Init(_attackableMask,_baseSmashDamage, playerData.StunTime);
             _animator.SetBool("IsWeaponAttacking", false);
             ClearAttackChargingParticles();
+            var psStrongCharge = _strongAttackCharging.main;
+            psStrongCharge.duration = (float)_strongAttackThreshold;
+            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
+            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1/_strongAttackThreshold * playerData.StrongAttackChargeParticleSpeed));
         }
 
         private void ClearAttackChargingParticles()

@@ -131,6 +131,10 @@ namespace Coordinator.Hands
             _skillBase.Init(_attackableMask, _baseSmashDamage, playerData.StunTime);
             _attackBox.SetParent(null);//나중에 ui로 옮기면 바꾸고, 옮기면 그대로.
             ClearAttackChargingParticles();
+            var psStrongCharge = _strongAttackCharging.main;
+            psStrongCharge.duration = (float)_strongAttackThreshold;
+            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
+            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1 / _strongAttackThreshold * playerData.StrongAttackChargeParticleSpeed));
             if (_reloadCooldown is not null)
             {
                 Managers.Instance.CooldownManager.ReturnModule(_reloadCooldown);
@@ -159,6 +163,10 @@ namespace Coordinator.Hands
             _baseSmashDamage = data.Damage;
             _strongAttackThreshold = data.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
+            var psStrongCharge = _strongAttackCharging.main;
+            psStrongCharge.duration = (float)_strongAttackThreshold;
+            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
+            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1 / _strongAttackThreshold * data.StrongAttackChargeParticleSpeed));
         }
 
         protected override void OnUpdate()
