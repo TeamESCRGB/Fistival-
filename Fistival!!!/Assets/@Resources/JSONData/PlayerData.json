@@ -18,6 +18,7 @@
     "JumpPower": 10,
     "InvincibilityTime": 1,
     "StunTime": 0.5,
-    "StrongStunTime": 0.5
+    "StrongStunTime": 0.5,
+    "StrongAttackChargeParticleSpeed": -2.5
   }
 }
