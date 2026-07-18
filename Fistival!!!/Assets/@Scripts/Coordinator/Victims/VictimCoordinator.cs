@@ -71,7 +71,7 @@ namespace Coordinator.Victims
             return GetComponent<T>();
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, Vector3 attackerPos)
         {
             if(damage < 0)
             {

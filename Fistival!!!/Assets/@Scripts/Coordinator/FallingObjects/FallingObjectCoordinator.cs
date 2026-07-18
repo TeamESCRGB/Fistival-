@@ -90,7 +90,7 @@ namespace Coordinator.FallingObjectCoordinator
         {
             if (target.CanAttack())
             {
-                target.TakeDamage(calculatedDamage);
+                target.TakeDamage(calculatedDamage,transform.position);
                 target.TakeKnockBack(knockback);
                 target.StunFor(stun);
                 target.StartInvincibleTime();

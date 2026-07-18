@@ -24,7 +24,7 @@ namespace Coordinator.Victims
             return _isAttackableOn;
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, Vector3 attackerPos)
         {
             _original.SetState(true);
         }

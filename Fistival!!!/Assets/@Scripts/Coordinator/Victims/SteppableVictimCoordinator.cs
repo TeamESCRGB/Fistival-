@@ -49,9 +49,9 @@ namespace Coordinator.Victims
             _original.StartInvincibleTime();
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, Vector3 attackerPos)
         {
-            _original.TakeDamage(damage);
+            _original.TakeDamage(damage,attackerPos);
         }
 
         public void TakeKnockBack(Vector2 force)
