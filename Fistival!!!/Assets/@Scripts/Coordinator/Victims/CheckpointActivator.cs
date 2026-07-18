@@ -8,6 +8,11 @@ namespace Coordinator.Victims
         private int _maskedLayer = 0;
         private CheckpointInteractor _checkpoint;
         private bool _isAttackableOn;
+        private Collider2D _collider;
+        private void Awake()
+        {
+            _collider = GetComponent<Collider2D>();
+        }
         private void Start()
         {
             _isAttackableOn = true;

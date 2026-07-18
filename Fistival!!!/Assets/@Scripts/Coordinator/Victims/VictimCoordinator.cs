@@ -15,8 +15,10 @@ namespace Coordinator.Victims
         protected CooldownComponentModule _invincibilityTimeCounter = null;
         protected int _maskedLayer = 0;
         protected bool _isAttackableOn;
+        protected Collider2D _collider;
         protected void Awake()
         {
+            _collider = GetComponent<Collider2D>();
             _hpCoord = gameObject.GetOrAddComponent<HPCoordinator>();
             _internalTarget = transform.parent.GetComponentInParent<IStunnable>();
             _pushable = transform.parent.GetComponentInParent<IPushable>();

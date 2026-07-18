@@ -6,9 +6,11 @@ namespace Coordinator.Victims
     {
         private IAttackable _original;
         private int _maskedLayer = 0;
+        private Collider2D _collider;
 
         private void Awake()
         {
+            _collider = GetComponent<Collider2D>();
             _original = transform.parent.gameObject.GetComponent<IAttackable>();
             _maskedLayer = 1<<gameObject.layer;
 

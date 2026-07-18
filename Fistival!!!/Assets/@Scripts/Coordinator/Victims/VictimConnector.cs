@@ -6,6 +6,12 @@ namespace Coordinator.Victims
     {
         private IAttackable _original;
         private int _maskedLayer = 0;
+        private Collider2D _collider;
+
+        private void Awake()
+        {
+            _collider = GetComponent<Collider2D>();
+        }
 
         public void SetAttackableState(bool canAttack)
         {
