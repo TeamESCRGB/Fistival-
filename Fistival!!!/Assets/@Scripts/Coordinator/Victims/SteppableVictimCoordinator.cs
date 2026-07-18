@@ -1,3 +1,4 @@
+using Defines;
 using UnityEngine;
 
 namespace Coordinator.Victims
@@ -53,6 +54,21 @@ namespace Coordinator.Victims
 
         public void TakeDamage(int damage, Vector3 attackerPos, bool showHitEffect)
         {
+            if(showHitEffect)
+            {
+                if(damage < (int)HitEffectRange.LowHitEffectMaxExculsiveDmg)
+                {
+
+                }
+                else if(damage < (int)HitEffectRange.MiddleEffectMaxExculsiveDmg)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
             _original.TakeDamage(damage,attackerPos,false);
         }
 

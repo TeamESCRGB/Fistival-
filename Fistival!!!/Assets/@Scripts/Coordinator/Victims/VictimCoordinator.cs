@@ -1,5 +1,6 @@
 using ComponentModule;
 using Coordinator.Movements;
+using Defines;
 using Manager;
 using UnityEngine;
 using Utils;
@@ -75,12 +76,25 @@ namespace Coordinator.Victims
 
         public void TakeDamage(int damage, Vector3 attackerPos, bool showHitEffect)
         {
-            if(damage < 0)
+            if (showHitEffect)
+            {
+                if (damage < (int)HitEffectRange.LowHitEffectMaxExculsiveDmg)
+                {
+
+                }
+                else if (damage < (int)HitEffectRange.MiddleEffectMaxExculsiveDmg)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            if (damage < 0)
             {
                 return;
             }
-
-            //스턴 시스템은 나중에
 
             _hpCoord.SubtractHP(damage);
         }
