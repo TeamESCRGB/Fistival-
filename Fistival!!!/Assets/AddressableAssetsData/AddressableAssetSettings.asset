@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: b24eaeb5f76778844850176db7d3c569
   m_currentHash:
     serializedVersion: 2
-    Hash: 69a519f8b87b2f3a065a05df517cdb75
+    Hash: ae11ef85e171ae773027d6484c6eb60e
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -121,6 +121,7 @@ MonoBehaviour:
     - StaticLoaded
     - GameSceneBasicLoaded
     - stage_0_loaded_0
+    - stage_pv_loaded_0
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 589972af66090ac4188aef085f5cccb5, type: 2}

@@ -68,6 +68,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_0_loaded_0
+    - stage_pv_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9c8889cd4d9dd3419c98c1eca6bf913
     m_Address: FrogMob
