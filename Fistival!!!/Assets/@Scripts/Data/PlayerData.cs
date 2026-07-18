@@ -11,6 +11,8 @@
             StrongAttackDamage = original.StrongAttackDamage;
             ThrowAttackAdditionalDamage = original.ThrowAttackAdditionalDamage;
             AttackCooldown = original.AttackCooldown;
+            
+            Shoot2DAttackCooldown = original.Shoot2DAttackCooldown;
             AttackableLayers = original.AttackableLayers;
 
             PickableLayers = original.PickableLayers;
@@ -18,6 +20,7 @@
             ForcePerCharge = original.ForcePerCharge;
             ChargeTimeInterval = original.ChargeTimeInterval;
             StrongAttackThreshold = original.StrongAttackThreshold;
+
 
             MoveSpeed = original.MoveSpeed;
             SlownessSensitivity = original.SlownessSensitivity;
@@ -38,6 +41,7 @@
         public int StrongAttackDamage { get; set; }
         public int ThrowAttackAdditionalDamage { get; set; }
         public float AttackCooldown { get; set; }
+        public float Shoot2DAttackCooldown { get; set; }
         public int AttackableLayers { get; set; }
 
         public int PickableLayers { get; set; }

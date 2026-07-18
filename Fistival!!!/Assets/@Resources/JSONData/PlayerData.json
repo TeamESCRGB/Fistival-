@@ -7,6 +7,7 @@
     "StrongAttackDamage": 1,
     "ThrowAttackAdditionalDamage": 1,
     "AttackCooldown": 1.25,
+    "Shoot2DAttackCooldown": 0.25,
     "AttackableLayers": 266240,
     "PickableLayers": 64,
     "ForcePerCharge": 10,

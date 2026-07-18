@@ -30,7 +30,17 @@ namespace Coordinator.Modes
 
         protected override void OnFixedUpdate()
         {
-            _animator.SetBool("IsWalking", _movementCoord.GetNowMovingDirX() != Directions.OFF || _movementCoord.GetNowMovingDirY() != Directions.OFF);
+            var nowDir = _movementCoord.GetNowMovingDirX();
+            int dir = 0;
+            if (nowDir == Directions.LEFT)
+            {
+                dir = -1;
+            }
+            else if(nowDir == Directions.RIGHT)
+            {
+                dir = 1;
+            }
+            _animator.SetInteger("MoveDir",dir);
         }
 
         public override void Init(CommonModeData data)
