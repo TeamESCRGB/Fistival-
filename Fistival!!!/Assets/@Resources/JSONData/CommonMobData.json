@@ -35,11 +35,11 @@
         "x": 0,
         "y": 0
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": -1,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 0,
-      "DropObjectPrefabName": "",
+      "DropObjectPrefabName": "CommonObject",
       "AnimationController": "DroneAnimationController"
     },
 

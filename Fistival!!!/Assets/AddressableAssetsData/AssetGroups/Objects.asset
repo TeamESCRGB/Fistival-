@@ -21,11 +21,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 108c953ec12f8f74d9710e21314f6fa7
+    m_Address: Obj
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 23684c50bfb959c46a6a0808f2502a55
     m_Address: CommonObject
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameSceneBasicLoaded
+    - stage_pv_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2a856d9d7e16bf74db5f042406cd4734
     m_Address: PaintCanObject

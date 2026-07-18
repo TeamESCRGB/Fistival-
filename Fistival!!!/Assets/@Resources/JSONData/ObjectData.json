@@ -2,17 +2,21 @@
   "objectDatas": [
     {
       "ObjectIndex": -1,
-      "PrefabKey": "FlyingDiscObject",
-      "Damage": 4,
-      "Durability": 2,
-      "AbrasableLayerMask": 0,
+      "PrefabKey": "CommonObject",
+      "Damage": 1,
+      "Durability": 1,
+      "AbrasableLayerMask": 4096,
       "Weight": 1,
       "PlatformSpeedThreshold": 1,
       "StunTime": 0.5,
       "PlatformLayerMask": 1024,
-      "SpriteName": "BCK",
-      "PhysicsMaterialName": "BCK"
+      "SpriteName": "mob_drone_obj",
+      "PhysicsMaterialName": "Obj"
     },
+
+
+
+
 
     {
       "ObjectIndex": 0,
