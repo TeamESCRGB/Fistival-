@@ -2,7 +2,7 @@
   "objectDatas": [
     {
       "ObjectIndex": -1,
-      "PrefabKey": "CommonObject",
+      "PrefabKey": "obj_from_mob_drone",
       "Damage": 1,
       "Durability": 1,
       "AbrasableLayerMask": 4096,
@@ -10,7 +10,7 @@
       "PlatformSpeedThreshold": 1,
       "StunTime": 0.5,
       "PlatformLayerMask": 1024,
-      "SpriteName": "mob_drone_obj",
+      "SpriteName": "mob_drone_object",
       "PhysicsMaterialName": "Obj"
     },
 

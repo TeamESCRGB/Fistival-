@@ -40,6 +40,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 872b5551fc57e274d9803ab1d739b941
+    m_Address: object_from_mob_drone
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_pv_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
   m_SchemaSet:
