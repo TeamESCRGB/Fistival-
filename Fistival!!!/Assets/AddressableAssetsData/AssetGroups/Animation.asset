@@ -45,6 +45,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - stage_0_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 698fc309f4d3e934ba4bb878c0a2c91f
+    m_Address: DroneAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_pv_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f0fa63b589bd834e82d1e15461197b9
     m_Address: MetroidvaniaModeAnimationController
     m_ReadOnly: 0

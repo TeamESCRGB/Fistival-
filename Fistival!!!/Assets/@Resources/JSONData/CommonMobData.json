@@ -21,6 +21,27 @@
       "DropObjectPrefabName": "",
       "AnimationController": "TestController"
     },
+    {
+      "Idx": -1,
+      "HP": 3,
+      "PrefabKey": "FlightPatrolMob",
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
+      "InvincibilityTime": 1,
+      "Speed": 5,
+      "SkillDelay": 3,
+      "AggroRange": {
+        "x": 0,
+        "y": 0
+      },
+      "DropObjectIdx": -1,
+      "PlayerLayer": 128,
+      "PlayerHitboxLayer": 524288,
+      "InitialDir": 0,
+      "DropObjectPrefabName": "CommonObject",
+      "AnimationController": "DroneAnimationController"
+    },
 
 
     {
