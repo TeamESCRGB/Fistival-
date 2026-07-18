@@ -243,7 +243,7 @@ namespace Coordinator.Objects
         {
             if (target.CanAttack())
             {
-                target.TakeDamage(calculatedDamage, transform.position);
+                target.TakeDamage(calculatedDamage, transform.position, true);
                 target.TakeKnockBack(knockback);
                 target.StunFor(stun);
                 target.StartInvincibleTime();

@@ -21,7 +21,7 @@ namespace Coordinator.Skills
             {
                 return false;
             }
-            target.TakeDamage(calculatedDamage, transform.position);
+            target.TakeDamage(calculatedDamage, transform.position, true);
             target.TakeKnockBack(knockback);
             target.StunFor(stun);
             return true;
