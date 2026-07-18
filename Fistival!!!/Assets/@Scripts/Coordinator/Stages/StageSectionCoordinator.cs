@@ -23,8 +23,6 @@ namespace Coordinator.Stages
         [SerializeField]
         private SpawnPointStruct[] _mobSpawnPoints;
         [SerializeField]
-        private SpawnPointStruct[] _bossSpawnPoints;
-        [SerializeField]
         private MonoBehaviour[] _basicInitializers;
 
         private void Awake()
@@ -45,11 +43,6 @@ namespace Coordinator.Stages
             if (_itemSpawnPoints is null)
             {
                 _itemSpawnPoints = new SpawnPointStruct[0];
-            }
-
-            if (_bossSpawnPoints is null)
-            {
-                _bossSpawnPoints = new SpawnPointStruct[0];
             }
         }
 
@@ -93,24 +86,6 @@ namespace Coordinator.Stages
                 }
                 var coord = Spawn<MobCoordinatorBase, CommonMobData>(_mobSpawnPoints[i], data);
                 if(coord != null)
-                {
-                    coord.Init(data);
-                }
-            }
-
-            for (int i = 0; i < _bossSpawnPoints.Length; i++)
-            {
-                if (Managers.Instance.StageManager.IsBossCleared(_bossSpawnPoints[i].PrefabName))
-                {
-                    continue;
-                }
-
-                if (Managers.Instance.DataManager.CommonMobDataDict.TryGetValue(_bossSpawnPoints[i].DataIdx, out var data) == false)
-                {
-                    continue;
-                }
-                var coord = Spawn<MobCoordinatorBase, CommonMobData>(_bossSpawnPoints[i], data);
-                if (coord != null)
                 {
                     coord.Init(data);
                 }
