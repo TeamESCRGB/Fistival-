@@ -38,8 +38,8 @@
       "DropObjectIdx": -1,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
-      "InitialDir": 0,
-      "DropObjectPrefabName": "CommonObject",
+      "InitialDir": 4,
+      "DropObjectPrefabName": "object_from_mob_drone",
       "AnimationController": "DroneAnimationController"
     },
 

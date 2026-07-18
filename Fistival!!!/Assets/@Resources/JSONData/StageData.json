@@ -1,9 +1,21 @@
 {
   "stageDatas": [
     {
-      "Idx": 0,
+      "Idx": -1,
       "FirstStageLoadedDatasName": "stage_0_loaded_0",
       "FirstStageSectionInstanceName": "stage_0_chunk_0",
+      "SavefileLockedIMG": "",
+      "SavefileClearedIMG": "",
+      "MapLockedIMG": "",
+      "MapClearedIMG": "",
+      "HomeIMG": "",
+      "BossName": "",
+      "BossDesc": ""
+    },
+    {
+      "Idx": 0,
+      "FirstStageLoadedDatasName": "stage_pv_loaded_0",
+      "FirstStageSectionInstanceName": "stage_pv_chunk_0",
       "SavefileLockedIMG": "",
       "SavefileClearedIMG": "",
       "MapLockedIMG": "",
