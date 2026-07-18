@@ -16,6 +16,11 @@ namespace Coordinator
         {
             _data = new PlayerData(Managers.Instance.DataManager.PlayerData);
             _modeMgr = GetComponentInChildren<ModeManageCoordinator>();
+            var modes = _modeMgr.GetModeList();
+            for (int i = 0; i < modes.Length; i++)
+            {
+                modes[i].gameObject.SetActive(false);
+            }
             _modeMgr.UnlockMode(Defines.ModeTypes.FISTIVAL);
             _modeMgr.ChangeMode(Defines.ModeTypes.FISTIVAL);
 
@@ -37,7 +42,6 @@ namespace Coordinator
             EquipItem(0, save[0],true);
             EquipItem(1, save[1],true);
             EquipItem(2, save[2],true);
-
         }
 
         public void OnAnimatorDeadEnd()
