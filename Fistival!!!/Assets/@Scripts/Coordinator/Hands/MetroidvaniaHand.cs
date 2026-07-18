@@ -31,6 +31,21 @@ namespace Coordinator.Hands
             _strongAttackChargeEnd.Clear();
         }
 
+        private void SetParticleData(float strongAttackParticleSpeed, float delayRatio)
+        {
+            var psStrongCharge = _strongAttackCharging.main;
+
+            float duration = (float)_strongAttackThreshold;
+            psStrongCharge.duration = duration;
+
+            float actualDelay = duration * delayRatio;
+            float lifetime = duration - actualDelay;
+
+            psStrongCharge.startDelay = actualDelay;
+            psStrongCharge.startLifetime = lifetime;
+
+            psStrongCharge.startSpeed = strongAttackParticleSpeed / Mathf.Max(lifetime, 0.001f);
+        }
 
         protected override void OnAwake()
         {
@@ -57,10 +72,7 @@ namespace Coordinator.Hands
             _chain.SetStrongDamage(data.StrongAttackDamage);
             _strongAttackThreshold = data.StrongAttackThreshold;
             _strongRdyThreshold = _strongAttackThreshold / 2;
-            var psStrongCharge = _strongAttackCharging.main;
-            psStrongCharge.duration = (float)_strongAttackThreshold;
-            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
-            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1 / _strongAttackThreshold * data.StrongAttackChargeParticleSpeed));
+            SetParticleData(data.StrongAttackChargeParticleSpeed, data.StrongAttackChargeParticleDelay);
         }
 
         protected override void OnUpdate()
@@ -101,10 +113,7 @@ namespace Coordinator.Hands
             ClearAttackChargingParticles();
             _animator.SetBool("IsWeaponAttacking", false);
             _animator.SetBool("ChainEnd", true);
-            var psStrongCharge = _strongAttackCharging.main;
-            psStrongCharge.duration = (float)_strongAttackThreshold;
-            psStrongCharge.startLifetime = (float)_strongAttackThreshold;
-            psStrongCharge.startSpeed = new ParticleSystem.MinMaxCurve((float)(1 / _strongAttackThreshold * playerData.StrongAttackChargeParticleSpeed));
+            SetParticleData(playerData.StrongAttackChargeParticleSpeed, playerData.StrongAttackChargeParticleDelay);
         }
 
         public override void StopAttack()
