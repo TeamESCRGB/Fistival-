@@ -12,23 +12,20 @@ namespace Coordinator.Skills
         }
 
         protected float _knockbackForce = 1;
+        protected bool _usePhys2d;
+        protected bool _useOverlapBox;
 
-        public void Init(int attackableLayers, int baseDamage, float baseStunTime, float knockbackForce)
+        public void Init(int attackableLayers, int baseDamage, float baseStunTime, float knockbackForce, bool usePhys2d=false, bool useOverlapBox=true)
         {
+            _useOverlapBox= useOverlapBox;
+            _usePhys2d= usePhys2d;
             _knockbackForce=knockbackForce;
             base.Init(attackableLayers, baseDamage, baseStunTime);
         }
 
-
-        private void Update()
+        private void Attack(GameObject go)
         {
-            var col = Physics2D.OverlapBox(transform.position, transform.lossyScale, transform.eulerAngles.z, _attackableLayers);//이거 각을 eularangle.z로 줘야함
-            if(col == null)
-            {
-                return;
-            }
-            var go = col.gameObject;
-            if(go == null)
+            if (go == null)
             {
                 return;
             }
@@ -41,6 +38,36 @@ namespace Coordinator.Skills
             var knockBackForce = _baseDamage * _knockbackForce;
             var force = Mathf.Sign(transform.right.x) * knockBackForce;
             Managers.Instance.AttackManager.RequestAttack(comp, this, _baseDamage, new Vector2(force, knockBackForce), _baseStunTime);
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if(_usePhys2d)
+            {
+                Attack(collision.gameObject);
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (_usePhys2d)
+            {
+                Attack(collision.gameObject);
+            }
+        }
+
+        private void Update()
+        {
+            if(_useOverlapBox)
+            {
+                return;
+            }
+            var col = Physics2D.OverlapBox(transform.position, transform.lossyScale, transform.eulerAngles.z, _attackableLayers);//이거 각을 eularangle.z로 줘야함
+            if(col == null)
+            {
+                return;
+            }
+            Attack(col.gameObject);
         }
 
 
