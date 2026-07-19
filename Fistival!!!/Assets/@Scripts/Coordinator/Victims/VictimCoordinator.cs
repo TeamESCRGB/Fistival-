@@ -1,5 +1,6 @@
 using ComponentModule;
 using Coordinator.Movements;
+using Defines;
 using Manager;
 using UnityEngine;
 using Utils;
@@ -15,8 +16,10 @@ namespace Coordinator.Victims
         protected CooldownComponentModule _invincibilityTimeCounter = null;
         protected int _maskedLayer = 0;
         protected bool _isAttackableOn;
+        protected Collider2D _collider;
         protected void Awake()
         {
+            _collider = GetComponent<Collider2D>();
             _hpCoord = gameObject.GetOrAddComponent<HPCoordinator>();
             _internalTarget = transform.parent.GetComponentInParent<IStunnable>();
             _pushable = transform.parent.GetComponentInParent<IPushable>();
@@ -71,14 +74,19 @@ namespace Coordinator.Victims
             return GetComponent<T>();
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, Vector3 attackerPos, bool showHitEffect)
         {
-            if(damage < 0)
+            Debug.Log(showHitEffect);
+            if (showHitEffect)
+            {
+                var go = Managers.Instance.ResourceManager.Instantiate("HitEffect", null, true,true);
+                go.transform.position = _collider.ClosestPoint(attackerPos);
+                go.GetComponent<HitEffectCoordinator>().Show(damage);
+            }
+            if (damage < 0)
             {
                 return;
             }
-
-            //스턴 시스템은 나중에
 
             _hpCoord.SubtractHP(damage);
         }

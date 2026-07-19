@@ -7,7 +7,7 @@ namespace Coordinator.Victims
     {
         public bool CanAttack();
         public T RequestComponent<T>() where T : class;
-        public void TakeDamage(int damage);
+        public void TakeDamage(int damage, Vector3 attackerPos, bool showHitEffect);
         public void StartInvincibleTime();
         public int GetMaskedLayer();
         public void SetAttackableState(bool canAttack);

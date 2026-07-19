@@ -8,6 +8,14 @@ namespace Coordinator.Victims
         private int _maskedLayer = 0;
         private ButtonCoordinator _original;
         private bool _isAttackableOn;
+
+        private Collider2D _collider;
+
+        private void Awake()
+        {
+            _collider = GetComponent<Collider2D>();
+        }
+
         private void Start()
         {
             _isAttackableOn = true;
@@ -24,7 +32,7 @@ namespace Coordinator.Victims
             return _isAttackableOn;
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, Vector3 attackerPos, bool showHitEffect)
         {
             _original.SetState(true);
         }

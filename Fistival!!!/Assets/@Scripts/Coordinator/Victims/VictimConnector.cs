@@ -1,3 +1,5 @@
+using Defines;
+using Manager;
 using UnityEngine;
 
 namespace Coordinator.Victims
@@ -6,6 +8,12 @@ namespace Coordinator.Victims
     {
         private IAttackable _original;
         private int _maskedLayer = 0;
+        private Collider2D _collider;
+
+        private void Awake()
+        {
+            _collider = GetComponent<Collider2D>();
+        }
 
         public void SetAttackableState(bool canAttack)
         {
@@ -43,9 +51,15 @@ namespace Coordinator.Victims
             _original.StartInvincibleTime();
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, Vector3 attackerPos, bool showHitEffect)
         {
-            _original.TakeDamage(damage);
+            if (showHitEffect)
+            {
+                var go = Managers.Instance.ResourceManager.Instantiate("HitEffect", null, true, true);
+                go.transform.position = _collider.ClosestPoint(attackerPos);
+                go.GetComponent<HitEffectCoordinator>().Show(damage);
+            }
+            _original.TakeDamage(damage,attackerPos,false);
         }
 
         public void TakeKnockBack(Vector2 force)
