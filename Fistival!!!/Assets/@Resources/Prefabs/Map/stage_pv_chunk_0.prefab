@@ -889,8 +889,8 @@ MonoBehaviour:
   _objectSpawnPoints: []
   _mobSpawnPoints:
   - SpawnPoint: {fileID: 4963390080140379890}
-    PrefabName: FlyingDiscMob
-    DataIdx: 2
+    PrefabName: CrestedGeckoMob
+    DataIdx: -2
   _basicInitializers: []
 --- !u!1 &8834040779799052755
 GameObject:
@@ -918,7 +918,7 @@ Transform:
   m_GameObject: {fileID: 8834040779799052755}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.91, y: 4.02, z: -6.52}
+  m_LocalPosition: {x: -7.01, y: -0.09, z: -6.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
