@@ -58,7 +58,7 @@ namespace Coordinator.Skills
 
         private void Update()
         {
-            if(_useOverlapBox)
+            if(_useOverlapBox==false)
             {
                 return;
             }
