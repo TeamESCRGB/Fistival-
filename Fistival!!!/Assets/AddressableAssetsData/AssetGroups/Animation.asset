@@ -44,6 +44,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_0_loaded_0
+    - stage_pv_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 698fc309f4d3e934ba4bb878c0a2c91f
     m_Address: DroneAnimationController
@@ -68,6 +69,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_0_loaded_0
+    - stage_pv_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 90d0797dfc69fdc479a33f2f4beccb5b
     m_Address: RootShooterAnimationController

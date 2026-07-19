@@ -42,6 +42,29 @@
       "DropObjectPrefabName": "object_from_mob_drone",
       "AnimationController": "DroneAnimationController"
     },
+    {
+      "Idx": -2,
+      "PrefabKey": "CrestedGeckoMob",
+      "HP": 3,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
+      "InvincibilityTime": 1,
+      "Speed": 10,
+      "SkillDelay": 3,
+      "AggroRange": {
+        "x": 0,
+        "y": 0
+      },
+      "DropObjectIdx": 0,
+      "PlayerLayer": 128,
+      "PlayerHitboxLayer": 524288,
+      "InitialDir": 1,
+      "DropObjectPrefabName": "BasicMobDropObject",
+      "AnimationController": "CrestedGeckoAnimationController"
+    },
+
+
 
 
     {
@@ -100,11 +123,11 @@
         "x": 15,
         "y": 6
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": 4,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
-      "DropObjectPrefabName": "BasicMobDropObject",
+      "DropObjectPrefabName": "FlyingDiscObject",
       "AnimationController": "YorkshireAnimationController"
     },
     {

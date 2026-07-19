@@ -36,7 +36,7 @@ namespace Coordinator.Mobs
             _isActing = false;
             _isAggroOn = false;
             _skillTime = _skillDelay;
-            GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
+            GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce,true,false);
             _act.Init(() => { _isActing = false; },_animator ,_projIdx, _shootCnt, data.PlayerHitboxLayer);
         }
 
