@@ -38,6 +38,8 @@ namespace Coordinator
         public void OnEnterAnimationEnd()
         {
             _nowMode.Init(Managers.Instance.DataManager.CommonModeDataDict[(int)_changeReqModeType]);
+            Managers.Instance.GameManager.ChangeMode(_changeReqModeType);
+            OnModeChanged?.Invoke(_nowMode);
             _isChanging = false;
             _changeReqModeType = 0;
         }
