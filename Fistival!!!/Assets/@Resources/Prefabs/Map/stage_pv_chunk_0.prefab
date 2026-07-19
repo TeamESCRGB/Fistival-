@@ -889,8 +889,8 @@ MonoBehaviour:
   _objectSpawnPoints: []
   _mobSpawnPoints:
   - SpawnPoint: {fileID: 4963390080140379890}
-    PrefabName: FlightPatrolMob
-    DataIdx: -1
+    PrefabName: FlyingDiscMob
+    DataIdx: 2
   _basicInitializers: []
 --- !u!1 &8834040779799052755
 GameObject:

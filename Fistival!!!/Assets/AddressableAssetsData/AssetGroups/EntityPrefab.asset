@@ -20,6 +20,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_0_loaded_0
+    - stage_pv_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 347a92a4b60d2ce49ab812347eb217c0
     m_Address: PlatformerBossPhase1
