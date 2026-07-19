@@ -100,11 +100,11 @@
         "x": 15,
         "y": 6
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": 4,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
-      "DropObjectPrefabName": "BasicMobDropObject",
+      "DropObjectPrefabName": "FlyingDiscObject",
       "AnimationController": "YorkshireAnimationController"
     },
     {

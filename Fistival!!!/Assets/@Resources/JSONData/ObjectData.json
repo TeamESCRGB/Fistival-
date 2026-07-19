@@ -85,8 +85,8 @@
       "PlatformSpeedThreshold": 1,
       "StunTime": 0.5,
       "PlatformLayerMask": 1024,
-      "SpriteName": "ChargeOn",
-      "PhysicsMaterialName": "BCK"
+      "SpriteName": "york_disc",
+      "PhysicsMaterialName": "BasicObjectPhysicsMat"
     },
     {
       "ObjectIndex": 5,
