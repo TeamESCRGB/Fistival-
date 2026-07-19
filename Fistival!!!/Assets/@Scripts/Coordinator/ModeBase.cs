@@ -6,6 +6,7 @@ using Coordinator.Movements;
 using ComponentModule;
 using Manager;
 using System;
+using Coordinator.Victims;
 
 namespace Coordinator
 {
@@ -45,20 +46,42 @@ namespace Coordinator
             _animator.SetFloat("YVelocity", _rb2d.linearVelocityY);
         }
 
-        public virtual void Init(CommonModeData data)
+        public void PreInit(CommonModeData data)
         {
             gameObject.SetActive(true);
-            _playerData = GetComponentInParent<PlayerCoordinator>().GetPlayerData();
-            _inputCoordinator.Init();
             _commonData = data;
+            var player = GetComponentInParent<PlayerCoordinator>();
+            player.GetComponentInChildren<PlayerVictimCoordinator>().SetAttackableState(false);
+            _playerData = player.GetPlayerData();
+            _inputCoordinator.TriggerReleaseMovementInput();
+            _inputCoordinator.Init();
+            _inputCoordinator.SetESCInputHandler(this);
+            _animator.runtimeAnimatorController = Managers.Instance.ResourceManager.Load<RuntimeAnimatorController>(data.AnimControllerName);
+            
+        }
+
+        public void PreDeInit()
+        {
+            _inputCoordinator.TriggerReleaseMovementInput();
+            _inputCoordinator.Init();
+            _inputCoordinator.SetESCInputHandler(this);
+            if (_stunCounter is not null)
+            {
+                Managers.Instance.CooldownManager.ReturnModule(_stunCounter);
+                _stunCounter = null;
+            }
+        }
+
+        public virtual void Init(CommonModeData data)
+        {
+            var player = GetComponentInParent<PlayerCoordinator>();
+            player.GetComponentInChildren<PlayerVictimCoordinator>().SetAttackableState(true);
+            _isStunned = false;
             _inputCoordinator.SetDropInputHandler(this);
             _inputCoordinator.SetRMBInputHandler(this);
             _inputCoordinator.SetLMBInputHandler(this);
-            _inputCoordinator.SetESCInputHandler(this);
             _inputCoordinator.SetInteractionInputHandler(this);
-            _isStunned = false;
-            _animator.runtimeAnimatorController = Managers.Instance.ResourceManager.Load<RuntimeAnimatorController>(data.AnimControllerName);
-            if(_stunCounter is not null)
+            if (_stunCounter is not null)
             {
                 Managers.Instance.CooldownManager.ReturnModule(_stunCounter);
                 _stunCounter = null;
@@ -72,11 +95,6 @@ namespace Coordinator
 
         public virtual void DeInit()
         {
-            if(_stunCounter is not null)
-            {
-                Managers.Instance.CooldownManager.ReturnModule(_stunCounter);
-                _stunCounter = null;
-            }
             Managers.Instance.NewInputSystemManager.OnActionMapChanged -= OnInputActionMapChanged;
             gameObject.SetActive(false);
         }
