@@ -46,7 +46,7 @@ namespace Coordinator
             _animator.SetFloat("YVelocity", _rb2d.linearVelocityY);
         }
 
-        public void PreInit(CommonModeData data)
+        public void PreInit(CommonModeData data, bool changedFromOther)
         {
             gameObject.SetActive(true);
             _commonData = data;
@@ -57,7 +57,10 @@ namespace Coordinator
             _inputCoordinator.Init();
             _inputCoordinator.SetESCInputHandler(this);
             _animator.runtimeAnimatorController = Managers.Instance.ResourceManager.Load<RuntimeAnimatorController>(data.AnimControllerName);
-            
+            if(changedFromOther)
+            {
+                _animator.SetTrigger("EnterMode");
+            }
         }
 
         public void PreDeInit()
@@ -70,6 +73,7 @@ namespace Coordinator
                 Managers.Instance.CooldownManager.ReturnModule(_stunCounter);
                 _stunCounter = null;
             }
+            _animator.SetTrigger("ExitMode");
         }
 
         public virtual void Init(CommonModeData data)

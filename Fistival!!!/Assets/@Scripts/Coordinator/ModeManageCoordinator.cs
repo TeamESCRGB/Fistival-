@@ -20,6 +20,7 @@ namespace Coordinator
             {
                 _modes.Add(mode.ModeType, mode);
             }
+            _nowMode = null;
         }
 
         public ModeBase[] GetModeList()
@@ -34,20 +35,27 @@ namespace Coordinator
 
         public bool ChangeMode(ModeTypes type)
         {
+            bool changedFromOther = false;
             if(IsModeUnlocked(type) == false)
             {
                 return false;
             }
             if(_nowMode != null)
             {
+                changedFromOther = true;
                 _nowMode.PreDeInit();
                 _nowMode.DeInit();
             }
 
             var modeData = Managers.Instance.DataManager.CommonModeDataDict[(int)type];
             _nowMode = _modes[type];
-            _nowMode.PreInit(modeData);
-            _nowMode.Init(modeData);
+            _nowMode.PreInit(modeData,changedFromOther);
+            
+            if(changedFromOther==false)
+            {
+                _nowMode.Init(modeData);
+            }
+
             Managers.Instance.GameManager.ChangeMode(type);
             OnModeChanged?.Invoke(_nowMode);
             return true;
