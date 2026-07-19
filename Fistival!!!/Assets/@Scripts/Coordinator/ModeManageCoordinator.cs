@@ -13,6 +13,8 @@ namespace Coordinator
         public event Action<ModeBase> OnModeChanged;
         private Dictionary<ModeTypes,ModeBase> _modes;
         private ModeBase _nowMode;
+        private ModeTypes _changeReqModeType;
+        private bool _isChanging = false;
         private void Awake()
         {
             _modes = new Dictionary<ModeTypes,ModeBase>(8);
@@ -20,6 +22,7 @@ namespace Coordinator
             {
                 _modes.Add(mode.ModeType, mode);
             }
+            _nowMode = null;
         }
 
         public ModeBase[] GetModeList()
@@ -32,21 +35,43 @@ namespace Coordinator
             return _modes.Keys.ToArray<ModeTypes>();
         }
 
+        public void OnEnterAnimationEnd()
+        {
+            _nowMode.Init(Managers.Instance.DataManager.CommonModeDataDict[(int)_changeReqModeType]);
+            Managers.Instance.GameManager.ChangeMode(_changeReqModeType);
+            OnModeChanged?.Invoke(_nowMode);
+            _isChanging = false;
+            _changeReqModeType = 0;
+        }
+
+        public void OnExitAnimationEnd()
+        {
+            _nowMode.DeInit();
+            var modeData = Managers.Instance.DataManager.CommonModeDataDict[(int)_changeReqModeType];
+            _nowMode = _modes[_changeReqModeType];
+            _nowMode.PreInit(modeData, true);
+        }
+
         public bool ChangeMode(ModeTypes type)
         {
-            if(IsModeUnlocked(type) == false)
+            if(IsModeUnlocked(type) == false || _isChanging)
             {
                 return false;
             }
-            if(_nowMode != null)
-            {
-                _nowMode.DeInit();
-            }
 
-            _nowMode = _modes[type];
-            _nowMode.Init(Managers.Instance.DataManager.CommonModeDataDict[(int)type]);
-            Managers.Instance.GameManager.ChangeMode(type);
-            OnModeChanged?.Invoke(_nowMode);
+            if(_nowMode == null)
+            {
+                var modeData = Managers.Instance.DataManager.CommonModeDataDict[(int)type];
+                _nowMode = _modes[type];
+                _nowMode.PreInit(modeData, false);
+                _nowMode.Init(modeData);
+                Managers.Instance.GameManager.ChangeMode(type);
+                OnModeChanged?.Invoke(_nowMode);
+                return true;
+            }
+            _isChanging = true;
+            _changeReqModeType = type;
+            _nowMode.PreDeInit();
             return true;
         }
 

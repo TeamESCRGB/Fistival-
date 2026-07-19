@@ -44,6 +44,16 @@ namespace Coordinator
             EquipItem(2, save[2],true);
         }
 
+        public void OnModeEnterAnimation()
+        {
+            _modeMgr.OnEnterAnimationEnd();
+        }
+
+        public void OnModeExitAnimation()
+        {
+            _modeMgr.OnExitAnimationEnd();
+        }
+
         public void OnAnimatorDeadEnd()
         {
             Managers.Instance.StageManager.OnDead();
