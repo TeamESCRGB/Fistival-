@@ -49,7 +49,7 @@ namespace Coordinator
 
         private void LateUpdate()
         {
-            if (_target == null && _followState == false)
+            if (_target == null || _followState == false)
             {
                 return;
             }
