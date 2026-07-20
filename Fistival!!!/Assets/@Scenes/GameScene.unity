@@ -965,8 +965,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.SmoothFollowCoordinator
   _target: {fileID: 1352498108}
   _followRate: 2
-  _deadzoneWidth: {x: 3, y: 3}
-  _deadzoneHeight: {x: 3, y: 3}
+  _deadzoneWidth: {x: 0.5, y: 0.5}
+  _deadzoneHeight: {x: 4, y: 4}
   _threshold: 0.001
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
