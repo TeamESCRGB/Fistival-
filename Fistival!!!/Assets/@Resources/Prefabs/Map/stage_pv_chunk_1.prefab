@@ -62,97 +62,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 939515130820506747}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!1 &3300109460992132783
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6120899762838479225}
-  - component: {fileID: 5368692080131565569}
-  m_Layer: 0
-  m_Name: '@PlayerTeleportPoint'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6120899762838479225
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3300109460992132783}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.97, y: 1.29, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 939515130820506747}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5368692080131565569
-SpriteRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3300109460992132783}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
 --- !u!1 &3561298798991951911
 GameObject:
   m_ObjectHideFlags: 0
@@ -6342,7 +6251,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -6521,8 +6430,8 @@ Tilemap:
     m_Data: {fileID: 6564694999658441223, guid: 8db1c6ab0501c6c4c8ae12e86279aac6, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 1963862852722972084, guid: 5300b0bd3a4d9f94484e0451df89de1e, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 1963862852722972084, guid: 5300b0bd3a4d9f94484e0451df89de1e, type: 3}
   m_TileMatrixArray:
@@ -6747,6 +6656,12 @@ CompositeCollider2D:
         Y: -70000000
     - - X: 740000000
         Y: 90000000
+      - X: 650428544
+        Y: 90000000
+      - X: 650000000
+        Y: 89571432
+      - X: 650000000
+        Y: 90000000
       - X: 610428608
         Y: 90000000
       - X: 610000000
@@ -6761,6 +6676,12 @@ CompositeCollider2D:
         Y: -70000000
       - X: 740000000
         Y: -70000000
+    - - X: 650000000
+        Y: 80000000
+      - X: 650000000
+        Y: 80428568
+      - X: 650428544
+        Y: 80000000
   m_CompositePaths:
     m_Paths:
     - - {x: 54.99997, y: -7}
@@ -6771,12 +6692,18 @@ CompositeCollider2D:
       - {x: 10.00003, y: -7}
     - - {x: 73.99997, y: -7}
       - {x: 73.99997, y: 9}
+      - {x: 65.04285, y: 8.999992}
+      - {x: 65, y: 8.957231}
+      - {x: 64.99997, y: 9}
       - {x: 61.042854, y: 8.999992}
       - {x: 61, y: 8.957133}
       - {x: 61.000008, y: 8.04285}
       - {x: 61.04277, y: 8}
       - {x: 61, y: 7.9999704}
       - {x: 61.000034, y: -7}
+    - - {x: 65.04279, y: 8.000062}
+      - {x: 65, y: 8.00003}
+      - {x: 65.00006, y: 8.042795}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -6891,7 +6818,6 @@ Transform:
   - {fileID: 7177569900011176744}
   - {fileID: 8242330909482062765}
   - {fileID: 1368939388293391236}
-  - {fileID: 6120899762838479225}
   - {fileID: 7833987357213717908}
   - {fileID: 7169946135607834396}
   m_Father: {fileID: 0}
