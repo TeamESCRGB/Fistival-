@@ -1,10 +1,12 @@
+using Coordinator.Trigger;
 using Manager;
+using System;
 using UnityEngine;
 using Utils;
 
 namespace Coordinator
 {
-    public class StageChangeTrigger : MonoBehaviour
+    public class StageLoadTrigger : MonoBehaviour
     {
         [SerializeField]
         protected LayerMask _playerLayer;
@@ -14,10 +16,26 @@ namespace Coordinator
         protected string _chunkResourceKey;
         [SerializeField]
         protected Transform _nextChunkSpawnPoint;
+        protected bool _isLoaded;
 
-        protected virtual void InternalTriggerEnterHandler(Collider2D collision)
+        public Action<GameObject> OnStageLoadEnd;
+
+
+        private void Start()
         {
-            if ((1 << collision.gameObject.layer) != _playerLayer)
+            var trigger = GetComponent<TouchTrigger>();
+            trigger.OnTriggerActivated -= LoadMap;
+            trigger.OnTriggerActivated += LoadMap;
+        }
+
+
+        protected virtual void LoadMap(GameObject go)
+        {
+            if(_isLoaded)
+            {
+                return;
+            }
+            if ((1 << go.layer) != _playerLayer)
             {
                 return;
             }
@@ -28,19 +46,9 @@ namespace Coordinator
                 {
                     return;
                 }
-                var pos = chunk.gameObject.GetChildGameObject("@PlayerTeleportPoint").transform.position;
-                collision.gameObject.transform.position = pos;
-                var cam = Camera.main.transform;
-                var camPos = cam.transform.position;
-                camPos.x = pos.x;
-                camPos.y = pos.y;
-                cam.transform.position = camPos;
+                OnStageLoadEnd?.Invoke(go);
+                _isLoaded = true;
             });
-        }
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            InternalTriggerEnterHandler(collision);
         }
     }
 }
