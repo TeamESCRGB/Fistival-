@@ -47,6 +47,21 @@ namespace Coordinator
             _followState = state;
         }
 
+        public bool GetFollowStage()
+        {
+            return _followState;
+        }
+
+        public Vector2 GetDeadZoneWidth()
+        {
+            return _deadzoneWidth;
+        }
+
+        public Vector2 GetDeadZoneHeight()
+        {
+            return _deadzoneHeight;
+        }
+
         private void LateUpdate()
         {
             if (_target == null || _followState == false)
