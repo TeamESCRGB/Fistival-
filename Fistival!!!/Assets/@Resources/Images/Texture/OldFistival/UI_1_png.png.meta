@@ -250,7 +250,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_1_png_5
+      name: ObjectHeldBG
       rect:
         serializedVersion: 2
         x: 31
@@ -375,7 +375,7 @@ TextureImporter:
     nameFileIdTable:
       HPOff: -7568375112159210952
       HPOn: -4790143415573593776
-      UI_1_png_5: -896440525021308004
+      ObjectHeldBG: -896440525021308004
       UI_1_png_6: -3811812015137277989
       UI_1_png_7: 5404819620141108136
       UI_1_png_8: 2379335244344399049

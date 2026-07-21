@@ -166,7 +166,7 @@ namespace UI
         {
             if(obj is null)
             {
-                GetImage((int)Images.GrabbedObjectImg).sprite = Managers.Instance.ResourceManager.Load<Sprite>("NullIg");
+                GetImage((int)Images.GrabbedObjectImg).sprite = Managers.Instance.ResourceManager.Load<Sprite>("NullIMG");
             }
             else
             {
