@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde77dfe340157d4cb46cb633c2c4c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.TargetObjectHighlighter
-  _highlightObj: {fileID: 0}
+  _highlightObj: {fileID: 6094907860525457815}
 --- !u!198 &-3059809383594840843
 ParticleSystem:
   m_ObjectHideFlags: 0
