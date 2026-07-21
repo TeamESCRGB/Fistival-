@@ -39,8 +39,13 @@ namespace Coordinator
             {
                 return;
             }
+
             Managers.Instance.ResourceManager.LoadAsyncAllIn(_chunkResourceKey, (_, now, max) =>
             {
+                if(now < max)
+                {
+                    return;
+                }
                 var chunk = Managers.Instance.StageManager.TrySpawnChunk(_chunkKey, _chunkResourceKey, _nextChunkSpawnPoint.position);
                 if (chunk == null)
                 {
