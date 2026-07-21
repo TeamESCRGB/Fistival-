@@ -29,7 +29,7 @@
       "StunTime": 0.5,
       "PlatformLayerMask": 1024,
       "SpriteName": "BasicObject",
-      "PhysicsMaterialName": "BasicObjectPhysicsMat"
+      "PhysicsMaterialName": "Obj"
     },
 
 
@@ -44,7 +44,7 @@
       "StunTime": 0.5,
       "PlatformLayerMask": 1024,
       "SpriteName": "HeavyMachineGun",
-      "PhysicsMaterialName": "BCK"
+      "PhysicsMaterialName": "Obj"
     },
     {
       "ObjectIndex": 2,
@@ -57,7 +57,7 @@
       "StunTime": 0.5,
       "PlatformLayerMask": 1024,
       "SpriteName": "HolySword",
-      "PhysicsMaterialName": "BCK"
+      "PhysicsMaterialName": "Obj"
     },
     {
       "ObjectIndex": 3,
@@ -70,7 +70,7 @@
       "StunTime": 0.5,
       "PlatformLayerMask": 1024,
       "SpriteName": "Bycicle",
-      "PhysicsMaterialName": "BCK"
+      "PhysicsMaterialName": "Obj"
     },
 
 
@@ -86,7 +86,7 @@
       "StunTime": 0.5,
       "PlatformLayerMask": 1024,
       "SpriteName": "york_disc",
-      "PhysicsMaterialName": "BasicObjectPhysicsMat"
+      "PhysicsMaterialName": "Obj"
     },
     {
       "ObjectIndex": 5,
@@ -99,7 +99,7 @@
       "StunTime": 0.5,
       "PlatformLayerMask": 1024,
       "SpriteName": "ChargeOn",
-      "PhysicsMaterialName": "BCK"
+      "PhysicsMaterialName": "Obj"
     },
     {
       "ObjectIndex": 6,
@@ -112,7 +112,7 @@
       "StunTime": 0.5,
       "PlatformLayerMask": 1024,
       "SpriteName": "box",
-      "PhysicsMaterialName": "BasicObjectPhysicsMat"
+      "PhysicsMaterialName": "Obj"
     }
   ]
 }
