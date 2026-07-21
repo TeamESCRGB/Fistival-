@@ -35,6 +35,12 @@ MonoBehaviour:
     - GameSceneBasicLoaded
     - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4b753c360a1bd044bb51d5aea1e84064
+    m_Address: NullIMG
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7141c7d0398053d47a37b851b429cf20
     m_Address: StageClearDataLocked
     m_ReadOnly: 0
