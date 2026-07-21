@@ -129,7 +129,7 @@ namespace Manager.Contents
 
             Managers.Instance.UIManager.ShowPopupUI<LifeCountPopup>("LifeCountPopup").SetData(_life);
 
-            player.GetComponentInChildren<PlayerVictimCoordinator>().Respawn();
+            player.Respawn();
 
             player.transform.position = _checkPointData.Pos;
             _camFollowCoord.SetFollowState(_checkPointData.CameraFollowState);

@@ -12,10 +12,17 @@ namespace Coordinator
         private ModeManageCoordinator _modeMgr;
         private PlayerData _data;
         private PlayerVictimCoordinator _victim;
+        private Rigidbody2D _rb2d;
+        private void Awake()
+        {
+            _rb2d = GetComponent<Rigidbody2D>();
+
+            _modeMgr = GetComponentInChildren<ModeManageCoordinator>();
+
+            _data = new PlayerData(Managers.Instance.DataManager.PlayerData);
+        }
         public void Init()
         {
-            _data = new PlayerData(Managers.Instance.DataManager.PlayerData);
-            _modeMgr = GetComponentInChildren<ModeManageCoordinator>();
             var modes = _modeMgr.GetModeList();
             for (int i = 0; i < modes.Length; i++)
             {
@@ -42,6 +49,14 @@ namespace Coordinator
             EquipItem(0, save[0],true);
             EquipItem(1, save[1],true);
             EquipItem(2, save[2],true);
+        }
+
+
+        public void Respawn()
+        {
+            _victim.Respawn();
+            _rb2d.linearVelocity = Vector2.zero;
+            _modeMgr.ChangeMode(Defines.ModeTypes.FISTIVAL);
         }
 
         public void OnModeEnterAnimation()
