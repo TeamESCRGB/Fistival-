@@ -17,6 +17,10 @@ namespace Coordinator.Stages
         [SerializeField]
         private LayerMask _removeTargetLayerMask;
         [SerializeField]
+        private LayerMask _itemLayer;
+        [SerializeField]
+        private LayerMask _attackLayer;
+        [SerializeField]
         private SpawnPointStruct[] _itemSpawnPoints;
         [SerializeField]
         private SpawnPointStruct[] _objectSpawnPoints;
@@ -130,7 +134,8 @@ namespace Coordinator.Stages
 
             foreach(var obj in result)
             {
-                if(obj.gameObject.CompareTag("Collection") || obj.gameObject.CompareTag("FallingObject") == false)
+                var layer =1<< obj.gameObject.layer;
+                if((layer == _itemLayer && obj.gameObject.CompareTag("Collection")) || (layer == _attackLayer && obj.gameObject.CompareTag("FallingObject") == false))
                 {
                     continue;
                 }
