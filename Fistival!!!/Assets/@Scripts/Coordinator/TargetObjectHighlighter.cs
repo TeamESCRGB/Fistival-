@@ -1,15 +1,39 @@
+using UnityEngine;
+
 namespace Coordinator
 {
-    public class TargetObjectHighlighter : HIghlighterBase
+    public class TargetObjectHighlighter : MonoBehaviour
     {
+        [SerializeField]
+        protected GameObject _highlightObj;
+        protected bool _isStateFixed;
+
+        private void Start()
+        {
+            _isStateFixed = false;
+            _highlightObj.SetActive(false);
+        }
         public void ActivateShader()
         {
-            _renderer.sharedMaterial = _on;
+            if(_isStateFixed)
+            {
+                return;
+            }
+            _highlightObj.SetActive(true);
         }
 
         public void DeActivateShader()
         {
-            _renderer.sharedMaterial = _off;
+            if (_isStateFixed)
+            {
+                return;
+            }
+            _highlightObj.SetActive(false);
+        }
+
+        public void FixHighlightState(bool fix)
+        {
+            _isStateFixed = fix;
         }
     }
 }

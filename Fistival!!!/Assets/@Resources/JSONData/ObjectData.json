@@ -100,6 +100,19 @@
       "PlatformLayerMask": 1024,
       "SpriteName": "ChargeOn",
       "PhysicsMaterialName": "BCK"
+    },
+    {
+      "ObjectIndex": 6,
+      "PrefabKey": "CommonObject",
+      "Damage": 1,
+      "Durability": 1,
+      "AbrasableLayerMask": 0,
+      "Weight": 1,
+      "PlatformSpeedThreshold": 1,
+      "StunTime": 0.5,
+      "PlatformLayerMask": 1024,
+      "SpriteName": "box",
+      "PhysicsMaterialName": "BasicObjectPhysicsMat"
     }
   ]
 }

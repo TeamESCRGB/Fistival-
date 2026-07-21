@@ -22,18 +22,24 @@ MonoBehaviour:
     - stage_pv_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 35c61fe3d9a0d7e42b563887a3260824
-    m_Address: ChargeOff
+    m_Address: ChargeOff_old
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameSceneBasicLoaded
     - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3b7515c1f158b754a9dd6ff9d7810b02
-    m_Address: ChargeOn
+    m_Address: ChargeOn_old
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameSceneBasicLoaded
     - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4b753c360a1bd044bb51d5aea1e84064
+    m_Address: NullIMG
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7141c7d0398053d47a37b851b429cf20
     m_Address: StageClearDataLocked
@@ -41,6 +47,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - LobbySceneLoaded
     - MainSceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a3fbf732553fb74d8d352fc1b541563
+    m_Address: box
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 935bfe8e6dd28a7428cf8af62f937160
     m_Address: mob_drone_object
@@ -54,6 +66,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameSceneBasicLoaded
     - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a6eb565a065de534f9851389fd2bf7d0
+    m_Address: ChargeOn
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e81cda5e4bbfeb14392234ee56c5ae5d
+    m_Address: ChargeOff
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ef3745cb52c5e0043aa2aef37bf2b952
     m_Address: HPOn

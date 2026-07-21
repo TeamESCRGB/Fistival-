@@ -31,8 +31,9 @@ namespace Coordinator.Interactables
                 Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "CheckpointActivationByInteractSFX", false, Managers.Instance.GameManager.SFXVolume);
                 Debug.Log("상호작용으로 활성화");
             }
-            _on = _off;
+
             DeActivateShader();
+            FixHighlightState(false);
             _isCheckpointChecked = true;
             Managers.Instance.StageManager.SaveCheckpoint(transform.position);
             var player = FindAnyObjectByType<PlayerCoordinator>();
