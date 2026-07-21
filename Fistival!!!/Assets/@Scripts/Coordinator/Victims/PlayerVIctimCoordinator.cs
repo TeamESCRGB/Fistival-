@@ -15,9 +15,11 @@ namespace Coordinator.Victims
         private CooldownComponentModule _invincibilityTimeCounter = null;
         private int _maskedLayer = 0;
         private bool _isAttackableOn;
+        private Rigidbody2D _rb2d;
         private Animator _animator;
         private void Awake()
         {
+            _rb2d = GetComponentInParent<Rigidbody2D>();
             _animator = GetComponentInParent<Animator>();
             _hpCoord = gameObject.GetOrAddComponent<HPCoordinator>();
             _internalTarget = transform.parent.GetComponentInParent<IStunnable>();
@@ -67,6 +69,7 @@ namespace Coordinator.Victims
         {
             _hpCoord.Respawn();
             _animator.Rebind();
+            _rb2d.linearVelocity = Vector2.zero;
         }
 
         public bool CanAttack()

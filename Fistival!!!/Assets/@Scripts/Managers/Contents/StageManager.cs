@@ -2,6 +2,7 @@ using Coordinator;
 using Coordinator.Stages;
 using Coordinator.Victims;
 using Data;
+using Data.NonLodable;
 using System;
 using System.Collections.Generic;
 using UI;
@@ -29,8 +30,9 @@ namespace Manager.Contents
 
         private double _clearTimeWithPause = 0;
 
-        [SerializeField]
-        private Vector3 _checkpointPos = Vector3.zero;
+        private CheckPointSaveData _checkPointData;
+        private SmoothFollowCoordinator _camFollowCoord;
+        private Camera _mainCam;
 
         public void Init()
         {
@@ -47,12 +49,13 @@ namespace Manager.Contents
                 }
                 Managers.Instance.ResourceManager.ReleaseIn(chunk.allocatedResources);
             }
-            _checkpointPos = Vector3.zero;
             _life = 0;
             _totalTakenDamage = 0;
             _collection.Clear();
             _spawnedChunks.Clear();
             _clearedBossList.Clear();
+            _mainCam = null;
+            _camFollowCoord = null;
         }
 
         public void CollectCollection(int collectionIdx)
@@ -100,7 +103,13 @@ namespace Manager.Contents
 
         public void SaveCheckpoint(Vector3 checkpointPos)
         {
-            _checkpointPos = checkpointPos;
+            _checkPointData = new CheckPointSaveData()
+            {
+                Pos = checkpointPos,
+                CameraFollowState = _camFollowCoord.GetFollowState(),
+                CameraFollowDeadZoneHeight = _camFollowCoord.GetDeadZoneHeight(),
+                CameraFollowDeadZoneWidth = _camFollowCoord.GetDeadZoneWidth()
+            };
         }
 
         public void OnDead()
@@ -122,7 +131,10 @@ namespace Manager.Contents
 
             player.GetComponentInChildren<PlayerVictimCoordinator>().Respawn();
 
-            player.transform.position = _checkpointPos;
+            player.transform.position = _checkPointData.Pos;
+            _camFollowCoord.SetFollowState(_checkPointData.CameraFollowState);
+            _camFollowCoord.SetDeadZoneHeight(_checkPointData.CameraFollowDeadZoneHeight);
+            _camFollowCoord.SetDeadZoneWidth(_checkPointData.CameraFollowDeadZoneWidth);
 
             foreach(var chunk in _spawnedChunks.Values)
             {
@@ -179,6 +191,15 @@ namespace Manager.Contents
             _scaledTimeStart = Time.timeAsDouble;
             _unscaledTimeStart = Time.unscaledTimeAsDouble;
             _life = life;
+            _mainCam = Camera.main;
+            _camFollowCoord = _mainCam.GetComponent<SmoothFollowCoordinator>();
+            _checkPointData = new CheckPointSaveData()
+            {
+                Pos = Vector3.zero,
+                CameraFollowState = _camFollowCoord.GetFollowState(),
+                CameraFollowDeadZoneHeight = _camFollowCoord.GetDeadZoneHeight(),
+                CameraFollowDeadZoneWidth = _camFollowCoord.GetDeadZoneWidth()
+            };
         }
 
         public StageSectionCoordinator TrySpawnChunk(string key,string resourceKey ,Vector3 spawnPos)

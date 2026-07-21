@@ -5202,7 +5202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6950f2b1cd0932b41ab4636cef243c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Movements.DoubleJumpMovementCoordinator
-  _platformIgnoreTime: 0.5
+  _platformIgnoreTime: 0.7
   _platformMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -20151,7 +20151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce06ab51188fc2845bc6a94596c9c45f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.PlatformerMovementActor
-  _platformIgnoreTime: 0.5
+  _platformIgnoreTime: 0.7
   _platformMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -20728,7 +20728,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2060096907
   m_SortingLayer: 5
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -52129,7 +52129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce06ab51188fc2845bc6a94596c9c45f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.PlatformerMovementActor
-  _platformIgnoreTime: 0.5
+  _platformIgnoreTime: 0.7
   _platformMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -52292,7 +52292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce06ab51188fc2845bc6a94596c9c45f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.PlatformerMovementActor
-  _platformIgnoreTime: 0.5
+  _platformIgnoreTime: 0.7
   _platformMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -52469,7 +52469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce06ab51188fc2845bc6a94596c9c45f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actor.PlatformerMovementActor
-  _platformIgnoreTime: 0.5
+  _platformIgnoreTime: 0.7
   _platformMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -57786,7 +57786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ce679b99e368e4cbbb55cbc389be7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Movements.ChainPlatformerMovementCoordinator
-  _platformIgnoreTime: 0.5
+  _platformIgnoreTime: 0.7
   _platformMask:
     serializedVersion: 2
     m_Bits: 1024
