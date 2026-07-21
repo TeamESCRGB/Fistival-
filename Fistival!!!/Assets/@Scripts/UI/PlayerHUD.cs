@@ -41,6 +41,9 @@ namespace UI
         private int _maxHP = 0;
         private int _bossHPMax = 1;
 
+        private Animator _hpAnimator;
+
+
         public override bool Init()
         {
             if(base.Init() == false)
@@ -53,6 +56,9 @@ namespace UI
             _bossHPSlider = GetObject((int)Objects.BossHPBarHUD).GetComponentInChildren<Slider>();
 
             InitUIDatas();
+
+            _hpAnimator = gameObject.GetChild<Animator>("@HPHUD",true,true);
+            _hpAnimator.ResetTrigger("Damaged");
 
             return true;
         }
@@ -112,6 +118,10 @@ namespace UI
 
         private void OnHPChanged(int old, int now, int delta)
         {
+            if(now < old)
+            {
+                _hpAnimator.SetTrigger("Damaged");
+            }
             for (int i = 0; i < _maxHP; i++)
             {
                 if(now > i)
