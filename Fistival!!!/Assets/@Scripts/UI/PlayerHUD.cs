@@ -77,7 +77,7 @@ namespace UI
             GetObject((int)Objects.BossHPBarHUD).SetActive(false);
             OnModeChanged(modeManageCoord.GetNowMode());
 
-            GetImage((int)Images.GrabbedObjectImg).sprite = Managers.Instance.ResourceManager.Load<Sprite>("NullIg");
+            GetImage((int)Images.GrabbedObjectImg).sprite = Managers.Instance.ResourceManager.Load<Sprite>("NullIMG");
 
             //이쪽을 어떻게 해야되나
             for (int i = 0; i < 8; i++)
