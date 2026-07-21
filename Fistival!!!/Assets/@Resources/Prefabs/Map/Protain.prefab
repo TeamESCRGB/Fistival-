@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2313161300907510217}
   - component: {fileID: 1906384585299862208}
   - component: {fileID: 4964921464302795184}
-  m_Layer: 17
+  m_Layer: 20
   m_Name: Protain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
