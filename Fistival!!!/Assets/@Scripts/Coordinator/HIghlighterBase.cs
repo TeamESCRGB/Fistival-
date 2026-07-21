@@ -5,31 +5,11 @@ namespace Coordinator
     public abstract class HIghlighterBase : MonoBehaviour
     {
         [SerializeField]
-        protected Material _on;
-        [SerializeField]
-        protected Material _off;
-        protected Renderer _renderer;
-        private void Awake()
-        {
-            _renderer = GetComponent<Renderer>();
-#if UNITY_EDITOR
-            Debug.Assert(_renderer != null, $"{name}에 Renderer가 없음");
-#endif
-        }
+        protected GameObject _highlightObj;
 
         private void Start()
         {
-            _renderer.sharedMaterial = _off;
-        }
-
-        public void SetOnMaterial(Material mat)
-        {
-            _on = mat;
-        }
-
-        public void SetOffMaterial(Material mat)
-        {
-            _off = mat;
+            _highlightObj.SetActive(false);
         }
     }
 }

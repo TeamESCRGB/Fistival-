@@ -10,7 +10,6 @@ namespace Coordinator
         private Animator _animator;
         private void Awake()
         {
-            _renderer = GetComponent<Renderer>();
             _animator = GetComponent<Animator>();
         }
 
