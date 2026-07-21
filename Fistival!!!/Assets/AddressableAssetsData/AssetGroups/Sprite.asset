@@ -48,6 +48,12 @@ MonoBehaviour:
     - LobbySceneLoaded
     - MainSceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a3fbf732553fb74d8d352fc1b541563
+    m_Address: box
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 935bfe8e6dd28a7428cf8af62f937160
     m_Address: mob_drone_object
     m_ReadOnly: 0
