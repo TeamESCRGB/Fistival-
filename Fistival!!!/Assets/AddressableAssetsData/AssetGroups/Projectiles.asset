@@ -33,6 +33,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56331ff0122dfab4193e867227462c34
+    m_Address: Shoot2D_basic_projectile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_0_loaded_0
+    - stage_pv_loaded_1
+    - stage_pv_loaded_2
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6eaf2c65377579e4684333af71810c66
     m_Address: NoGrav_1b1_CircleProjectile
     m_ReadOnly: 0

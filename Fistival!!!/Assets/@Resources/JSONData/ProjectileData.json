@@ -72,7 +72,7 @@
       "AttackRadius": 0.5,
       "StunTime": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
-      "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile"
+      "ProjectilePrefabName": "Shoot2D_basic_projectile"
     },
 
     {
