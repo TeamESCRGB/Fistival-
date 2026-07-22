@@ -32,6 +32,7 @@ namespace Coordinator.Hands
         protected override void OnAwake()
         {
             _attackBox = transform.Find("@AttackBox");
+            _attackParticleCoord = GetComponentInChildren<AttackParticleCoordinator>(true);
             _strongAttackCharging = gameObject.GetChild<ParticleSystem>("@StrongChargingParticle", true, true);
             _strongAttackChargeEnd = gameObject.GetChild<ParticleSystem>("@StrongChargeEndParticle", true, true);
             base.OnAwake();
@@ -254,10 +255,12 @@ namespace Coordinator.Hands
             if(_attackStatus == AttackStatus.STRONG)
             {
                 _animator.SetTrigger("StrongAttack");
+                _attackParticleCoord.Play("Strong",transform.eulerAngles.y);
             }
             else
             {
                 _animator.SetTrigger("WeakAttack");
+                _attackParticleCoord.Play("Weak", transform.eulerAngles.y);
             }
 
             Attack();
