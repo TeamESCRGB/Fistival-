@@ -124,7 +124,7 @@ namespace Coordinator.Stages
 
             for(int i = 0; i < _basicInitializers.Length; i++)
             {
-                _basicInitializers[i].GetComponent<BasicInitializer>()?.Init();
+                _basicInitializers[i].GetComponent<IBasicInitializer>()?.Init();
             }
         }
 

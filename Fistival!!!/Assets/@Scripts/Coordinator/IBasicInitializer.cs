@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Assets._Scripts.Coordinator
 {
-    public interface BasicInitializer
+    public interface IBasicInitializer
     {
         public void Init();
     }

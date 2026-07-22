@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Coordinator.Items
 {
-    public class Protain : ItemBase, BasicInitializer
+    public class Protain : ItemBase, IBasicInitializer
     {
         [SerializeField]
         private ModeTypes _type;

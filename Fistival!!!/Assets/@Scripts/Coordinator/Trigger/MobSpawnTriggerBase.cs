@@ -7,7 +7,7 @@ namespace Coordinator.Trigger
     /// MobIdxVarType : DataManager에서 가져오거나, 직접 인스펙터에 할당해줄 스폰할 몹의 데이터 타입. 가능하다면 프리펩 말고, DataManager에서 가져오는 형태로 짤 것. List까지는 될듯
     /// </summary>
     /// <typeparam name="MobIdxVarType"></typeparam>
-    public abstract class MobSpawnTriggerBase<MobIdxVarType> : MonoBehaviour, BasicInitializer
+    public abstract class MobSpawnTriggerBase<MobIdxVarType> : MonoBehaviour, IBasicInitializer
     {
         [SerializeField]
         protected MobIdxVarType _mobDataIdx;
