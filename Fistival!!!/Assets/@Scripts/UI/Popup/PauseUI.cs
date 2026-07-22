@@ -37,6 +37,7 @@ namespace UI.Popup
             }
 
             BindButton(typeof(Buttons));
+            BindText(typeof(Texts));
 
             if(Managers.Instance.SceneManagerEx.CurrentScene.NowSceneType != Defines.SceneType.GameScene)
             {
