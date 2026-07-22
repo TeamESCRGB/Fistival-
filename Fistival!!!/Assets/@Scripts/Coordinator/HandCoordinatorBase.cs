@@ -7,6 +7,7 @@ using InputHandler;
 using Manager;
 using System;
 using UnityEngine;
+using Utils;
 using static Utils.VectorUtils;
 
 namespace Coordinator
@@ -56,6 +57,8 @@ namespace Coordinator
         protected Animator _animator;
 
         #region Events
+
+        protected AttackParticleCoordinator _attackParticleCoord;
 
         protected void ResetEvents()
         {
