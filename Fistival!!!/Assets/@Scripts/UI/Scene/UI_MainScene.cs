@@ -20,6 +20,12 @@ namespace UI.Scene
             Setting,
             QuitGame
         }
+
+        enum Texts
+        {
+            VersionText
+        }
+
         private BookFlipController _bfc;
         public override bool Init()
         {
@@ -29,6 +35,7 @@ namespace UI.Scene
             }
             _bfc = GetComponent<BookFlipController>();
             BindButton(typeof(Buttons));
+            BindText(typeof(Texts));
             GetButton((int)Buttons.NewGame).gameObject.BindUIEvent(OnNewGame);
             GetButton((int)Buttons.LoadGame).gameObject.BindUIEvent(OnLoadGame);
             GetButton((int)Buttons.Setting).gameObject.BindUIEvent(OnSetting);
@@ -38,7 +45,7 @@ namespace UI.Scene
             GetButton((int)Buttons.LoadGame).GetComponent<RectTransform>().DOAnchorPosX(50, 1).SetDelay(0.5f).SetEase(Ease.OutBack);
             GetButton((int)Buttons.Setting).GetComponent<RectTransform>().DOAnchorPosX(50, 1).SetDelay(0.75f).SetEase(Ease.OutBack);
             GetButton((int)Buttons.QuitGame).GetComponent<RectTransform>().DOAnchorPosX(50, 1).SetDelay(1).SetEase(Ease.OutBack);
-
+            GetText((int)Texts.VersionText).text = $"v{Application.version}";
 
             return true;
         }

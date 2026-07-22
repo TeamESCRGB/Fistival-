@@ -23,7 +23,8 @@ namespace UI.Scene
         enum Texts
         {
             LoadingLabelName,
-            LoadingAssetName
+            LoadingAssetName,
+            VersionText
         }
         [SerializeField]
         private int _loadedCnt = 0;
@@ -47,6 +48,7 @@ namespace UI.Scene
             GetText((int)Texts.LoadingLabelName).text = "StaticLoaded";
             GetText((int)Texts.LoadingAssetName).text = "";
             GetObject((int)Objects.LoadProgressBar).GetComponent<Slider>().value = 0;
+            GetText((int)Texts.VersionText).text = $"v{Application.version}";
             Managers.Instance.ResourceManager.LoadAsyncAllIn("StaticLoaded", (asset, now, end) =>
             {
                 LoadAssets(asset, now, end);
