@@ -31,7 +31,7 @@ namespace Coordinator.Movements
         public override void Init(float speed, float jumpPow, float slownessSensitivity, float maxSlowness, Rigidbody2D parentRb2d)
         {
             base.Init(speed, jumpPow, slownessSensitivity, maxSlowness, parentRb2d);
-            _gravityConstant = Mathf.Abs(Physics2D.gravity.y);
+            _gravityConstant = Mathf.Abs(Physics2D.gravity.y) * _parentRb2d.gravityScale;
             _groundLayermask = _platformMask | _groundLayer;
         }
 
