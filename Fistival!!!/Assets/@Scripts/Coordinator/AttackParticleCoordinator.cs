@@ -9,10 +9,13 @@ namespace Coordinator
         private Dictionary<string, ParticleSystem> _particles = new Dictionary<string, ParticleSystem>();
 
 
-        public void RegisterParticle(string particleName)
+        private void Awake()
         {
-            var particle = gameObject.GetChild<ParticleSystem>(particleName, true, true);
-            _particles[particleName] = particle;
+            var particles = GetComponentsInChildren<ParticleSystem>();    
+            for(int i = 0; i < particles.Length; i++)
+            {
+                _particles[particles[i].name] = particles[i];
+            }
         }
 
         public void Play(string particleName, float rotation)
