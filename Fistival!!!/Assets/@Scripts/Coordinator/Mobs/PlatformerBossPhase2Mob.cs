@@ -7,6 +7,7 @@ using Data;
 using DG.Tweening;
 using Manager;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 namespace Coordinator.Mobs
@@ -66,6 +67,8 @@ namespace Coordinator.Mobs
             ((PlatformerPhase2Fist)_acts[0]).Init(() => { _isActing = false; }, _animator, _wave, _spawnPoints);
             ((AttackFieldAct)_acts[1]).Init(() => { _isActing = false; }, _animator);
             ((PlatformerPhase2Howling)_acts[2]).Init(() => { _isActing = false; }, _animator, _spawnPoints);
+
+            FindAnyObjectByType<PlayerHUD>().SetBoss(GetComponentInChildren<HPCoordinator>(), data.HP);
         }
 
         public void Init(CommonMobData data, IReadOnlyList<Transform> spawnPoints, BlockWaveCoordinator wave)

@@ -10,6 +10,7 @@ using MobActs.CameleonBossPattern;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UI;
 using UnityEngine;
 using Utils;
 
@@ -85,6 +86,7 @@ namespace Coordinator.Mobs
             ((CameleonPattern2)_acts[1]).Init(() => { _isActing = false; }, _animator, _rb2d, _mov, _moveInterval, _moveDuration, _points, _centerPos);
             ((CameleonPattern3)_acts[2]).Init(() => { _isActing = false; }, _animator, _rb2d, _mov, _moveDuration, _points, _centerPos, _objData, _objSpawnPoint);
             _victim.SetAttackableState(false);
+            FindAnyObjectByType<PlayerHUD>().SetBoss(GetComponentInChildren<HPCoordinator>(), data.HP);
         }
 
         public void Init(CommonMobData data, Vector2 centerPos, IReadOnlyList<Transform> movPoints, Transform objSpawnPoint)

@@ -3,6 +3,7 @@ using Coordinator.Movements;
 using Coordinator.Skills;
 using Data;
 using Manager;
+using UI;
 using UnityEngine;
 
 namespace Coordinator.Mobs
@@ -62,6 +63,7 @@ namespace Coordinator.Mobs
             ((ProjectileLaunchAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _slashProjectileIdx, _slashCnt, data.PlayerHitboxLayer);
             ((SlamAct)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(), _slamDropObjIdx,_slamDropObjCnt ,_player, _jumpForce, _slamDropObjForce,_groundLayer,_attackLayer);
             ((LengthDashAct)_acts[2]).Init(() => { _isActing = false; }, _animator, _move, GetComponent<Rigidbody2D>(), data.Speed, _dashStopTime);
+            FindAnyObjectByType<PlayerHUD>().SetBoss(GetComponentInChildren<HPCoordinator>(), data.HP);
         }
 
         public void StartSotCopBoss()
