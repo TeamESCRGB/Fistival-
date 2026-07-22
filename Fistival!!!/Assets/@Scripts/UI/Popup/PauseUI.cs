@@ -19,6 +19,12 @@ namespace UI.Popup
             QUIT_GAME,
             RESUME
         }
+
+        enum Texts
+        {
+            VersionText
+        }
+
         [SerializeField]
         private string[] _gameScenes = new string[] { "GameSceneBasicLoaded" };
         private bool _isMainSceneChangeTriggered = false;
@@ -42,6 +48,8 @@ namespace UI.Popup
             GetButton((int)Buttons.SETTING).gameObject.BindUIEvent(OnSetting);
             GetButton((int)Buttons.QUIT_GAME).gameObject.BindUIEvent(OnQuitGame);
             GetButton((int)Buttons.RESUME).gameObject.BindUIEvent(OnResume);
+
+            GetText((int)Texts.VersionText).text = $"v{Application.version}";
 
             return true;
         }
