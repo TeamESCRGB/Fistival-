@@ -20,7 +20,10 @@ namespace Coordinator.Movements
 
         private void OnDisable()
         {
-            _parentRb2d.excludeLayers &= ~_groundLayermask;
+            if(_parentRb2d != null)
+            {
+                _parentRb2d.excludeLayers &= ~_groundLayermask;
+            }
             if (Managers.Instance != null && _pullGroundDisableCounter is not null)
             {
                 Managers.Instance.CooldownManager.ReturnFixedModule(_pullGroundDisableCounter);

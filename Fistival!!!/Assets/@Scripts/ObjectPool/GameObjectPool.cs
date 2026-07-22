@@ -25,7 +25,10 @@ namespace ObjectPool
         public void DisposePool()
         {
             Clear();
-            GameObject.Destroy(_root.gameObject);
+            if(_root != null)
+            {
+                GameObject.Destroy(_root.gameObject);
+            }
         }
 
         public void Push(GameObject go)
