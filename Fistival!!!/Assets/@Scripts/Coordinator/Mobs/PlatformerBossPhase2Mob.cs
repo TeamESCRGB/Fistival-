@@ -1,3 +1,4 @@
+using Coordinator.Door;
 using Coordinator.MobActs;
 using Coordinator.MobActs.PlatformerBoss;
 using Coordinator.Movements;
@@ -25,7 +26,7 @@ namespace Coordinator.Mobs
         private float _spawnMovementDelta;
         [SerializeField]
         private float _spawnMovementDuration;
-
+        private IReadOnlyList<IDoor> _doors;
 
         protected override void OnAwake()
         {
@@ -71,8 +72,9 @@ namespace Coordinator.Mobs
             FindAnyObjectByType<PlayerHUD>().SetBoss(GetComponentInChildren<HPCoordinator>(), data.HP);
         }
 
-        public void Init(CommonMobData data, IReadOnlyList<Transform> spawnPoints, BlockWaveCoordinator wave)
+        public void Init(CommonMobData data, IReadOnlyList<Transform> spawnPoints, BlockWaveCoordinator wave, IReadOnlyList<IDoor> doors)
         {
+            _doors = doors;
             _spawnPoints = spawnPoints;
             _wave= wave;
 
@@ -108,6 +110,10 @@ namespace Coordinator.Mobs
         {
             base.OnDead();
             Managers.Instance.StageManager.ClearBoss(_prefabKey);
+            for (int i = 0; i < _doors.Count; i++)
+            {
+                _doors[i].Open();
+            }
         }
 
         public override void AnimatorOnDead()

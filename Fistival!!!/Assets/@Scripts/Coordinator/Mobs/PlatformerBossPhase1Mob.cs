@@ -1,4 +1,5 @@
-﻿using Coordinator.MobActs;
+﻿using Coordinator.Door;
+using Coordinator.MobActs;
 using Coordinator.MobActs.PlatformerBoss;
 using Coordinator.Movements;
 using Coordinator.Skills;
@@ -34,7 +35,7 @@ namespace Coordinator.Mobs
         private IReadOnlyList<Transform> _phase2ObjSpawnPoints;
         private BlockWaveCoordinator _phase2WaveCoord;
         private GameObject _phase2Platform;
-
+        private IReadOnlyList<IDoor> _doors;
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -63,9 +64,14 @@ namespace Coordinator.Mobs
             ((AttackFieldAct)_acts[1]).Init(() => { _isActing = false; }, _animator);
             ((FallingObjectRandomPosSpawnAct)_acts[2]).Init(() => { _isActing = false; }, _animator, _fallingObjectIdx, _objSpawnPointMin, _objSpawnPointMax, _fallingObjectInterval);
 
-            _phaseChangeAct.Init(OnPhaseChanged,_animator, _phase2SpawnPoint, _rb2d, _phase2ObjSpawnPoints, _phase2WaveCoord, _phase2Platform);
+            _phaseChangeAct.Init(OnPhaseChanged,_animator, _phase2SpawnPoint, _rb2d, _phase2ObjSpawnPoints, _phase2WaveCoord, _phase2Platform, _doors);
 
             FindAnyObjectByType<PlayerHUD>().SetBoss(GetComponentInChildren<HPCoordinator>(), data.HP);
+
+            for (int i = 0; i < _doors.Count; i++)
+            {
+                _doors[i].Close();
+            }
         }
 
         public void StartPlatformerPhase1()
@@ -78,8 +84,9 @@ namespace Coordinator.Mobs
             Managers.Instance.ResourceManager.Destroy(gameObject, true);
         }
 
-        public void Init(CommonMobData data, Vector3 objSpawnPointMin, Vector3 objSpawnPointMax, Transform phase2Pos, IReadOnlyList<Transform> phase2ObjSpawnPoints, BlockWaveCoordinator phase2WaveCoord, GameObject phase2Platform)
+        public void Init(CommonMobData data, Vector3 objSpawnPointMin, Vector3 objSpawnPointMax, Transform phase2Pos, IReadOnlyList<Transform> phase2ObjSpawnPoints, BlockWaveCoordinator phase2WaveCoord, GameObject phase2Platform, IReadOnlyList<IDoor> doors)
         {
+            _doors = doors;
             _phase2WaveCoord = phase2WaveCoord;
             _phase2ObjSpawnPoints = phase2ObjSpawnPoints;
             _phase2SpawnPoint= phase2Pos;
