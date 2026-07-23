@@ -966,7 +966,7 @@ MonoBehaviour:
   _target: {fileID: 1352498108}
   _followRate: 3.5
   _deadzoneWidth: {x: 0.1, y: 0.1}
-  _deadzoneHeight: {x: 2, y: 2}
+  _deadzoneHeight: {x: 1.5, y: 1.5}
   _threshold: 0.001
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
