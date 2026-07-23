@@ -19152,10 +19152,10 @@ MonoBehaviour:
     m_Bits: 205376
   _itemLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 131072
   _attackLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   _itemSpawnPoints: []
   _objectSpawnPoints:
   - SpawnPoint: {fileID: 1018540067207850114}
