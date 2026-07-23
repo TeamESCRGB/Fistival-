@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Assets._Scripts.Coordinator
 {
-    public class PaintCanDispenser : MonoBehaviour, BasicInitializer
+    public class PaintCanDispenser : MonoBehaviour, IBasicInitializer
     {
         [SerializeField]
         private List<ButtonCoordinator> _buttons;
