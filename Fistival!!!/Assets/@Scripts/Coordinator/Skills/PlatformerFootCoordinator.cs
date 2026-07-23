@@ -39,18 +39,19 @@ namespace Coordinator.Skills
             }
             var enemies = Physics2D.OverlapBoxAll(_box.position, _box.lossyScale,0,_attackableLayers);
 
-            if(enemies is null)
+            if(enemies.Length <= 0)
             {
                 return;
             }
 
-            for(int i = 0; i < enemies.Length; i++)
+            OnStepKill?.Invoke();
+
+            for (int i = 0; i < enemies.Length; i++)
             {
                 var enemy = enemies[i];
                 if (enemy.TryGetComponent<IAttackable>(out var target) && CanAttackTarget(target))
                 {
                     Managers.Instance.AttackManager.RequestAttack(target, this, _baseDamage, Vector2.down, _baseStunTime);
-                    OnStepKill?.Invoke();
                 }
             }
         }
