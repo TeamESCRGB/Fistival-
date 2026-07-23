@@ -1,8 +1,10 @@
-﻿using Coordinator.MobActs;
+﻿using Coordinator.Door;
+using Coordinator.MobActs;
 using Coordinator.Movements;
 using Coordinator.Skills;
 using Data;
 using Manager;
+using System.Collections.Generic;
 using UI;
 using UnityEngine;
 
@@ -42,6 +44,8 @@ namespace Coordinator.Mobs
         [SerializeField]
         private float _dashStopTime;
 
+        private IReadOnlyList<IDoor> _doors;
+
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -64,6 +68,17 @@ namespace Coordinator.Mobs
             ((SlamAct)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(), _slamDropObjIdx,_slamDropObjCnt ,_player, _jumpForce, _slamDropObjForce,_groundLayer,_attackLayer);
             ((LengthDashAct)_acts[2]).Init(() => { _isActing = false; }, _animator, _move, GetComponent<Rigidbody2D>(), data.Speed, _dashStopTime);
             FindAnyObjectByType<PlayerHUD>().SetBoss(GetComponentInChildren<HPCoordinator>(), data.HP);
+
+            for(int i = 0; i < _doors.Count; i++)
+            {
+                _doors[i].Close();
+            }
+        }
+
+        public void Init(CommonMobData data, IReadOnlyList<IDoor> doors)
+        {
+            _doors = doors;
+            Init(data);
         }
 
         public void StartSotCopBoss()
@@ -111,6 +126,10 @@ namespace Coordinator.Mobs
         {
             base.OnDead();
             Managers.Instance.StageManager.ClearBoss(_prefabKey);
+            for (int i = 0; i < _doors.Count; i++)
+            {
+                _doors[i].Open();
+            }
         }
 
         public override void AnimatorOnDead()

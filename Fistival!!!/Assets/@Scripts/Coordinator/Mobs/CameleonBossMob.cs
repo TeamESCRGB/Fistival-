@@ -1,4 +1,5 @@
-﻿using Coordinator.MobActs;
+﻿using Coordinator.Door;
+using Coordinator.MobActs;
 using Coordinator.MobActs.CameleonBossPattern;
 using Coordinator.Movements;
 using Coordinator.Skills;
@@ -48,6 +49,7 @@ namespace Coordinator.Mobs
         private int _nowAct;
         private VictimCoordinator _victim;
         private PointMovement _mov;
+        private IReadOnlyList<IDoor> _doors;
 
         protected override void OnAwake()
         {
@@ -87,10 +89,15 @@ namespace Coordinator.Mobs
             ((CameleonPattern3)_acts[2]).Init(() => { _isActing = false; }, _animator, _rb2d, _mov, _moveDuration, _points, _centerPos, _objData, _objSpawnPoint);
             _victim.SetAttackableState(false);
             FindAnyObjectByType<PlayerHUD>().SetBoss(GetComponentInChildren<HPCoordinator>(), data.HP);
+            for (int i = 0; i < _doors.Count; i++)
+            {
+                _doors[i].Close();
+            }
         }
 
-        public void Init(CommonMobData data, Vector2 centerPos, IReadOnlyList<Transform> movPoints, Transform objSpawnPoint)
+        public void Init(CommonMobData data, Vector2 centerPos, IReadOnlyList<Transform> movPoints, Transform objSpawnPoint, IReadOnlyList<IDoor> doors)
         {
+            _doors = doors;
             _points = movPoints;
             _centerPos = centerPos;
             _objSpawnPoint=objSpawnPoint;
@@ -133,6 +140,10 @@ namespace Coordinator.Mobs
         {
             base.OnDead();
             Managers.Instance.StageManager.ClearBoss(_prefabKey);
+            for (int i = 0; i < _doors.Count; i++)
+            {
+                _doors[i].Open();
+            }
         }
 
         public override void AnimatorOnDead()

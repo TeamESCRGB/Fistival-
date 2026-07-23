@@ -1,3 +1,4 @@
+using Coordinator.Door;
 using Coordinator.Mobs;
 using Data;
 using Manager;
@@ -19,6 +20,20 @@ namespace Coordinator.Trigger.PlatformerStage
         private List<Transform> _movablePoints;
         private CommonMobData _data;
         private bool _isSpawned;
+        [SerializeField]
+        private GameObject[] _doorObj;
+        private List<IDoor> _door;
+
+        private void Awake()
+        {
+            for (int i = 0; i < _doorObj.Length; i++)
+            {
+                _door.Add(_doorObj[i].GetComponent<IDoor>());
+#if UNITY_EDITOR
+                Debug.Assert(_door[i] != null, $"{_doorObj[i].name} 에 IDoor를 받은 클래스가 없습니다");
+#endif
+            }
+        }
 
         protected override void OnStart()
         {
@@ -51,7 +66,7 @@ namespace Coordinator.Trigger.PlatformerStage
                 return;
             }
             go.transform.position = _mobSpawnPoint.position;
-            comp.Init(_data,_center.position, _movablePoints, _objSpawnPoint);
+            comp.Init(_data,_center.position, _movablePoints, _objSpawnPoint, _door);
             _isSpawned = true;
         }
     }
