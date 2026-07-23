@@ -20,6 +20,7 @@ namespace Coordinator.Door
 
         private void Awake()
         {
+            _anim = GetComponent<Animator>();
             _renderer = GetComponent<SpriteRenderer>();
         }
 
@@ -35,6 +36,7 @@ namespace Coordinator.Door
                 CloseAnimEnd();
             }
         }
+
         public void Open()
         {
             _anim.Play("Open");
