@@ -28,6 +28,7 @@ namespace Coordinator.Mobs
         private float _spawnMovementDuration;
         private IReadOnlyList<IDoor> _doors;
         private TouchDamageSkill[] _touchDamages;
+        private MobActBase _nowActing;
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -104,12 +105,14 @@ namespace Coordinator.Mobs
             _skillTime = 0;
             _isActing = true;
 
-            _acts[UnityEngine.Random.Range(0, _acts.Length)].Act();
+            _nowActing = _acts[UnityEngine.Random.Range(0, _acts.Length)];
+            _nowActing.Act();
         }
 
         protected override void OnDead()
         {
             base.OnDead();
+            _nowActing.StopAct();
             Managers.Instance.StageManager.ClearBoss(_prefabKey);
             for (int i = 0; i < _doors.Count; i++)
             {

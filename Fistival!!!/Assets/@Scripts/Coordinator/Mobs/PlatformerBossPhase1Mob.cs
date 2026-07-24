@@ -37,6 +37,7 @@ namespace Coordinator.Mobs
         private GameObject _phase2Platform;
         private IReadOnlyList<IDoor> _doors;
         protected TouchDamageSkill[] _touchDamages;
+        protected MobActBase _nowAct;
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -134,12 +135,14 @@ namespace Coordinator.Mobs
             }
             else
             {
-                _acts[UnityEngine.Random.Range(0, 2)].Act();
+                _nowAct = _acts[UnityEngine.Random.Range(0, 2)];
+                _nowAct.Act();
             }
         }
         protected override void OnDead()
         {
             base.OnDead();
+            _nowAct.StopAct();
             for (int i = 0; i < _touchDamages.Length; i++)
             {
                 _touchDamages[i].SetAttackState(false);
