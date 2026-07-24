@@ -12,10 +12,13 @@ namespace Coordinator
 
         protected float _baseStunTime=0;
 
+        protected bool _isAttackStateOn;
+
         private event Action<int, int> _onAttack;
 
         public void Init(int attackableLayers, int baseDamage, float baseStunTime)
         {
+            _isAttackStateOn = true;
             _baseDamage = baseDamage;
             _attackableLayers = 0;
             _baseStunTime=baseStunTime;
@@ -48,9 +51,19 @@ namespace Coordinator
             _attackableLayers = attackableLayers;
         }
 
+        public bool IsAttackStateOn()
+        {
+            return _isAttackStateOn;
+        }
+
+        public void SetAttackState(bool canAttack)
+        {
+            _isAttackStateOn = canAttack;
+        }
+
         public virtual bool CanAttackTarget(IAttackable target)
         {
-            return ((target.GetMaskedLayer() & _attackableLayers) != 0) && target.CanAttack();
+            return _isAttackStateOn && ((target.GetMaskedLayer() & _attackableLayers) != 0) && target.CanAttack();
         }
         public float GetBaseStun => _baseStunTime;
         public int GetBaseDamage => _baseDamage;
