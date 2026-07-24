@@ -38,6 +38,7 @@ namespace Coordinator.Mobs
         private IReadOnlyList<IDoor> _doors;
         protected TouchDamageSkill[] _touchDamages;
         protected MobActBase _nowAct;
+        protected Vector3 _endNPCSPawnPos;
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -66,7 +67,7 @@ namespace Coordinator.Mobs
             ((AttackFieldAct)_acts[1]).Init(() => { _isActing = false; }, _animator);
             ((FallingObjectRandomPosSpawnAct)_acts[2]).Init(() => { _isActing = false; }, _animator, _fallingObjectIdx, _objSpawnPointMin, _objSpawnPointMax, _fallingObjectInterval);
 
-            _phaseChangeAct.Init(OnPhaseChanged,_animator, _phase2SpawnPoint, _rb2d, _phase2ObjSpawnPoints, _phase2WaveCoord, _phase2Platform, _doors);
+            _phaseChangeAct.Init(OnPhaseChanged,_animator, _phase2SpawnPoint, _rb2d, _phase2ObjSpawnPoints, _phase2WaveCoord, _phase2Platform, _doors, _endNPCSPawnPos);
 
             FindAnyObjectByType<PlayerHUD>().SetBoss(GetComponentInChildren<HPCoordinator>(), data.HP);
 
@@ -86,8 +87,9 @@ namespace Coordinator.Mobs
             Managers.Instance.ResourceManager.Destroy(gameObject, true);
         }
 
-        public void Init(CommonMobData data, Vector3 objSpawnPointMin, Vector3 objSpawnPointMax, Transform phase2Pos, IReadOnlyList<Transform> phase2ObjSpawnPoints, BlockWaveCoordinator phase2WaveCoord, GameObject phase2Platform, IReadOnlyList<IDoor> doors)
+        public void Init(CommonMobData data, Vector3 objSpawnPointMin, Vector3 objSpawnPointMax, Transform phase2Pos, IReadOnlyList<Transform> phase2ObjSpawnPoints, BlockWaveCoordinator phase2WaveCoord, GameObject phase2Platform, IReadOnlyList<IDoor> doors, Vector3 endNPCSpawnPos)
         {
+            _endNPCSPawnPos = endNPCSpawnPos;
             _doors = doors;
             _phase2WaveCoord = phase2WaveCoord;
             _phase2ObjSpawnPoints = phase2ObjSpawnPoints;

@@ -1,14 +1,23 @@
 ﻿using Manager;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UI.Popup;
-using UnityEngine;
 
 namespace Coordinator.NPC
 {
-    public class PlatformerBossNPC : MonoBehaviour
+    public class PlatformerBossNPC : EndingNPCBase
     {
+        public override void Init()
+        {
+            _animator.Play("EndAnimation");
+        }
 
+        public void OnAnimatorEnd()
+        {
+            Managers.Instance.UIManager.ShowPopupUI<TalkCutScenePopup>("TalkCutScenePopup").SetData(_talkName).SetOnEnd(OnTalkEnd);
+        }
+
+        public override void OnTalkEnd()
+        {
+            Managers.Instance.StageManager.OnClear();
+        }
     }
 }

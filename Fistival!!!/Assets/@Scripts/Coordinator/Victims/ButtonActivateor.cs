@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Defines;
+using System;
 using UnityEngine;
 
 namespace Coordinator.Victims
@@ -22,7 +23,10 @@ namespace Coordinator.Victims
             _original = transform.parent.GetComponent<ButtonCoordinator>();
             _maskedLayer = 1 << gameObject.layer;
         }
-
+        public VictimType GetVictimType()
+        {
+            return VictimType.Other;
+        }
         public void SetAttackableState(bool canAttack)
         {
             _isAttackableOn = canAttack;

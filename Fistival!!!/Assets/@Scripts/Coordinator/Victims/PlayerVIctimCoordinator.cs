@@ -1,5 +1,6 @@
 ﻿using ComponentModule;
 using Coordinator.Movements;
+using Defines;
 using Manager;
 using System;
 using UnityEngine;
@@ -32,7 +33,10 @@ namespace Coordinator.Victims
             _invincibilityTimeCounter = Managers.Instance.CooldownManager.GetCooldownModule(invincibilityTime);
             _animator.SetBool("IsDead", false);
         }
-
+        public VictimType GetVictimType()
+        {
+            return VictimType.Player;
+        }
         public void SetAttackableState(bool canAttack)
         {
             _isAttackableOn= canAttack;
@@ -65,6 +69,7 @@ namespace Coordinator.Victims
 
         public void Respawn()
         {
+            SetAttackableState(true);
             _hpCoord.Respawn();
             _animator.Rebind();
         }

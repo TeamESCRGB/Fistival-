@@ -37,7 +37,10 @@ namespace Coordinator.Victims
             _hpCoord.Init(hp, maxHP);
             _invincibilityTimeCounter = Managers.Instance.CooldownManager.GetCooldownModule(invincibilityTime);
         }
-
+        public VictimType GetVictimType()
+        {
+            return VictimType.Other;
+        }
 
         public void SetAttackableState(bool canAttack)
         {
