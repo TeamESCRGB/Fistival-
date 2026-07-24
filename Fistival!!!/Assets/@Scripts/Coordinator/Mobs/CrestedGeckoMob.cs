@@ -22,11 +22,13 @@ namespace Coordinator.Mobs
         protected int _projIdx;
         [SerializeField]
         protected int _shootCnt;
+        protected TouchDamageSkill _touchDamage;
 
 
         protected override void OnAwake()
         {
             base.OnAwake();
+            _touchDamage = GetComponentInChildren<TouchDamageSkill>();
             _act = GetComponentInChildren<GravityProjectileLaunchAct>();
         }
 
@@ -36,7 +38,7 @@ namespace Coordinator.Mobs
             _isActing = false;
             _isAggroOn = false;
             _skillTime = _skillDelay;
-            GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce,true,false);
+            _touchDamage.Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce,true,false);
             _act.Init(() => { _isActing = false; },_animator ,_projIdx, _shootCnt, data.PlayerHitboxLayer);
         }
 
@@ -45,6 +47,11 @@ namespace Coordinator.Mobs
             _isAggroOn = isAggroOn;
         }
 
+        protected override void OnDead()
+        {
+            base.OnDead();
+            _touchDamage.SetAttackState(false);
+        }
         private void Update()
         {
             if (_isActing)

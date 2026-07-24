@@ -45,10 +45,12 @@ namespace Coordinator.Mobs
         private float _dashStopTime;
 
         private IReadOnlyList<IDoor> _doors;
+        private TouchDamageSkill _touchDamage;
 
         protected override void OnAwake()
         {
             base.OnAwake();
+            _touchDamage = GetComponentInChildren<TouchDamageSkill>();
             _move = GetComponentInChildren<PlatformerMovementCoordinator>();
             _acts[0] = GetComponent<ProjectileLaunchAct>();
             _acts[1] = GetComponent<SlamAct>();
@@ -62,7 +64,7 @@ namespace Coordinator.Mobs
             _isActing = true;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
-            GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
+            _touchDamage.Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             _move.Init(data.Speed, _jumpPow, 1, 1, GetComponent<Rigidbody2D>());
             ((ProjectileLaunchAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _slashProjectileIdx, _slashCnt, data.PlayerHitboxLayer);
             ((SlamAct)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(), _slamDropObjIdx,_slamDropObjCnt ,_player, _jumpForce, _slamDropObjForce,_groundLayer,_attackLayer);
@@ -125,6 +127,7 @@ namespace Coordinator.Mobs
         protected override void OnDead()
         {
             base.OnDead();
+            _touchDamage.SetAttackState(false);
             Managers.Instance.StageManager.ClearBoss(_prefabKey);
             for (int i = 0; i < _doors.Count; i++)
             {

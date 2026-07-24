@@ -27,10 +27,11 @@ namespace Coordinator.Mobs
         [SerializeField]
         private float _spawnMovementDuration;
         private IReadOnlyList<IDoor> _doors;
-
+        private TouchDamageSkill[] _touchDamages;
         protected override void OnAwake()
         {
             base.OnAwake();
+            _touchDamages = GetComponentsInChildren<TouchDamageSkill>();
             _acts[0] = GetComponent<PlatformerPhase2Fist>();
             _acts[1] = GetComponent<AttackFieldAct>();
             _acts[2] = GetComponent<PlatformerPhase2Howling>();
@@ -43,10 +44,10 @@ namespace Coordinator.Mobs
             _isActing = true;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
-            var touchDamages = GetComponentsInChildren<TouchDamageSkill>();
-            for (int i = 0; i < touchDamages.Length; i++)
+
+            for (int i = 0; i < _touchDamages.Length; i++)
             {
-                touchDamages[i].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
+                _touchDamages[i].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             }
 
             var waveTouchDamages = _wave.GetComponentsInChildren<TouchDamageSkill>();
@@ -113,6 +114,10 @@ namespace Coordinator.Mobs
             for (int i = 0; i < _doors.Count; i++)
             {
                 _doors[i].Open();
+            }
+            for (int i = 0; i < _touchDamages.Length; i++)
+            {
+                _touchDamages[i].SetAttackState(false);
             }
         }
 

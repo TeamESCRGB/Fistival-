@@ -76,7 +76,14 @@ namespace Coordinator.Mobs
             _act.Act();
         }
 
-
+        protected override void OnDead()
+        {
+            base.OnDead();
+            for (int i = 0; i < _skills.Length; i++)
+            {
+                _skills[i].SetAttackState(false);
+            }
+        }
 
         public override void StunFor(float time)
         {
