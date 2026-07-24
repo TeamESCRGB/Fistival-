@@ -1,4 +1,5 @@
 ﻿using Coordinator.Interactables;
+using Defines;
 using UnityEngine;
 
 namespace Coordinator.Victims
@@ -18,6 +19,11 @@ namespace Coordinator.Victims
             _isAttackableOn = true;
             _checkpoint = transform.parent.GetComponent<CheckpointInteractor>();
             _maskedLayer = 1 << gameObject.layer;
+        }
+
+        public VictimType GetVictimType()
+        {
+            return VictimType.Other;
         }
 
         public void SetAttackableState(bool canAttack)
