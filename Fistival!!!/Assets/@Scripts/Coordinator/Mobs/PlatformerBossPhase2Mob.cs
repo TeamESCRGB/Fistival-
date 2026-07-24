@@ -18,7 +18,7 @@ namespace Coordinator.Mobs
     {
         private MobActBase[] _acts = new MobActBase[3];
         private IReadOnlyList<Transform> _spawnPoints;
-        private Transform _player;
+        private PlayerVictimCoordinator _player;
         private bool _isActing;
         private float _skillTime;
         private BlockWaveCoordinator _wave;
@@ -46,7 +46,7 @@ namespace Coordinator.Mobs
             _prefabKey = data.PrefabKey;
             _isActing = true;
             _skillTime = _skillDelay;
-            _player = FindAnyObjectByType<PlayerCoordinator>().transform;
+            _player = FindAnyObjectByType<PlayerVictimCoordinator>();
 
             for (int i = 0; i < _touchDamages.Length; i++)
             {
@@ -115,6 +115,7 @@ namespace Coordinator.Mobs
         protected override void OnDead()
         {
             base.OnDead();
+            _player.SetAttackableState(false);
             _nowActing.StopAct();
             Managers.Instance.StageManager.ClearBoss(_prefabKey);
 
