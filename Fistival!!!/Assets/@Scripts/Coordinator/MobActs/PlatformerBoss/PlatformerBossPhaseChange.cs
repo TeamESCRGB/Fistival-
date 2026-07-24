@@ -23,9 +23,11 @@ namespace Coordinator.MobActs.PlatformerBoss
         private BlockWaveCoordinator _blockWave;
         private GameObject _phase2Platform;
         private IReadOnlyList<IDoor> _doors;
-        public void Init(Action onActionEnd, Animator animator, Transform endPos, Rigidbody2D rb2d, IReadOnlyList<Transform> phase2ObjSpawnPoints, BlockWaveCoordinator phase2WaveCoord, GameObject phase2Platform, IReadOnlyList<IDoor> doors)
+        private Vector3 _endNPCSpawnPos;
+        public void Init(Action onActionEnd, Animator animator, Transform endPos, Rigidbody2D rb2d, IReadOnlyList<Transform> phase2ObjSpawnPoints, BlockWaveCoordinator phase2WaveCoord, GameObject phase2Platform, IReadOnlyList<IDoor> doors, Vector3 endNPCSpawnPos)
         {
             Init(onActionEnd, animator);
+            _endNPCSpawnPos = endNPCSpawnPos;
             _doors = doors;
             _endPos= endPos;
             _rb2d= rb2d;
@@ -53,7 +55,7 @@ namespace Coordinator.MobActs.PlatformerBoss
             var data = Managers.Instance.DataManager.CommonMobDataDict[_phase2Idx];
             var go = Managers.Instance.ResourceManager.Instantiate(data.PrefabKey, null, true, true);
             var comp = go.GetComponent<PlatformerBossPhase2Mob>();
-            comp.Init(data, _spawnPoints, _blockWave, _doors);
+            comp.Init(data, _spawnPoints, _blockWave, _doors, _endNPCSpawnPos);
             go.transform.position = _endPos.position;
             _phase2Platform.SetActive(true);
             _onActEnd?.Invoke();

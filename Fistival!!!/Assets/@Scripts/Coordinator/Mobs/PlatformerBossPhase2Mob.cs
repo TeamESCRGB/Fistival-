@@ -2,6 +2,7 @@ using Coordinator.Door;
 using Coordinator.MobActs;
 using Coordinator.MobActs.PlatformerBoss;
 using Coordinator.Movements;
+using Coordinator.NPC;
 using Coordinator.Skills;
 using Coordinator.Victims;
 using Data;
@@ -29,6 +30,7 @@ namespace Coordinator.Mobs
         private IReadOnlyList<IDoor> _doors;
         private TouchDamageSkill[] _touchDamages;
         private MobActBase _nowActing;
+        private Vector3 _endNPCSpawnPos;
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -74,8 +76,9 @@ namespace Coordinator.Mobs
             FindAnyObjectByType<PlayerHUD>().SetBoss(GetComponentInChildren<HPCoordinator>(), data.HP);
         }
 
-        public void Init(CommonMobData data, IReadOnlyList<Transform> spawnPoints, BlockWaveCoordinator wave, IReadOnlyList<IDoor> doors)
+        public void Init(CommonMobData data, IReadOnlyList<Transform> spawnPoints, BlockWaveCoordinator wave, IReadOnlyList<IDoor> doors, Vector3 endNPCSpawnPos)
         {
+            _endNPCSpawnPos = endNPCSpawnPos;
             _doors = doors;
             _spawnPoints = spawnPoints;
             _wave= wave;
@@ -114,6 +117,11 @@ namespace Coordinator.Mobs
             base.OnDead();
             _nowActing.StopAct();
             Managers.Instance.StageManager.ClearBoss(_prefabKey);
+
+            var npc = Managers.Instance.ResourceManager.Instantiate("PlatformerBossEndNPC").GetComponent<PlatformerBossNPC>();
+            npc.Init();
+            npc.transform.position = _endNPCSpawnPos;
+
             for (int i = 0; i < _doors.Count; i++)
             {
                 _doors[i].Open();

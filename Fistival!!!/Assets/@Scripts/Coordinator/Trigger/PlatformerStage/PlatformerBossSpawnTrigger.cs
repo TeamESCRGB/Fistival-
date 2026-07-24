@@ -18,6 +18,8 @@ namespace Coordinator.Trigger
         private bool _isTalking;
         private CommonMobData _data;
         [SerializeField]
+        private Transform _endNPCSpawnPos;
+        [SerializeField]
         private GameObject[] _doorObj;
         private List<IDoor> _door;
 
@@ -80,7 +82,8 @@ namespace Coordinator.Trigger
                 _phase2ObjSpawnPoints,
                 _phase2BlockWaveCoordinator,
                 _phase2PlatformObj,
-                _door
+                _door,
+                _endNPCSpawnPos.position
                 );
             _isSpawned = true;
         }
