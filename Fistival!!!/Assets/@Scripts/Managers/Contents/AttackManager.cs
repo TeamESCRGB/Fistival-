@@ -1,5 +1,6 @@
 using Coordinator;
 using Coordinator.Victims;
+using DataStructure;
 using System.Collections.Generic;
 using UnityEngine;
 using Utils;
@@ -8,30 +9,30 @@ namespace Manager.Contents
 {
     public class AttackManager : MonoBehaviour
     {
-        private Queue<(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce, float calculatedStun)> _reqQueue =
-            new Queue<(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce, float calculatedStun)>(64);
+        private PriorityQueue<(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce, float calculatedStun)> _reqPQueue =
+            new PriorityQueue<(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce, float calculatedStun)>();
         private bool _isRequested = false;
 
         public void Init()
         {
             _isRequested = false;
-            _reqQueue.Clear();
+            _reqPQueue.Clear();
         }
 
         public void RequestAttack(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce, float calculatedStun)
         {
-            _reqQueue.Enqueue((target, attacker, calculatedDamage, knockbackForce, calculatedDamage));
+            _reqPQueue.Enqueue((int)target.GetVictimType(), (target, attacker, calculatedDamage, knockbackForce, calculatedDamage));
             _isRequested = true;
         }
 
         public (int reqCnt, bool isRequested) GetQueueStatus()
         {
-            return (_reqQueue.Count, _isRequested);
+            return (_reqPQueue.Count, _isRequested);
         }
 
         public void Clear()
         {
-            _reqQueue.Clear();
+            _reqPQueue.Clear();
             _isRequested = false;
         }
 
@@ -48,9 +49,16 @@ namespace Manager.Contents
             }
             
             //여기도 뭐 ispaused같은거 넣어야지
-            while(_reqQueue.IsEmpty() == false)
+            while(_reqPQueue.IsItEmpty() == false)
             {
-                var req = _reqQueue.Dequeue();
+                (int, (IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce, float calculatedStun)) elem = default;
+                if(_reqPQueue.TryDequeue(ref elem) == false)
+                {
+                    _reqPQueue.Clear();
+                    break;
+                }
+
+                var req = elem.Item2;
 
                 if(req.attacker == null || req.target is null)
                 {
