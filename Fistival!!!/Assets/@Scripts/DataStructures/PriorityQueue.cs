@@ -15,6 +15,8 @@ namespace DataStructure
             _idx = 0;
         }
 
+        public int Count { get { return _idx; } }
+
         public bool IsItEmpty()
         {
             return _idx <= 0;
