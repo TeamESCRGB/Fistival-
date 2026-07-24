@@ -21,7 +21,7 @@ namespace Manager.Contents
 
         public void RequestAttack(IAttackable target, SkillCoordinatorBase attacker, int calculatedDamage, Vector2 knockbackForce, float calculatedStun)
         {
-            _reqPQueue.Enqueue((int)target.GetVictimType(), (target, attacker, calculatedDamage, knockbackForce, calculatedDamage));
+            _reqPQueue.Enqueue((int)target.GetVictimType(), (target, attacker, calculatedDamage, knockbackForce, calculatedStun));
             _isRequested = true;
         }
 
