@@ -23,6 +23,10 @@ namespace Coordinator.Victims
             }
 #endif
         }
+        public VictimType GetVictimType()
+        {
+            return _original.GetVictimType();
+        }
         public void SetAttackableState(bool canAttack)
         {
             _original.SetAttackableState(canAttack);

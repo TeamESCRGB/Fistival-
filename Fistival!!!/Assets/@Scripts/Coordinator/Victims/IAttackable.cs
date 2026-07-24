@@ -1,10 +1,12 @@
 ﻿using Coordinator.Movements;
+using Defines;
 using UnityEngine;
 
 namespace Coordinator.Victims
 {
     public interface IAttackable : IStunnable
     {
+        public VictimType GetVictimType();
         public bool CanAttack();
         public T RequestComponent<T>() where T : class;
         public void TakeDamage(int damage, Vector3 attackerPos, bool showHitEffect);
