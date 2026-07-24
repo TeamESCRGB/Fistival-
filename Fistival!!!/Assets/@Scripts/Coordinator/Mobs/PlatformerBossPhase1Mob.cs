@@ -36,9 +36,12 @@ namespace Coordinator.Mobs
         private BlockWaveCoordinator _phase2WaveCoord;
         private GameObject _phase2Platform;
         private IReadOnlyList<IDoor> _doors;
+        protected TouchDamageSkill[] _touchDamages;
+        protected MobActBase _nowAct;
         protected override void OnAwake()
         {
             base.OnAwake();
+            _touchDamages = GetComponentsInChildren<TouchDamageSkill>();
             _phaseChangeAct = GetComponent<PlatformerBossPhaseChange>();
             _acts[0] = GetComponent<PlatformerPhase1Slam>();
             _acts[1] = GetComponent<AttackFieldAct>();
@@ -55,10 +58,9 @@ namespace Coordinator.Mobs
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
             _hpHalfPatternFlag = false;
             _hpHalfPatternExecutedFlag = false;
-            var touchDamages = GetComponentsInChildren<TouchDamageSkill>();
-            for(int i = 0; i < touchDamages.Length; i++)
+            for(int i = 0; i < _touchDamages.Length; i++)
             {
-                touchDamages[i].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
+                _touchDamages[i].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             }
             ((PlatformerPhase1Slam)_acts[0]).Init(() => { _isActing = false; }, _animator, _rb2d, _player, _groundLayer, _objSpawnPointMin, _objSpawnPointMax);
             ((AttackFieldAct)_acts[1]).Init(() => { _isActing = false; }, _animator);
@@ -133,10 +135,19 @@ namespace Coordinator.Mobs
             }
             else
             {
-                _acts[UnityEngine.Random.Range(0, 2)].Act();
+                _nowAct = _acts[UnityEngine.Random.Range(0, 2)];
+                _nowAct.Act();
             }
         }
-
+        protected override void OnDead()
+        {
+            base.OnDead();
+            _nowAct.StopAct();
+            for (int i = 0; i < _touchDamages.Length; i++)
+            {
+                _touchDamages[i].SetAttackState(false);
+            }
+        }
         public override void AnimatorOnDead()
         {
             _phaseChangeAct.Act();

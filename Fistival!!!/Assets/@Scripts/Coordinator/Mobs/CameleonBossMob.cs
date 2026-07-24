@@ -50,10 +50,12 @@ namespace Coordinator.Mobs
         private VictimCoordinator _victim;
         private PointMovement _mov;
         private IReadOnlyList<IDoor> _doors;
+        private TouchDamageSkill[] _touchDamages;
 
         protected override void OnAwake()
         {
             base.OnAwake();
+            _touchDamages = GetComponentsInChildren<TouchDamageSkill>(true);
             _victim = GetComponentInChildren<VictimCoordinator>();
             _nowAct = 0;
             //_head = transform.Find("@Head");
@@ -81,9 +83,8 @@ namespace Coordinator.Mobs
             _isActing = true;
             _skillTime = _skillDelay;
             _player = FindAnyObjectByType<PlayerCoordinator>().transform;
-            var comps = GetComponentsInChildren<TouchDamageSkill>(true);
-            comps[0].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
-            comps[1].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
+            _touchDamages[0].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
+            _touchDamages[1].Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             ((TongueAct)_acts[0]).Init(() => { _isActing = false; }, _animator, _tongueDuration, _tongueStayTime, _tongueLength, _groundLayer);
             ((CameleonPattern2)_acts[1]).Init(() => { _isActing = false; }, _animator, _rb2d, _mov, _moveInterval, _moveDuration, _points, _centerPos);
             ((CameleonPattern3)_acts[2]).Init(() => { _isActing = false; }, _animator, _rb2d, _mov, _moveDuration, _points, _centerPos, _objData, _objSpawnPoint);
@@ -140,6 +141,8 @@ namespace Coordinator.Mobs
         {
             base.OnDead();
             Managers.Instance.StageManager.ClearBoss(_prefabKey);
+            _touchDamages[0].SetAttackState(false);
+            _touchDamages[1].SetAttackState(false);
             for (int i = 0; i < _doors.Count; i++)
             {
                 _doors[i].Open();

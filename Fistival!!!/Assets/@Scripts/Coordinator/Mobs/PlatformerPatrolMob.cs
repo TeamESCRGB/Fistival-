@@ -12,19 +12,26 @@ namespace Coordinator.Mobs
     public class PlatformerPatrolMob : MobCoordinatorBase
     {
         protected PlatfoermerTriggerMovementCoordinator _move;
-        
+        protected TouchDamageSkill _touchDamage;
 
         protected override void OnAwake()
         {
             base.OnAwake();
+            _touchDamage = GetComponentInChildren<TouchDamageSkill>();
             _move = GetComponentInChildren<PlatfoermerTriggerMovementCoordinator>();
         }
 
         public override void Init(CommonMobData data)
         {
             base.Init(data);
-            GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
+            _touchDamage.Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             _move.Init(data.Speed, 0, GetComponent<Rigidbody2D>(), (MovementKeyStatus)data.InitialDir);
+        }
+
+        protected override void OnDead()
+        {
+            base.OnDead();
+            _touchDamage.SetAttackState(false);
         }
 
         public override void StunFor(float time)

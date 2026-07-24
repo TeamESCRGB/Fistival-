@@ -14,10 +14,12 @@ namespace Coordinator.Mobs
 
         protected DashAct _act;
         protected PlatformerMovementCoordinator _mov;
+        private TouchDamageSkill _touchDamage;
 
         protected override void OnAwake()
         {
             base.OnAwake();
+            _touchDamage = GetComponentInChildren<TouchDamageSkill>();
             _mov = GetComponent<PlatformerMovementCoordinator>();
             _act = GetComponentInChildren<DashAct>();
         }
@@ -28,7 +30,7 @@ namespace Coordinator.Mobs
             _isActing = false;
             _isAggroOn = false;
             _skillTime = _skillDelay;
-            GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
+            _touchDamage.Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             _mov.Init(data.Speed,0,1,1,GetComponent<Rigidbody2D>());
             _act.Init(() => { _isActing = false; }, _animator, _mov, GetComponent<Rigidbody2D>(), data.Speed);
         }
@@ -53,6 +55,13 @@ namespace Coordinator.Mobs
             _skillTime = 0;
             _isActing = true;
             _act.Act();
+        }
+
+        protected override void OnDead()
+        {
+            base.OnDead();
+            _touchDamage.SetAttackState(false);
+            _act.StopAct();
         }
 
         protected override void OnAggroStateChanged(bool isAggro, Collider2D collider)

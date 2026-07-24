@@ -20,6 +20,7 @@ namespace Coordinator.Mobs
         protected PlatformerMovementCoordinator _move;
         protected JumpMovementAct _act;
 
+        protected TouchDamageSkill _touchDamage;
 
         protected bool _isActing;
         protected bool _isAggroOn;
@@ -29,6 +30,7 @@ namespace Coordinator.Mobs
         protected override void OnAwake()
         {
             base.OnAwake();
+            _touchDamage = GetComponentInChildren<TouchDamageSkill>();
             _move = GetComponentInChildren<PlatformerMovementCoordinator>();
             _act = GetComponentInChildren<JumpMovementAct>();
         }
@@ -39,7 +41,7 @@ namespace Coordinator.Mobs
             _isActing = false;
             _isAggroOn = false;
             _skillTime = _skillDelay;
-            GetComponentInChildren<TouchDamageSkill>().Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
+            _touchDamage.Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
             _move.Init(data.Speed, _jumpPow, 1,1,GetComponent<Rigidbody2D>());
             _act.Init(() => { _isActing = false; Debug.Log("end!"); }, _animator, _move, GetComponent<Rigidbody2D>(), data.Speed, _jumpDelay);
         }
@@ -72,7 +74,11 @@ namespace Coordinator.Mobs
             _act.Act();
         }
 
-
+        protected override void OnDead()
+        {
+            base.OnDead();
+            _touchDamage.SetAttackState(false);
+        }
 
         public override void StunFor(float time)
         {
