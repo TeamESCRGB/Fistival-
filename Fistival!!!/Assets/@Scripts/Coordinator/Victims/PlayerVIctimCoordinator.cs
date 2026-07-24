@@ -69,6 +69,7 @@ namespace Coordinator.Victims
 
         public void Respawn()
         {
+            SetAttackableState(true);
             _hpCoord.Respawn();
             _animator.Rebind();
         }
