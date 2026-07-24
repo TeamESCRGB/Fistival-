@@ -7,7 +7,7 @@ namespace Coordinator.NPC
     {
         public override void Init()
         {
-            _animator.Play("Start");
+            _animator.Play("EndAnimation");
         }
 
         public void OnAnimatorEnd()
