@@ -1,4 +1,5 @@
 ﻿using ComponentModule;
+using Data.NonLodable;
 using Manager;
 using System;
 using UnityEngine;
@@ -31,9 +32,9 @@ namespace Coordinator.Movements
             }
         }
 
-        public override void Init(float speed, float jumpPow, float slownessSensitivity, float maxSlowness, Rigidbody2D parentRb2d)
+        public override void Init(float speed, float jumpPow, float slownessSensitivity, float maxSlowness, Rigidbody2D parentRb2d, MovementSoundKeys soundKeys)
         {
-            base.Init(speed, jumpPow, slownessSensitivity, maxSlowness, parentRb2d);
+            base.Init(speed, jumpPow, slownessSensitivity, maxSlowness, parentRb2d, soundKeys);
             _gravityConstant = Mathf.Abs(Physics2D.gravity.y) * _parentRb2d.gravityScale;
             _groundLayermask = _platformMask | _groundLayer;
         }

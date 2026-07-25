@@ -1,4 +1,5 @@
 using ComponentModule;
+using Data.NonLodable;
 using Defines;
 using InputHandler;
 using Manager;
@@ -55,6 +56,10 @@ namespace Coordinator.Movements
 
         private bool _isGravityFlipped = false;
 
+
+        private MovementSoundKeys _soundKeys;
+
+
         private void Awake()
         {
             OnAwake();
@@ -71,7 +76,7 @@ namespace Coordinator.Movements
             _speed = speed;
         }
 
-        public virtual void Init(float speed,float jumpPow ,float slownessSensitivity,float maxSlowness,Rigidbody2D parentRb2d)
+        public virtual void Init(float speed,float jumpPow ,float slownessSensitivity,float maxSlowness,Rigidbody2D parentRb2d, MovementSoundKeys soundKeys)
         {
             _isGravityFlipped = parentRb2d.gravityScale < 0;
 
@@ -82,6 +87,7 @@ namespace Coordinator.Movements
                 _leftRot = tmp;
             }
 
+            _soundKeys = soundKeys;
             _movState = MovementState.OFF;
             _nextDir = Directions.OFF;
             _parentRb2d = parentRb2d;

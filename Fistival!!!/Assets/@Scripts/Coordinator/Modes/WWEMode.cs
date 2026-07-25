@@ -31,7 +31,7 @@ namespace Coordinator.Modes
         public override void Init(CommonModeData data)
         {
             base.Init(data);
-            _movCoordinator.Init(_playerData.MoveSpeed, _playerData.JumpPower, _playerData.SlownessSensitivity, _playerData.MaxSlowness, GetComponentInParent<Rigidbody2D>());
+            _movCoordinator.Init(_playerData.MoveSpeed, _playerData.JumpPower, _playerData.SlownessSensitivity, _playerData.MaxSlowness, GetComponentInParent<Rigidbody2D>(), _movementSoundKeys);
             _hand.Init(GetComponentInParent<Rigidbody2D>(), _playerData);//_playerData.Damage,_playerData.StrongAttackDamage ,_playerData.AttackableLayers, _playerData.PickableLayers, _playerData.ForcePerCharge, _playerData.ChargeTimeInterval, _playerData.AttackCooldown, _playerData.ThrowAttackAdditionalDamage, _playerData.StrongAttackThreshold, _playerData.StunTime
 
             _hand.OnGrabbedObjectChanged += OnGrabbedObjectChanged;

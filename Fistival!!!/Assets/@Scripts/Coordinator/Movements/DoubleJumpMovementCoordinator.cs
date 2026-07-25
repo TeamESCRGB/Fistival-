@@ -1,14 +1,15 @@
 using UnityEngine;
 using Coordinator.Skills;
+using Data.NonLodable;
 
 namespace Coordinator.Movements
 {
     public class DoubleJumpMovementCoordinator : PlatformerMovementCoordinator
     {
         private bool _canDoubleJump = true;
-        public override void Init(float speed, float jumpPow, float slownessSensitivity, float maxSlowness, Rigidbody2D parentRb2d)
+        public override void Init(float speed, float jumpPow, float slownessSensitivity, float maxSlowness, Rigidbody2D parentRb2d, MovementSoundKeys soundKeys)
         {
-            base.Init(speed, jumpPow, slownessSensitivity, maxSlowness, parentRb2d);
+            base.Init(speed, jumpPow, slownessSensitivity, maxSlowness, parentRb2d, soundKeys);
             _canDoubleJump = true;
         }
 

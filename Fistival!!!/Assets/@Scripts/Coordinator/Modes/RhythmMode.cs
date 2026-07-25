@@ -32,7 +32,7 @@ namespace Coordinator.Modes
             base.Init(data);
             //초기화 로직
             _hand.Init(GetComponentInParent<Rigidbody2D>(), _playerData);
-            _movementCoordinator.Init(_playerData.MoveSpeed, _playerData.JumpPower, _playerData.SlownessSensitivity, _playerData.MaxSlowness, GetComponentInParent<Rigidbody2D>());
+            _movementCoordinator.Init(_playerData.MoveSpeed, _playerData.JumpPower, _playerData.SlownessSensitivity, _playerData.MaxSlowness, GetComponentInParent<Rigidbody2D>(), _movementSoundKeys);
 
             _objectWeight = 0;
             _inputCoordinator.SetJumpsMovementInputHandler(_movementCoordinator);

@@ -31,7 +31,7 @@ namespace Coordinator.Mobs
             _isAggroOn = false;
             _skillTime = _skillDelay;
             _touchDamage.Init(data.PlayerHitboxLayer, _damage, _stunTime, _knockbackForce);
-            _mov.Init(data.Speed,0,1,1,GetComponent<Rigidbody2D>());
+            _mov.Init(data.Speed,0,1,1,GetComponent<Rigidbody2D>(),default);
             _act.Init(() => { _isActing = false; }, _animator, _mov, GetComponent<Rigidbody2D>(), data.Speed);
         }
         private void Update()

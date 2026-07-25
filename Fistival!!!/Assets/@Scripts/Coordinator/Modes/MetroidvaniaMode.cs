@@ -28,7 +28,7 @@ namespace Coordinator.Modes
         public override void Init(CommonModeData data)
         {
             base.Init(data);
-            _movCoordinator.Init(_playerData.MoveSpeed, _playerData.JumpPower, _playerData.SlownessSensitivity, _playerData.MaxSlowness, GetComponentInParent<Rigidbody2D>());
+            _movCoordinator.Init(_playerData.MoveSpeed, _playerData.JumpPower, _playerData.SlownessSensitivity, _playerData.MaxSlowness, GetComponentInParent<Rigidbody2D>(), _movementSoundKeys);
             _inputCoordinator.SetJumpsMovementInputHandler(_movCoordinator);
             _inputCoordinator.SetHorizontalMovementInputHandler(_movCoordinator);
             _inputCoordinator.SetPointerMovementInputHandler(_hand);
