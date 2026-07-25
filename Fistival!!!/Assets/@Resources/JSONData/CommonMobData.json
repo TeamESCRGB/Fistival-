@@ -80,7 +80,7 @@
 
 
     {
-      "Idx": 0,
+      "Idx": 1000000,
       "PrefabKey": "PlatformerPatrolMob",
       "HP": 3,
       "TouchDamage": 1,
@@ -105,7 +105,7 @@
       }
     },
     {
-      "Idx": 1,
+      "Idx": 1000001,
       "PrefabKey": "WalkingDalmatian",
       "HP": 6,
       "TouchDamage": 1,
@@ -130,7 +130,7 @@
       }
     },
     {
-      "Idx": 2,
+      "Idx": 1000002,
       "PrefabKey": "FlyingDiscMob",
       "HP": 3,
       "TouchDamage": 1,
@@ -154,8 +154,9 @@
         "Dead": "MobDead"
       }
     },
+
     {
-      "Idx": 3,
+      "Idx": 1000003,
       "PrefabKey": "FlightPatrolMob",
       "HP": 3,
       "TouchDamage": 1,
@@ -171,7 +172,7 @@
       "DropObjectIdx": 0,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
-      "InitialDir": 1,
+      "InitialDir": 4,
       "DropObjectPrefabName": "BasicMobDropObject",
       "AnimationController": "FlingFurryAnimationController",
       "HPSoundKeysField": {
@@ -180,7 +181,58 @@
       }
     },
     {
-      "Idx": 4,
+      "Idx": 1001003,
+      "PrefabKey": "FlightPatrolMob",
+      "HP": 3,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
+      "InvincibilityTime": 0.5,
+      "Speed": 5,
+      "SkillDelay": 3,
+      "AggroRange": {
+        "x": 0,
+        "y": 0
+      },
+      "DropObjectIdx": 0,
+      "PlayerLayer": 128,
+      "PlayerHitboxLayer": 524288,
+      "InitialDir": 8,
+      "DropObjectPrefabName": "BasicMobDropObject",
+      "AnimationController": "FlingFurryAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
+    },
+    {
+      "Idx": 1002003,
+      "PrefabKey": "FlightPatrolMob",
+      "HP": 3,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
+      "InvincibilityTime": 0.5,
+      "Speed": 5,
+      "SkillDelay": 3,
+      "AggroRange": {
+        "x": 0,
+        "y": 0
+      },
+      "DropObjectIdx": 0,
+      "PlayerLayer": 128,
+      "PlayerHitboxLayer": 524288,
+      "InitialDir": 0,
+      "DropObjectPrefabName": "BasicMobDropObject",
+      "AnimationController": "FlingFurryAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
+    },
+
+    {
+      "Idx": 1000004,
       "PrefabKey": "SotCopMob",
       "HP": 40,
       "TouchDamage": 1,
@@ -206,7 +258,7 @@
     },
 
     {
-      "Idx": 5,
+      "Idx": 1000005,
       "PrefabKey": "LeopardGecko",
       "HP": 5,
       "TouchDamage": 1,
@@ -231,7 +283,7 @@
       }
     },
     {
-      "Idx": 6,
+      "Idx": 1000006,
       "PrefabKey": "CrestedGeckoMob",
       "HP": 3,
       "TouchDamage": 1,
@@ -256,7 +308,7 @@
       }
     },
     {
-      "Idx": 7,
+      "Idx": 1000007,
       "PrefabKey": "FrogMob",
       "HP": 5,
       "TouchDamage": 1,
@@ -281,7 +333,7 @@
       }
     },
     {
-      "Idx": 8,
+      "Idx": 1000008,
       "PrefabKey": "TurtleMob",
       "HP": 15,
       "TouchDamage": 1,
@@ -306,7 +358,7 @@
       }
     },
     {
-      "Idx": 9,
+      "Idx": 1000009,
       "PrefabKey": "BatMob",
       "HP": 3,
       "TouchDamage": 1,
@@ -331,7 +383,7 @@
       }
     },
     {
-      "Idx": 10,
+      "Idx": 1000010,
       "PrefabKey": "CameleonBossMob",
       "HP": 30,
       "TouchDamage": 1,
@@ -356,7 +408,7 @@
       }
     },
     {
-      "Idx": 11,
+      "Idx": 1000011,
       "PrefabKey": "PlatformerBossPhase1",
       "HP": 60,
       "TouchDamage": 1,
@@ -381,7 +433,7 @@
       }
     },
     {
-      "Idx": 12,
+      "Idx": 1000012,
       "PrefabKey": "PlatformerBossPhase2",
       "HP": 50,
       "TouchDamage": 1,

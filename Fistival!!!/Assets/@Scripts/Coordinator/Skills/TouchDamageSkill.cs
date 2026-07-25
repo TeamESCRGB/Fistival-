@@ -23,7 +23,7 @@ namespace Coordinator.Skills
             base.Init(attackableLayers, baseDamage, baseStunTime);
         }
 
-        private void Attack(GameObject go)
+        protected virtual void Attack(GameObject go)
         {
             if (go == null)
             {
