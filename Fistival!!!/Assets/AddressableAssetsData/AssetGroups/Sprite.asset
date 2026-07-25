@@ -72,6 +72,15 @@ MonoBehaviour:
     m_SerializedLabels:
     - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac641ce1757cf8748a923f5d634a1420
+    m_Address: raccoon_bag
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
+    - stage_platformer_loaded_1
+    - stage_platformer_loaded_2
+    - stage_platformer_loaded_3
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e81cda5e4bbfeb14392234ee56c5ae5d
     m_Address: ChargeOff
     m_ReadOnly: 0

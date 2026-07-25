@@ -113,6 +113,19 @@
       "PlatformLayerMask": 1024,
       "SpriteName": "box",
       "PhysicsMaterialName": "Obj"
+    },
+    {
+      "ObjectIndex": 7,
+      "PrefabKey": "CommonObject",
+      "Damage": 1,
+      "Durability": 1,
+      "AbrasableLayerMask": 0,
+      "Weight": 0.25,
+      "PlatformSpeedThreshold": 1,
+      "StunTime": 0.5,
+      "PlatformLayerMask": 1024,
+      "SpriteName": "raccoon_bag",
+      "PhysicsMaterialName": "Obj"
     }
   ]
 }
