@@ -29,6 +29,12 @@ MonoBehaviour:
     - GameSceneBasicLoaded
     - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5263755b0409e0348b34bf2a01d5759e
+    m_Address: FlyingDiscLaunch
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 682bbb6772cdb0a40b7910ced35fec58
     m_Address: MobDead
     m_ReadOnly: 0
@@ -63,6 +69,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c24311c0d7f611c4eb5ad797c9cbb02c
     m_Address: MobHit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c9d2dadf6f437b74cb103e5a2f4e97e8
+    m_Address: Click
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameSceneBasicLoaded
