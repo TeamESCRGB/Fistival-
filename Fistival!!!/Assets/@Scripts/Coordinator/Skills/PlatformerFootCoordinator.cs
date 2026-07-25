@@ -24,6 +24,7 @@ namespace Coordinator.Skills
             target.TakeDamage(calculatedDamage, transform.position, true);
             target.TakeKnockBack(knockback);
             target.StunFor(stun);
+            target.StartInvincibleTime();
             return true;
         }
         private void OnDisable()
