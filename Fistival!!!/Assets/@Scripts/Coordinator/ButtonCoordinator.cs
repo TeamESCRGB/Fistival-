@@ -52,11 +52,14 @@ namespace Coordinator
             {
                 _onStateChanged?.Invoke(state);
                 _animator.SetBool("IsOn",state);
+                if (state)
+                {
+                    Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "Button", false, Managers.Instance.GameManager.SFXVolume);
+                }
             }
-            if(state)
-            {
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "Button", false, Managers.Instance.GameManager.SFXVolume);
-            }
+
+            FixHighlightState(state);
+
             _state = state;
         }
 
@@ -67,6 +70,7 @@ namespace Coordinator
                 _onStateChanged?.Invoke(state);
                 _animator.SetBool("IsOn", state);
             }
+            FixHighlightState(state);
             _state = state;
         }
 

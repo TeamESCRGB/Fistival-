@@ -33,7 +33,7 @@ namespace Coordinator.Interactables
             }
 
             DeActivateShader();
-            FixHighlightState(false);
+            FixHighlightState(true);
             _isCheckpointChecked = true;
             Managers.Instance.StageManager.SaveCheckpoint(transform.position);
             var player = FindAnyObjectByType<PlayerCoordinator>();
