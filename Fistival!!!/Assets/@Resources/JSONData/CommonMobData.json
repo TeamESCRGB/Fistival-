@@ -154,6 +154,7 @@
         "Dead": "MobDead"
       }
     },
+
     {
       "Idx": 1000003,
       "PrefabKey": "FlightPatrolMob",
@@ -179,6 +180,57 @@
         "Dead": "MobDead"
       }
     },
+    {
+      "Idx": 1001003,
+      "PrefabKey": "FlightPatrolMob",
+      "HP": 3,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
+      "InvincibilityTime": 0.5,
+      "Speed": 5,
+      "SkillDelay": 3,
+      "AggroRange": {
+        "x": 0,
+        "y": 0
+      },
+      "DropObjectIdx": 0,
+      "PlayerLayer": 128,
+      "PlayerHitboxLayer": 524288,
+      "InitialDir": 8,
+      "DropObjectPrefabName": "BasicMobDropObject",
+      "AnimationController": "FlingFurryAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
+    },
+    {
+      "Idx": 1002003,
+      "PrefabKey": "FlightPatrolMob",
+      "HP": 3,
+      "TouchDamage": 1,
+      "TouchStunTime": 0.25,
+      "KnockBackForce": 10,
+      "InvincibilityTime": 0.5,
+      "Speed": 5,
+      "SkillDelay": 3,
+      "AggroRange": {
+        "x": 0,
+        "y": 0
+      },
+      "DropObjectIdx": 0,
+      "PlayerLayer": 128,
+      "PlayerHitboxLayer": 524288,
+      "InitialDir": 0,
+      "DropObjectPrefabName": "BasicMobDropObject",
+      "AnimationController": "FlingFurryAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
+    },
+
     {
       "Idx": 1000004,
       "PrefabKey": "SotCopMob",
