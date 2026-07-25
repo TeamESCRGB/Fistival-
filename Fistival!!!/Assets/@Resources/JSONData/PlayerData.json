@@ -21,6 +21,9 @@
     "StunTime": 0.5,
     "StrongStunTime": 0.5,
     "StrongAttackChargeParticleSpeed": -2.5,
-    "StrongAttackChargeParticleDelay": 0.35
+    "StrongAttackChargeParticleDelay": 0.35,
+    "MovementSoundKeysField": {
+      "Jump": "PlayerBasicJump"
+    }
   }
 }

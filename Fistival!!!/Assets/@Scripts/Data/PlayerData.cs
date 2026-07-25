@@ -1,4 +1,6 @@
-﻿namespace Data
+﻿using Data.NonLodable;
+
+namespace Data
 {
     public class PlayerData
     {
@@ -31,6 +33,7 @@
             StrongStunTime = original.StrongStunTime;
             StrongAttackChargeParticleSpeed = original.StrongAttackChargeParticleSpeed;
             StrongAttackChargeParticleDelay=original.StrongAttackChargeParticleDelay;
+            MovementSoundKeysField = original.MovementSoundKeysField;
         }
 
         public PlayerData() { }
@@ -61,5 +64,7 @@
         public float StrongStunTime { get; set; }
         public float StrongAttackChargeParticleSpeed { get; set; }
         public float StrongAttackChargeParticleDelay { get; set; }
+
+        public MovementSoundKeys MovementSoundKeysField { get; set; }
     }
 }
