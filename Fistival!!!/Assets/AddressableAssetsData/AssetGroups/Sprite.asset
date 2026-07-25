@@ -18,7 +18,8 @@ MonoBehaviour:
   - m_GUID: 1f2b5330ce00f154f9d53f852dee156e
     m_Address: york_disc
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 35c61fe3d9a0d7e42b563887a3260824
     m_Address: ChargeOff_old

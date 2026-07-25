@@ -62,7 +62,8 @@ MonoBehaviour:
   - m_GUID: 80b101b1a2b59994f8aa3f73e2f5bb79
     m_Address: YorkshireAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 90d0797dfc69fdc479a33f2f4beccb5b
     m_Address: RootShooterAnimationController
@@ -106,7 +107,8 @@ MonoBehaviour:
   - m_GUID: d3ff0af37f56cff4b9b56db18a9006e9
     m_Address: WalkingDalmatianAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d7a6c82253448f9429f4c27c807ac75d
     m_Address: PlatformerBossPhase1AnimationController

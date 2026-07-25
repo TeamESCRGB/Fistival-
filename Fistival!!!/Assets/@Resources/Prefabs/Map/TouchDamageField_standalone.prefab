@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5626575792712978402}
   - component: {fileID: 3709315400806919977}
   - component: {fileID: 3092549682175409197}
-  m_Layer: 3
+  m_Layer: 20
   m_Name: TouchDamageField_standalone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

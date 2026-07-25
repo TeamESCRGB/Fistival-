@@ -18,7 +18,8 @@ MonoBehaviour:
   - m_GUID: 01322992d2d64ed4fba09152b074ad1d
     m_Address: FlyingDiscMob
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 25399c0d6599d4a4b8f368ac645b6ee0
     m_Address: PV_BOSS_OBJ
@@ -33,7 +34,8 @@ MonoBehaviour:
   - m_GUID: 675024cd874197a4f894096d855a831d
     m_Address: WalkingDalmatian
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 70f3264e0331e7d40b04db0571a23bc2
     m_Address: TurtleMob
