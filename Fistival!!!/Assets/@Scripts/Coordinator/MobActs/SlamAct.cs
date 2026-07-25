@@ -18,6 +18,12 @@ namespace Coordinator.MobActs
         private LayerMask _ground;
         private LayerMask _attackLayer;
         private BoxCollider2D _hitbox;
+
+        [SerializeField]
+        private string _slamJumpSFX = "FastJumpUpSFX";
+        [SerializeField]
+        private string _slamEndSFX = "SlamEndSFX";
+
         private void Awake()
         {
             _hitbox = transform.Find("@Hitbox").GetComponent<BoxCollider2D>();
@@ -61,6 +67,7 @@ namespace Coordinator.MobActs
                 obj.Init(_objData);
                 obj.GetComponent<Rigidbody2D>().AddForce(force,ForceMode2D.Impulse);
             }
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _slamEndSFX, false, Managers.Instance.GameManager.SFXVolume);
             _canSpawnObj = false;
         }
         //땅에 닿기 전까지 오브젝트,공격 레이어하고 충돌 안하게 하기
@@ -89,6 +96,7 @@ namespace Coordinator.MobActs
         public void JumpForSlam()
         {
             _rb2d.AddForce(_jumpForce,ForceMode2D.Impulse);
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _slamJumpSFX, false, Managers.Instance.GameManager.SFXVolume);
         }
 
         public override void Act()

@@ -1,5 +1,6 @@
 ﻿using Coordinator.Movements;
 using Defines;
+using Manager;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -20,6 +21,9 @@ namespace Coordinator.MobActs
         private float _dashStopTime;
         private float _dashTime;
         private MovementKeyStatus _dir;
+
+        [SerializeField]
+        private string _dashSFX;
 
         public void Init(Action onEnd, Animator animator, PlatformerMovementCoordinator movCoord, Rigidbody2D rb2d, float dashSpeed, float dashStopTime)
         {
@@ -86,6 +90,7 @@ namespace Coordinator.MobActs
         public void DoLengthDash()
         {
             _mov.PushTo(_force);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, _dashSFX, false, Managers.Instance.GameManager.SFXVolume);
         }
 
         public void LengthDashEnd()

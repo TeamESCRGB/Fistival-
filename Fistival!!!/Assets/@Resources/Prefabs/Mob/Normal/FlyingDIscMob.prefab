@@ -209,6 +209,8 @@ MonoBehaviour:
   _objectLayer:
     serializedVersion: 2
     m_Bits: 80
+  _launchSFX: FlyingDiscLaunch
+  _catchSFX: Click
 --- !u!95 &1881672349724884947
 Animator:
   serializedVersion: 7

@@ -25,6 +25,12 @@ namespace Coordinator.MobActs
 
         private int _returnCode;
 
+        [SerializeField]
+        private string _launchSFX = "FlyingDiscLaunch";
+        [SerializeField]
+        private string _catchSFX = "FlyingDiscCatch";
+
+
         private void Awake()
         {
             _grabBox = transform.Find("@FlyingdiscGrabBox");
@@ -79,6 +85,7 @@ namespace Coordinator.MobActs
             {
                 if (targets[i].gameObject.GetInstanceID() == _returnCode)
                 {
+                    Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _catchSFX, false, Managers.Instance.GameManager.SFXVolume);
                     Managers.Instance.ResourceManager.Destroy(targets[i].gameObject);
                     EndFlyingDisc();
                     return;
@@ -107,6 +114,7 @@ namespace Coordinator.MobActs
             _obj.OnReturnStart += OnReturnStart;
             _returnCode = go.GetInstanceID();
             _obj.Launch();
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _launchSFX, false, Managers.Instance.GameManager.SFXVolume);
         }
 
         public void EndFlyingDisc()

@@ -22,6 +22,12 @@ MonoBehaviour:
     - GameSceneBasicLoaded
     - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1dac346dbe1d9c44892a02a70d7be602
+    m_Address: SlamEnd
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 270925cad47f13043befed75b270311e
     m_Address: PlayerHit
     m_ReadOnly: 0
@@ -29,8 +35,20 @@ MonoBehaviour:
     - GameSceneBasicLoaded
     - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5263755b0409e0348b34bf2a01d5759e
+    m_Address: FlyingDiscLaunch
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 682bbb6772cdb0a40b7910ced35fec58
     m_Address: MobDead
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 691505d9611700a4f9564e7a27a14111
+    m_Address: Wheep
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameSceneBasicLoaded
@@ -61,8 +79,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameSceneBasicLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bac76177212b4574aa29b3630b0b7c57
+    m_Address: Assets/@Resources/Sound/SFX/Enemy/JumpFast.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c24311c0d7f611c4eb5ad797c9cbb02c
     m_Address: MobHit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c9d2dadf6f437b74cb103e5a2f4e97e8
+    m_Address: Click
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameSceneBasicLoaded
