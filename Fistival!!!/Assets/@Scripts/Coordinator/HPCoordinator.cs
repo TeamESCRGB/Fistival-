@@ -1,4 +1,6 @@
 using ComponentModule;
+using Data.NonLodable;
+using Manager;
 using System;
 using UnityEngine;
 
@@ -10,6 +12,7 @@ namespace Coordinator
         private event Action OnDead;
         private bool _isDead=false;
         private HPComponentModule _hpModule;// <= 이거 나중에 object pooling 가능할거같기도 한데, 일단 이렇게 둔다.
+        private HPSoundKeys _hpSoundKeys;
         private void Awake()
         {
             _hpModule = new HPComponentModule();
@@ -22,8 +25,9 @@ namespace Coordinator
             }
         }
 
-        public void Init(int hp, int maxHP)//일단 이렇게 해두는데, 이벤트를 리셋하는 경우는 아마 없을듯
+        public void Init(int hp, int maxHP, HPSoundKeys hpSoundKeys)//일단 이렇게 해두는데, 이벤트를 리셋하는 경우는 아마 없을듯
         {
+            _hpSoundKeys = hpSoundKeys;
             _isDead = false;
             _hpModule.Init(hp, maxHP);
         }
@@ -82,10 +86,11 @@ namespace Coordinator
         {
             int old = _hpModule.GetHP();
             bool ret = _hpModule.SubHP(hp);
-
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _hpSoundKeys.Hit, false, Managers.Instance.GameManager.SFXVolume);
             OnHPChanged?.Invoke(old, _hpModule.GetHP(), hp);
             if(ret)
             {
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _hpSoundKeys.Dead, false, Managers.Instance.GameManager.SFXVolume);
                 _isDead = true;
                 OnDead?.Invoke();
             }

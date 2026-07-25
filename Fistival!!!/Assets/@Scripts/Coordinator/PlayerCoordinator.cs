@@ -43,7 +43,7 @@ namespace Coordinator
 #if UNITY_EDITOR
             Debug.Assert(_victim != null, "@Hitbox에 PlayerVictimCoordinator가 없습니다.");
 #endif
-            _victim.Init(_data.MaxHP, _data.MaxHP, _data.InvincibilityTime);
+            _victim.Init(_data.MaxHP, _data.MaxHP, _data.InvincibilityTime, _data.HPSoundKeysField);
 
             var save = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.EquippedItems;
             EquipItem(0, save[0],true);

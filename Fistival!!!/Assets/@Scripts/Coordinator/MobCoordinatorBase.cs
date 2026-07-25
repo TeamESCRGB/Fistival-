@@ -66,7 +66,7 @@ namespace Coordinator
 
         public virtual void Init(CommonMobData data)
         {
-            GetComponentInChildren<VictimCoordinator>().Init(data.HP, data.HP, data.InvincibilityTime);
+            GetComponentInChildren<VictimCoordinator>().Init(data.HP, data.HP, data.InvincibilityTime, data.HPSoundKeysField);
             _animator.runtimeAnimatorController = Managers.Instance.ResourceManager.Load<RuntimeAnimatorController>(data.AnimationController);
             _animator.Rebind();
             var hp = GetComponentInChildren<HPCoordinator>();
