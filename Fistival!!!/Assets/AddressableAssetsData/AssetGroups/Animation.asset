@@ -18,14 +18,12 @@ MonoBehaviour:
   - m_GUID: 4f589205ba332de49ab652e83594ae0d
     m_Address: LeopardGeckoAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5e25d14133c0d1b4c842723c94dbae18
     m_Address: FlingFurryAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 61b83c09196235e4ba6610f07f80fe62
     m_Address: RhythmModeAnimationController
@@ -36,21 +34,17 @@ MonoBehaviour:
   - m_GUID: 67b12fad4a93f68418922bec1703ab02
     m_Address: TurtleAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6857e80a1b411ad45a6c2d59fb065d74
     m_Address: CrestedGeckoAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
-    - stage_pv_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 698fc309f4d3e934ba4bb878c0a2c91f
     m_Address: DroneAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_pv_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f0fa63b589bd834e82d1e15461197b9
     m_Address: MetroidvaniaModeAnimationController
@@ -61,15 +55,12 @@ MonoBehaviour:
   - m_GUID: 7ff2637a165fb2e49b7d3990f6662da9
     m_Address: RaccoonAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 80b101b1a2b59994f8aa3f73e2f5bb79
     m_Address: YorkshireAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
-    - stage_pv_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 90d0797dfc69fdc479a33f2f4beccb5b
     m_Address: RootShooterAnimationController
@@ -80,8 +71,7 @@ MonoBehaviour:
   - m_GUID: a1a80e436fb0d0444945aa2611d78a63
     m_Address: BatAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a5e6c2160f69dc343b08f4f1895919ab
     m_Address: WWEModeAnimationController
@@ -98,14 +88,12 @@ MonoBehaviour:
   - m_GUID: b87dcca30f0195247982790032a3ff71
     m_Address: CameleonBossAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd0f215c3921c8c4fa74c87c2805e15d
     m_Address: SotCopAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bedf7d3168a60b449a47ed8d702304c5
     m_Address: PlatformerModeAnimationController
@@ -116,26 +104,22 @@ MonoBehaviour:
   - m_GUID: d3ff0af37f56cff4b9b56db18a9006e9
     m_Address: WalkingDalmatianAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d7a6c82253448f9429f4c27c807ac75d
     m_Address: PlatformerBossPhase1AnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: defb8ff4bec74174eb3c25d188f340db
     m_Address: PlatformerBossPhase2AnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f4dc13695fcaaa340938220e410f44e4
     m_Address: FrogAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa6b122e35446be478dcc4a742c5034f
     m_Address: FistivalModeAnimationController

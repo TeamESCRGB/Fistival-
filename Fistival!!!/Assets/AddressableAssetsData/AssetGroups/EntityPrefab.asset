@@ -18,95 +18,77 @@ MonoBehaviour:
   - m_GUID: 01322992d2d64ed4fba09152b074ad1d
     m_Address: FlyingDiscMob
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
-    - stage_pv_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 25399c0d6599d4a4b8f368ac645b6ee0
     m_Address: PV_BOSS_OBJ
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_pv_loaded_2
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 347a92a4b60d2ce49ab812347eb217c0
     m_Address: PlatformerBossPhase1
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 675024cd874197a4f894096d855a831d
     m_Address: WalkingDalmatian
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 70f3264e0331e7d40b04db0571a23bc2
     m_Address: TurtleMob
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7336b05770008bd47b3a385209829698
     m_Address: BatMob
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7cec34f98cda24542b818c10cc88b276
     m_Address: CrestedGeckoMob
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
-    - stage_pv_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 85ef3ca15d50f5840ba2bf9ccbf6399e
     m_Address: PlatformerBossPhase2
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8be9c5bfb0a89ea4fb22d5db35f36b2e
     m_Address: PlatformerBossEndNPC
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9f2442f612c85ec45b4f930f45ac8215
     m_Address: FlightPatrolMob
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
-    - stage_pv_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9c8889cd4d9dd3419c98c1eca6bf913
     m_Address: FrogMob
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: df16da754bc725f4585cf04746bf24a7
     m_Address: CameleonBossMob
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e3e0e2e4674574146b1db7ecbc22a15f
     m_Address: SotCopMob
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e45cc799eaf188a478674329cd07972b
     m_Address: PlatformerPatrolMob
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fcd67548b58999c47abaa39b0ef2dc9b
     m_Address: LeopardGecko
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_0_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}

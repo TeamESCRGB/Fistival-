@@ -18,8 +18,7 @@ MonoBehaviour:
   - m_GUID: 1f2b5330ce00f154f9d53f852dee156e
     m_Address: york_disc
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_pv_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 35c61fe3d9a0d7e42b563887a3260824
     m_Address: ChargeOff_old
@@ -57,8 +56,7 @@ MonoBehaviour:
   - m_GUID: 935bfe8e6dd28a7428cf8af62f937160
     m_Address: mob_drone_object
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_pv_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a5b53423fc99e0f4a857de3c31cb0bf0
     m_Address: HPOff

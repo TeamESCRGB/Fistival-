@@ -18,20 +18,17 @@ MonoBehaviour:
   - m_GUID: 432d987498ab9e34aa70b4d0d2244472
     m_Address: stage_pv_chunk_0
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_pv_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 747dac7bf0964a9408265ba2b909ffef
     m_Address: stage_pv_chunk_1
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_pv_loaded_0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: edd212b9be277154781c72160bcfada3
     m_Address: stage_pv_chunk_2
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - stage_pv_loaded_1
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
