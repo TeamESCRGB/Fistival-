@@ -25,6 +25,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4257a5542cbfe64187621a51e55520b
+    m_Address: stage_platformer_chunk_0
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: edd212b9be277154781c72160bcfada3
     m_Address: stage_pv_chunk_2
     m_ReadOnly: 0

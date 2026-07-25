@@ -23,7 +23,8 @@ MonoBehaviour:
   - m_GUID: 5e25d14133c0d1b4c842723c94dbae18
     m_Address: FlingFurryAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 61b83c09196235e4ba6610f07f80fe62
     m_Address: RhythmModeAnimationController
@@ -55,7 +56,8 @@ MonoBehaviour:
   - m_GUID: 7ff2637a165fb2e49b7d3990f6662da9
     m_Address: RaccoonAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 80b101b1a2b59994f8aa3f73e2f5bb79
     m_Address: YorkshireAnimationController

@@ -171,7 +171,7 @@
       "DropObjectIdx": 0,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
-      "InitialDir": 1,
+      "InitialDir": 4,
       "DropObjectPrefabName": "BasicMobDropObject",
       "AnimationController": "FlingFurryAnimationController",
       "HPSoundKeysField": {

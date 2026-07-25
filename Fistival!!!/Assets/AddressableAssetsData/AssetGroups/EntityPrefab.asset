@@ -63,7 +63,8 @@ MonoBehaviour:
   - m_GUID: 9f2442f612c85ec45b4f930f45ac8215
     m_Address: FlightPatrolMob
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9c8889cd4d9dd3419c98c1eca6bf913
     m_Address: FrogMob
@@ -83,7 +84,8 @@ MonoBehaviour:
   - m_GUID: e45cc799eaf188a478674329cd07972b
     m_Address: PlatformerPatrolMob
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fcd67548b58999c47abaa39b0ef2dc9b
     m_Address: LeopardGecko
