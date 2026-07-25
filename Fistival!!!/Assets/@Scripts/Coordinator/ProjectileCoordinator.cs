@@ -10,6 +10,7 @@ namespace Coordinator
 {
     public abstract class ProjectileCoordinator : MonoBehaviour
     {
+        protected ProjectileData _data;
         protected ProjectileActor _projActor;
         protected SkillCoordinatorBase _skill;
         protected Rigidbody2D _rb2d;
@@ -50,6 +51,7 @@ namespace Coordinator
 
         public virtual void Init(LayerMask attackableLayerMask, ProjectileData data)
         {
+            _data = data;
             _attackRange.localScale = new Vector3(data.AttackRadius*2, data.AttackRadius * 2, 1);
             _targetLayer = data.ExplodableLayerMask | attackableLayerMask;
             _baseSpeed = data.Speed;
@@ -75,6 +77,7 @@ namespace Coordinator
             transform.position = initialPos;
             _rb2d.AddForce(dir * _baseSpeed, ForceMode2D.Impulse);
             _projActor.LookDir(dir);
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _data.LaunchSFX, false, Managers.Instance.GameManager.SFXVolume);
         }
 
         protected virtual void OnExplode()
@@ -95,7 +98,7 @@ namespace Coordinator
                     Managers.Instance.AttackManager.RequestAttack(target, _skill, _skill.GetBaseDamage,dir*_explosionKnockBack, _skill.GetBaseStun);//몹들간의 방향 계산해서 그 방향으로 데미지(계산식은 나중에 받고)
                 }
             }
-
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _data.ExplodeSFX, false, Managers.Instance.GameManager.SFXVolume);
             Managers.Instance.ResourceManager.Destroy(gameObject, true);
         }
 

@@ -27,5 +27,8 @@
         public float StunTime;
         public string Physics2DMaterialName;
         public string ProjectilePrefabName;
+
+        public string LaunchSFX { get; set; }
+        public string ExplodeSFX { get; set; }
     }
 }
