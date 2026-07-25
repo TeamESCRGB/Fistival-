@@ -14,7 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: SFX
   m_GUID: 11a4f505104b9fc4d88940f6fb195167
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 18eca6e1122fba240affcba55bdd95f9
+    m_Address: PlayerBasicJump
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
   m_SchemaSet:
