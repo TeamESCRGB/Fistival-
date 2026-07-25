@@ -98,7 +98,8 @@ MonoBehaviour:
   - m_GUID: bd0f215c3921c8c4fa74c87c2805e15d
     m_Address: SotCopAnimationController
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - stage_platformer_loaded_3
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bedf7d3168a60b449a47ed8d702304c5
     m_Address: PlatformerModeAnimationController

@@ -81,7 +81,8 @@ MonoBehaviour:
   - m_GUID: e3e0e2e4674574146b1db7ecbc22a15f
     m_Address: SotCopMob
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - stage_platformer_loaded_3
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e45cc799eaf188a478674329cd07972b
     m_Address: PlatformerPatrolMob
