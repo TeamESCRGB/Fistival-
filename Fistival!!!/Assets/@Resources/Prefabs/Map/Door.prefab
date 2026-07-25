@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 3
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 274b1d5613440eb4186f0713ab9d82ec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5454267a46eba6a439e257d205d79d4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08471251d73adc346846f33e5a79a624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Door.BasicDoor
-  _openSprite: {fileID: 0}
-  _closeSprite: {fileID: 0}
+  _openSprite: {fileID: 21300000, guid: 5454267a46eba6a439e257d205d79d4e, type: 3}
+  _closeSprite: {fileID: 21300000, guid: 32aa7b06515a6f641ae4efdd52af3a47, type: 3}
   _barrierObj: {fileID: 8186971794364762508}
   _isDefaultOpened: 1
 --- !u!1 &8186971794364762508
