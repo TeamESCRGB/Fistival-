@@ -1,3 +1,4 @@
+using Data.NonLodable;
 using UnityEngine;
 
 namespace Data
@@ -20,5 +21,6 @@ namespace Data
         public int InitialDir { get; set; }
         public string DropObjectPrefabName { get; set; }
         public string AnimationController { get; set; }
+        public HPSoundKeys HPSoundKeysField { get; set; }
     }
 }

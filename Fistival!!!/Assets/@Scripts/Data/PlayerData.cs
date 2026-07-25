@@ -36,6 +36,7 @@ namespace Data
 
             MovementSoundKeysField = original.MovementSoundKeysField;
             HandOpSoundKeysField = original.HandOpSoundKeysField;
+            HPSoundKeysField = original.HPSoundKeysField;
         }
 
         public PlayerData() { }
@@ -69,5 +70,6 @@ namespace Data
 
         public MovementSoundKeys MovementSoundKeysField { get; set; }
         public HandOpSoundKeys HandOpSoundKeysField { get; set; }
+        public HPSoundKeys HPSoundKeysField { get; set; }
     }
 }

@@ -22,13 +22,17 @@
     "StrongStunTime": 0.5,
     "StrongAttackChargeParticleSpeed": -2.5,
     "StrongAttackChargeParticleDelay": 0.35,
-    
+
     "MovementSoundKeysField": {
       "Jump": "PlayerBasicJump"
     },
     "HandOpSoundKeysField": {
       "Grab": "PlayerGrab",
       "Throw": "PlayerThrow"
+    },
+    "HPSoundKeysField": {
+      "Hit": "PlayerHit",
+      "Dead": "PlayerDead"
     }
   }
 }
