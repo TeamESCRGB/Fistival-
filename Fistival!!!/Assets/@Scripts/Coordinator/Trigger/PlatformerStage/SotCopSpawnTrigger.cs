@@ -13,7 +13,7 @@ namespace Coordinator.Trigger.PlatformerStage
         private CommonMobData _data;
         [SerializeField]
         private GameObject[] _doorObj;
-        private List<IDoor> _door;
+        private List<IDoor> _door = new List<IDoor>();
 
         private void Awake()
         {
