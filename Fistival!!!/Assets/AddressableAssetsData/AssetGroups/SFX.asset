@@ -22,6 +22,19 @@ MonoBehaviour:
     - GameSceneBasicLoaded
     - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 270925cad47f13043befed75b270311e
+    m_Address: PlayerHit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 682bbb6772cdb0a40b7910ced35fec58
+    m_Address: EnemyDead
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6dc360799637aac418adfb911f30809c
     m_Address: PlayerThrow
     m_ReadOnly: 0
@@ -31,6 +44,19 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 75abfea60bcb37c4da13c84051c388e4
     m_Address: PlayerGrab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c24311c0d7f611c4eb5ad797c9cbb02c
+    m_Address: EnemyHit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe7e7435857f00045af6a2260eb59f5e
+    m_Address: PlayerDead
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameSceneBasicLoaded
