@@ -15,10 +15,11 @@ namespace Coordinator.Interactables
         [SerializeField]
         private Sprite _usedSprite;
         private SpriteRenderer _renderer;
-
+        private ParticleSystem _ps;
         private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
+            _ps = GetComponentInChildren<ParticleSystem>();
         }
 
         public void CheckCheckpoint(bool isTriggeredByAttack)
@@ -32,6 +33,8 @@ namespace Coordinator.Interactables
             if(isTriggeredByAttack)
             {
                 Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "MobHit", false, Managers.Instance.GameManager.SFXVolume);
+                _ps.Stop();
+                _ps.Play();
             }
             else
             {
