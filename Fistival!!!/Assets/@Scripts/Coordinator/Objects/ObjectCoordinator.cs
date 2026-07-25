@@ -225,7 +225,7 @@ namespace Coordinator.Objects
             
             if (((1 << go.layer) & _attackableLayers) != 0)
             {
-                Managers.Instance.AttackManager.RequestAttack(comp, this, (int)(_baseDamage * _rb2d.linearVelocity.magnitude) + _additionalDamage, _rb2d.linearVelocity, _baseStunTime * _chargeRate);
+                Managers.Instance.AttackManager.RequestAttack(comp, this, _baseDamage + _chargeRate + _additionalDamage, _rb2d.linearVelocity, _baseStunTime * _chargeRate);
             }
 
             if(_durability <= 0)
