@@ -512,6 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf408e58c043c364ea2483344afd851f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.MobActs.LengthDashAct
+  _dashSFX: Wheep
 --- !u!1 &4788610765150113570
 GameObject:
   m_ObjectHideFlags: 0

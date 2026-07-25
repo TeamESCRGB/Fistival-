@@ -47,6 +47,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameSceneBasicLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 691505d9611700a4f9564e7a27a14111
+    m_Address: Wheep
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6dc360799637aac418adfb911f30809c
     m_Address: PlayerThrow
     m_ReadOnly: 0
