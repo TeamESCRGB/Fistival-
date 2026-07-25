@@ -237,6 +237,7 @@ namespace Coordinator.Movements
 
         private IEnumerator DisablePlatform(Collider2D col)
         {
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, _soundKeys.Jump, false, Managers.Instance.GameManager.SFXVolume);
             Physics2D.IgnoreCollision(col,_parentCol);
             yield return _platformEnableDelay ;
             Physics2D.IgnoreCollision(col, _parentCol, false);
