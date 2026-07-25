@@ -26,10 +26,8 @@ namespace Coordinator.Skills
 
         private void Start()
         {
-            _useOverlapBox = _useBoxOverlap_se;
-            _usePhys2d = _useBoxCollider_se;
             _knockbackDirNorm = _knockbackDir.normalized;
-            Init(_attackables_ser, _damage_ser, _stunTime_ser, _knockBackForce_ser, true,false);
+            Init(_attackables_ser, _damage_ser, _stunTime_ser, _knockBackForce_ser, _useBoxCollider_se, _useBoxOverlap_se);
         }
 
         protected override void Attack(GameObject go)
