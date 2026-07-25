@@ -22,6 +22,20 @@ MonoBehaviour:
     - GameSceneBasicLoaded
     - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6dc360799637aac418adfb911f30809c
+    m_Address: PlayerThrow
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75abfea60bcb37c4da13c84051c388e4
+    m_Address: PlayerGrab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    - LobbySceneLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
   m_SchemaSet:

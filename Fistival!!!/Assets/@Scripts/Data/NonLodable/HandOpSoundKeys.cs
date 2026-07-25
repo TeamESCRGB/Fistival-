@@ -2,7 +2,7 @@
 {
     public struct HandOpSoundKeys
     {
-        public string PlayerGrab { get; set; }
-        public string PlayerThrow { get; set; }
+        public string Grab { get; set; }
+        public string Throw { get; set; }
     }
 }

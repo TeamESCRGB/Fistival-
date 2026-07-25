@@ -2,6 +2,7 @@ using ComponentModule;
 using Coordinator.Objects;
 using Coordinator.Objects.Weapons;
 using Data;
+using Data.NonLodable;
 using Defines;
 using InputHandler;
 using Manager;
@@ -60,6 +61,8 @@ namespace Coordinator
 
         protected AttackParticleCoordinator _attackParticleCoord;
 
+        protected HandOpSoundKeys _handOpSoundKeys;
+
         protected void ResetEvents()
         {
             OnChargeRateChanged = null;
@@ -80,6 +83,7 @@ namespace Coordinator
 
         protected void InitCommonDatas(Rigidbody2D parentRb2d, PlayerData playerData)//LayerMask attackableMask,LayerMask pickableObjectMask, float forcePerCharge, float chargeTimeInterval, float attackCooldown, int throwAttackAdditionalDamage, float stunTime
         {
+            _handOpSoundKeys = playerData.HandOpSoundKeysField;
             _stunTime = playerData.StunTime;
             _pickableObjectMask = playerData.PickableLayers;
             _attackableMask = playerData.AttackableLayers;
@@ -304,6 +308,7 @@ namespace Coordinator
             _chargeCnt = 0;
             _grabbedObject = null;
             _animator.SetTrigger("Throw");
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, _handOpSoundKeys.Throw, false, Managers.Instance.GameManager.SFXVolume);
             RemoveWeapon();
             InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
             InvokeOnGrabbedObjectChanged(null);
@@ -321,7 +326,8 @@ namespace Coordinator
                 _status = HandStatus.GRABBED;
                 _nowSelectedObject = (null, null);
                 _animator.SetTrigger("Grab");
-                if(_grabbedObject.TryGetComponent<WeaponCoordinatorBase>(out var weapon) && weapon.CanUseWeapon())
+                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, _handOpSoundKeys.Grab, false, Managers.Instance.GameManager.SFXVolume);
+                if (_grabbedObject.TryGetComponent<WeaponCoordinatorBase>(out var weapon) && weapon.CanUseWeapon())
                 {
                     _weapon = weapon;
                     _weapon.SetAttackableLayer(_attackableMask);
