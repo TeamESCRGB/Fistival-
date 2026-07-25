@@ -73,6 +73,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameSceneBasicLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 935e25f62f0916943808f45228d29b91
+    m_Address: BookFlipSFX
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StaticLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b039b1c8b0e248c4091e577252ff32ff
     m_Address: swordSlashSFX
     m_ReadOnly: 0
