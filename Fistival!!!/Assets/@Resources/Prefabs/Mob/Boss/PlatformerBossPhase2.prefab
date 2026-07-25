@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db83984c30fae9346888ba5dceb4232a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.MobActs.PlatformerBoss.PlatformerPhase2Howling
-  _mobIdx: 5
+  _mobIdx: 1000005
   _fallingObjectIdx: 0
   _objectIdx: 4
 --- !u!114 &6408675147200895466

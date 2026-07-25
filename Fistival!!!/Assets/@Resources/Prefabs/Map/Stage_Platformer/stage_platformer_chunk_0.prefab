@@ -515,22 +515,22 @@ MonoBehaviour:
   _mobSpawnPoints:
   - SpawnPoint: {fileID: 6935308745697722488}
     PrefabName: WalkingDalmatian
-    DataIdx: 1
+    DataIdx: 1000001
   - SpawnPoint: {fileID: 5952484161389750232}
     PrefabName: WalkingDalmatian
-    DataIdx: 1
+    DataIdx: 1000001
   - SpawnPoint: {fileID: 6031361238066471991}
     PrefabName: FlightPatrolMob
-    DataIdx: 3
+    DataIdx: 1000003
   - SpawnPoint: {fileID: 8345796195439824378}
     PrefabName: FlyingDiscMob
-    DataIdx: 2
+    DataIdx: 1000002
   - SpawnPoint: {fileID: 3449872362107252057}
     PrefabName: WalkingDalmatian
-    DataIdx: 1
+    DataIdx: 1000001
   - SpawnPoint: {fileID: 4567478451027632318}
     PrefabName: FlyingDiscMob
-    DataIdx: 2
+    DataIdx: 1000002
   _basicInitializers: []
 --- !u!1 &1588066045617869903
 GameObject:
