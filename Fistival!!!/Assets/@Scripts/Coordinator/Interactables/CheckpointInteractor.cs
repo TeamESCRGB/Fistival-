@@ -10,7 +10,17 @@ namespace Coordinator.Interactables
     public class CheckpointInteractor : InteractableObjectCoordinator
     {
         private bool _isCheckpointChecked = false;
-        
+        [SerializeField] 
+        private Sprite _unusedSprite;
+        [SerializeField]
+        private Sprite _usedSprite;
+        private SpriteRenderer _renderer;
+
+        private void Awake()
+        {
+            _renderer = GetComponent<SpriteRenderer>();
+        }
+
         public void CheckCheckpoint(bool isTriggeredByAttack)
         {
             if(_isCheckpointChecked)
@@ -21,17 +31,13 @@ namespace Coordinator.Interactables
             //이미지 바꾸고, 체크포인트 애니메이션 틀어야됨
             if(isTriggeredByAttack)
             {
-                //맞아서 활성화될 때 바뀔 애니메이션,이미지
                 Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "MobHit", false, Managers.Instance.GameManager.SFXVolume);
-                Debug.Log("공격으로 활성화");
             }
             else
             {
-                //상호작용으로 호출될 떄 바뀔 애니메이션,이미지
                 Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "Button", false, Managers.Instance.GameManager.SFXVolume);
-                Debug.Log("상호작용으로 활성화");
             }
-
+            _renderer.sprite = _usedSprite;
             DeActivateShader();
             FixHighlightState(true);
             _isCheckpointChecked = true;
@@ -49,6 +55,7 @@ namespace Coordinator.Interactables
 
         public override void Interact()
         {
+            _renderer.sprite = _unusedSprite;
             CheckCheckpoint(false);
         }
     }
