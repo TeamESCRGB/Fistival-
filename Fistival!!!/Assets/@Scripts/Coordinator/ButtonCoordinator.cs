@@ -1,3 +1,4 @@
+using Manager;
 using System;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace Coordinator
 
         public void Init(bool initialState)
         {
-            SetState(initialState);
+            SetState_forInit(initialState);
             _animator.SetBool("IsOn", initialState);
         }
         [ContextMenu("init")]
@@ -51,6 +52,20 @@ namespace Coordinator
             {
                 _onStateChanged?.Invoke(state);
                 _animator.SetBool("IsOn",state);
+            }
+            if(state)
+            {
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "Button", false, Managers.Instance.GameManager.SFXVolume);
+            }
+            _state = state;
+        }
+
+        protected void SetState_forInit(bool state)
+        {
+            if (_state != state)
+            {
+                _onStateChanged?.Invoke(state);
+                _animator.SetBool("IsOn", state);
             }
             _state = state;
         }

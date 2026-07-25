@@ -22,13 +22,13 @@ namespace Coordinator.Interactables
             if(isTriggeredByAttack)
             {
                 //맞아서 활성화될 때 바뀔 애니메이션,이미지
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "CheckpointActivationByAttackSFX", false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "MobHit", false, Managers.Instance.GameManager.SFXVolume);
                 Debug.Log("공격으로 활성화");
             }
             else
             {
                 //상호작용으로 호출될 떄 바뀔 애니메이션,이미지
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "CheckpointActivationByInteractSFX", false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "Button", false, Managers.Instance.GameManager.SFXVolume);
                 Debug.Log("상호작용으로 활성화");
             }
 
