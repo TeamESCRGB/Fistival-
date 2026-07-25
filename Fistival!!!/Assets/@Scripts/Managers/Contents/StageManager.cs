@@ -106,6 +106,7 @@ namespace Manager.Contents
             _checkPointData = new CheckPointSaveData()
             {
                 Pos = checkpointPos,
+                CamPos = Camera.main.transform.position,
                 CameraFollowState = _camFollowCoord.GetFollowState(),
                 CameraFollowDeadZoneHeight = _camFollowCoord.GetDeadZoneHeight(),
                 CameraFollowDeadZoneWidth = _camFollowCoord.GetDeadZoneWidth()
@@ -132,6 +133,7 @@ namespace Manager.Contents
             player.Respawn();
 
             player.transform.position = _checkPointData.Pos;
+            _camFollowCoord.transform.position = _checkPointData.CamPos;
             _camFollowCoord.SetFollowState(_checkPointData.CameraFollowState);
             _camFollowCoord.SetDeadZoneHeight(_checkPointData.CameraFollowDeadZoneHeight);
             _camFollowCoord.SetDeadZoneWidth(_checkPointData.CameraFollowDeadZoneWidth);
@@ -196,6 +198,7 @@ namespace Manager.Contents
             _checkPointData = new CheckPointSaveData()
             {
                 Pos = Vector3.zero,
+                CamPos = _mainCam.transform.position,
                 CameraFollowState = _camFollowCoord.GetFollowState(),
                 CameraFollowDeadZoneHeight = _camFollowCoord.GetDeadZoneHeight(),
                 CameraFollowDeadZoneWidth = _camFollowCoord.GetDeadZoneWidth()
