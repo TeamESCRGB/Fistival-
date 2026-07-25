@@ -531,7 +531,8 @@ MonoBehaviour:
   - SpawnPoint: {fileID: 4567478451027632318}
     PrefabName: FlyingDiscMob
     DataIdx: 1000002
-  _basicInitializers: []
+  _basicInitializers:
+  - {fileID: 6673216303487876013}
 --- !u!1 &1588066045617869903
 GameObject:
   m_ObjectHideFlags: 0
@@ -12253,7 +12254,7 @@ Transform:
   m_GameObject: {fileID: 6985314795292267085}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 104.66, y: -49.5, z: 0}
+  m_LocalPosition: {x: 104.66, y: -51.78, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

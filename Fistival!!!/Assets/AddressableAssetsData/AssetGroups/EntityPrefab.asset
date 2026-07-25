@@ -88,6 +88,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_platformer_loaded_0
+    - stage_platformer_loaded_1
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fcd67548b58999c47abaa39b0ef2dc9b
     m_Address: LeopardGecko

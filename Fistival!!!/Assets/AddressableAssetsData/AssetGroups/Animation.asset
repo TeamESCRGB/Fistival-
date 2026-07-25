@@ -25,6 +25,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_platformer_loaded_0
+    - stage_platformer_loaded_1
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 61b83c09196235e4ba6610f07f80fe62
     m_Address: RhythmModeAnimationController
@@ -58,6 +59,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - stage_platformer_loaded_0
+    - stage_platformer_loaded_1
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 80b101b1a2b59994f8aa3f73e2f5bb79
     m_Address: YorkshireAnimationController
