@@ -33,7 +33,9 @@ namespace Data
             StrongStunTime = original.StrongStunTime;
             StrongAttackChargeParticleSpeed = original.StrongAttackChargeParticleSpeed;
             StrongAttackChargeParticleDelay=original.StrongAttackChargeParticleDelay;
+
             MovementSoundKeysField = original.MovementSoundKeysField;
+            HandOpSoundKeysField = original.HandOpSoundKeysField;
         }
 
         public PlayerData() { }
@@ -66,5 +68,6 @@ namespace Data
         public float StrongAttackChargeParticleDelay { get; set; }
 
         public MovementSoundKeys MovementSoundKeysField { get; set; }
+        public HandOpSoundKeys HandOpSoundKeysField { get; set; }
     }
 }
