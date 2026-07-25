@@ -19,7 +19,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 0,
       "DropObjectPrefabName": "",
-      "AnimationController": "TestController"
+      "AnimationController": "TestController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": -1,
@@ -38,9 +42,13 @@
       "DropObjectIdx": -1,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
-      "InitialDir": 4,
+      "InitialDir": 0,
       "DropObjectPrefabName": "object_from_mob_drone",
-      "AnimationController": "DroneAnimationController"
+      "AnimationController": "DroneAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": -2,
@@ -61,7 +69,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "CrestedGeckoAnimationController"
+      "AnimationController": "CrestedGeckoAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
 
 
@@ -86,7 +98,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "RaccoonAnimationController"
+      "AnimationController": "RaccoonAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": 1,
@@ -107,7 +123,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 2,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "WalkingDalmatianAnimationController"
+      "AnimationController": "WalkingDalmatianAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": 2,
@@ -128,7 +148,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "FlyingDiscObject",
-      "AnimationController": "YorkshireAnimationController"
+      "AnimationController": "YorkshireAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": 3,
@@ -149,7 +173,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "FlingFurryAnimationController"
+      "AnimationController": "FlingFurryAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": 4,
@@ -170,7 +198,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "SotCopAnimationController"
+      "AnimationController": "SotCopAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
 
     {
@@ -192,7 +224,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "LeopardGeckoAnimationController"
+      "AnimationController": "LeopardGeckoAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": 6,
@@ -213,7 +249,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "CrestedGeckoAnimationController"
+      "AnimationController": "CrestedGeckoAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": 7,
@@ -234,7 +274,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "FrogAnimationController"
+      "AnimationController": "FrogAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": 8,
@@ -255,7 +299,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "TurtleAnimationController"
+      "AnimationController": "TurtleAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": 9,
@@ -276,7 +324,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "BatAnimationController"
+      "AnimationController": "BatAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": 10,
@@ -297,7 +349,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "CameleonBossAnimationController"
+      "AnimationController": "CameleonBossAnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": 11,
@@ -318,7 +374,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "PlatformerBossPhase1AnimationController"
+      "AnimationController": "PlatformerBossPhase1AnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     },
     {
       "Idx": 12,
@@ -339,7 +399,11 @@
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
       "DropObjectPrefabName": "BasicMobDropObject",
-      "AnimationController": "PlatformerBossPhase2AnimationController"
+      "AnimationController": "PlatformerBossPhase2AnimationController",
+      "HPSoundKeysField": {
+        "Hit": "MobHit",
+        "Dead": "MobDead"
+      }
     }
   ]
 }

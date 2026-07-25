@@ -7,6 +7,7 @@ using ComponentModule;
 using Manager;
 using System;
 using Coordinator.Victims;
+using Data.NonLodable;
 
 namespace Coordinator
 {
@@ -20,6 +21,7 @@ namespace Coordinator
         protected bool _isStunned;
         protected Animator _animator;
         protected Rigidbody2D _rb2d;
+        protected MovementSoundKeys _movementSoundKeys;
         public bool IsUnlocked { get; set; } = false;
         public virtual ModeTypes ModeType { get; }
 
@@ -53,6 +55,7 @@ namespace Coordinator
             var player = GetComponentInParent<PlayerCoordinator>();
             player.GetComponentInChildren<PlayerVictimCoordinator>().SetAttackableState(false);
             _playerData = player.GetPlayerData();
+            _movementSoundKeys = _playerData.MovementSoundKeysField;
             _inputCoordinator.TriggerReleaseMovementInput();
             _inputCoordinator.Init();
             _inputCoordinator.SetESCInputHandler(this);

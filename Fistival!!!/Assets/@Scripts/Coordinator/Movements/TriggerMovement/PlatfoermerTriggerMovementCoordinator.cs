@@ -17,7 +17,7 @@ namespace Coordinator.TriggerMovement
 
         public void Init(float speed,  float jumpPower, Rigidbody2D rb2d, MovementKeyStatus initialDir)
         {
-            _platformerMov.Init(speed, jumpPower, 0, 1, rb2d);
+            _platformerMov.Init(speed, jumpPower, 0, 1, rb2d, default);
             _target = null;
             _isFollowOn = false;
             _speed = speed;

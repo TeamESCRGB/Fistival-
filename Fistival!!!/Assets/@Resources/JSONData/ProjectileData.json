@@ -10,7 +10,9 @@
       "AttackRadius": 0.5,
       "StunTime": 0.5,
       "Physics2DMaterialName": "Obj",
-      "ProjectilePrefabName": "TestProjectile1"
+      "ProjectilePrefabName": "TestProjectile1",
+      "LaunchSFX": "",
+      "ExplodeSFX": ""
     },
     {
       "IDX": -2,
@@ -22,7 +24,9 @@
       "AttackRadius": 0.5,
       "StunTime": 0.5,
       "Physics2DMaterialName": "Obj",
-      "ProjectilePrefabName": "TestProjectile2"
+      "ProjectilePrefabName": "TestProjectile2",
+      "LaunchSFX": "",
+      "ExplodeSFX": ""
     },
     {
       "IDX": -3,
@@ -34,7 +38,9 @@
       "AttackRadius": 0.5,
       "StunTime": 0.5,
       "Physics2DMaterialName": "Obj",
-      "ProjectilePrefabName": "TestProjectile3"
+      "ProjectilePrefabName": "TestProjectile3",
+      "LaunchSFX": "",
+      "ExplodeSFX": ""
     },
 
     {
@@ -47,7 +53,9 @@
       "AttackRadius": 1,
       "StunTime": 0.5,
       "Physics2DMaterialName": "Obj",
-      "ProjectilePrefabName": "TestProjectile2"
+      "ProjectilePrefabName": "TestProjectile2",
+      "LaunchSFX": "",
+      "ExplodeSFX": ""
     },
 
     {
@@ -60,7 +68,9 @@
       "AttackRadius": 0.5,
       "StunTime": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
-      "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile"
+      "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile",
+      "LaunchSFX": "",
+      "ExplodeSFX": ""
     },
     {
       "IDX": 3,
@@ -72,7 +82,9 @@
       "AttackRadius": 0.5,
       "StunTime": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
-      "ProjectilePrefabName": "Shoot2D_basic_projectile"
+      "ProjectilePrefabName": "Shoot2D_basic_projectile",
+      "LaunchSFX": "",
+      "ExplodeSFX": ""
     },
 
     {
@@ -85,7 +97,9 @@
       "AttackRadius": 0.5,
       "StunTime": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
-      "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile"
+      "ProjectilePrefabName": "NoGrav_1b1_CircleProjectile",
+      "LaunchSFX": "",
+      "ExplodeSFX": ""
     },
     {
       "IDX": 5,
@@ -97,7 +111,9 @@
       "AttackRadius": 1,
       "StunTime": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
-      "ProjectilePrefabName": "NoGrav_1b1_Explodable_CircleProjectile"
+      "ProjectilePrefabName": "NoGrav_1b1_Explodable_CircleProjectile",
+      "LaunchSFX": "",
+      "ExplodeSFX": ""
     },
 
 
@@ -112,7 +128,9 @@
       "AttackRadius": 0.5,
       "StunTime": 0.5,
       "Physics2DMaterialName": "NoBounceNoFric",
-      "ProjectilePrefabName": "SwordSlashProjectile"
+      "ProjectilePrefabName": "SwordSlashProjectile",
+      "LaunchSFX": "swordSlashSFX",
+      "ExplodeSFX": ""
     }
   ]
 }

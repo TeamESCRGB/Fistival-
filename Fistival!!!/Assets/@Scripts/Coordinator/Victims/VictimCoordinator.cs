@@ -1,5 +1,6 @@
 using ComponentModule;
 using Coordinator.Movements;
+using Data.NonLodable;
 using Defines;
 using Manager;
 using UnityEngine;
@@ -30,11 +31,11 @@ namespace Coordinator.Victims
         }
 
 
-        public void Init(int hp, int maxHP, float invincibilityTime)
+        public void Init(int hp, int maxHP, float invincibilityTime, HPSoundKeys hpSoundKeys)
         {
             _isAttackableOn = true;
             _maskedLayer = 1 << gameObject.layer;
-            _hpCoord.Init(hp, maxHP);
+            _hpCoord.Init(hp, maxHP, hpSoundKeys);
             _invincibilityTimeCounter = Managers.Instance.CooldownManager.GetCooldownModule(invincibilityTime);
         }
         public VictimType GetVictimType()
