@@ -6,6 +6,7 @@ using Data;
 using Manager;
 using System.Collections.Generic;
 using UI;
+using UI.Popup;
 using UnityEngine;
 
 namespace Coordinator.Mobs
@@ -133,6 +134,9 @@ namespace Coordinator.Mobs
             {
                 _doors[i].Open();
             }
+#if DISABLE_LOBBY_SCENE
+            Managers.Instance.UIManager.ShowPopupUI<CreditPopup>("Credit");
+#endif
         }
 
         public override void AnimatorOnDead()
