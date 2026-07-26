@@ -75,19 +75,18 @@ namespace Coordinator
             _elapsedTime = 0;
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnCollisionToWall(GameObject go)
         {
-            if(_isObjectized)
+            if (_isObjectized)
             {
                 return;
             }
 
-            var go = collision.collider.gameObject;
             _isObjectized = true;
 
             if (((1 << go.layer) & _layer) != 0)
             {
-                
+
                 if (go.TryGetComponent<IAttackable>(out var comp))
                 {
                     Managers.Instance.AttackManager.RequestAttack(comp, _skill, _damage, _rb2d.linearVelocity, _stun);
@@ -95,6 +94,17 @@ namespace Coordinator
             }
             _rb2d.gravityScale = 1;
             Objectized();
+        }
+
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            OnCollisionToWall(collision.gameObject);
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            OnCollisionToWall(collision.gameObject);
         }
 
         private void FixedUpdate()
