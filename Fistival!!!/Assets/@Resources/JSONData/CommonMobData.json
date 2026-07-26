@@ -169,7 +169,7 @@
         "x": 0,
         "y": 0
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": -6789,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 4,
@@ -194,7 +194,7 @@
         "x": 0,
         "y": 0
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": -6789,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 8,
@@ -219,7 +219,7 @@
         "x": 0,
         "y": 0
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": -6789,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 0,
@@ -245,7 +245,7 @@
         "x": 0,
         "y": 0
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": -6789,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
