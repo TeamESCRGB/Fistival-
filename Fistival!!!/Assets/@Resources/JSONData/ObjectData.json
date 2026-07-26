@@ -116,7 +116,7 @@
     },
     {
       "ObjectIndex": 7,
-      "PrefabKey": "CommonOblongObject",
+      "PrefabKey": "RaccoonBag",
       "Damage": 1,
       "Durability": 1,
       "AbrasableLayerMask": 0,
@@ -129,7 +129,7 @@
     },
     {
       "ObjectIndex": 8,
-      "PrefabKey": "CommonOblongObject",
+      "PrefabKey": "BoneObj",
       "Damage": 1,
       "Durability": 1,
       "AbrasableLayerMask": 0,
@@ -142,7 +142,7 @@
     },
     {
       "ObjectIndex": 9,
-      "PrefabKey": "CommonCircleObject",
+      "PrefabKey": "RockObj",
       "Damage": 1,
       "Durability": 1,
       "AbrasableLayerMask": 0,

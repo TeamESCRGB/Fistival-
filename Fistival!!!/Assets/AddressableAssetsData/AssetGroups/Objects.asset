@@ -42,6 +42,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameSceneBasicLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 283752531bbc59f44b79195674a58519
+    m_Address: RaccoonBag
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_platformer_loaded_1
+    - stage_platformer_loaded_2
+    - stage_platformer_loaded_3
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2a856d9d7e16bf74db5f042406cd4734
     m_Address: PaintCanObject
     m_ReadOnly: 0
@@ -53,10 +61,10 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9e8ca5acb23739e408da00c3fb05e75b
-    m_Address: CommonCircleObject
+    m_Address: RockObj
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GameSceneBasicLoaded
+    - stage_platformer_loaded_3
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
