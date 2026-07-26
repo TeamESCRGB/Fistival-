@@ -20,7 +20,6 @@ namespace Coordinator
         protected float _skillDelay = 5;
 
         protected int _dropObjectIdx;
-        protected string _dropObjectPrefab;
 
         protected Rigidbody2D _rb2d;
 
@@ -79,7 +78,6 @@ namespace Coordinator
             detector.localScale = data.AggroRange;
             _skillDelay = data.SkillDelay;
             _dropObjectIdx = data.DropObjectIdx;
-            _dropObjectPrefab = data.DropObjectPrefabName;
             _damage = data.TouchDamage;
             _stunTime = data.TouchStunTime;
             _knockbackForce = data.KnockBackForce;
@@ -96,17 +94,21 @@ namespace Coordinator
 
         public virtual void AnimatorOnDead()
         {
-            var go = Managers.Instance.ResourceManager.Instantiate(_dropObjectPrefab);
-            if (go != null)
+
+            if(Managers.Instance.DataManager.ObjectDataDict.TryGetValue(_dropObjectIdx, out var data))
             {
-                if (go.TryGetComponent<ObjectCoordinator>(out var comp) == false || Managers.Instance.DataManager.ObjectDataDict.ContainsKey(_dropObjectIdx) == false)
+                var go = Managers.Instance.ResourceManager.Instantiate(data.PrefabKey);
+                if (go != null)
                 {
-                    Managers.Instance.ResourceManager.Destroy(go);
-                }
-                else
-                {
-                    comp.Init(Managers.Instance.DataManager.ObjectDataDict[_dropObjectIdx]);
-                    go.transform.position = transform.position;
+                    if (go.TryGetComponent<ObjectCoordinator>(out var comp) == false)
+                    {
+                        Managers.Instance.ResourceManager.Destroy(go);
+                    }
+                    else
+                    {
+                        comp.Init(data);
+                        go.transform.position = transform.position;
+                    }
                 }
             }
             Managers.Instance.ResourceManager.Destroy(gameObject, true);

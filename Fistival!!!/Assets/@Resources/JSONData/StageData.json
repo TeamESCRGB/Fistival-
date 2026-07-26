@@ -4,13 +4,14 @@
       "Idx": 0,
       "FirstStageLoadedDatasName": "stage_platformer_loaded_0",
       "FirstStageSectionInstanceName": "stage_platformer_chunk_0",
-      "SavefileLockedIMG": "",
-      "SavefileClearedIMG": "",
-      "MapLockedIMG": "",
-      "MapClearedIMG": "",
-      "HomeIMG": "",
-      "BossName": "",
-      "BossDesc": ""
+      "SavefileLockedIMG": "NullIMG",
+      "SavefileClearedIMG": "NullIMG",
+      "MapLockedIMG": "NullIMG",
+      "MapClearedIMG": "NullIMG",
+      "HomeIMG": "NullIMG",
+      "BossName": "none",
+      "BossDesc": "none",
+      "InitialBGM": "Stage_PlatformerBGM_1"
     },
     {
       "Idx": 1,
@@ -22,7 +23,8 @@
       "MapClearedIMG": "",
       "HomeIMG": "",
       "BossName": "",
-      "BossDesc": ""
+      "BossDesc": "",
+      "InitialBGM": ""
     },
     {
       "Idx": 2,
@@ -34,7 +36,8 @@
       "MapClearedIMG": "",
       "HomeIMG": "",
       "BossName": "",
-      "BossDesc": ""
+      "BossDesc": "",
+      "InitialBGM": ""
     },
     {
       "Idx": 3,
@@ -46,7 +49,8 @@
       "MapClearedIMG": "",
       "HomeIMG": "",
       "BossName": "",
-      "BossDesc": ""
+      "BossDesc": "",
+      "InitialBGM": ""
     },
     {
       "Idx": 4,
@@ -58,7 +62,8 @@
       "MapClearedIMG": "",
       "HomeIMG": "",
       "BossName": "",
-      "BossDesc": ""
+      "BossDesc": "",
+      "InitialBGM": ""
     },
     {
       "Idx": 5,
@@ -70,7 +75,8 @@
       "MapClearedIMG": "",
       "HomeIMG": "",
       "BossName": "",
-      "BossDesc": ""
+      "BossDesc": "",
+      "InitialBGM": ""
     },
     {
       "Idx": 6,
@@ -82,7 +88,8 @@
       "MapClearedIMG": "",
       "HomeIMG": "",
       "BossName": "",
-      "BossDesc": ""
+      "BossDesc": "",
+      "InitialBGM": ""
     }
   ]
 }

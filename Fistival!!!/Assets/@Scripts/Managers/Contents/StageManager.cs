@@ -101,11 +101,13 @@ namespace Manager.Contents
             }
         }
 
-        public void SaveCheckpoint(Vector3 checkpointPos)
+        public void SaveCheckpoint(Vector3 checkpointPos, string bgmKey)
         {
             _checkPointData = new CheckPointSaveData()
             {
                 Pos = checkpointPos,
+                BGMKey=bgmKey,
+                CamPos = Camera.main.transform.position,
                 CameraFollowState = _camFollowCoord.GetFollowState(),
                 CameraFollowDeadZoneHeight = _camFollowCoord.GetDeadZoneHeight(),
                 CameraFollowDeadZoneWidth = _camFollowCoord.GetDeadZoneWidth()
@@ -126,12 +128,13 @@ namespace Manager.Contents
         private void Respawn()
         {
             var player = GameObject.FindAnyObjectByType<PlayerCoordinator>();
-
-            Managers.Instance.UIManager.ShowPopupUI<LifeCountPopup>("LifeCountPopup").SetData(_life);
+            Managers.Instance.GlobalSoundManager.StopAt(Defines.SoundChannel.BGM_0);
+            Managers.Instance.UIManager.ShowPopupUI<LifeCountPopup>("LifeCountPopup").SetData(_life, _checkPointData.BGMKey);
 
             player.Respawn();
 
             player.transform.position = _checkPointData.Pos;
+            _camFollowCoord.transform.position = _checkPointData.CamPos;
             _camFollowCoord.SetFollowState(_checkPointData.CameraFollowState);
             _camFollowCoord.SetDeadZoneHeight(_checkPointData.CameraFollowDeadZoneHeight);
             _camFollowCoord.SetDeadZoneWidth(_checkPointData.CameraFollowDeadZoneWidth);
@@ -193,9 +196,12 @@ namespace Manager.Contents
             _life = life;
             _mainCam = Camera.main;
             _camFollowCoord = _mainCam.GetComponent<SmoothFollowCoordinator>();
+
             _checkPointData = new CheckPointSaveData()
             {
                 Pos = Vector3.zero,
+                BGMKey = _data.InitialBGM,
+                CamPos = _mainCam.transform.position,
                 CameraFollowState = _camFollowCoord.GetFollowState(),
                 CameraFollowDeadZoneHeight = _camFollowCoord.GetDeadZoneHeight(),
                 CameraFollowDeadZoneWidth = _camFollowCoord.GetDeadZoneWidth()

@@ -93,11 +93,11 @@
         "x": 0,
         "y": 0
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": 7,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,
-      "DropObjectPrefabName": "BasicMobDropObject",
+      "DropObjectPrefabName": "CommonObject",
       "AnimationController": "RaccoonAnimationController",
       "HPSoundKeysField": {
         "Hit": "MobHit",
@@ -112,17 +112,17 @@
       "TouchStunTime": 0.25,
       "KnockBackForce": 10,
       "InvincibilityTime": 1,
-      "Speed": 5,
+      "Speed": 0,
       "SkillDelay": 3,
       "AggroRange": {
         "x": 15,
         "y": 7
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": 8,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 2,
-      "DropObjectPrefabName": "BasicMobDropObject",
+      "DropObjectPrefabName": "CommonOblongObject",
       "AnimationController": "WalkingDalmatianAnimationController",
       "HPSoundKeysField": {
         "Hit": "MobHit",
@@ -169,7 +169,7 @@
         "x": 0,
         "y": 0
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": -6789,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 4,
@@ -194,7 +194,7 @@
         "x": 0,
         "y": 0
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": -6789,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 8,
@@ -219,7 +219,7 @@
         "x": 0,
         "y": 0
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": -6789,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 0,
@@ -245,7 +245,7 @@
         "x": 0,
         "y": 0
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": -6789,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 1,

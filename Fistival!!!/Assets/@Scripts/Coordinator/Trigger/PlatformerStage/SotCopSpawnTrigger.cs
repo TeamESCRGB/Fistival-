@@ -14,6 +14,8 @@ namespace Coordinator.Trigger.PlatformerStage
         [SerializeField]
         private GameObject[] _doorObj;
         private List<IDoor> _door = new List<IDoor>();
+        [SerializeField]
+        private int _spawnCnt = 0;//만약 두번씩 스폰되는 버그가 또 나오면, 이 변수를 확인하고 디버깅을 하면 될겁니다... 저는 도저히 원인 못찾겠음
 
         private void Awake()
         {
@@ -39,7 +41,10 @@ namespace Coordinator.Trigger.PlatformerStage
                 return;
             }
 
+            Debug.Log("sot spawn");
+
             var go = Managers.Instance.ResourceManager.Instantiate(_data.PrefabKey,null,true,true);
+            
             if(go == null)
             {
                 return;
@@ -53,11 +58,14 @@ namespace Coordinator.Trigger.PlatformerStage
             go.transform.position = _mobSpawnPoint.position;
             comp.Init(_data, _door);
             _isSpawned = true;
+            _spawnCnt++;
         }
 
         public override void Init()
         {
             _isSpawned = false;
+            _spawnCnt = 0;
+            Debug.Log("init of sotcopspawner");
         }
     }
 }

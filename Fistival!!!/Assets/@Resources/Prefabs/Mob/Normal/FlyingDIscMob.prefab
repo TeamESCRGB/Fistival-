@@ -193,7 +193,7 @@ MonoBehaviour:
   _movLen: -4
   _objectizableLayer:
     serializedVersion: 2
-    m_Bits: 525320
+    m_Bits: 525322
 --- !u!114 &6174331730011607520
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Defines;
+using DG.Tweening;
 using Manager;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,10 @@ namespace UI.Scene
         }
 
         private BookFlipController _bfc;
+#if DISABLE_LOBBY_SCENE
+        [SerializeField]
+        private int _stageIdx=0;
+#endif
         public override bool Init()
         {
             if (base.Init() == false)
@@ -36,8 +41,10 @@ namespace UI.Scene
             _bfc = GetComponent<BookFlipController>();
             BindButton(typeof(Buttons));
             BindText(typeof(Texts));
+
             GetButton((int)Buttons.NewGame).gameObject.BindUIEvent(OnNewGame);
             GetButton((int)Buttons.LoadGame).gameObject.BindUIEvent(OnLoadGame);
+
             GetButton((int)Buttons.Setting).gameObject.BindUIEvent(OnSetting);
             GetButton((int)Buttons.QuitGame).gameObject.BindUIEvent(OnQuitGame);
 
@@ -46,22 +53,48 @@ namespace UI.Scene
             GetButton((int)Buttons.Setting).GetComponent<RectTransform>().DOAnchorPosX(50, 1).SetDelay(0.75f).SetEase(Ease.OutBack);
             GetButton((int)Buttons.QuitGame).GetComponent<RectTransform>().DOAnchorPosX(50, 1).SetDelay(1).SetEase(Ease.OutBack);
             GetText((int)Texts.VersionText).text = $"v{Application.version}";
-
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.BGM_0, "MainSceneBGM", true, Managers.Instance.GameManager.BGMVolume);
             return true;
         }
 
         private void OnNewGame(PointerEventData data)
         {
-            //Managers.Instance.UIManager.ShowPopupUI<GameFileMenu>("GameFileMenu");
+#if DISABLE_LOBBY_SCENE
+            Managers.Instance.ResourceManager.LoadAsyncAllIn("GameSceneBasicLoaded", (_, gameNow, gameMax) =>
+            {
+                if (gameNow < gameMax)
+                {
+                    return;
+                }
+
+                Managers.Instance.StageManager.SetStageIDX(_stageIdx);
+
+                string loadKey = Managers.Instance.StageManager.GetStageData()?.FirstStageLoadedDatasName;
+                loadKey = loadKey is null ? "" : loadKey;
+
+                Managers.Instance.ResourceManager.LoadAsyncAllIn(loadKey, (_, now, max) =>
+                {
+                    if (now == max)
+                    {
+                        Managers.Instance.ResourceManager.ReleaseIn("LobbySceneLoaded");
+                        Managers.Instance.SceneManagerEx.LoadScene(SceneType.GameScene);
+                    }
+                });
+            });
+#else
             GetComponentInChildren<GameFileMenu>().Open();
             _bfc.FlipTo(0);
+#endif
         }
 
         private void OnLoadGame(PointerEventData data)
         {
-            //Managers.Instance.UIManager.ShowPopupUI<SaveFileMenu>("SaveFileMenu").SetMenuType(Defines.SaveFileAccessMode.LOAD);
+#if DISABLE_LOBBY_SCENE
+            Managers.Instance.UIManager.ShowPopupUI<BasicPopupAlert>("BasicPopupAlert").SetText("지금은 이용할 수 없는 기능입니다.");
+#else
             _bfc.FlipTo(1);
             GetComponentInChildren<SaveFileMenu>().SetMenuType(Defines.SaveFileAccessMode.LOAD);
+#endif
         }
 
         private void OnSetting(PointerEventData data)

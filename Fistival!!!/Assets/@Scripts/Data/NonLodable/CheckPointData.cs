@@ -5,6 +5,8 @@ namespace Data.NonLodable
     public struct CheckPointSaveData
     {
         public Vector3 Pos { get; set; }
+        public Vector3 CamPos { get; set; }
+        public string BGMKey { get; set; }
         public bool CameraFollowState { get; set; }
         public Vector2 CameraFollowDeadZoneWidth { get; set; }
         public Vector2 CameraFollowDeadZoneHeight { get; set; }

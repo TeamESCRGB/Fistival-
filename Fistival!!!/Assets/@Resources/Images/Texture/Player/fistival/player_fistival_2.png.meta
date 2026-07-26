@@ -1,0 +1,318 @@
+fileFormatVersion: 2
+guid: 313616a37e309c644b97e23394213ca3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5210820448139947493
+    second: player_fistival_2_0
+  - first:
+      213: -2068611288780776727
+    second: player_fistival_2_1
+  - first:
+      213: 1471643635099676813
+    second: player_fistival_2_2
+  - first:
+      213: -333407178360483078
+    second: player_fistival_2_3
+  - first:
+      213: 6206342542202262733
+    second: player_fistival_2_4
+  - first:
+      213: -5573200176654273369
+    second: player_fistival_2_5
+  - first:
+      213: -8466430441345991799
+    second: player_fistival_2_6
+  - first:
+      213: -1282390946779201263
+    second: player_fistival_2_7
+  - first:
+      213: -7427508654278933593
+    second: player_fistival_2_8
+  - first:
+      213: -4070635417696236177
+    second: player_fistival_2_9
+  - first:
+      213: 2622337407587801390
+    second: player_fistival_2_10
+  - first:
+      213: -2749176131895976637
+    second: player_fistival_2_11
+  - first:
+      213: 7500361103313225375
+    second: player_fistival_2_12
+  - first:
+      213: -2958335838415572622
+    second: player_fistival_2_13
+  - first:
+      213: -7722904370051519351
+    second: player_fistival_2_14
+  - first:
+      213: -341602415664056612
+    second: player_fistival_2_15
+  - first:
+      213: -5319340203716631988
+    second: player_fistival_2_16
+  - first:
+      213: 4387239560104533387
+    second: player_fistival_2_17
+  - first:
+      213: -2158098446183328700
+    second: player_fistival_2_18
+  - first:
+      213: -3966160863367875461
+    second: player_fistival_2_19
+  - first:
+      213: -6490412808954814811
+    second: player_fistival_2_20
+  - first:
+      213: -3155205705700109199
+    second: player_fistival_2_21
+  - first:
+      213: -7890162882552538032
+    second: player_fistival_2_22
+  - first:
+      213: -4443852329906435154
+    second: player_fistival_2_23
+  - first:
+      213: -3597314617846975523
+    second: player_fistival_2_24
+  - first:
+      213: 3030191814365501042
+    second: player_fistival_2_25
+  - first:
+      213: 6953677958180356765
+    second: player_fistival_2_26
+  - first:
+      213: -3895964702653079962
+    second: player_fistival_2_27
+  - first:
+      213: 2503286445609811889
+    second: player_fistival_2_28
+  - first:
+      213: 5473586150648736487
+    second: player_fistival_2_29
+  - first:
+      213: -3851223624265391064
+    second: player_fistival_2_30
+  - first:
+      213: -9057600055932517131
+    second: player_fistival_2_31
+  - first:
+      213: 6734973520329491732
+    second: player_fistival_2_32
+  - first:
+      213: -2523382456223122934
+    second: player_fistival_2_33
+  - first:
+      213: 9185343913118799840
+    second: player_fistival_2_34
+  - first:
+      213: 3995566431143654089
+    second: player_fistival_2_35
+  - first:
+      213: 2559682775184838038
+    second: player_fistival_2_36
+  - first:
+      213: 4662461978137807721
+    second: player_fistival_2_37
+  - first:
+      213: -521713670671161002
+    second: player_fistival_2_38
+  - first:
+      213: -8731794051127314655
+    second: player_fistival_2_39
+  - first:
+      213: 8475927542331113193
+    second: player_fistival_2_40
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 150
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hit
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ee789e313b80a570800000000000000
+      internalID: 8475927542331113193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: a7d5c29b01be7a74e9902cca186adb66
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":9.0},"gridSpriteSize":{"x":300.0,"y":300.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      hit: 8475927542331113193
+      player_fistival_2_0: -5210820448139947493
+      player_fistival_2_1: -2068611288780776727
+      player_fistival_2_10: 2622337407587801390
+      player_fistival_2_11: -2749176131895976637
+      player_fistival_2_12: 7500361103313225375
+      player_fistival_2_13: -2958335838415572622
+      player_fistival_2_14: -7722904370051519351
+      player_fistival_2_15: -341602415664056612
+      player_fistival_2_16: -5319340203716631988
+      player_fistival_2_17: 4387239560104533387
+      player_fistival_2_18: -2158098446183328700
+      player_fistival_2_19: -3966160863367875461
+      player_fistival_2_2: 1471643635099676813
+      player_fistival_2_20: -6490412808954814811
+      player_fistival_2_21: -3155205705700109199
+      player_fistival_2_22: -7890162882552538032
+      player_fistival_2_23: -4443852329906435154
+      player_fistival_2_24: -3597314617846975523
+      player_fistival_2_25: 3030191814365501042
+      player_fistival_2_26: 6953677958180356765
+      player_fistival_2_27: -3895964702653079962
+      player_fistival_2_28: 2503286445609811889
+      player_fistival_2_29: 5473586150648736487
+      player_fistival_2_3: -333407178360483078
+      player_fistival_2_30: -3851223624265391064
+      player_fistival_2_31: -9057600055932517131
+      player_fistival_2_32: 6734973520329491732
+      player_fistival_2_33: -2523382456223122934
+      player_fistival_2_34: 9185343913118799840
+      player_fistival_2_35: 3995566431143654089
+      player_fistival_2_36: 2559682775184838038
+      player_fistival_2_37: 4662461978137807721
+      player_fistival_2_38: -521713670671161002
+      player_fistival_2_39: -8731794051127314655
+      player_fistival_2_4: 6206342542202262733
+      player_fistival_2_5: -5573200176654273369
+      player_fistival_2_6: -8466430441345991799
+      player_fistival_2_7: -1282390946779201263
+      player_fistival_2_8: -7427508654278933593
+      player_fistival_2_9: -4070635417696236177
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

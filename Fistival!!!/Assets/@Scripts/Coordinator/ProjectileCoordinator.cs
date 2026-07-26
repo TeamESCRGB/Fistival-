@@ -20,6 +20,7 @@ namespace Coordinator
         protected Transform _activateRange;
         protected CooldownComponentModule _explodeTimer;
         protected float _explosionKnockBack;
+        protected Vector2 _dir;
 
         private void Awake()
         {
@@ -77,6 +78,7 @@ namespace Coordinator
             transform.position = initialPos;
             _rb2d.AddForce(dir * _baseSpeed, ForceMode2D.Impulse);
             _projActor.LookDir(dir);
+            _dir = dir;
             Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _data.LaunchSFX, false, Managers.Instance.GameManager.SFXVolume);
         }
 
@@ -119,8 +121,8 @@ namespace Coordinator
 
         protected virtual void OnFixedUpdate()
         {
-
-            if(CanExplode() == false)
+            _projActor.LookDir(_dir);
+            if (CanExplode() == false)
             {
                 return;
             }

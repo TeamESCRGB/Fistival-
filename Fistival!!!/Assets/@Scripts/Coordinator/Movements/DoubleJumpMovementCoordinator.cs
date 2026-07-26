@@ -15,8 +15,8 @@ namespace Coordinator.Movements
 
         private void Start()
         {
-            gameObject.GetComponentInChildren<PlatformerFootCoordinator>(true).OnStepKill -= Jump;
-            gameObject.GetComponentInChildren<PlatformerFootCoordinator>(true).OnStepKill += Jump;
+            gameObject.GetComponentInChildren<PlatformerFootCoordinator>(true).OnStepAttackTriedBetweenFixedUpdate -= Jump;
+            gameObject.GetComponentInChildren<PlatformerFootCoordinator>(true).OnStepAttackTriedBetweenFixedUpdate += Jump;
         }
 
 

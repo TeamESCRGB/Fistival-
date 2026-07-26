@@ -28,6 +28,7 @@ namespace Coordinator.Stages
         private SpawnPointStruct[] _mobSpawnPoints;
         [SerializeField]
         private MonoBehaviour[] _basicInitializers;
+        private List<IBasicInitializer> _initializers = new List<IBasicInitializer>();
 
         private void Awake()
         {
@@ -47,6 +48,11 @@ namespace Coordinator.Stages
             if (_itemSpawnPoints is null)
             {
                 _itemSpawnPoints = new SpawnPointStruct[0];
+            }
+
+            for(int i = 0; i < _basicInitializers.Length; i++)
+            {
+                _initializers.AddRange(_basicInitializers[i].GetComponentsInChildren<IBasicInitializer>());
             }
         }
 
@@ -122,9 +128,9 @@ namespace Coordinator.Stages
                 
             }
 
-            for(int i = 0; i < _basicInitializers.Length; i++)
+            for(int i = 0; i < _initializers.Count; i++)
             {
-                _basicInitializers[i].GetComponent<IBasicInitializer>()?.Init();
+                _initializers[i]?.Init();
             }
         }
 

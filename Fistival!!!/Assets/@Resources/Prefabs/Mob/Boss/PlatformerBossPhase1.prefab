@@ -575,6 +575,7 @@ GameObject:
   - component: {fileID: 7682269149441244732}
   - component: {fileID: 40833557959944219}
   - component: {fileID: 5443209561861958309}
+  - component: {fileID: 9122127474602112330}
   m_Layer: 13
   m_Name: PlatformerBossPhase1
   m_TagString: Untagged
@@ -830,6 +831,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.MobActs.PlatformerBoss.PlatformerBossPhaseChange
   _phase2Idx: 12
   _phaseChangeJumpDuration: 3
+--- !u!114 &9122127474602112330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4915324703599281049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59324b0f3584ed498c647d0ae160087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Trigger.MobDeathBGMTrigger
+  _channel: 0
+  _soundKey: 
 --- !u!1 &5562521952547482350
 GameObject:
   m_ObjectHideFlags: 0

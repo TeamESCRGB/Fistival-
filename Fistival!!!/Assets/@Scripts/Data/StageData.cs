@@ -15,5 +15,6 @@ namespace Data
         public string HomeIMG { get; set; }
         public string BossName { get; set; }
         public string BossDesc { get; set; }
+        public string InitialBGM { get; set; }
     }
 }

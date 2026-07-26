@@ -49,6 +49,13 @@ namespace UI.Scene
             GetText((int)Texts.LoadingAssetName).text = "";
             GetObject((int)Objects.LoadProgressBar).GetComponent<Slider>().value = 0;
             GetText((int)Texts.VersionText).text = $"v{Application.version}";
+
+            var setting = Managers.Instance.SaveDataManager.GetGameSettingRef();
+
+            Managers.Instance.GameManager.MasterVolume = setting.MasterVolume;
+            Managers.Instance.GameManager.BGMVolume = setting.BGMVolume;
+            Managers.Instance.GameManager.SFXVolume = setting.SFXVolume;
+
             Managers.Instance.ResourceManager.LoadAsyncAllIn("StaticLoaded", (asset, now, end) =>
             {
                 LoadAssets(asset, now, end);
@@ -102,6 +109,7 @@ namespace UI.Scene
         public void OnOpeningEnd()
         {
             _isOpeningEnd  = true;
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.BGM_0, "MainSceneBGM", true, Managers.Instance.GameManager.BGMVolume);
         }
 
         private void OnStartButtonPressed(PointerEventData data)

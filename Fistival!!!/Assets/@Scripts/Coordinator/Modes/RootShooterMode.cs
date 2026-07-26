@@ -3,6 +3,7 @@ using Coordinator.Movements;
 using Data;
 using Defines;
 using InputHandler;
+using Manager;
 using UnityEngine;
 using Utils;
 
@@ -139,6 +140,10 @@ namespace Coordinator.Modes
 
         public override void StunFor(float time)
         {
+            if (_stunCounter is null)
+            {
+                _stunCounter = Managers.Instance.CooldownManager.GetCooldownModule(time);
+            }
             if (time <= 0 || _stunCounter.GetRemainedTime() >= time)
             {
                 return;

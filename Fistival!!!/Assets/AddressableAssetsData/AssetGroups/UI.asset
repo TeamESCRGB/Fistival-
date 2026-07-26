@@ -70,6 +70,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameSceneBasicLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c6e655f6259e274cbdd74f03b696a78
+    m_Address: Credit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9d1ceb69629698a4fa0b864998ca0fb9
     m_Address: BusstopUI
     m_ReadOnly: 0

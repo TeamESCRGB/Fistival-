@@ -4,6 +4,7 @@ using Utils;
 using Coordinator.Hands;
 using Coordinator.Movements;
 using Defines;
+using Manager;
 
 namespace Coordinator.Modes
 {
@@ -130,6 +131,10 @@ namespace Coordinator.Modes
 
         public override void StunFor(float time)
         {
+            if(_stunCounter is null)
+            {
+                _stunCounter = Managers.Instance.CooldownManager.GetCooldownModule(time);
+            }
             if (time <= 0 || _stunCounter.GetRemainedTime() >= time)
             {
                 return;

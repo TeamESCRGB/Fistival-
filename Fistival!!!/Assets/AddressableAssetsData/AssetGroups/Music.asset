@@ -21,12 +21,34 @@ MonoBehaviour:
     m_SerializedLabels:
     - TestPreload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 255ff741a94101c418b828e6181ae74b
+    m_Address: Stage_PlatformerBGM_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
+    - stage_platformer_loaded_1
+    - stage_platformer_loaded_2
+    - stage_platformer_loaded_3
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 42ac3f90d3f40794f8d37d927472605b
+    m_Address: Stage_Platformer_SotcopBGM
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_platformer_loaded_3
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6132ea35fd3cd4647832ece684bbd461
     m_Address: TestSong_cut
     m_ReadOnly: 0
     m_SerializedLabels:
     - StaticLoaded
     - TestPreload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6eedaece66bbb7347857a428cf9269a4
+    m_Address: MainSceneBGM
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainSceneLoaded
+    - TitleSceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}

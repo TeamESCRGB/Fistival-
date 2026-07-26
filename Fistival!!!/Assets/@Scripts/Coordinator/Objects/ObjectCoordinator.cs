@@ -17,7 +17,7 @@ namespace Coordinator.Objects
         protected Collider2D _col2d;
         protected int _durability = 1;
         protected int _abrasableLayerMask = 0;
-        protected float _platformSpeedThreshold=1;
+        protected float _platformSpeedThreshold=2;
         protected bool _isThrown = false;
 
         protected int _chargeRate;
@@ -34,6 +34,7 @@ namespace Coordinator.Objects
         protected LayerMask _groundLayermask;
 
         protected int _additionalDamage = 0;
+        protected Vector2 _prevLinearVelocity;
 
         private void Awake()
         {
@@ -121,8 +122,9 @@ namespace Coordinator.Objects
             {
                 return;
             }
+            _prevLinearVelocity = _rb2d.linearVelocity;
 
-            if(_rb2d.linearVelocity.magnitude < _platformSpeedThreshold)
+            if(_prevLinearVelocity.magnitude < _platformSpeedThreshold)
             {
                 _isThrown = false;
                 _rb2d.excludeLayers &= ~_data.PlatformLayerMask;
@@ -225,7 +227,7 @@ namespace Coordinator.Objects
             
             if (((1 << go.layer) & _attackableLayers) != 0)
             {
-                Managers.Instance.AttackManager.RequestAttack(comp, this, (int)(_baseDamage * _rb2d.linearVelocity.magnitude) + _additionalDamage, _rb2d.linearVelocity, _baseStunTime * _chargeRate);
+                Managers.Instance.AttackManager.RequestAttack(comp, this, _baseDamage + _chargeRate + _additionalDamage, _prevLinearVelocity/4, _baseStunTime * _chargeRate);
             }
 
             if(_durability <= 0)

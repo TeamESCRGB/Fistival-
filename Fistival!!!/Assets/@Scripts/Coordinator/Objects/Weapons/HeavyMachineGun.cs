@@ -60,7 +60,7 @@ namespace Objects.Weapons
             
             if (((1 << col.gameObject.layer) & _attackableLayers) != 0)
             {
-                Managers.Instance.AttackManager.RequestAttack(comp, this, (int)(_baseDamage * _rb2d.linearVelocity.magnitude), _rb2d.linearVelocity, _chargeRate*_baseStunTime);
+                Managers.Instance.AttackManager.RequestAttack(comp, this, _baseDamage + _chargeRate + _additionalDamage, _prevLinearVelocity/4, _chargeRate*_baseStunTime);
             }
 
             if (_durability <= 0)
