@@ -16,6 +16,8 @@ namespace Coordinator.Interactables
         private Sprite _usedSprite;
         private SpriteRenderer _renderer;
         private ParticleSystem _ps;
+        [SerializeField]
+        private string _bgmKey;
         private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
@@ -44,7 +46,7 @@ namespace Coordinator.Interactables
             DeActivateShader();
             FixHighlightState(true);
             _isCheckpointChecked = true;
-            Managers.Instance.StageManager.SaveCheckpoint(transform.position);
+            Managers.Instance.StageManager.SaveCheckpoint(transform.position, _bgmKey);
             var player = FindAnyObjectByType<PlayerCoordinator>();
             var hpCoord = player.GetComponentInChildren<HPCoordinator>();
             hpCoord.AddHP(player.GetPlayerData().MaxHP - hpCoord.GetHP());

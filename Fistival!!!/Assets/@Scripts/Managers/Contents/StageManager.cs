@@ -101,11 +101,12 @@ namespace Manager.Contents
             }
         }
 
-        public void SaveCheckpoint(Vector3 checkpointPos)
+        public void SaveCheckpoint(Vector3 checkpointPos, string bgmKey)
         {
             _checkPointData = new CheckPointSaveData()
             {
                 Pos = checkpointPos,
+                BGMKey=bgmKey,
                 CamPos = Camera.main.transform.position,
                 CameraFollowState = _camFollowCoord.GetFollowState(),
                 CameraFollowDeadZoneHeight = _camFollowCoord.GetDeadZoneHeight(),
@@ -137,6 +138,7 @@ namespace Manager.Contents
             _camFollowCoord.SetFollowState(_checkPointData.CameraFollowState);
             _camFollowCoord.SetDeadZoneHeight(_checkPointData.CameraFollowDeadZoneHeight);
             _camFollowCoord.SetDeadZoneWidth(_checkPointData.CameraFollowDeadZoneWidth);
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.BGM_0, _checkPointData.BGMKey, true, Managers.Instance.GameManager.BGMVolume);
 
             foreach(var chunk in _spawnedChunks.Values)
             {
@@ -198,6 +200,7 @@ namespace Manager.Contents
             _checkPointData = new CheckPointSaveData()
             {
                 Pos = Vector3.zero,
+                BGMKey = _data.InitialBGM,
                 CamPos = _mainCam.transform.position,
                 CameraFollowState = _camFollowCoord.GetFollowState(),
                 CameraFollowDeadZoneHeight = _camFollowCoord.GetDeadZoneHeight(),
