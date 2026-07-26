@@ -202,6 +202,7 @@ MonoBehaviour:
   _highlightObj: {fileID: 4598709577449519012}
   _unusedSprite: {fileID: 3301549609868922437, guid: 5a7376007e8b0c340a54dd207578a515, type: 3}
   _usedSprite: {fileID: -3448120935943364757, guid: 5a7376007e8b0c340a54dd207578a515, type: 3}
+  _bgmKey: 
 --- !u!61 &6277012180431697022
 BoxCollider2D:
   m_ObjectHideFlags: 0
