@@ -197,6 +197,7 @@ namespace Manager.Contents
             _life = life;
             _mainCam = Camera.main;
             _camFollowCoord = _mainCam.GetComponent<SmoothFollowCoordinator>();
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.BGM_0, _data.InitialBGM, true, Managers.Instance.GameManager.BGMVolume);
             _checkPointData = new CheckPointSaveData()
             {
                 Pos = Vector3.zero,
