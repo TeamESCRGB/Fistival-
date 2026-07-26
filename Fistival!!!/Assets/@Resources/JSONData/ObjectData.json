@@ -79,7 +79,7 @@
       "ObjectIndex": 4,
       "PrefabKey": "FlyingDiscObject",
       "Damage": 1,
-      "Durability": 15,
+      "Durability": 1,
       "AbrasableLayerMask": 4096,
       "Weight": 0.25,
       "PlatformSpeedThreshold": 1,
