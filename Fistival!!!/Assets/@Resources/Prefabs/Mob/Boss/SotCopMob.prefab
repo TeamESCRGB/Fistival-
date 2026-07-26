@@ -444,7 +444,7 @@ MonoBehaviour:
   _slashProjectileIdx: 6
   _slashCnt: 3
   _jumpForce: 50
-  _slamDropObjIdx: 4
+  _slamDropObjIdx: 9
   _slamDropObjCnt: 2
   _slamDropObjForce: 5
   _attackLayer:
