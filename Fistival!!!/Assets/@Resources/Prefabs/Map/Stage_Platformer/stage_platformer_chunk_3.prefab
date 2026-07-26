@@ -189,6 +189,7 @@ MonoBehaviour:
   - {fileID: 5739652197495300237}
   - {fileID: 463592382922806216}
   - {fileID: 2544692783375226765}
+  - {fileID: 2544692783375226765}
 --- !u!1 &162586115700460208
 GameObject:
   m_ObjectHideFlags: 0
@@ -10346,6 +10347,7 @@ GameObject:
   - component: {fileID: 488698460914450326}
   - component: {fileID: 5827833126462476718}
   - component: {fileID: 1163922895425968713}
+  - component: {fileID: 5053627274590500530}
   m_Layer: 20
   m_Name: SotCopSpawnTrigger
   m_TagString: Untagged
@@ -10531,6 +10533,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Trigger.CameraFollowStateTrigger
   _isCameraFollowPlayer: 0
+--- !u!114 &5053627274590500530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5306987549433467441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6de1dada59345ab4babe28a0139ebcfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Trigger.TouchBGMTrigger
+  _channel: 0
+  _soundKey: Stage_Platformer_SotcopBGM
+  _playOncePerLife: 1
 --- !u!1 &5346915730809332429
 GameObject:
   m_ObjectHideFlags: 0
