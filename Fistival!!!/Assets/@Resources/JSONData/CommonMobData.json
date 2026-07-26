@@ -118,11 +118,11 @@
         "x": 15,
         "y": 7
       },
-      "DropObjectIdx": 0,
+      "DropObjectIdx": 8,
       "PlayerLayer": 128,
       "PlayerHitboxLayer": 524288,
       "InitialDir": 2,
-      "DropObjectPrefabName": "BasicMobDropObject",
+      "DropObjectPrefabName": "CommonOblongObject",
       "AnimationController": "WalkingDalmatianAnimationController",
       "HPSoundKeysField": {
         "Hit": "MobHit",

@@ -54,6 +54,15 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameSceneBasicLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f360273dbb5e2a439b0363fe005c161
+    m_Address: Bone
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_platformer_loaded_0
+    - stage_platformer_loaded_1
+    - stage_platformer_loaded_2
+    - stage_platformer_loaded_3
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 935bfe8e6dd28a7428cf8af62f937160
     m_Address: mob_drone_object
     m_ReadOnly: 0

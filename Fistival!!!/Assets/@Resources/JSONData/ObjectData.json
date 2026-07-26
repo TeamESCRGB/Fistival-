@@ -116,7 +116,7 @@
     },
     {
       "ObjectIndex": 7,
-      "PrefabKey": "CommonObject",
+      "PrefabKey": "CommonOblongObject",
       "Damage": 1,
       "Durability": 1,
       "AbrasableLayerMask": 0,
@@ -125,6 +125,19 @@
       "StunTime": 0.5,
       "PlatformLayerMask": 1024,
       "SpriteName": "raccoon_bag",
+      "PhysicsMaterialName": "Obj"
+    },
+    {
+      "ObjectIndex": 8,
+      "PrefabKey": "CommonOblongObject",
+      "Damage": 1,
+      "Durability": 1,
+      "AbrasableLayerMask": 0,
+      "Weight": 0.25,
+      "PlatformSpeedThreshold": 1,
+      "StunTime": 0.5,
+      "PlatformLayerMask": 1024,
+      "SpriteName": "Bone",
       "PhysicsMaterialName": "Obj"
     }
   ]
