@@ -3,6 +3,7 @@ using Coordinator.MobActs;
 using Coordinator.Movements;
 using Coordinator.Skills;
 using Data;
+using DataStructures;
 using Manager;
 using System.Collections.Generic;
 using UI;
@@ -25,6 +26,7 @@ namespace Coordinator.Mobs
         protected PlatformerMovementCoordinator _move;
 
         private MobActBase[] _acts = new MobActBase[3];
+        private RandomBag<MobActBase> _actBag = new RandomBag<MobActBase>();
 
         [SerializeField]
         private float _jumpForce;
@@ -56,6 +58,9 @@ namespace Coordinator.Mobs
             _acts[0] = GetComponent<ProjectileLaunchAct>();
             _acts[1] = GetComponent<SlamAct>();
             _acts[2] = GetComponent<LengthDashAct>();
+            _actBag.AddPoolItem(_acts[0]);
+            _actBag.AddPoolItem(_acts[1]);
+            _actBag.AddPoolItem(_acts[2]);
         }
 
         public override void Init(CommonMobData data)
@@ -71,7 +76,7 @@ namespace Coordinator.Mobs
             ((SlamAct)_acts[1]).Init(() => { _isActing = false; }, _animator, GetComponent<Rigidbody2D>(), _slamDropObjIdx,_slamDropObjCnt ,_player, _jumpForce, _slamDropObjForce,_groundLayer,_attackLayer);
             ((LengthDashAct)_acts[2]).Init(() => { _isActing = false; }, _animator, _move, GetComponent<Rigidbody2D>(), data.Speed, _dashStopTime);
             FindAnyObjectByType<PlayerHUD>().SetBoss(GetComponentInChildren<HPCoordinator>(), data.HP);
-
+            _actBag.ClearBag();
             for(int i = 0; i < _doors.Count; i++)
             {
                 _doors[i].Close();
@@ -121,8 +126,7 @@ namespace Coordinator.Mobs
                 _move.OnRightMovementInputEvent(false);
             }
 
-            _acts[UnityEngine.Random.Range(0, _acts.Length)].Act();
-
+            _actBag.Pick().Act();
         }
 
         protected override void OnDead()
