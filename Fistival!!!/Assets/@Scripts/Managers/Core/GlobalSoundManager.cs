@@ -38,6 +38,14 @@ namespace Manager.Core
             AudioListener.pause = false;
         }
 
+        /// <summary>
+        /// volume값은 더이상 쓰이지 않음
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <param name="key"></param>
+        /// <param name="loop"></param>
+        /// <param name="volume"></param>
+        /// <param name="pitch"></param>
         public void Play(SoundChannel channel, string key, bool loop, float volume = 1.0f, float pitch = 1.0f)
         {
             AudioSource audioSource = GetSource(channel);
@@ -56,7 +64,7 @@ namespace Manager.Core
             }
 
             audioSource.pitch = pitch;
-            audioSource.volume = volume;
+            //audioSource.volume = volume;
             _pauseTimes[(int)channel] = 0;
             if (channel < SoundChannel.EFFECT_0)
             {
@@ -83,6 +91,25 @@ namespace Manager.Core
             _pauseStartedTimes[(int)channel] = AudioSettings.dspTime;
             source.Pause();
             
+        }
+
+        public void SetChannelVolumAt(SoundChannelType type, float volume)
+        {
+            switch(type)
+            {
+                case SoundChannelType.BGM:
+                    GetSource(SoundChannel.BGM_0).volume = volume;
+                    GetSource(SoundChannel.BGM_1).volume = volume;
+                    break;
+                case SoundChannelType.SUB_BGM:
+                    GetSource(SoundChannel.SUB_BGM_0).volume = volume;
+                    GetSource(SoundChannel.SUB_BGM_1).volume = volume;
+                    break;
+                case SoundChannelType.EFFECT:
+                    GetSource(SoundChannel.EFFECT_0).volume = volume;
+                    GetSource(SoundChannel.EFFECT_1).volume = volume;
+                    break;
+            }
         }
 
         public void UnPause(SoundChannel channel)

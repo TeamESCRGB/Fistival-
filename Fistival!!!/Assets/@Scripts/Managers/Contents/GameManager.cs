@@ -114,7 +114,7 @@ namespace Manager.Contents
             }
             set
             {
-                AudioListener.volume = value;
+                Managers.Instance.GlobalSoundManager.SetChannelVolumAt(SoundChannelType.EFFECT,value);
                 Managers.Instance.SaveDataManager.GetGameSettingRef().SFXVolume = value;
             }
         }
@@ -127,6 +127,8 @@ namespace Manager.Contents
             }
             set
             {
+                Managers.Instance.GlobalSoundManager.SetChannelVolumAt(SoundChannelType.BGM, value);
+                Managers.Instance.GlobalSoundManager.SetChannelVolumAt(SoundChannelType.SUB_BGM, value);
                 AudioListener.volume = value;
                 Managers.Instance.SaveDataManager.GetGameSettingRef().BGMVolume = value;
             }
