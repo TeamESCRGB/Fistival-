@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
+using UnityEngine;
 
 namespace Utils
 {
@@ -27,6 +30,23 @@ namespace Utils
             for(int i = 0; i  < source.Count; i++)
             {
                 dest.Add(source[i]);
+            }
+        }
+
+        public static void Shuffle<T>(this IList<T> source)
+        {
+            if(source is null)
+            {
+                return;
+            }
+            var maxCnt = source.Count;
+            for(int i = 0; i < maxCnt; i++)
+            {
+                var idx = UnityEngine.Random.Range(0, maxCnt);
+
+                var item = source[i];
+                source[i] = source[idx];
+                source[idx] = item;
             }
         }
     }
