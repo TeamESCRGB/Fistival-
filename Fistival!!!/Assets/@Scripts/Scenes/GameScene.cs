@@ -31,7 +31,7 @@ namespace Scenes
             Managers.Instance.StageManager.TrySpawnChunk(stageData.FirstStageSectionInstanceName, stageData.FirstStageLoadedDatasName, _firstChunkPos.position);
             Managers.Instance.StageManager.StartStage(_player.GetPlayerData().MaxLife);
             _hud.gameObject.SetActive(true);
-            Managers.Instance.UIManager.ShowPopupUI<LifeCountPopup>("LifeCountPopup").SetData(_player.GetPlayerData().MaxLife);
+            Managers.Instance.UIManager.ShowPopupUI<LifeCountPopup>("LifeCountPopup").SetData(_player.GetPlayerData().MaxLife, stageData.InitialBGM);
         }
     }
 }

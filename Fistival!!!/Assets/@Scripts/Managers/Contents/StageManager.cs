@@ -128,8 +128,8 @@ namespace Manager.Contents
         private void Respawn()
         {
             var player = GameObject.FindAnyObjectByType<PlayerCoordinator>();
-
-            Managers.Instance.UIManager.ShowPopupUI<LifeCountPopup>("LifeCountPopup").SetData(_life);
+            Managers.Instance.GlobalSoundManager.StopAt(Defines.SoundChannel.BGM_0);
+            Managers.Instance.UIManager.ShowPopupUI<LifeCountPopup>("LifeCountPopup").SetData(_life, _checkPointData.BGMKey);
 
             player.Respawn();
 
@@ -138,7 +138,6 @@ namespace Manager.Contents
             _camFollowCoord.SetFollowState(_checkPointData.CameraFollowState);
             _camFollowCoord.SetDeadZoneHeight(_checkPointData.CameraFollowDeadZoneHeight);
             _camFollowCoord.SetDeadZoneWidth(_checkPointData.CameraFollowDeadZoneWidth);
-            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.BGM_0, _checkPointData.BGMKey, true, Managers.Instance.GameManager.BGMVolume);
 
             foreach(var chunk in _spawnedChunks.Values)
             {
@@ -197,7 +196,7 @@ namespace Manager.Contents
             _life = life;
             _mainCam = Camera.main;
             _camFollowCoord = _mainCam.GetComponent<SmoothFollowCoordinator>();
-            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.BGM_0, _data.InitialBGM, true, Managers.Instance.GameManager.BGMVolume);
+
             _checkPointData = new CheckPointSaveData()
             {
                 Pos = Vector3.zero,

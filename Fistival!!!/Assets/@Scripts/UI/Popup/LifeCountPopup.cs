@@ -19,6 +19,7 @@ namespace UI.Popup
 
         private int _life=0;
         private bool _canPause = true;
+        private string _bgm;
         public override bool Init()
         {
             if(base.Init() == false)
@@ -72,11 +73,13 @@ namespace UI.Popup
             GetObject((int)Objects.LifeCounter).SetActive(true);
             yield return waiter;
             Managers.Instance.UIManager.ClosePopupUI();
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.BGM_0, _bgm, true, Managers.Instance.GameManager.BGMVolume);
         }
 
-        public void SetData(int life)
+        public void SetData(int life, string bgm)
         {
             _life = life;
+            _bgm= bgm;
         }
     }
 }
