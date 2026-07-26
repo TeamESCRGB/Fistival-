@@ -103,6 +103,12 @@ MonoBehaviour:
     - GameSceneBasicLoaded
     - LobbySceneLoaded
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fabb0aac2ff30dc42a1fdbe7ed3b890d
+    m_Address: RockObj
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - stage_platformer_loaded_3
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cb77dffabd4e44744ae5a1912e1220ec, type: 2}
   m_SchemaSet:
