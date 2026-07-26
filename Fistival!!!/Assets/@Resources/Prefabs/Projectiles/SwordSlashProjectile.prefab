@@ -193,9 +193,9 @@ GameObject:
   - component: {fileID: 1328437336706899982}
   - component: {fileID: 865177227105273126}
   - component: {fileID: 5164015768911354768}
-  - component: {fileID: 4895614432099261045}
   - component: {fileID: 5848675011849941721}
   - component: {fileID: 2133847221823265798}
+  - component: {fileID: 6563340211601298765}
   m_Layer: 16
   m_Name: SwordSlashProjectile
   m_TagString: Untagged
@@ -213,7 +213,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 421577156812695871}
@@ -306,8 +306,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &4895614432099261045
-PolygonCollider2D:
+--- !u!114 &5848675011849941721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8776307524842919016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edb6f3625c9dfb4195429bdd3a48268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Skills.BasicDamageSkill
+--- !u!114 &2133847221823265798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8776307524842919016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b1dace29df1a04e945971c62626a8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Projectiles.SwordSlashProjectile
+--- !u!61 &6563340211601298765
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -340,7 +364,7 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.35, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -350,69 +374,5 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.81, y: 0.035}
-      - {x: 0.78999996, y: 0.114999995}
-      - {x: 0.71999997, y: 0.185}
-      - {x: 0.675, y: 0.205}
-      - {x: 0.66499996, y: 0.21}
-      - {x: 0.52, y: 0.21}
-      - {x: 0.49499997, y: 0.19999999}
-      - {x: 0.42999998, y: 0.145}
-      - {x: -0.015, y: 0.175}
-      - {x: -0.255, y: 0.185}
-      - {x: -0.525, y: 0.185}
-      - {x: -0.655, y: 0.16499999}
-      - {x: -0.715, y: 0.125}
-      - {x: -0.69, y: 0.065}
-      - {x: -0.72999996, y: 0.055}
-      - {x: -0.85499996, y: 0.03}
-      - {x: -0.875, y: 0.015}
-      - {x: -0.875, y: -0.03}
-      - {x: -0.87, y: -0.055}
-      - {x: -0.835, y: -0.06}
-      - {x: -0.72999996, y: -0.06}
-      - {x: -0.69, y: -0.13}
-      - {x: -0.625, y: -0.17}
-      - {x: -0.52, y: -0.17999999}
-      - {x: -0.28, y: -0.17}
-      - {x: 0.325, y: -0.145}
-      - {x: 0.42499998, y: -0.14999999}
-      - {x: 0.51, y: -0.21499999}
-      - {x: 0.69, y: -0.21499999}
-      - {x: 0.72999996, y: -0.195}
-      - {x: 0.775, y: -0.16}
-      - {x: 0.81, y: -0.085}
-    - - {x: -0.78999996, y: -0.08}
-      - {x: -0.79499996, y: -0.089999996}
-      - {x: -0.79499996, y: -0.13499999}
-      - {x: -0.715, y: -0.13499999}
-      - {x: -0.71, y: -0.12}
-      - {x: -0.71, y: -0.095}
-      - {x: -0.73499995, y: -0.08}
-  m_UseDelaunayMesh: 1
---- !u!114 &5848675011849941721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8776307524842919016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0edb6f3625c9dfb4195429bdd3a48268, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Skills.BasicDamageSkill
---- !u!114 &2133847221823265798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8776307524842919016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b1dace29df1a04e945971c62626a8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Coordinator.Projectiles.SwordSlashProjectile
+  m_Size: {x: 0.84, y: 0.25}
+  m_EdgeRadius: 0
