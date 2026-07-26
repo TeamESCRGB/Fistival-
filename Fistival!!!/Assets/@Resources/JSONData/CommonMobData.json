@@ -112,7 +112,7 @@
       "TouchStunTime": 0.25,
       "KnockBackForce": 10,
       "InvincibilityTime": 1,
-      "Speed": 5,
+      "Speed": 0,
       "SkillDelay": 3,
       "AggroRange": {
         "x": 15,
