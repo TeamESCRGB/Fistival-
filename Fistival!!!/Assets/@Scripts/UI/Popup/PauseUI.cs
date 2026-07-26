@@ -25,8 +25,6 @@ namespace UI.Popup
             VersionText
         }
 
-        [SerializeField]
-        private string[] _gameScenes = new string[] { "GameSceneBasicLoaded" };
         private bool _isMainSceneChangeTriggered = false;
 
         public override bool Init()
@@ -168,18 +166,9 @@ namespace UI.Popup
                     return;
                 }
 
-                if (nowScene == Defines.SceneType.LobbyScene)
-                {
-                    Managers.Instance.ResourceManager.ReleaseIn("LobbySceneLoaded");
-                }
-                else if (nowScene == Defines.SceneType.GameScene)
-                {
-                    foreach (var key in _gameScenes)
-                    {
-                        Managers.Instance.ResourceManager.ReleaseIn(key);
-                    }
-                }
-
+                Managers.Instance.ResourceManager.ReleaseIn("LobbySceneLoaded");
+                Managers.Instance.ResourceManager.ReleaseIn("GameSceneBasicLoaded");
+                Managers.Instance.StageManager.Init();
                 Managers.Instance.SceneManagerEx.LoadScene(SceneType.MainScene);
             });
         }
@@ -196,10 +185,8 @@ namespace UI.Popup
                     return;
                 }
 
-                foreach (var key in _gameScenes)
-                {
-                    Managers.Instance.ResourceManager.ReleaseIn(key);
-                }
+                Managers.Instance.ResourceManager.ReleaseIn("GameSceneBasicLoaded");
+                Managers.Instance.StageManager.Init();
 
                 Managers.Instance.SceneManagerEx.LoadScene(SceneType.LobbyScene);
             });
