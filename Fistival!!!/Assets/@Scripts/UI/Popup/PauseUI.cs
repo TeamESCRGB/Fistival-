@@ -66,11 +66,15 @@ namespace UI.Popup
 
         private void OnToLobby(PointerEventData _)
         {
+#if DISABLE_LOBBY_SCENE
+            Managers.Instance.UIManager.ShowPopupUI<BasicPopupAlert>("BasicPopupAlert").SetText("지금은 이용할 수 없는 기능입니다.");
+#else
             if(_isMainSceneChangeTriggered == false)
             {
                 Managers.Instance.UIManager.ShowPopupUI<BasicConfirmBox>("BasicConfirmBox").SetCallback(OnLobbyYes, OnConfirmNo).SetText("로비 화면으로 돌아가시겠습니까?\n저장되지 않은 모든 진행상황은 삭제됩니다!");
                 Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
             }
+#endif
         }
 
         private void OnQuitGame(PointerEventData _)
