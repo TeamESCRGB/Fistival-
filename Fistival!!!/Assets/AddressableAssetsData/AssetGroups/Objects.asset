@@ -16,10 +16,13 @@ MonoBehaviour:
   m_GUID: ae1c40c842b7e134db61791792f809ce
   m_SerializeEntries:
   - m_GUID: 0074d4e7160331d4dbdcd0d6e71ca3c3
-    m_Address: CommonOblongObject
+    m_Address: BoneObj
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GameSceneBasicLoaded
+    - stage_platformer_loaded_0
+    - stage_platformer_loaded_1
+    - stage_platformer_loaded_2
+    - stage_platformer_loaded_3
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0a53c426a220e064e8e7e2a20faf8d88
     m_Address: FlyingDiscObject
