@@ -17,7 +17,7 @@ namespace Coordinator.Objects
         protected Collider2D _col2d;
         protected int _durability = 1;
         protected int _abrasableLayerMask = 0;
-        protected float _platformSpeedThreshold=1;
+        protected float _platformSpeedThreshold=2;
         protected bool _isThrown = false;
 
         protected int _chargeRate;
