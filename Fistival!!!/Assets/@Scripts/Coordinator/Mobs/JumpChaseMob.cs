@@ -87,6 +87,7 @@ namespace Coordinator.Mobs
                 return;
             }
 
+            _skillTime = 0;
             if (_stunCounter.IsCooldownEnded())
             {
                 _movLock.LockMovement();
