@@ -21,7 +21,7 @@ namespace Coordinator.Stages
         [SerializeField]
         private LayerMask _attackLayer;
         [SerializeField]
-        private SpawnPointStruct[] _itemSpawnPoints;
+        private SpawnPointStruct[] _healItemSpawnPoints;
         [SerializeField]
         private SpawnPointStruct[] _objectSpawnPoints;
         [SerializeField]
@@ -45,9 +45,9 @@ namespace Coordinator.Stages
                 _objectSpawnPoints = new SpawnPointStruct[0];
             }
 
-            if (_itemSpawnPoints is null)
+            if (_healItemSpawnPoints is null)
             {
-                _itemSpawnPoints = new SpawnPointStruct[0];
+                _healItemSpawnPoints = new SpawnPointStruct[0];
             }
 
             for(int i = 0; i < _basicInitializers.Length; i++)
@@ -69,9 +69,9 @@ namespace Coordinator.Stages
             ClearAllObjects();
         }
 
-        private TCoord Spawn<TCoord, TInitData>(in SpawnPointStruct point, TInitData spawnData) where TCoord : UnityEngine.Object
+        private TCoord Spawn<TCoord, TInitData>(in SpawnPointStruct point,string prefab ,TInitData spawnData) where TCoord : UnityEngine.Object
         {
-            var go = Managers.Instance.ResourceManager.Instantiate(point.PrefabName, null, false, true);
+            var go = Managers.Instance.ResourceManager.Instantiate(prefab, null, false, true);
             if(go == null)
             {
                 return null;
@@ -94,20 +94,20 @@ namespace Coordinator.Stages
                 {
                     continue;
                 }
-                var coord = Spawn<MobCoordinatorBase, CommonMobData>(_mobSpawnPoints[i], data);
+                var coord = Spawn<MobCoordinatorBase, CommonMobData>(_mobSpawnPoints[i],data.PrefabKey ,data);
                 if(coord != null)
                 {
                     coord.Init(data);
                 }
             }
 
-            for (int i = 0; i < _itemSpawnPoints.Length; i++)
+            for (int i = 0; i < _healItemSpawnPoints.Length; i++)
             {
-                if (Managers.Instance.DataManager.HealItemDataDict.TryGetValue(_itemSpawnPoints[i].DataIdx, out var data) == false)
+                if (Managers.Instance.DataManager.HealItemDataDict.TryGetValue(_healItemSpawnPoints[i].DataIdx, out var data) == false)
                 {
                     continue;
                 }
-                var coord = Spawn<HealItem, HealItemData>(_itemSpawnPoints[i], data);
+                var coord = Spawn<HealItem, HealItemData>(_healItemSpawnPoints[i], data.PrefabKey, data);
                 if(coord != null)
                 {
                     coord.Init(data.Idx);
@@ -120,7 +120,7 @@ namespace Coordinator.Stages
                 {
                     continue;
                 }
-                var coord = Spawn<ObjectCoordinator, ObjectData>(_objectSpawnPoints[i], data);
+                var coord = Spawn<ObjectCoordinator, ObjectData>(_objectSpawnPoints[i], data.PrefabKey, data);
                 if(coord != null)
                 {
                     coord.Init(data);
