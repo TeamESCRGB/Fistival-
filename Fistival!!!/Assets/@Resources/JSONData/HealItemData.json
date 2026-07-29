@@ -2,6 +2,7 @@
   "healItemDatas": [
     {
       "Idx": 6974,
+      "PrefabKey": "",
       "HealRate": 6974,
       "Image": "",
       "HealSFX": ""
