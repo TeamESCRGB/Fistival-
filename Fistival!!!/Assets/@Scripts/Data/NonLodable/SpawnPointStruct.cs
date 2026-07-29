@@ -6,7 +6,6 @@ namespace Data.NonLodable
     public struct SpawnPointStruct
     {
         public Transform SpawnPoint;
-        public string PrefabName;
         public int DataIdx;
     }
 }

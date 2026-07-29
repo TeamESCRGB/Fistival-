@@ -17,7 +17,7 @@ namespace Coordinator
 
         private TCoord Spawn<TCoord, TInitData>(in SpawnPointStruct point, TInitData spawnData) where TCoord : UnityEngine.Object
         {
-            var go = Managers.Instance.ResourceManager.Instantiate(point.PrefabName, null, false, true);
+            var go = Managers.Instance.ResourceManager.Instantiate("", null, false, true);
             if (go == null)
             {
                 return null;
@@ -39,7 +39,7 @@ namespace Coordinator
             if(_nowMobCnt <= 0 )
             {
                 var point = _mobSpawnPoints[_mobSpawnPoints.Length - 1];
-                var go = Managers.Instance.ResourceManager.Instantiate(point.PrefabName, null, true, false);
+                var go = Managers.Instance.ResourceManager.Instantiate("", null, true, false);
                 var pos = point.SpawnPoint.position;
                 pos.z = -6;
                 go.transform.position = pos;
