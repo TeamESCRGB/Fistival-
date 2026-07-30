@@ -12,7 +12,7 @@ namespace Coordinator.Trigger
         protected string _soundKey;
         protected void Play()
         {
-            Managers.Instance.GlobalSoundManager.Play(_channel, _soundKey,true,Managers.Instance.GameManager.BGMVolume);
+            Managers.Instance.GlobalSoundManager.Play(_channel, _soundKey,true);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Scenes
             {
                 player.Init();
             }
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "LobbyBGM", true, Managers.Instance.GameManager.BGMVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "LobbyBGM", true);
             _hud.gameObject.SetActive(true);
             //var modeManageCoord = FindAnyObjectByType<ModeManageCoordinator>();
             //if(modeManageCoord != null)

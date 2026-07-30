@@ -19,7 +19,7 @@ namespace Scenes
         {
             Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.UI);
             Managers.Instance.UIManager.DIsableAutoUIActionMapChange();
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "TitleBGM", true, Managers.Instance.GameManager.BGMVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "TitleBGM", true);
         }
     }
 }

@@ -103,7 +103,7 @@ namespace UI.Popup
         {
             if(data.pointerClick.TryGetComponent<EquipmentSlotUI>(out var comp) == false || comp.GetData() is null)
             {
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "FailedSFX", false);
                 return;
             }
 
@@ -112,7 +112,7 @@ namespace UI.Popup
                 _player.EquipItem(comp.GetIDX(), -1);
             }
 
-            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, comp.GetData().UnEquipSound, false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, comp.GetData().UnEquipSound, false);
 
             comp.SetItem(null);
             GetObject((int)Objects.ItemInfoUI).SetActive(false);
@@ -122,7 +122,7 @@ namespace UI.Popup
         {
             if (data.pointerClick.TryGetComponent<ItemSlotUI>(out var comp) == false || comp.GetData() is null)
             {
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "FailedSFX", false);
                 return;
             }
 
@@ -157,7 +157,7 @@ namespace UI.Popup
 
                 if (slot.GetData()?.Idx == item.Idx)
                 {
-                    Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
+                    Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "FailedSFX", false);
                     return;
                 }
 
@@ -165,26 +165,26 @@ namespace UI.Popup
 
             if(slotIdx < 0)
             {
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "FailedSFX", false);
                 return;
             }
 
             if(item.Idx == 10 && emptyCnt < 3)
             {
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "FailedSFX", false);
                 Managers.Instance.UIManager.ShowPopupUI<BasicPopupAlert>("BasicPopupAlert").SetText("모든 것을 가지려면 모든 것을 잃어야 하는 법. 모든 착용품을 해제해라.");
                 return;
             }
             else if(isEquipmentLocked)
             {
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "FailedSFX", false);
                 Managers.Instance.UIManager.ShowPopupUI<BasicPopupAlert>("BasicPopupAlert").SetText("마지막처럼은 혼자서만 쓸 수 있다. 이걸 빼던지 다른걸 포기하던지 선택해라.");
                 return;
             }
 
             if (_player != null)
             {
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, item.EquipSound, false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, item.EquipSound, false);
                 _player.EquipItem(slotIdx, item.Idx);
                 Get<EquipmentSlotUI>(slotIdx).SetItem(item);
             }
@@ -231,7 +231,7 @@ namespace UI.Popup
         private void OnExitButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ClosePopupUI();
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false);
         }
     }
 }

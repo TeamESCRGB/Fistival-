@@ -86,11 +86,11 @@ namespace Coordinator
         {
             int old = _hpModule.GetHP();
             bool ret = _hpModule.SubHP(hp);
-            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _hpSoundKeys.Hit, false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _hpSoundKeys.Hit, false);
             OnHPChanged?.Invoke(old, _hpModule.GetHP(), hp);
             if(ret)
             {
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _hpSoundKeys.Dead, false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _hpSoundKeys.Dead, false);
                 _isDead = true;
                 OnDead?.Invoke();
             }

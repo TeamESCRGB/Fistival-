@@ -67,7 +67,7 @@ namespace Coordinator.MobActs
                 obj.Init(_objData);
                 obj.GetComponent<Rigidbody2D>().AddForce(force,ForceMode2D.Impulse);
             }
-            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _slamEndSFX, false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _slamEndSFX, false);
             _canSpawnObj = false;
         }
         //땅에 닿기 전까지 오브젝트,공격 레이어하고 충돌 안하게 하기
@@ -96,7 +96,7 @@ namespace Coordinator.MobActs
         public void JumpForSlam()
         {
             _rb2d.AddForce(_jumpForce,ForceMode2D.Impulse);
-            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _slamJumpSFX, false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _slamJumpSFX, false);
         }
 
         public override void Act()

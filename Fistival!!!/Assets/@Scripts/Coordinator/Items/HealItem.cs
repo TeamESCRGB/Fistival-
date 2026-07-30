@@ -29,7 +29,7 @@ namespace Coordinator.Items
             }
 
             collision.GetComponentInChildren<HPCoordinator>().AddHP(_heal);
-            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _sfx, false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, _sfx, false);
             Managers.Instance.ResourceManager.Destroy(gameObject);
         }
     }

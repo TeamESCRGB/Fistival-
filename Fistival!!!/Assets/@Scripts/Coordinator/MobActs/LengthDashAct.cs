@@ -90,7 +90,7 @@ namespace Coordinator.MobActs
         public void DoLengthDash()
         {
             _mov.PushTo(_force);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, _dashSFX, false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, _dashSFX, false);
         }
 
         public void LengthDashEnd()
