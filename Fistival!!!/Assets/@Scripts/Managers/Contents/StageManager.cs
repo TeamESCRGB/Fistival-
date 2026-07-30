@@ -63,7 +63,7 @@ namespace Manager.Contents
             if(Managers.Instance.DataManager.CollectionDataDict.ContainsKey(collectionIdx) && _collection.Contains(collectionIdx) == false)
             {
                 _collection.Add(collectionIdx);
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, Managers.Instance.DataManager.CollectionDataDict[collectionIdx].CollectingSound, false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, Managers.Instance.DataManager.CollectionDataDict[collectionIdx].CollectingSound, false);
             }
         }
 

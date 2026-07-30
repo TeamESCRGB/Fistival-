@@ -80,7 +80,7 @@ namespace UI.Popup
             {
                 Managers.Instance.UIManager.ClosePopupUI();
             }
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BasicButtonClickSFX", false);
         }
 
         private bool LoadImg(float volume, string section1, string section2, string section3, out Sprite img, ref int section)

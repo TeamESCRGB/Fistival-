@@ -109,7 +109,7 @@ namespace UI.Scene
         public void OnOpeningEnd()
         {
             _isOpeningEnd  = true;
-            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.BGM_0, "MainSceneBGM", true, Managers.Instance.GameManager.BGMVolume);
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.BGM_0, "MainSceneBGM", true);
         }
 
         private void OnStartButtonPressed(PointerEventData data)

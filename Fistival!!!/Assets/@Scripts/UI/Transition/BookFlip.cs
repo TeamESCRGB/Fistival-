@@ -22,7 +22,7 @@ namespace UI.Transition
             // RotateMode.FastBeyond360을 사용해야 180도 회전 시 꼬임 현상을 방지할 수 있습니다.
             _tween = transform.DORotate(new Vector3(0, angle, 0), duration, RotateMode.FastBeyond360)
                 .SetEase(Ease.InOutQuad).SetUpdate(true); // 부드러운 가속/감속 효과
-            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "BookFlipSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "BookFlipSFX", false);
         }
 
 

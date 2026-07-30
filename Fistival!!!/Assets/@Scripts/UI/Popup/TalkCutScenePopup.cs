@@ -142,7 +142,7 @@ namespace UI.Popup
             for(int i = 0; i < charArr.Length; i++)
             {
                 text.text += charArr[i];
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, sfx, false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, sfx, false);
                 yield return _waiter;
             }
 

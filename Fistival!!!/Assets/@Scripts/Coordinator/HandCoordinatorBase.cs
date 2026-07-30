@@ -308,7 +308,7 @@ namespace Coordinator
             _chargeCnt = 0;
             _grabbedObject = null;
             _animator.SetTrigger("Throw");
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, _handOpSoundKeys.Throw, false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, _handOpSoundKeys.Throw, false);
             RemoveWeapon();
             InvokeOnChargeRateChanged(_chargeCnt, _maxChargeCnt);
             InvokeOnGrabbedObjectChanged(null);
@@ -326,7 +326,7 @@ namespace Coordinator
                 _status = HandStatus.GRABBED;
                 _nowSelectedObject = (null, null);
                 _animator.SetTrigger("Grab");
-                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, _handOpSoundKeys.Grab, false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, _handOpSoundKeys.Grab, false);
                 if (_grabbedObject.TryGetComponent<WeaponCoordinatorBase>(out var weapon) && weapon.CanUseWeapon())
                 {
                     _weapon = weapon;

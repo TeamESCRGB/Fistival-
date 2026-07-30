@@ -34,13 +34,13 @@ namespace Coordinator.Interactables
             //이미지 바꾸고, 체크포인트 애니메이션 틀어야됨
             if(isTriggeredByAttack)
             {
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "MobHit", false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "MobHit", false);
                 _ps.Stop();
                 _ps.Play();
             }
             else
             {
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "Button", false, Managers.Instance.GameManager.SFXVolume);
+                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "Button", false);
             }
             _renderer.sprite = _usedSprite;
             DeActivateShader();

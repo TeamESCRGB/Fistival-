@@ -128,7 +128,7 @@ namespace UI.Popup
         {
             _stageIdx = (_stageIdx + 1) % _stageCnt;
             UpdateUIState();
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "StageChangeSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "StageChangeSFX", false);
         }
 
         private void OnPrev(PointerEventData _)
@@ -139,7 +139,7 @@ namespace UI.Popup
                 _stageIdx = _stageCnt - 1;
             }
             UpdateUIState();
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "StageChangeSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "StageChangeSFX", false);
         }
 
         public void SetInitialStageIdx(int idx)
@@ -169,7 +169,7 @@ namespace UI.Popup
             GetButton((int)Buttons.PrevStage).GetComponent<RectTransform>().DOAnchorPosX(-100, 0.25f)
                 .SetEase(Ease.OutQuad);
 
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "GameStartSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "GameStartSFX", false);
         }
 
         private void InternalLoadFunc()
@@ -200,7 +200,7 @@ namespace UI.Popup
         private void OnExitButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ClosePopupUI();
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "StageSelectExitSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "StageSelectExitSFX", false);
         }
     }
 }

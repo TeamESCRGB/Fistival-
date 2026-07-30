@@ -54,7 +54,7 @@ namespace Coordinator
                 _animator.SetBool("IsOn",state);
                 if (state)
                 {
-                    Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "Button", false, Managers.Instance.GameManager.SFXVolume);
+                    Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, "Button", false);
                 }
             }
 

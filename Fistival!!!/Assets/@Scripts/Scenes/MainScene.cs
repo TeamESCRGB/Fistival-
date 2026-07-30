@@ -18,7 +18,7 @@ namespace Scenes
 
         private void Start()
         {
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "MainBGM", true, Managers.Instance.GameManager.BGMVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "MainBGM", true);
         }
     }
 }

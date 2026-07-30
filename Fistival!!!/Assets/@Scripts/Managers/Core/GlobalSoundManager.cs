@@ -44,9 +44,8 @@ namespace Manager.Core
         /// <param name="channel"></param>
         /// <param name="key"></param>
         /// <param name="loop"></param>
-        /// <param name="volume"></param>
         /// <param name="pitch"></param>
-        public void Play(SoundChannel channel, string key, bool loop, float volume = 1.0f, float pitch = 1.0f)
+        public void Play(SoundChannel channel, string key, bool loop, float pitch = 1.0f)
         {
             AudioSource audioSource = GetSource(channel);
 
@@ -195,7 +194,7 @@ namespace Manager.Core
         }
 
 
-        public void PlayBGMInIdleChannel(SoundChannelType type, string key, bool loop, float volume = 1.0f, float pitch = 1.0f)
+        public void PlayBGMInIdleChannel(SoundChannelType type, string key, bool loop, float pitch = 1.0f)
         {
             SoundChannel channel = SoundChannel.UNKNOWN;
             int channelIdxStart = (int)type;
@@ -209,7 +208,7 @@ namespace Manager.Core
                 }
             }
 
-            Play(channel, key, loop, volume, pitch);
+            Play(channel, key, loop, pitch);
         }
 
         public void StopAt(SoundChannel channel)

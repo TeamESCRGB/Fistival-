@@ -97,8 +97,8 @@ namespace UI.Popup
             Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
             Managers.Instance.NewInputSystemManager.UI_ESCInput += PauseOpenBind;
 
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "BusstopBGM", true, Managers.Instance.GameManager.BGMVolume);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BusstopEnterSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "BusstopBGM", true);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BusstopEnterSFX", false);
 
             return true;
         }
@@ -130,55 +130,55 @@ namespace UI.Popup
         private void OnStage1Pressed(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(0);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false);
         }
 
         private void OnStage2Pressed(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(1);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false);
         }
 
         private void OnStage3Pressed(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(2);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false);
         }
 
         private void OnStage4Pressed(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(3);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false);
         }
 
         private void OnStage5Pressed(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(4);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false);
         }
 
         private void OnStage6Pressed(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(5);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false);
         }
 
         private void OnStage7Pressed(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(6);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false);
         }
 
         private void OnStage7LockedPressed(PointerEventData _)
         {
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedSFX", false);
         }
 
         private void OnExitButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ClosePopupUI();
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "LobbyBGM", true, Managers.Instance.GameManager.BGMVolume);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BusstopExitSFX", false, Managers.Instance.GameManager.SFXVolume);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.BGM_0, "LobbyBGM", true);
+            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "BusstopExitSFX", false);
         }
     }
 }

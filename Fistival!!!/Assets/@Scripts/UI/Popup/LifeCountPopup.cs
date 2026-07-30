@@ -73,7 +73,7 @@ namespace UI.Popup
             GetObject((int)Objects.LifeCounter).SetActive(true);
             yield return waiter;
             Managers.Instance.UIManager.ClosePopupUI();
-            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.BGM_0, _bgm, true, Managers.Instance.GameManager.BGMVolume);
+            Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.BGM_0, _bgm, true);
         }
 
         public void SetData(int life, string bgm)
