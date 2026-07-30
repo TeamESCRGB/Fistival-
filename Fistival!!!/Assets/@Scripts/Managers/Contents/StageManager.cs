@@ -210,6 +210,10 @@ namespace Manager.Contents
 
         public StageSectionCoordinator TrySpawnChunk(string key,string resourceKey ,Vector3 spawnPos)
         {
+            if(_stageIdx < 0)
+            {
+                return null;
+            }
             var chunk = Managers.Instance.ResourceManager.Instantiate(key);
             if(chunk == null)
             {
