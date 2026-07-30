@@ -54,7 +54,7 @@ MonoBehaviour:
     m_Address: NoBounceNoFric
     m_ReadOnly: 0
     m_SerializedLabels:
-    - TestPreload
+    - GameSceneBasicLoaded
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a64a251eaad4bdc4296ba65a3353d306
     m_Address: TestProjectile2

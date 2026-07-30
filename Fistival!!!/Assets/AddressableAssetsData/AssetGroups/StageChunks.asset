@@ -29,19 +29,19 @@ MonoBehaviour:
     m_Address: stage_platformer_chunk_2
     m_ReadOnly: 0
     m_SerializedLabels:
-    - stage_platformer_loaded_1
+    - stage_platformer_loaded_2
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cfd80a1377af3114b8557a196619d882
     m_Address: stage_platformer_chunk_1
     m_ReadOnly: 0
     m_SerializedLabels:
-    - stage_platformer_loaded_0
+    - stage_platformer_loaded_1
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d09c30cd9a3c5c944939be69181bc0ea
     m_Address: stage_platformer_chunk_3
     m_ReadOnly: 0
     m_SerializedLabels:
-    - stage_platformer_loaded_2
+    - stage_platformer_loaded_3
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d4257a5542cbfe64187621a51e55520b
     m_Address: stage_platformer_chunk_0
