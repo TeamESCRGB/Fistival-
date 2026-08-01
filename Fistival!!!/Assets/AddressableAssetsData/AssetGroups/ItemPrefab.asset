@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: ItemPrefab
   m_GUID: 1b7c18587c031b9449daf7ad98b28fc4
   m_SerializeEntries:
+  - m_GUID: 88cfef0f6a540614f9487008d602b008
+    m_Address: Collection
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameSceneBasicLoaded
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d0043de1284496145ab898161b6df43d
     m_Address: HealItem
     m_ReadOnly: 0
