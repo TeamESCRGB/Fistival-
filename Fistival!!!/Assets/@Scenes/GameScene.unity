@@ -764,6 +764,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae764a74e23e45c40a3835d06d348286, type: 3}
+--- !u!4 &1258721641 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7696209096425875783, guid: ae764a74e23e45c40a3835d06d348286, type: 3}
+  m_PrefabInstance: {fileID: 1258721640}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1695392377
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,7 +963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0576eff9f6cfe3743a3ae67a29397a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coordinator.SmoothFollowCoordinator
-  _target: {fileID: 0}
+  _target: {fileID: 1258721641}
   _followRate: 3.5
   _deadzoneWidth: {x: 0.1, y: 0.1}
   _deadzoneHeight: {x: 1, y: 1}
