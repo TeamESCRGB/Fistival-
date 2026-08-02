@@ -1,0 +1,41 @@
+[
+  {
+    "TotalPlayTime": 10,
+    "PlayerSaveData": {
+      "Money": 20,
+      "PurchasedItems": [ 1, 2, 3, 4 ],
+      "WearingItems": [ 1, 2, 3 ],
+      "UnlockedTrainingStages": [ 0 ]
+    },
+    "StageSaveDatas": [
+      {
+        "IsCleared": false,
+        "ClearTimeWithOutPauseTime": 10,
+        "ClearTime": 20,
+        "TotalGainedDamage": 30,
+        "CollectedCollections": [ 0 ]
+      },
+      {
+        "IsCleared": true,
+        "ClearTimeWithOutPauseTime": 10,
+        "ClearTime": 20,
+        "TotalGainedDamage": 30,
+        "CollectedCollections": [ 0 ]
+      },
+      {
+        "IsCleared": false,
+        "ClearTimeWithOutPauseTime": 55555,
+        "ClearTime": 20,
+        "TotalGainedDamage": 30,
+        "CollectedCollections": [ 0 ]
+      },
+      {
+        "IsCleared": false,
+        "ClearTimeWithOutPauseTime": 12435,
+        "ClearTime": 20,
+        "TotalGainedDamage": 30,
+        "CollectedCollections": [ 0 ]
+      }
+    ]
+  }
+]

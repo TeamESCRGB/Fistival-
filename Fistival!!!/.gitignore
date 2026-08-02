@@ -12,7 +12,7 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
-/Assets/@Scripts/TestScripts
+# /Assets/@Scripts/TestScripts
 # /Assets/@Resources/TestResources
 /Assets/@Resources/Font
 # /Assets/@Scenes/Test
