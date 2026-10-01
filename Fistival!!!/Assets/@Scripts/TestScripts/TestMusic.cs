@@ -37,7 +37,7 @@ public class TestMusic : MonoBehaviour//, IExactRhythmReceiver
                 FindAnyObjectByType<ModeManageCoordinator>().UnlockMode(ModeTypes.PLATFORMER);
                 //FindAnyObjectByType<ModeManageCoordinator>().UnlockMode(ModeTypes.RHYTHM);
                 FindAnyObjectByType<ModeManageCoordinator>().UnlockMode(ModeTypes.ROOT_SHOOTER);
-                FindAnyObjectByType<ModeManageCoordinator>().UnlockMode(ModeTypes.SHOOT_2D);
+                //FindAnyObjectByType<ModeManageCoordinator>().UnlockMode(ModeTypes.SHOOT_2D);
                 FindAnyObjectByType<ModeManageCoordinator>().UnlockMode(ModeTypes.WWE);
 
                 foreach(var o in obc)
