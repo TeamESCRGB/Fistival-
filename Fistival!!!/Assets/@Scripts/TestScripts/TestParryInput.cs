@@ -1,12 +1,12 @@
-using Coordinator.Rhythm;
+//using Coordinator.Rhythm;
 using Defines;
 using InputHandler;
 using Manager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TestParryInput : MonoBehaviour, ILMBInputHandler, IParrableObject
-{
+public class TestParryInput : MonoBehaviour//, //ILMBInputHandler, //IParrableObject
+{/*
     public void OnFunc(InputAction.CallbackContext cb)
     {
         if(cb.started)
@@ -52,5 +52,5 @@ public class TestParryInput : MonoBehaviour, ILMBInputHandler, IParrableObject
     public void AddParryDamage(int calculatedDamage)
     {
         throw new System.NotImplementedException();
-    }
+    }*/
 }

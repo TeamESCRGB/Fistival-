@@ -17,7 +17,6 @@ namespace Manager
         #region Contents
         private CooldownManager _cooldownMgr;
         private AttackManager _attackMgr;
-        private RhythmModeManager _rhythmMgr;//나중에 특정 씬에서만 쓰는 매니저 Inject/Deinit가능하게 리펙토링 예정
         private GameManager _gameManager = new GameManager();
         private NewInputSystemManager _newInputSysMgr;
         private SaveDataManager _saveMGR = new SaveDataManager();
@@ -25,7 +24,6 @@ namespace Manager
 
         public CooldownManager CooldownManager { get { return Instance._cooldownMgr; } }
         public AttackManager AttackManager { get { return Instance._attackMgr; }  }
-        public RhythmModeManager RhythmModeManager { get { return Instance._rhythmMgr; } }
         public GameManager GameManager { get { return Instance._gameManager; } }
         public NewInputSystemManager NewInputSystemManager { get { return Instance._newInputSysMgr; } }
         public SaveDataManager SaveDataManager {  get { return Instance._saveMGR; } }
@@ -83,10 +81,6 @@ namespace Manager
                 _sInstance._attackMgr.Clear();
             }
             
-            if(_sInstance._rhythmMgr != null)
-            {
-                _sInstance._rhythmMgr.Clear();
-            }
 
             if(_sInstance._newInputSysMgr != null)
             {
@@ -95,7 +89,6 @@ namespace Manager
 
             _sInstance._cooldownMgr = null;
             _sInstance._attackMgr = null;
-            _sInstance._rhythmMgr = null;
             _sInstance._newInputSysMgr = null;
             _sInstance._saveMGR = null;
 
@@ -134,7 +127,6 @@ namespace Manager
 
                 _sInstance._cooldownMgr = go.GetOrAddComponent<CooldownManager>();
                 _sInstance._attackMgr = go.GetOrAddComponent<AttackManager>();
-                _sInstance._rhythmMgr = go.GetOrAddComponent<RhythmModeManager>();
                 _sInstance._newInputSysMgr = go.GetComponent<NewInputSystemManager>();
                 _sInstance._saveMGR.Init();
 #if UNITY_EDITOR
@@ -152,7 +144,6 @@ namespace Manager
             _gameManager.UnPauseGame();
             _gameManager.ChangeMode(0);
             
-            _rhythmMgr.Clear();
             _newInputSysMgr.Clear();
             _attackMgr.Clear();
             _goPoolMgr.Clear();

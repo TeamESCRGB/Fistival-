@@ -5,7 +5,6 @@
         UNKNOWN=-6,
         FISTIVAL=1,
         PLATFORMER=2,
-        RHYTHM=3,
         SHOOT_2D=4,
         ROOT_SHOOTER=5,
         WWE=6,

@@ -15,7 +15,7 @@ namespace Manager.Core
 
         public Dictionary<int,ObjectData> ObjectDataDict { get; private set; }
         public Dictionary<int,CommonModeData> CommonModeDataDict { get;private set; }
-        public Dictionary<string,PatternData> PatternDataDict { get; private set; }
+        //public Dictionary<string,PatternData> PatternDataDict { get; private set; }
         public Dictionary<int,ProjectileData> ProjectileDataDict { get; private set; }
         public Dictionary<int,StageData> StageDataDict { get; private set; }
         public Dictionary<int,EquipmentData> EquipmentDataDict { get; private set; }
@@ -30,7 +30,7 @@ namespace Manager.Core
         {
             ObjectDataDict = LoadJson<ObjectDataLoader, int, ObjectData>("ObjectData").MakeDict();
             CommonModeDataDict = LoadJson<CommonModeDataLoader, int, CommonModeData>("CommonModeData").MakeDict();
-            PatternDataDict = LoadJson<PatternDataLoader, string, PatternData>("PatternData").MakeDict();
+            //PatternDataDict = LoadJson<PatternDataLoader, string, PatternData>("PatternData").MakeDict();
             ProjectileDataDict = LoadJson<ProjectileDataLoader, int, ProjectileData>("ProjectileData").MakeDict();
             StageDataDict = LoadJson<StageDataLoader, int, StageData>("StageData").MakeDict();
             EquipmentDataDict = LoadJson<EquipmentDataLoader, int, EquipmentData>("EquipmentData").MakeDict();

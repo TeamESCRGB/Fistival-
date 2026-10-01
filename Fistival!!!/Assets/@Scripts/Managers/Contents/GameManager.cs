@@ -45,14 +45,9 @@ namespace Manager.Contents
                 _isPaused = true;
                 _timeScale = Time.timeScale;
                 Time.timeScale = 0;
-                if(_nowMode == ModeTypes.RHYTHM)
-                {
-                    Managers.Instance.RhythmModeManager.PausePattern();
-                }
-                else
-                {
-                    Managers.Instance.GlobalSoundManager.PauseAll();
-                }
+               
+                Managers.Instance.GlobalSoundManager.PauseAll();
+                
                 //Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.UI);
                 Managers.Instance.UIManager.ShowPopupUI<PauseUI>("PauseUI");
             }
@@ -64,14 +59,14 @@ namespace Manager.Contents
             {
                 _isPaused = false;
                 Time.timeScale = _timeScale;
-                if (_nowMode == ModeTypes.RHYTHM)
-                {
-                    Managers.Instance.RhythmModeManager.UnPausePattern();
-                }
-                else
-                {
-                    Managers.Instance.GlobalSoundManager.UnPauseAll();
-                }
+                
+                
+                   
+                
+                
+               
+                Managers.Instance.GlobalSoundManager.UnPauseAll();
+                
                 //Managers.Instance.NewInputSystemManager.SwitchActionMap(ActionMapTypes.PLAYER);
             }
         }
