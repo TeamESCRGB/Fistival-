@@ -9,7 +9,7 @@ public class testitemsel : MonoBehaviour
     [ContextMenu("ch")]
     void f()
     {
-        pc.EquipItem(0, a);
+        //pc.EquipItem(0, a);
         Debug.Log(Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.EquippedItems[0]);
     }
 }

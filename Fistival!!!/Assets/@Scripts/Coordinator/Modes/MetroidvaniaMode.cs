@@ -49,10 +49,7 @@ namespace Coordinator.Modes
             base.DeInit();
         }
 
-        public override void UpdateUpdatedPlayerData()
-        {
-            _hand.UpdateUpdatedData(_playerData);
-        }
+        
 
         protected override void OnInputActionMapChanged(ActionMapTypes mapType)
         {

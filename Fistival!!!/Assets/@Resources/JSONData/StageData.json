@@ -65,31 +65,6 @@
       "BossDesc": "",
       "InitialBGM": ""
     },
-    {
-      "Idx": 5,
-      "FirstStageLoadedDatasName": "stage_5_loaded_0",
-      "FirstStageSectionInstanceName": "stage_5_chunk_0",
-      "SavefileLockedIMG": "",
-      "SavefileClearedIMG": "",
-      "MapLockedIMG": "",
-      "MapClearedIMG": "",
-      "HomeIMG": "",
-      "BossName": "",
-      "BossDesc": "",
-      "InitialBGM": ""
-    },
-    {
-      "Idx": 6,
-      "FirstStageLoadedDatasName": "stage_6_loaded_0",
-      "FirstStageSectionInstanceName": "stage_6_chunk_0",
-      "SavefileLockedIMG": "",
-      "SavefileClearedIMG": "",
-      "MapLockedIMG": "",
-      "MapClearedIMG": "",
-      "HomeIMG": "",
-      "BossName": "",
-      "BossDesc": "",
-      "InitialBGM": ""
-    }
+    
   ]
 }

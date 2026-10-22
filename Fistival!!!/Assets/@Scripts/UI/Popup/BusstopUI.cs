@@ -14,14 +14,12 @@ namespace UI.Popup
     {
         enum Buttons
         {
-            Stage1=0,
-            Stage2=1,
-            Stage3=2,
-            Stage4=3,
-            Stage5=4,
-            Stage6=5,
-            Stage7=6,
-            Stage7_Locker,
+            Stage1 = 0,
+            Stage2 = 1,
+            Stage3 = 2,
+            Stage4 = 3,
+            Stage5 = 4,
+            Stage5_Locker,
             Exit
         }
 
@@ -32,8 +30,6 @@ namespace UI.Popup
             Stage3_ClearedMark,
             Stage4_ClearedMark,
             Stage5_ClearedMark,
-            Stage6_ClearedMark,
-            Stage7_ClearedMark
         }
 
 
@@ -42,7 +38,7 @@ namespace UI.Popup
         {
             var saveData = Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[idx];//클리어 정보 띄울거 생각해서 일단 남겨둠
             var stageData = Managers.Instance.DataManager.StageDataDict[idx];
-            if(saveData.IsCleared)
+            if (saveData.IsCleared)
             {
                 clearCnt++;
             }
@@ -50,7 +46,7 @@ namespace UI.Popup
 
         public override bool Init()
         {
-            if(base.Init() == false)
+            if (base.Init() == false)
             {
                 return false;
             }
@@ -63,16 +59,14 @@ namespace UI.Popup
             UpdateButton((int)Buttons.Stage3, ref clearCnt);
             UpdateButton((int)Buttons.Stage4, ref clearCnt);
             UpdateButton((int)Buttons.Stage5, ref clearCnt);
-            UpdateButton((int)Buttons.Stage6, ref clearCnt);
-            UpdateButton((int)Buttons.Stage7, ref clearCnt);
 
-            if(clearCnt < 6)
+            if (clearCnt < 4)
             {
-                GetButton((int)Buttons.Stage7).interactable = false;
+                GetButton((int)Buttons.Stage5).interactable = false;
             }
             else
             {
-                GetButton((int)Buttons.Stage7_Locker).gameObject.SetActive(false);
+                GetButton((int)Buttons.Stage5_Locker).gameObject.SetActive(false);
             }
 
             GetButton((int)Buttons.Exit).gameObject.BindUIEvent(OnExitButton);
@@ -81,9 +75,7 @@ namespace UI.Popup
             GetButton((int)Buttons.Stage3).gameObject.BindUIEvent(OnStage3Pressed);
             GetButton((int)Buttons.Stage4).gameObject.BindUIEvent(OnStage4Pressed);
             GetButton((int)Buttons.Stage5).gameObject.BindUIEvent(OnStage5Pressed);
-            GetButton((int)Buttons.Stage6).gameObject.BindUIEvent(OnStage6Pressed);
-            GetButton((int)Buttons.Stage7).gameObject.BindUIEvent(OnStage7Pressed);
-            GetButton((int)Buttons.Stage7_Locker).gameObject.BindUIEvent(OnStage7LockedPressed);
+            GetButton((int)Buttons.Stage5_Locker).gameObject.BindUIEvent(OnStage5LockedPressed);
 
             var stageClearedData = Managers.Instance.GameManager.GetClearedMapDictRef();
             GetImage((int)Images.Stage1_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage1]);
@@ -91,8 +83,6 @@ namespace UI.Popup
             GetImage((int)Images.Stage3_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage3]);
             GetImage((int)Images.Stage4_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage4]);
             GetImage((int)Images.Stage5_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage5]);
-            GetImage((int)Images.Stage6_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage6]);
-            GetImage((int)Images.Stage7_ClearedMark).gameObject.SetActive(stageClearedData[(int)Buttons.Stage7]);
 
             Managers.Instance.NewInputSystemManager.UI_ESCInput -= PauseOpenBind;
             Managers.Instance.NewInputSystemManager.UI_ESCInput += PauseOpenBind;
@@ -157,19 +147,7 @@ namespace UI.Popup
             Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false);
         }
 
-        private void OnStage6Pressed(PointerEventData _)
-        {
-            Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(5);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false);
-        }
-
-        private void OnStage7Pressed(PointerEventData _)
-        {
-            Managers.Instance.UIManager.ShowPopupUI<StageSelectUI>("StageSelectUI").SetInitialStageIdx(6);
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "DestinationSelectSFX", false);
-        }
-
-        private void OnStage7LockedPressed(PointerEventData _)
+        private void OnStage5LockedPressed(PointerEventData _)
         {
             Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "FailedSFX", false);
         }

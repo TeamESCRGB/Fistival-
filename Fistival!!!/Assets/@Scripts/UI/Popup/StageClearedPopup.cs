@@ -86,11 +86,11 @@ namespace UI.Popup
 
         private void SetupCollection(int idx)
         {
-            var data = Managers.Instance.DataManager.CollectionDataDict[idx];
+            //var data = Managers.Instance.DataManager.CollectionDataDict[idx];
             Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "CollectionResultSFX", false);
-            GetImage(data.SlotIDX).gameObject.SetActive(true);
-            GetImage(data.SlotIDX).sprite = Managers.Instance.ResourceManager.Load<Sprite>(data.Image);
-            GetImage(data.SlotIDX).GetComponent<RectTransform>().DOPunchScale(new Vector3(0.5f, 0.5f, 0f), 0.25f, vibrato: 1, elasticity: 0.5f);
+            //GetImage(data.SlotIDX).gameObject.SetActive(true);
+            //GetImage(data.SlotIDX).sprite = Managers.Instance.ResourceManager.Load<Sprite>(data.Image);
+            //GetImage(data.SlotIDX).GetComponent<RectTransform>().DOPunchScale(new Vector3(0.5f, 0.5f, 0f), 0.25f, vibrato: 1, elasticity: 0.5f);
         }
 
         private IEnumerator ShowRoutine()

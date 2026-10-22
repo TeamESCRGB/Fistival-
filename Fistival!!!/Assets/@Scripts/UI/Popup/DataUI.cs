@@ -16,7 +16,7 @@ namespace UI.Popup
         enum Texts
         {
             TotalPlayTime,
-            Money,
+            //Money,
             SaveIdx
         }
 
@@ -30,7 +30,7 @@ namespace UI.Popup
             BindButton(typeof(Buttons));
             BindText(typeof(Texts));
 
-            GetText((int)Texts.Money).text = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.Money.ToString();
+            //GetText((int)Texts.Money).text = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.Money.ToString();
             GetText((int)Texts.SaveIdx).text = $"Save #{Managers.Instance.SaveDataManager.GetSelectedSaveIDX() + 1}";
 
 

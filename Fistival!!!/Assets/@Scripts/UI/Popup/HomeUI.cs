@@ -22,9 +22,7 @@ namespace UI.Popup
             Stage2=1,
             Stage3=2,
             Stage4=3,
-            Stage5=4,
-            Stage6=5,
-            Stage7=6
+            Stage5=4
         }
 
         private bool _canPause = true;
@@ -96,7 +94,7 @@ namespace UI.Popup
 
         private void OnEquipmentButton(PointerEventData _)
         {
-            Managers.Instance.UIManager.ShowPopupUI<EquipmentUI>("EquipmentUI");
+            //Managers.Instance.UIManager.ShowPopupUI<EquipmentUI>("EquipmentUI");
             Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "AppOpenSFX", false);
         }
         private void OnSaveButton(PointerEventData _)

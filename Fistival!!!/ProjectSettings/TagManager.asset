@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 3
   tags:
   - GroundCheckbox
-  - Collection
   - RightMovementTag
   - LeftMovementTag
   - UpMovementTag

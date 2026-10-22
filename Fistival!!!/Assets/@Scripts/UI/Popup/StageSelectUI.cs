@@ -107,10 +107,10 @@ namespace UI.Popup
 
             for(int i =0; i < collectionList.Count;i++)
             {
-                var collectionData = Managers.Instance.DataManager.CollectionDataDict[collectionList[i]];
-                GetImage(collectionData.SlotIDX).gameObject.SetActive(true);
-                GetImage(collectionData.SlotIDX).sprite = Managers.Instance.ResourceManager.Load<Sprite>(collectionData.Image);
-                collectionSlots[collectionData.SlotIDX] = -1;
+                //var collectionData = Managers.Instance.DataManager.CollectionDataDict[collectionList[i]];
+                //GetImage(collectionData.SlotIDX).gameObject.SetActive(true);
+                //GetImage(collectionData.SlotIDX).sprite = Managers.Instance.ResourceManager.Load<Sprite>(collectionData.Image);
+                //collectionSlots[collectionData.SlotIDX] = -1;
             }
 
             for(int i = 0; i < collectionSlots.Length; i++)

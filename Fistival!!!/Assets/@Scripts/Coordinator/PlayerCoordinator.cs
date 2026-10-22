@@ -8,7 +8,7 @@ namespace Coordinator
 
     public class PlayerCoordinator : MonoBehaviour
     {
-        private EquipmentFactory _itemFactory = new EquipmentFactory();
+        //private EquipmentFactory _itemFactory = new EquipmentFactory();
         private ModeManageCoordinator _modeMgr;
         private PlayerData _data;
         private PlayerVictimCoordinator _victim;
@@ -46,9 +46,9 @@ namespace Coordinator
             _victim.Init(_data.MaxHP, _data.MaxHP, _data.InvincibilityTime, _data.HPSoundKeysField);
 
             var save = Managers.Instance.SaveDataManager.GetSaveFileData().PlayerSaveData.EquippedItems;
-            EquipItem(0, save[0],true);
-            EquipItem(1, save[1],true);
-            EquipItem(2, save[2],true);
+            //EquipItem(0, save[0],true);
+            //EquipItem(1, save[1],true);
+            //EquipItem(2, save[2],true);
         }
 
 
@@ -74,43 +74,13 @@ namespace Coordinator
             Managers.Instance.StageManager.OnDead();
         }
 
-        public void EquipItem(int slot, int item, bool init=false)
-        {
-            var save = Managers.Instance.SaveDataManager.GetSaveFileData();
-
-            if(init==false)
-            {
-                _itemFactory.GetEquipment(save.PlayerSaveData.EquippedItems[slot])?.OnUnEquip(this);
-            }
-            _itemFactory.GetEquipment(item)?.OnEquip(this);
-
-            save.PlayerSaveData.EquippedItems[slot] = item;
-        }
+        
 
         public PlayerData GetPlayerData()
         {
             return _data;
         }
 
-        public void UpdateUpdatedDatas()
-        {
-            ModeBase mode = null;
-            if(_modeMgr != null)
-            {
-                mode = _modeMgr.GetNowMode();
-            }
-
-            if(mode != null)
-            {
-                mode.UpdateUpdatedPlayerData();
-            }
-
-            if(_victim != null)
-            {
-                _victim.SetMaxHP(_data.MaxHP);
-            }
-
-            Debug.Log(_data.MaxLife);
-        }
+        
     }
 }

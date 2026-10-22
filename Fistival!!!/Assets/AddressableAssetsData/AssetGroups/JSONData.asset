@@ -34,12 +34,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - StaticLoaded
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 56cb99c83d6ea0b41aa9794d2100649d
-    m_Address: CollectionData
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - StaticLoaded
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6c66ba63b58e8ed43b194e88ccb3110b
     m_Address: FallingObjectData
     m_ReadOnly: 0
@@ -74,12 +68,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d6005d3534d3ce340ac2f2a09938d942
     m_Address: CommonMobData
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - StaticLoaded
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dc1efe257639e554bbc32294027b155f
-    m_Address: EquipmentData
     m_ReadOnly: 0
     m_SerializedLabels:
     - StaticLoaded

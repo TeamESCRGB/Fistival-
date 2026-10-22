@@ -10,7 +10,7 @@ namespace Coordinator.Item
 
         private void Start()
         {
-            gameObject.SetActive(Managers.Instance.StageManager.CanCollect(_collectionIdx));
+            //gameObject.SetActive(Managers.Instance.StageManager.CanCollect(_collectionIdx));
         }
 
         public int GetIdx()
@@ -30,7 +30,7 @@ namespace Coordinator.Item
                 return;
             }
 
-            Managers.Instance.StageManager.CollectCollection(_collectionIdx);
+            //Managers.Instance.StageManager.CollectCollection(_collectionIdx);
             gameObject.SetActive(false);
         }
     }

@@ -33,9 +33,7 @@ namespace UI.Popup
             Stage2 = 1,
             Stage3 = 2,
             Stage4 = 3,
-            Stage5 = 4,
-            Stage6 = 5,
-            Stage7 = 6
+            Stage5 = 4
         }
 
         private int _selectedIdx = 0;

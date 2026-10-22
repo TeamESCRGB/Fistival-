@@ -58,34 +58,21 @@ namespace Manager.Contents
             _camFollowCoord = null;
         }
 
-        public void CollectCollection(int collectionIdx)
-        {
-            if(Managers.Instance.DataManager.CollectionDataDict.ContainsKey(collectionIdx) && _collection.Contains(collectionIdx) == false)
-            {
-                _collection.Add(collectionIdx);
-                Managers.Instance.GlobalSoundManager.Play(Defines.SoundChannel.EFFECT_0, Managers.Instance.DataManager.CollectionDataDict[collectionIdx].CollectingSound, false);
-            }
-        }
 
-        public bool CanCollect(int collectionIdx)
-        {
-            return Managers.Instance.DataManager.CollectionDataDict.ContainsKey(collectionIdx) && _collection.Contains(collectionIdx) == false
-                 && Managers.Instance.SaveDataManager.GetSaveFileData().StageSaveDatas[_stageIdx].CollectedCollections.Contains(collectionIdx) == false;
-        }
 
         public void TrySyncToPlayerData(bool isCleared)
         {
             if(isCleared)
             {
                 var save = Managers.Instance.SaveDataManager.GetSaveFileData();
-                int money = 0;
+                //int money = 0;
                 for(int i = 0; i < _collection.Count; i++)
                 {
-                    money += Managers.Instance.DataManager.CollectionDataDict[_collection[i]].Money;
+                    //money += Managers.Instance.DataManager.CollectionDataDict[_collection[i]].Money;
                 }
 
                 save.StageSaveDatas[_stageIdx].TotalGainedDamage = _totalTakenDamage;
-                save.PlayerSaveData.Money += money;
+                //save.PlayerSaveData.Money += money;
                 save.StageSaveDatas[_stageIdx].CollectedCollections.AddRange(_collection);
                 Managers.Instance.GameManager.GetClearedMapDictRef()[_stageIdx] = true;
 

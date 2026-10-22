@@ -141,10 +141,7 @@ namespace Coordinator.Stages
             foreach(var obj in result)
             {
                 var layer =1<< obj.gameObject.layer;
-                if((layer == _itemLayer && obj.gameObject.CompareTag("Collection")) || (layer == _attackLayer && obj.gameObject.CompareTag("FallingObject") == false))
-                {
-                    continue;
-                }
+                
                 Managers.Instance.ResourceManager.Destroy(obj.gameObject, true);
             }
         }

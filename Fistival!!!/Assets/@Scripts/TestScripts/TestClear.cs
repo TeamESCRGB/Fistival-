@@ -15,12 +15,9 @@ public class TestClear : MonoBehaviour
     [ContextMenu("cl2")]
     void col()
     {
-        Debug.Log(Managers.Instance.StageManager.CanCollect(6974));
-        if(Managers.Instance.StageManager.CanCollect(6974)==false)
-        {
-            return;
-        }
-        Managers.Instance.StageManager.CollectCollection(6974);
+        //Debug.Log(Managers.Instance.StageManager.CanCollect(6974));
+       
+        //Managers.Instance.StageManager.CollectCollection(6974);
     }
 
     [ContextMenu("dea")]

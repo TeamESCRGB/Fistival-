@@ -18,9 +18,9 @@ namespace Manager.Core
         //public Dictionary<string,PatternData> PatternDataDict { get; private set; }
         public Dictionary<int,ProjectileData> ProjectileDataDict { get; private set; }
         public Dictionary<int,StageData> StageDataDict { get; private set; }
-        public Dictionary<int,EquipmentData> EquipmentDataDict { get; private set; }
+        //public Dictionary<int,EquipmentData> EquipmentDataDict { get; private set; }
         public PlayerData PlayerData { get; private set; }
-        public Dictionary<int,CollectionData> CollectionDataDict { get; private set; }
+        //public Dictionary<int,CollectionData> CollectionDataDict { get; private set; }
         public Dictionary<int,HealItemData> HealItemDataDict { get; private set; }
         public Dictionary<int,CommonMobData> CommonMobDataDict { get; private set; }
         public Dictionary<int,FallingObjectData> FallingObjectDataDict { get; private set; }
@@ -33,9 +33,9 @@ namespace Manager.Core
             //PatternDataDict = LoadJson<PatternDataLoader, string, PatternData>("PatternData").MakeDict();
             ProjectileDataDict = LoadJson<ProjectileDataLoader, int, ProjectileData>("ProjectileData").MakeDict();
             StageDataDict = LoadJson<StageDataLoader, int, StageData>("StageData").MakeDict();
-            EquipmentDataDict = LoadJson<EquipmentDataLoader, int, EquipmentData>("EquipmentData").MakeDict();
+            //EquipmentDataDict = LoadJson<EquipmentDataLoader, int, EquipmentData>("EquipmentData").MakeDict();
             PlayerData = LoadJson<PlayerDataLoader, int, PlayerData>("PlayerData").GetData();
-            CollectionDataDict = LoadJson<CollectionDataLoader, int, CollectionData>("CollectionData").MakeDict();
+            //CollectionDataDict = LoadJson<CollectionDataLoader, int, CollectionData>("CollectionData").MakeDict();
             HealItemDataDict = LoadJson<HealItemDataLoader, int, HealItemData>("HealItemData").MakeDict();
             CommonMobDataDict = LoadJson<CommonMobDataLoader, int, CommonMobData>("CommonMobData").MakeDict();
             FallingObjectDataDict = LoadJson<FallingObjectDataLoader, int, FallingObjectData>("FallingObjectData").MakeDict();

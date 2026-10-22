@@ -87,7 +87,7 @@ public class TestMusic : MonoBehaviour//, IExactRhythmReceiver
         //Managers.Instance.RhythmModeManager.UnPausePattern();
     }
 
-    int cnt = 0;
+    //int cnt = 0;
 
     [ContextMenu("asdf")]
     void F()

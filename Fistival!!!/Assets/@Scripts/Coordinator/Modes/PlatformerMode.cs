@@ -39,12 +39,7 @@ namespace Coordinator.Modes
             _footCoord.gameObject.SetActive(false);
         }
 
-        public override void UpdateUpdatedPlayerData()
-        {
-            base.UpdateUpdatedPlayerData();
-            _footCoord.SetBaseDamage(_playerData.Damage + _playerData.StrongAttackDamage);
-            //_footCoord업데이트 해줘야함 함
-        }
+        
 
         protected override void OnAwake()
         {
