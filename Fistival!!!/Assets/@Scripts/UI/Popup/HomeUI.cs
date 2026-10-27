@@ -11,7 +11,6 @@ namespace UI.Popup
     {
         enum Buttons
         {
-            EquipmentButton,
             DataButton,
             SaveButton,
             ExitButton
@@ -38,7 +37,6 @@ namespace UI.Popup
             BindImage(typeof(Images));
 
             GetButton((int)Buttons.ExitButton).gameObject.BindUIEvent(OnExitButton);
-            GetButton((int)Buttons.EquipmentButton).gameObject.BindUIEvent(OnEquipmentButton);
             GetButton((int)Buttons.DataButton).gameObject.BindUIEvent(OnDataButton);
             GetButton((int)Buttons.SaveButton).gameObject.BindUIEvent(OnSaveButton);
 
@@ -92,11 +90,7 @@ namespace UI.Popup
             _canPause = Managers.Instance.GameManager.IsGamePaused() == false;
         }
 
-        private void OnEquipmentButton(PointerEventData _)
-        {
-            //Managers.Instance.UIManager.ShowPopupUI<EquipmentUI>("EquipmentUI");
-            Managers.Instance.GlobalSoundManager.Play(SoundChannel.EFFECT_0, "AppOpenSFX", false);
-        }
+
         private void OnSaveButton(PointerEventData _)
         {
             Managers.Instance.UIManager.ShowPopupUI<SaveFileMenu>("SaveFileMenu").SetMenuType(Defines.SaveFileAccessMode.OVERWRITE);
